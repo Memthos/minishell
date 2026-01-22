@@ -6,9 +6,21 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:09:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 11:09:13 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/22 11:19:22 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/list.h"
 
+t_list	*lst_new(char *data, t_token token)
+{
+	t_list	*new;
+
+	new = (t_list *)malloc(sizeof(t_list));
+	if (NULL == new)
+		return (NULL);
+	new->data = data;
+	new->token = token;
+	new->next = NULL;
+	return (new);
+}
