@@ -1,13 +1,22 @@
-OBJS_DIR=objs/
-SRCS_DIR=srcs/
-INCLUDES_DIR=includes/
-SRCS=minishell.c
-OBJECTS=$(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
-LIBFT_DIR=libs/libft_tools/
-LIBFT=$(addprefix $(LIBFT_DIR), libft.a)
-CFLAGS=-Werror -Wall -Wextra -I$(INCLUDES_DIR) -g
-CC=cc
-NAME=minishell
+OBJS_DIR = objs/
+SRCS_DIR = srcs/
+INCLUDES_DIR = includes/
+
+SRCS =	minishell.c \
+		lst_new.c \
+		lst_add.c \
+		lst_remove.c \
+		lst_size.c
+
+OBJECTS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
+
+LIBFT_DIR = libs/libft_tools/
+LIBFT = $(addprefix $(LIBFT_DIR), libft.a)
+
+CC = cc
+CFLAGS = -Werror -Wall -Wextra -I$(INCLUDES_DIR) -g
+
+NAME = minishell
 
 all: $(NAME)
 
