@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:26:13 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 13:32:11 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/22 13:42:45 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,13 @@ t_list	*lst_remove(t_list **head)
 	free(cpy->next);
 	cpy->next = NULL;
 	return (*head);
+}
+
+void	lst_clear(t_list **head)
+{
+	if (NULL == head || NULL == *head)
+		return ;
+	while (*head)
+		lst_remove(head);
+	return ;
 }
