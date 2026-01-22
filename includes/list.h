@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:08:39 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 13:20:30 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/22 13:34:13 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,11 @@ t_list	*lst_new(char *data, t_token token);
  * @param token The corresponding token for data.
  */
 t_list	*lst_add(t_list **head, char *data, t_token token);
+
+/**
+ * @brief Removes the last node of head.
+ * @param head The head / start of the list.
+ */
+t_list	*lst_remove(t_list **head);
 
 #endif
