@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:08:39 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 13:19:56 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/22 13:20:30 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_list	*lst_new(char *data, t_token token);
  * @brief Adds a node at the end of head. Returns the new list.
  * @param head The head / start of the list.
  * @param data The data to store in the node.
- * @param token The corresponding token for the data.
+ * @param token The corresponding token for data.
  */
 t_list	*lst_add(t_list **head, char *data, t_token token);
 
