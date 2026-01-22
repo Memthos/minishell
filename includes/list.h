@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:08:39 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 13:40:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/22 13:45:50 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,11 @@ t_list	*lst_add(t_list **head, char *data, t_token token);
  * @return The updated version of the list passed in.
  */
 t_list	*lst_remove(t_list **head);
+
+/**
+ * @brief Clears the list passed in.
+ * @param head The head / start of the list.
+ */
+void	lst_clear(t_list **head);
 
 #endif
