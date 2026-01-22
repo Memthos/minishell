@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:08:39 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 13:45:50 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/22 13:54:10 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,12 @@ t_list	*lst_remove(t_list **head);
  * @param head The head / start of the list.
  */
 void	lst_clear(t_list **head);
+
+/**
+ * @brief Count the number of nodes in a list.
+ * @param head The head / start of the list.
+ * @return The number of nodes in the list.
+ */
+t_uint	lst_size(t_list *head);
 
 #endif
