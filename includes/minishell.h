@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/22 13:48:41 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/22 14:12:57 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # include <curses.h>
 
 # include "definitions.h"
-# include "token.h"
+# include "enums.h"
 # include "list.h"
 
 #endif

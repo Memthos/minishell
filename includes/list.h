@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:08:39 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 13:54:10 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/22 14:13:03 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIST_H
 
 # include <stdlib.h>
-# include "token.h"
+# include "enums.h"
 
 typedef struct s_list
 {
