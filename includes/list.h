@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:08:39 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 11:13:15 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/22 11:16:34 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 
 typedef struct s_list
 {
-	char	*data;
-	
+	char			*data;
+	t_token			token;
+	struct s_list	*next;
 }	t_list;
 
 #endif
