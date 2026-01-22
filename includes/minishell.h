@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/20 11:17:37 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/22 11:13:31 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,7 @@
 # include <term.h>
 # include <curses.h>
 
-enum e_lexer {
-	S_QUOTE,
-	D_QUOTE,
-	RED_IN,
-	RED_OUT_REP,
-	RED_OUT_APP,
-	DELIMITER,
-	PIPE,
-	ENV_VAR,
-	COMMAND,
-	CMD_ARG,
-};
+# include "token.h"
+# include "list.h"
 
 #endif
