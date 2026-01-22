@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_add.c                                          :+:      :+:    :+:   */
+/*   lst_size.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 13:05:46 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 13:13:57 by juperrin         ###   ########.fr       */
+/*   Created: 2026/01/22 13:46:53 by juperrin          #+#    #+#             */
+/*   Updated: 2026/01/22 14:49:07 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/list.h"
+#include "../includes/list.h"
+#include "../includes/definitions.h"
 
-t_list	*lst_add(t_list **head, char *data, t_token token)
+t_uint	lst_size(t_list *head)
 {
-	t_list	*cpy;
-
-	if (NULL == head)
-		return (NULL);
-	if (NULL == *head)
+	t_uint	size;
+	
+	size = 0;
+	while (head)
 	{
-		*head = lst_new(data, token);
-		return (*head);
+		++size;
+		head = head->next;
 	}
-	cpy = *head;
-	while (cpy->next)
-		cpy = cpy->next;
-	cpy->next = lst_new(data, token);
-	return (*head);
+	return (size);
 }

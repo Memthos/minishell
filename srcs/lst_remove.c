@@ -6,11 +6,11 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:26:13 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 13:42:45 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/22 14:49:07 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/list.h"
+#include "../includes/list.h"
 
 t_list	*lst_remove(t_list **head)
 {
