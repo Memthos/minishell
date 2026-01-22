@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:08:39 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 15:03:11 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/22 16:06:34 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_list
 
 /**
  * @brief Allocates memory for a new node.
- * @param data The data to store in the node.
+ * @param data The data to store in the node. It has to be allocated on the heap !
  * @param token The corresponding token for data.
  * @return The created node.
  */
@@ -35,7 +35,7 @@ t_list	*lst_new(char *data, t_token token);
 /**
  * @brief Adds a new node at the end of the list.
  * @param head The head / start of the list.
- * @param data The data to store in the node.
+ * @param data The data to store in the node. It has to be allocated on the heap !
  * @param token The corresponding token for data.
  * @return The updated version of the list passed in.
  */
