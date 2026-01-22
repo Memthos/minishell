@@ -6,12 +6,12 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:12:03 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 14:15:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/22 16:07:20 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#ifndef ENUMS_H
+# define ENUMS_H
 
 typedef enum e_return_status
 {
