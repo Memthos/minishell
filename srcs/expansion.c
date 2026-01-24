@@ -1,23 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/24 14:48:31 by mperrine         ###   ########.fr       */
+/*   Created: 2026/01/24 10:16:10 by mperrine          #+#    #+#             */
+/*   Updated: 2026/01/24 10:22:33 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	main(void)
-{
-	t_list	*t = lexer("test (cat -e | test -n)");
-	while (t)
-	{
-		printf("%s:%d\n", t->data, t->token);
-		t = t->next;
-	}
-}

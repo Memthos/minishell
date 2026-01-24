@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:12:03 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 05:30:54 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/24 15:24:47 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef enum e_quote_t
 
 typedef enum e_tokens
 {
+	TOKEN,
+	NEW_LINE,
 	ASSIGNMENT_W,
 	AND_IF,
 	OR_IF,
@@ -35,7 +37,10 @@ typedef enum e_tokens
 	LESS,
 	GREAT,
 	PIPE,
+	L_PAREN,
+	R_PAREN,
 	WORD,
+	IO_NUMBER,
 }	t_token;
 
 #endif

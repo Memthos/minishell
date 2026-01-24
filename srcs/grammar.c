@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   grammar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/24 14:48:31 by mperrine         ###   ########.fr       */
+/*   Created: 2026/01/24 13:04:22 by mperrine          #+#    #+#             */
+/*   Updated: 2026/01/24 13:20:46 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(void)
+void	set_io_number_t(t_list *lst)
 {
-	t_list	*t = lexer("test (cat -e | test -n)");
-	while (t)
+	size_t	i;
+
+	while (lst)
 	{
-		printf("%s:%d\n", t->data, t->token);
-		t = t->next;
+		i = 0;
+		while (lst->data[i] && lst->data[i] >= '0' && lst->data[i] <= '9')
+			i++;
+		if (i == ft_strlen(lst->data))
+			lst->token = IO_NUMBER;
+		lst = lst->next;
 	}
 }

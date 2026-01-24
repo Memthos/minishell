@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/24 09:50:26 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/24 15:25:34 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,23 @@ static int	get_operator(char *s)
 		return (DLESS);
 	else if (s[0] == '>' && s[1] == '>')
 		return (DGREAT);
-	else if (s[0] == '|')
-		return (PIPE);
 	else if (s[0] == '<')
 		return (LESS);
 	else if (s[0] == '>')
 		return (GREAT);
+	else if (s[0] == '|')
+		return (PIPE);
+	else if (s[0] == '(')
+		return (L_PAREN);
+	else if (s[0] == ')')
+		return (R_PAREN);
 	else
 		return (0);
 }
 
 static void	add_lst_operator(t_list **lst, char *s, size_t *index)
 {
-	if (get_operator(s) < 5)
+	if (get_operator(s) < 7)
 	{
 		lst_add(lst, make_str(s, 2), get_operator(s));
 		(*index)++;
@@ -88,8 +92,10 @@ t_list	*lexer(char *s)
 			lst_add(&lst, make_str(&s[i - 1], 1), ASSIGNMENT_W);
 		else if (!in_quote && get_operator(&s[i - 1]))
 			add_lst_operator(&lst, &s[i - 1], &i);
-		else if (s[i - 1] == ' ' || (s[i - 1] >= 9 && s[i - 1] <= 13))
-			lst_add(&lst, NULL, WORD);
+		else if (!in_quote && s[i - 1] >= 9 && s[i - 1] <= 13)
+			lst_add(&lst, NULL, NEW_LINE);
+		else if (!in_quote && s[i - 1] == ' ')
+			lst_add(&lst, NULL, TOKEN);
 		else if (lst && lst_last(lst)->token == WORD)
 			lst_append(lst_last(lst), s[i - 1]);
 		else

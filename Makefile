@@ -11,7 +11,8 @@ SRCS =	minishell.c \
 		lst_remove.c \
 		lst_size.c \
 		lst_last.c \
-		lst_append.c
+		lst_append.c \
+		expansion.c
 
 OBJECTS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 

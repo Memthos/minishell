@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:05:46 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 09:50:22 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/24 11:01:46 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_list	*lst_add(t_list **head, char *data, t_token token)
 		return (*head);
 	}
 	tmp = lst_last(*head);
-	if (!tmp->data)
+	if (!tmp->data && tmp->token == TOKEN)
 	{
 		tmp->data = data;
 		tmp->token = token;
