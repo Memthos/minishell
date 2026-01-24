@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enums.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:12:03 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 16:07:20 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/24 01:23:55 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,24 @@ typedef enum e_return_status
 	FAILURE,
 }	t_status;
 
+typedef enum e_quote_t
+{
+	S_QUOTE = 1,
+	D_QUOTE = 2,
+}	t_quote_t;
+
 typedef enum e_tokens
 {
-	WORD,
-	ASSIGNMENT_WORD,
-	NAME,
-	NEW_LINE,
-	IO_NUMBER,
+	TOKEN,
+	END_INPUT,
+	ASSIGNMENT_W,
 	AND_IF,
 	OR_IF,
 	DLESS,
 	DGREAT,
 	LESSGREAT,
+	PIPE,
+	WORD,
 }	t_token;
 
 #endif
