@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command.h                                          :+:      :+:    :+:   */
+/*   sighandle.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 01:44:26 by juperrin         ###   ########.fr       */
+/*   Created: 2026/01/24 00:37:53 by juperrin          #+#    #+#             */
+/*   Updated: 2026/01/24 01:52:23 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMAND_H
-# define COMMAND_H
+#ifndef SIGHANDLE_H
+# define SIGHANDLE_H
 
-# include "definitions.h"
+# include "minishell.h"
 
-typedef struct s_command
-{
-	char	*name;
-	t_uint	max_arg;
-	t_uint	min_arg;
-	int		(*command)(void *);
-}	t_command;
+extern int	g_signal;
+
+/**
+ * 
+ */
+t_status	init_signals(void);
+
+/**
+ * 
+ */
+void		sig_intercept(int signo, siginfo_t *info, void *other);
 
 #endif
