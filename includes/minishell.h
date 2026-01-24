@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/01/24 02:21:33 by mperrine         ###   ########.fr       */
-=======
-/*   Updated: 2026/01/24 02:45:25 by juperrin         ###   ########.fr       */
->>>>>>> f18cbb558608beea3d33f52b5e567e6441b7b0a7
+/*   Updated: 2026/01/24 03:19:04 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
