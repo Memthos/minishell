@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   grammar_rules.c                                    :+:      :+:    :+:   */
+/*   grammar_base_rules.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 16:03:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/24 19:15:08 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/24 21:05:54 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	and_or_r(t_list *lst)
 int	pipe_sequence_r(t_list *lst)
 {}
 
-int	newline_list_r(t_list *lst)
+int	newline_list_r(t_list *lst, t_list **cmd)
 {}
 
 int	linebreak_r(t_list *lst)
