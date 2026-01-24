@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 02:21:33 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/24 11:02:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 t_status	init(void)
 {
 	init_signals();
-	return (SUCCESS);	
+	return (SUCCESS);
 }

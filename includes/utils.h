@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sighandle.h                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/24 00:37:53 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 10:42:49 by juperrin         ###   ########.fr       */
+/*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
+/*   Updated: 2026/01/24 11:56:01 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGHANDLE_H
-# define SIGHANDLE_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include "minishell.h"
-
-extern int	g_signal;
+# include "enums.h"
 
 /**
- * @brief Initialises the needed signals
- * @return SUCCESS on success, FAILURE otherwise
+ * @brief Try to get the first number contained in S and set NUMBER to it.
+ * @param s The string from which you wanna get a number.
+ * @param number A pointer to a number that will contains the result.
+ * @return A status to tell if the number has been successfully parsed or not.
  */
-t_status	init_signals(void);
+t_status	get_number(const char *s, int *number);
 
 #endif
