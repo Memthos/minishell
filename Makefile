@@ -3,7 +3,8 @@ SRCS_DIR = srcs/
 INCLUDES_DIR = includes/
 
 SRCS =	minishell.c \
-		lst_new.c \
+		init.c \
+		sighandle.c \
 		lst_add.c \
 		lst_remove.c \
 		lst_size.c
