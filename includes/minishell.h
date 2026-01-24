@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/24 01:53:11 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/24 02:45:25 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,8 @@
 # include <bits/sigaction.h>
 # include <bits/types/siginfo_t.h>
 # include "sighandle.h"
+
+//Init header
+# include "init.h"
 
 #endif
