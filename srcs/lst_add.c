@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:05:46 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 04:02:42 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/24 09:50:22 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list	*lst_add(t_list **head, char *data, t_token token)
 {
-	t_list	*cpy;
+	t_list	*tmp;
 
 	if (NULL == head)
 		return (NULL);
@@ -23,9 +23,13 @@ t_list	*lst_add(t_list **head, char *data, t_token token)
 		*head = lst_new(data, token);
 		return (*head);
 	}
-	cpy = *head;
-	while (cpy->next)
-		cpy = cpy->next;
-	cpy->next = lst_new(data, token);
+	tmp = lst_last(*head);
+	if (!tmp->data)
+	{
+		tmp->data = data;
+		tmp->token = token;
+	}
+	else
+		tmp->next = lst_new(data, token);
 	return (*head);
 }
