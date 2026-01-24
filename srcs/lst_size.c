@@ -6,12 +6,11 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:46:53 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 16:10:28 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/24 01:04:44 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/list.h"
-#include "../includes/definitions.h"
+#include "../includes/minishell.h"
 
 t_uint	lst_size(t_list *head)
 {

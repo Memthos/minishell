@@ -6,11 +6,11 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:09:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/22 14:49:07 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/24 01:04:51 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/list.h"
+#include "../includes/minishell.h"
 
 t_list	*lst_new(char *data, t_token token)
 {
