@@ -6,6 +6,7 @@ SRCS =	minishell.c \
 		init.c \
 		lexer.c \
 		sighandle.c \
+		utils.c \
 		lst_new.c \
 		lst_add.c \
 		lst_remove.c \
