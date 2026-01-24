@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/24 05:30:56 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/24 05:45:52 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	add_lst_operator(t_list **lst, char *s, size_t *index)
 		lst_add(lst, make_str(s, 1), get_operator(s));
 }
 
-static t_list	*lexer(char *s)
+t_list	*lexer(char *s)
 {
 	t_list		*lst;
 	t_quote_t	in_quote;
