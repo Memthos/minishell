@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_add.c                                          :+:      :+:    :+:   */
+/*   lst_append.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:05:46 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 04:02:42 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/24 05:30:27 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_list	*lst_add(t_list **head, char *data, t_token token)
+void	lst_append(t_list *node, char c)
 {
-	t_list	*cpy;
+	char	*clean_char;
+	char	*new_str;
 
-	if (NULL == head)
-		return (NULL);
-	if (NULL == *head)
+	if (NULL == node)
+		return ;
+	clean_char = malloc(sizeof(char) * 2);
+	if (!clean_char)
+		return ; //ADD FREE FOR LEXER ETC.
+	clean_char[0] = c;
+	clean_char[1] = '\0';
+	if (!node->data)
+		node->data = clean_char;
+	else
 	{
-		*head = lst_new(data, token);
-		return (*head);
+		new_str = ft_strjoin(node->data, clean_char);
+		free(node->data);
+		node->data = new_str;
 	}
-	cpy = *head;
-	while (cpy->next)
-		cpy = cpy->next;
-	cpy->next = lst_new(data, token);
-	return (*head);
 }

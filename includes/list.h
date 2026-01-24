@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:08:39 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 01:04:33 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/24 04:51:56 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,20 @@ void	lst_clear(t_list **head);
  * @return The number of nodes in the list.
  */
 t_uint	lst_size(t_list *head);
+
+/**
+ * @brief Return the last node of the list.
+ * @param head The head / start of the list.
+ * @return The last node of the list.
+ */
+t_list	*lst_last(t_list *head);
+
+/**
+ * @brief Append a char to the given node.
+ * @param node The node to append.
+ * @param c The char to append.
+ * @return Nothing.
+ */
+void	lst_append(t_list *node, char c);
 
 #endif

@@ -4,11 +4,14 @@ INCLUDES_DIR = includes/
 
 SRCS =	minishell.c \
 		init.c \
+		lexer.c \
 		sighandle.c \
 		lst_new.c \
 		lst_add.c \
 		lst_remove.c \
-		lst_size.c
+		lst_size.c \
+		lst_last.c \
+		lst_append.c
 
 OBJECTS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 

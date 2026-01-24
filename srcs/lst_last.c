@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_add.c                                          :+:      :+:    :+:   */
+/*   lst_last.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 13:05:46 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 04:02:42 by mperrine         ###   ########.fr       */
+/*   Created: 2026/01/22 13:46:53 by juperrin          #+#    #+#             */
+/*   Updated: 2026/01/24 05:04:44 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_list	*lst_add(t_list **head, char *data, t_token token)
+t_list	*lst_last(t_list *head)
 {
-	t_list	*cpy;
-
-	if (NULL == head)
+	if (!head)
 		return (NULL);
-	if (NULL == *head)
-	{
-		*head = lst_new(data, token);
-		return (*head);
-	}
-	cpy = *head;
-	while (cpy->next)
-		cpy = cpy->next;
-	cpy->next = lst_new(data, token);
-	return (*head);
+	while (head->next)
+		head = head->next;
+	return (head);
 }
