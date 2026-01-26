@@ -1,5 +1,5 @@
-OBJS_DIR = objs/
-SRCS_DIR = srcs/
+VPATH = srcs:srcs/list
+OBJDIR = objs/
 INCLUDES_DIR = includes/
 
 SRCS =	minishell.c \
@@ -15,32 +15,34 @@ SRCS =	minishell.c \
 		lst_append.c \
 		expansion.c
 
-OBJECTS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
+OBJECTS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
 
 LIBFT_DIR = libs/libft_tools/
 LIBFT = $(addprefix $(LIBFT_DIR), libft_tools.a)
 
 CC = cc
-CFLAGS = -Werror -Wall -Wextra -I$(INCLUDES_DIR) -g -lreadline
+CFLAGS = -Werror -Wall -Wextra -I$(INCLUDES_DIR) -g
 
 NAME = minishell
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS) $(LIBFT)
-	@$(CC) $(CFLAGS) -o $@ $^
+	@$(CC) $(CFLAGS) -o $@ $^ -lreadline
 	@echo "Finished compiling Minishell"
 
-$(OBJS_DIR)%.o: $(SRCS_DIR)%.c
-	@mkdir -p $(OBJS_DIR)
+$(OBJDIR)%.o: %.c | $(OBJDIR)
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
 $(LIBFT):
 	@make -sC $(LIBFT_DIR) all
 	@echo "Compiled library Libft"
 
+$(OBJDIR) :
+	@mkdir -p $(OBJDIR)
+
 clean:
-	@rm -drf $(OBJS_DIR)
+	@rm -drf $(OBJDIR)
 	@make -sC $(LIBFT_DIR) clean
 	@echo "Cleaned Minishell object files"
 
