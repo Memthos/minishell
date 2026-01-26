@@ -6,20 +6,20 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 09:48:05 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 09:54:23 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/26 14:59:44 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	pwd(void)
+t_status	pwd(void)
 {
 	char	*path;
 
-	path = NULL;
-	if (NULL == getcwd(path, 0))
-		return ;
+	path = getcwd(NULL, 0);
+	if (NULL == path)
+		return (PWD_ERROR);
 	printf("%s\n", path);
 	free(path);
-	return ;
+	return (SUCCESS);
 }
