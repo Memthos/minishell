@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   grammar_command.c                                  :+:      :+:    :+:   */
+/*   grammar_command_rules.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/24 19:12:58 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/26 11:20:44 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,21 @@ int	cmd_suffix_r(t_list *lst)
 {}
 
 simple_command	 : cmd_prefix cmd_word cmd_suffix
-				 | cmd_prefix cmd_word
-				 | cmd_prefix
-				 | cmd_name cmd_suffix
-				 | cmd_suffix
 
-cmd_name		 : WORD //"(first word)-> if (!contain '=')->WORD, else->Rule 7b"
 
-cmd_word		 : WORD //"(!first word)->if (begin with '=')->WORD, else if (char before '=' valid)->ASSIGNMENT_W, else->WORD"
+cmd_word		 : 'WORD'
+				 | empty
 
-cmd_prefix		 : cmd_prefix io_redirect
-				 | 			  io_redirect
-				 | cmd_prefix ASSIGNMENT_W
-				 |  		  ASSIGNMENT_W
+cmd_prefix		 : cmd_prefix_item cmd_prefix
+				 | empty
 
-cmd_suffix		 : cmd_suffix io_redirect
-				 | 			  io_redirect
-				 | cmd_suffix WORD
-				 | 			  WORD
+cmd_suffix		 : cmd_suffix_item cmd_suffix
+				 | empty
+
+cmd_prefix_item	 : io_redirect
+				 | 'ASSIGNMENT_W'
+
+cmd_suffix_item	 : io_redirect
+				 | 'WORD'
+
+//if (!contain '=' || char before '=')->WORD, else if (char before '=' VALID)->ASSIGNMENT_W, else WORD

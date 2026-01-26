@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:12:03 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 19:16:57 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/26 11:13:06 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef enum e_tokens
 	PIPE,
 	L_PAREN,
 	R_PAREN,
+	EQUAL,
 	WORD,
 	IO_NUMBER,
 }	t_token;

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 16:03:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/24 21:05:54 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/26 10:47:59 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,24 @@ int	newline_list_r(t_list *lst, t_list **cmd)
 int	linebreak_r(t_list *lst)
 {}
 
-complete_command : and_or newline_list
-				 | and_or
+complete_command 	: and_or newline_list
+				 	| and_or
 
-and_or			 : and_or AND_IF linebreak(optional) pipe_sequence
-				 | and_or OR_IF  linebreak(optional) pipe_sequence
-				 |  								 pipe_sequence
+and_or			 	: pipe_sequence and_or_tail
 
-pipe_sequence	 : pipe_sequence '|' linebreak(optional) simple_command
-				 | 										 simple_command
+and_or_tail			: 'AND_IF' linebreak(optional) pipe_sequence and_or_tail
+					| 'AND_OR' linebreak(optional) pipe_sequence and_or_tail
+					| empty
 
-newline_list	 : 				NEWLINE
-				 | newline_list NEWLINE
 
-linebreak		 : newline_list
-				 | empty (mean optional)
+pipe_sequence	 	: simple_command pipe_sequence_tail
+
+pipe_sequence_tail	: 'PIPE' linebreak(optional) simple_command pipe_sequence_tail
+				 	| empty
+
+newline_list		: 'NEWLINE' newline_list_tail
+
+newline_list_tail	: 'NEWLINE' newline_list_tail
+					| empty
+
+linebreak		 	: newline_list_tail

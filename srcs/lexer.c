@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/24 15:25:34 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/26 13:30:11 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,12 @@ static char	*make_str(char *input, size_t len)
 	return (s);
 }
 
-static	t_quote_t	check_quote(char c, size_t *index)
+static	t_quote_t	check_quote(char c)
 {
 	if (c == '"')
-	{
-		(*index)++;
 		return (D_QUOTE);
-	}
 	else if (c == 39)
-	{
-		(*index)++;
 		return (S_QUOTE);
-	}
 	return (0);
 }
 
@@ -62,6 +56,8 @@ static int	get_operator(char *s)
 		return (L_PAREN);
 	else if (s[0] == ')')
 		return (R_PAREN);
+	else if (s[0] == '=')
+		return (EQUAL);
 	else
 		return (0);
 }
@@ -87,7 +83,7 @@ t_list	*lexer(char *s)
 	i = 0;
 	while (s[i++])
 	{
-		in_quote = check_quote(s[i - 1], &i);
+		in_quote = check_quote(s[i - 1]);
 		if (s[i - 1] == '$' && in_quote != D_QUOTE)
 			lst_add(&lst, make_str(&s[i - 1], 1), ASSIGNMENT_W);
 		else if (!in_quote && get_operator(&s[i - 1]))
@@ -96,7 +92,7 @@ t_list	*lexer(char *s)
 			lst_add(&lst, NULL, NEW_LINE);
 		else if (!in_quote && s[i - 1] == ' ')
 			lst_add(&lst, NULL, TOKEN);
-		else if (lst && lst_last(lst)->token == WORD)
+		else if (lst)
 			lst_append(lst_last(lst), s[i - 1]);
 		else
 			lst_add(&lst, make_str(&s[i - 1], 1), WORD);
