@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lst_new.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:09:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 05:30:23 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/26 13:35:13 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 t_list	*lst_new(char *data, t_token token)
 {

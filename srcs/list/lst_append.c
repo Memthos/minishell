@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lst_append.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:05:46 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 12:05:44 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/26 13:35:05 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	lst_append(t_list *node, char c)
 {

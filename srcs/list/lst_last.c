@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lst_last.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:46:53 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 05:04:44 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/26 13:35:10 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 t_list	*lst_last(t_list *head)
 {
