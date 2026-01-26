@@ -21,14 +21,14 @@ LIBFT_DIR = libs/libft_tools/
 LIBFT = $(addprefix $(LIBFT_DIR), libft_tools.a)
 
 CC = cc
-CFLAGS = -Werror -Wall -Wextra -I$(INCLUDES_DIR) -g
+CFLAGS = -Werror -Wall -Wextra -g
 
 NAME = minishell
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS) $(LIBFT)
-	@$(CC) $(CFLAGS) -o $@ $^ -lreadline
+	@$(CC) $(CFLAGS) -o $@ $^ -I$(INCLUDES_DIR) -lreadline
 	@echo "Finished compiling Minishell"
 
 $(OBJDIR)%.o: %.c | $(OBJDIR)
