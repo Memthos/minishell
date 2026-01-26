@@ -20,6 +20,8 @@ OBJECTS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
 LIBFT_DIR = libs/libft_tools/
 LIBFT = $(addprefix $(LIBFT_DIR), libft_tools.a)
 
+LIBS = $(LIBFT) -lreadline
+
 CC = cc
 CFLAGS = -Werror -Wall -Wextra -g
 
@@ -27,8 +29,8 @@ NAME = minishell
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS) $(LIBFT)
-	@$(CC) $(CFLAGS) -o $@ $^ -I$(INCLUDES_DIR) -lreadline
+$(NAME): $(OBJECTS) | $(LIBFT)
+	@$(CC) $(CFLAGS) -o $@ $^ -I$(INCLUDES_DIR) $(LIBS)
 	@echo "Finished compiling Minishell"
 
 $(OBJDIR)%.o: %.c | $(OBJDIR)
