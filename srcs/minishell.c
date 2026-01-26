@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/26 11:23:57 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/26 16:19:19 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 int	main(void)
 {
+	t_list *lst = NULL;
 	char *line = readline("> ");
-	t_list	*t = lexer(line);
-	while (t)
+	lexer(&lst, line);
+	while (lst)
 	{
-		printf("%s:%d\n", t->data, t->token);
-		t = t->next;
+		printf("%s:%d\n", lst->data, lst->token);
+		lst = lst->next;
 	}
 }
+
+//"ARG=test" && HELLO=world || echo $ARG || echo "$HELLO"

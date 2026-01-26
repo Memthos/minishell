@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:08:39 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 04:51:56 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/26 16:09:53 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ t_list	*lst_last(t_list *head);
  * @param c The char to append.
  * @return Nothing.
  */
-void	lst_append(t_list *node, char c);
+void	lst_append(t_list **node, char c, t_token token);
 
 #endif

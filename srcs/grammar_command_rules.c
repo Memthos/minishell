@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/26 11:20:44 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/26 15:51:11 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,4 @@ cmd_prefix_item	 : io_redirect
 cmd_suffix_item	 : io_redirect
 				 | 'WORD'
 
-//if (!contain '=' || char before '=')->WORD, else if (char before '=' VALID)->ASSIGNMENT_W, else WORD
+//if (!contain '=' || no char before '=')->WORD, else if (char before '=' VALID)->ASSIGNMENT_W, else WORD
