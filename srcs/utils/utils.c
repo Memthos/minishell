@@ -6,11 +6,11 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 11:57:59 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/01/27 15:47:59 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 t_status	get_number(const char *s, int *number)
 {
