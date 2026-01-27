@@ -6,11 +6,11 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/26 13:30:11 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/27 13:49:44 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static char	*make_str(char *input, size_t len)
 {
@@ -27,18 +27,36 @@ static char	*make_str(char *input, size_t len)
 	return (s);
 }
 
-static	t_quote_t	check_quote(char c)
+static	int	check_quote(t_quote_t *state, char c, size_t *index)
 {
+	if (c != '"' && c != 39)
+		return (0);
 	if (c == '"')
-		return (D_QUOTE);
-	else if (c == 39)
-		return (S_QUOTE);
-	return (0);
+	{
+		if (*state == S_QUOTE)
+			return (0);
+		else if (*state == D_QUOTE)
+			*state = 0;
+		else
+			*state = D_QUOTE;
+		(*index)++;
+		return (1);
+	}
+	if (*state == D_QUOTE)
+		return (0);
+	else if (*state == S_QUOTE)
+		*state = 0;
+	else
+		*state = S_QUOTE;
+	(*index)++;
+	return (1);
 }
 
 static int	get_operator(char *s)
 {
-	if (s[0] == '&' && s[1] == '&')
+	if (s[0] == '=')
+		return (ASSIGNMENT_W);
+	else if (s[0] == '&' && s[1] == '&')
 		return (AND_IF);
 	else if (s[0] == '|' && s[1] == '|')
 		return (OR_IF);
@@ -56,15 +74,15 @@ static int	get_operator(char *s)
 		return (L_PAREN);
 	else if (s[0] == ')')
 		return (R_PAREN);
-	else if (s[0] == '=')
-		return (EQUAL);
 	else
 		return (0);
 }
 
 static void	add_lst_operator(t_list **lst, char *s, size_t *index)
 {
-	if (get_operator(s) < 7)
+	if (get_operator(s) == ASSIGNMENT_W)
+		lst_append(lst, s[0], ASSIGNMENT_W);
+	else if (get_operator(s) < 7)
 	{
 		lst_add(lst, make_str(s, 2), get_operator(s));
 		(*index)++;
@@ -73,29 +91,31 @@ static void	add_lst_operator(t_list **lst, char *s, size_t *index)
 		lst_add(lst, make_str(s, 1), get_operator(s));
 }
 
-t_list	*lexer(char *s)
+void	lexer(t_list **lst, char *s)
 {
-	t_list		*lst;
 	t_quote_t	in_quote;
 	size_t		i;
 
-	lst = NULL;
+	in_quote = 0;
 	i = 0;
-	while (s[i++])
+	while (s[i])
 	{
-		in_quote = check_quote(s[i - 1]);
-		if (s[i - 1] == '$' && in_quote != D_QUOTE)
-			lst_add(&lst, make_str(&s[i - 1], 1), ASSIGNMENT_W);
-		else if (!in_quote && get_operator(&s[i - 1]))
-			add_lst_operator(&lst, &s[i - 1], &i);
-		else if (!in_quote && s[i - 1] >= 9 && s[i - 1] <= 13)
-			lst_add(&lst, NULL, NEW_LINE);
-		else if (!in_quote && s[i - 1] == ' ')
-			lst_add(&lst, NULL, TOKEN);
-		else if (lst)
-			lst_append(lst_last(lst), s[i - 1]);
+		if (check_quote(&in_quote, s[i], &i))
+			lst_add(lst, NULL, TOKEN);
+		if (s[i] == '$' && in_quote != S_QUOTE)
+			lst_add(lst, make_str(&s[i], 1), ASSIGNMENT_W);
+		else if (!in_quote && get_operator(&s[i]))
+			add_lst_operator(lst, &s[i], &i);
+		else if (!in_quote && s[i] >= 9 && s[i] <= 13)
+			lst_add(lst, NULL, NEW_LINE);
+		else if (!in_quote && s[i] == ' ')
+			lst_add(lst, NULL, TOKEN);
+		else if (lst && *lst && (lst_last(*lst)->token == WORD
+				|| lst_last(*lst)->token == ASSIGNMENT_W))
+			lst_append(lst, s[i], TOKEN);
 		else
-			lst_add(&lst, make_str(&s[i - 1], 1), WORD);
+			lst_add(lst, make_str(&s[i], 1), WORD);
+		if (s[i])
+			i++;
 	}
-	return (lst);
 }

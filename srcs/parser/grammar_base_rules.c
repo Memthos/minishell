@@ -6,14 +6,16 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 16:03:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/26 10:47:59 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/27 13:49:58 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	complete_command_r(t_list *lst)
-{}
+{
+
+}
 
 int	and_or_r(t_list *lst)
 {}
@@ -33,7 +35,7 @@ complete_command 	: and_or newline_list
 and_or			 	: pipe_sequence and_or_tail
 
 and_or_tail			: 'AND_IF' linebreak(optional) pipe_sequence and_or_tail
-					| 'AND_OR' linebreak(optional) pipe_sequence and_or_tail
+					| 'OR_IF' linebreak(optional) pipe_sequence and_or_tail
 					| empty
 
 
