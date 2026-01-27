@@ -6,11 +6,11 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 13:04:22 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/24 13:20:46 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/27 13:49:49 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	set_io_number_t(t_list *lst)
 {
