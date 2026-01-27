@@ -5,6 +5,7 @@ INCLUDES_DIR = includes/
 SRCS =	minishell.c \
 		init.c \
 		lexer.c \
+		lexer_tools.c \
 		sighandle.c \
 		utils.c \
 		lst_new.c \

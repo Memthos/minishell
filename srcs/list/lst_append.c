@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:05:46 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/26 16:08:04 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/27 14:52:43 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@ void	lst_append(t_list **head, char c, t_token token)
 
 	if (NULL == head)
 		return ;
-	clean_char = malloc(sizeof(char) * 2);
+	clean_char = make_str(&c, 1);
 	if (!clean_char)
 		return ; //ADD FREE FOR LEXER ETC.
-	clean_char[0] = c;
-	clean_char[1] = '\0';
 	tmp = lst_last(*head);
 	if (!tmp->data)
 		tmp->data = clean_char;

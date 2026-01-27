@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/26 16:19:19 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/27 14:12:51 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,4 @@ int	main(void)
 	}
 }
 
-//"ARG=test" && HELLO=world || echo $ARG || echo "$HELLO"
+//("ARG=test" && HELLO=world) || echo $ARG || echo "$HELLO"
