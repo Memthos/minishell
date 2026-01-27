@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commands.h                                         :+:      :+:    :+:   */
+/*   cmd_last.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/27 15:02:14 by mperrine         ###   ########.fr       */
+/*   Created: 2026/01/22 13:46:53 by juperrin          #+#    #+#             */
+/*   Updated: 2026/01/27 15:51:52 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMANDS_H
-# define COMMANDS_H
+#include "../../includes/minishell.h"
 
-# include "definitions.h"
-
-typedef struct s_cmd
+t_cmd	*cmd_last(t_cmd *head)
 {
-	char	*str;
-	t_token	token;
-	size_t	PARENTH_DPT;
-	struct s_cmd *nexts;
-}	t_cmd;
-
-/**
- * @brief Displays the current working directory.
- */
-void	pwd(void);
-
-#endif
+	if (!head)
+		return (NULL);
+	while (head->next)
+		head = head->next;
+	return (head);
+}

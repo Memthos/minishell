@@ -6,26 +6,11 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/27 13:49:44 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/27 15:13:45 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static char	*make_str(char *input, size_t len)
-{
-	char	*s;
-	size_t	i;
-
-	s = malloc(sizeof(char) * (len + 1));
-	if (!s)
-		return (NULL);
-	s[len] = '\0';
-	i = 0;
-	while (i++ < len)
-		s[i - 1] = input[i - 1];
-	return (s);
-}
 
 static	int	check_quote(t_quote_t *state, char c, size_t *index)
 {
@@ -106,8 +91,8 @@ void	lexer(t_list **lst, char *s)
 			lst_add(lst, make_str(&s[i], 1), ASSIGNMENT_W);
 		else if (!in_quote && get_operator(&s[i]))
 			add_lst_operator(lst, &s[i], &i);
-		else if (!in_quote && s[i] >= 9 && s[i] <= 13)
-			lst_add(lst, NULL, NEW_LINE);
+		else if (!in_quote && is_newline(&s[i], &i))
+			lst_add(lst, make_str(&s[i - 1], 2), NEW_LINE);
 		else if (!in_quote && s[i] == ' ')
 			lst_add(lst, NULL, TOKEN);
 		else if (lst && *lst && (lst_last(*lst)->token == WORD

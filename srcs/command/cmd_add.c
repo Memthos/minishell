@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commands.h                                         :+:      :+:    :+:   */
+/*   cmd_add.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/27 15:02:14 by mperrine         ###   ########.fr       */
+/*   Created: 2026/01/22 13:05:46 by juperrin          #+#    #+#             */
+/*   Updated: 2026/01/27 16:01:27 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMANDS_H
-# define COMMANDS_H
+#include "../../includes/minishell.h"
 
-# include "definitions.h"
-
-typedef struct s_cmd
+t_cmd	*cmd_add(t_cmd **head, char *data, t_token token)
 {
-	char	*str;
-	t_token	token;
-	size_t	PARENTH_DPT;
-	struct s_cmd *nexts;
-}	t_cmd;
+	t_list	*tmp;
 
-/**
- * @brief Displays the current working directory.
- */
-void	pwd(void);
-
-#endif
+	if (NULL == head)
+		return (NULL);
+	if (NULL == *head)
+	{
+		*head = cmd_new(data, token);
+		return (*head);
+	}
+	tmp = cmd_last(*head);
+	if (!tmp->data && tmp->token == TOKEN)
+	{
+		tmp->data = data;
+		tmp->token = token;
+	}
+	else
+		tmp->next = cmd_new(data, token);
+	return (*head);
+}
