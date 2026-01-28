@@ -6,13 +6,13 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:47:29 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/28 13:53:41 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/28 23:11:24 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	set_io_number_t(t_list *lst)
+void	set_io_number_t(t_lxr_lst *lst)
 {
 	size_t	i;
 

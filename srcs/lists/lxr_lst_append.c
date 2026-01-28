@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   grammar_tools.c                                    :+:      :+:    :+:   */
+/*   lxr_lst_append.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/28 10:17:40 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/28 23:11:11 by mperrine         ###   ########.fr       */
+/*   Created: 2026/01/22 13:05:46 by juperrin          #+#    #+#             */
+/*   Updated: 2026/01/28 23:08:47 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-
-int	peek(t_lxr_lst **node, t_token token)
+void	lxr_lst_append(t_lxr_lst **head, char c, t_token token)
 {
-	if ((*node)->token == token)
-		return (1);
-	return (0);
-}
+	char		*clean_char;
+	char		*new_str;
+	t_lxr_lst	*tmp;
 
-t_lxr_lst	*consume(t_lxr_lst **node)
-{
-	t_lxr_lst	*consumed;
-
-	consumed = (*node);
-	(*node) = (*node)->next;
-	return (consumed);
+	if (NULL == head)
+		return ;
+	clean_char = make_str(&c, 1);
+	if (!clean_char)
+		return ; //ADD FREE FOR LEXER ETC.
+	tmp = lxr_lst_last(*head);
+	if (!tmp->data)
+		tmp->data = clean_char;
+	else
+	{
+		new_str = ft_strjoin(tmp->data, clean_char);
+		free(tmp->data);
+		tmp->data = new_str;
+	}
+	if (token != TOKEN)
+		tmp->token = token;
 }

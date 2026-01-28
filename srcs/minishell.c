@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/28 14:08:25 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/28 23:19:30 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	main(void)
 {
-	t_list *lst = NULL;
+	t_lxr_lst *lst = NULL;
 	char *line = readline("> ");
 	lexer(&lst, line);
 	while (lst)
 	{
-		printf("::%s::TOKEN=%d::P_DPT=%zu::\n", lst->data, lst->token, lst->parenth_dpt);
+		printf("::%s::TOKEN=%d::P_DPT=%zu::\n", lst->data, lst->token, lst->p_dpt);
 		lst = lst->next;
 	}
 }

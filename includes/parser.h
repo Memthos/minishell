@@ -8,15 +8,14 @@
  * of the string by separating them.
  * @param lst A pointer to the head of lst.
  * @param s The string written as input.
- * @return The list with separated args identified by tokens.
  */
-void	lexer(t_list **lst, char *s);
+void	lexer(t_lxr_lst **lst, char *s);
 
 /**
- * @brief Convert the last node of t_list if it only contains numbers.
+ * @brief Convert the last node of t_lxr_lst if it only contains numbers.
  * @param lst The node to check.
  */
-void	set_io_number_t(t_list *lst);
+void	set_io_number_t(t_lxr_lst *lst);
 
 
 /**

@@ -4,17 +4,16 @@ INCLUDES_DIR = includes/
 
 SRCS =	minishell.c \
 		init.c \
+		sighandle.c \
 		lexer.c \
 		lexer_tools.c \
-		sighandle.c \
 		utils.c \
-		lst_new.c \
-		lst_add.c \
-		lst_remove.c \
-		lst_size.c \
-		lst_last.c \
-		lst_append.c \
-		expansion.c
+		lxr_lst_add.c \
+		lxr_lst_append.c \
+		lxr_lst_last.c \
+		lxr_lst_new.c \
+		lxr_lst_remove.c \
+		lxr_lst_size.c \
 
 OBJECTS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
 

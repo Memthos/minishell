@@ -6,25 +6,25 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:09:08 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/27 13:49:51 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/28 23:10:59 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	io_redirect_r(t_list *lst)
+int	io_redirect_r(t_lxr_lst *lst)
 {}
 
-int	io_file_r(t_list *lst)
+int	io_file_r(t_lxr_lst *lst)
 {}
 
-int	filename_r(t_list *lst)
+int	filename_r(t_lxr_lst *lst)
 {}
 
-int	io_here_r(t_list *lst)
+int	io_here_r(t_lxr_lst *lst)
 {}
 
-int	here_end_r(t_list *lst)
+int	here_end_r(t_lxr_lst *lst)
 {}
 
 io_redirect		 : 'IO_NUMBER' io_file

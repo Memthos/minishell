@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/28 22:28:21 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/28 23:06:08 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # include "definitions.h"
 # include "enums.h"
 
-//Chained list header
+//Chained lists header
 # include "lists.h"
 # include "commands.h"
 # include "../libs/libft_tools/headers/libft.h"

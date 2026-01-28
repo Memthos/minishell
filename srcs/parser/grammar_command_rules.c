@@ -6,14 +6,14 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/28 15:09:36 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/28 23:10:40 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 // simple_command	 : cmd_prefix cmd_word cmd_suffix
-t_cmd	*simple_command_r(t_list **lst)
+t_ast_lst	*simple_command_r(t_lxr_lst **lst)
 {
 	cmd_prefix_r(lst);
 	cmd_word_r(lst);
@@ -24,11 +24,11 @@ t_cmd	*simple_command_r(t_list **lst)
 				 //  | empty
 // cmd_prefix_item	 : io_redirect
 				 //  | 'ASSIGNMENT_W'
-char	*cmd_prefix_r(t_list **lst)
+char	*cmd_prefix_r(t_lxr_lst **lst)
 {
 	char	*str;
 	char	*tmp;
-	t_list	*consumed;
+	t_lxr_lst	*consumed;
 
 	str = NULL;
 	while (peek(lst, IO_NUMBER) || peek(lst, ASSIGNMENT_W))
@@ -48,12 +48,12 @@ char	*cmd_prefix_r(t_list **lst)
 // cmd_word		 	 : 'WORD'
 			 	 //  | empty
 //if (!contain '=' || no char before '=')->WORD, else if (char before '=' VALID)->ASSIGNMENT_W, else WORD
-int	cmd_word_r(t_list **lst)
+int	cmd_word_r(t_lxr_lst **lst)
 {}
 
 // cmd_suffix		 : cmd_suffix_item cmd_suffix
 				 //  | empty
 // cmd_suffix_item	 : io_redirect
 				 //  | 'WORD'
-int	cmd_suffix_r(t_list **lst)
+int	cmd_suffix_r(t_lxr_lst **lst)
 {}

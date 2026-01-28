@@ -1,37 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_add.c                                          :+:      :+:    :+:   */
+/*   lxr_lst_remove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 13:05:46 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/28 11:05:29 by mperrine         ###   ########.fr       */
+/*   Created: 2026/01/22 13:26:13 by juperrin          #+#    #+#             */
+/*   Updated: 2026/01/28 23:09:44 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_list	*lst_add(t_list **head, char *data, t_token token, size_t parenth_dpt)
+t_lxr_lst	*lxr_lst_remove(t_lxr_lst **head)
 {
-	t_list	*tmp;
+	t_lxr_lst	*cpy;
 
-	if (NULL == head)
+	if (NULL == head || NULL == *head)
 		return (NULL);
-	if (NULL == *head)
+	if (NULL == (*head)->next)
 	{
-		*head = lst_new(data, token, parenth_dpt);
-		return (*head);
+		free((*head)->data);
+		free(*head);
+		*head = NULL;
+		return (NULL);
 	}
-	tmp = lst_last(*head);
-	if (!tmp->data && tmp->token == TOKEN)
-	{
-		tmp->data = data;
-		tmp->token = token;
-		tmp->parenth_dpt = parenth_dpt;
-	}
-	else
-		tmp->next = lst_new(data, token, parenth_dpt);
-	set_io_number_t(tmp);
+	cpy = *head;
+	while (cpy->next->next)
+		cpy = cpy->next;
+	free(cpy->next->data);
+	free(cpy->next);
+	cpy->next = NULL;
 	return (*head);
+}
+
+void	lxr_lst_clear(t_lxr_lst **head)
+{
+	if (NULL == head || NULL == *head)
+		return ;
+	while (*head)
+		lxr_lst_remove(head);
+	return ;
 }
