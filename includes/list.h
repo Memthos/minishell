@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:08:39 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/26 16:09:53 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/28 11:04:44 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_list
 {
 	char			*data;
 	t_token			token;
+	size_t			parenth_dpt;
 	struct s_list	*next;
 }	t_list;
 
@@ -27,18 +28,20 @@ typedef struct s_list
  * @brief Allocates memory for a new node.
  * @param data The data to store in the node. It has to be allocated !
  * @param token The corresponding token for data.
+ * @param parenth_dpt The current parenthesis depth.
  * @return The created node.
  */
-t_list	*lst_new(char *data, t_token token);
+t_list	*lst_new(char *data, t_token token, size_t parenth_dpt);
 
 /**
  * @brief Adds a new node at the end of the list.
  * @param head The head / start of the list.
  * @param data The data to store in the node. It has to be allocated !
  * @param token The corresponding token for data.
+ * @param parenth_dpt The current parenthesis depth.
  * @return The updated version of the list passed in.
  */
-t_list	*lst_add(t_list **head, char *data, t_token token);
+t_list	*lst_add(t_list **head, char *data, t_token token, size_t parenth_dpt);
 
 /**
  * @brief Removes the last node of head.

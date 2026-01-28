@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:47:29 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/27 15:13:41 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/28 13:53:41 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,49 @@ int	is_newline(char *s, size_t *index)
 		return (1);
 	}
 	return (0);
+}
+
+int	get_operator(char *s)
+{
+	if (s[0] == '=')
+		return (ASSIGNMENT_W);
+	else if (s[0] == '&' && s[1] == '&')
+		return (AND_IF);
+	else if (s[0] == '|' && s[1] == '|')
+		return (OR_IF);
+	else if (s[0] == '<' && s[1] == '<')
+		return (DLESS);
+	else if (s[0] == '>' && s[1] == '>')
+		return (DGREAT);
+	else if (s[0] == '<')
+		return (LESS);
+	else if (s[0] == '>')
+		return (GREAT);
+	else if (s[0] == '|')
+		return (PIPE);
+	else
+		return (0);
+}
+
+int	check_quote(t_quote_t *state, char c)
+{
+	if (c != '"' && c != 39)
+		return (0);
+	if (c == '"')
+	{
+		if (*state == S_QUOTE)
+			return (0);
+		else if (*state == D_QUOTE)
+			*state = 0;
+		else
+			*state = D_QUOTE;
+		return (1);
+	}
+	if (*state == D_QUOTE)
+		return (0);
+	else if (*state == S_QUOTE)
+		*state = 0;
+	else
+		*state = S_QUOTE;
+	return (1);
 }
