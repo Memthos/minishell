@@ -1,4 +1,4 @@
-VPATH = srcs:srcs/list:srcs/commands:srcs/parser:srcs/utils
+VPATH = srcs:srcs/lists:srcs/commands:srcs/parser:srcs/utils
 OBJDIR = objs/
 INCLUDES_DIR = includes/
 
