@@ -1,7 +1,7 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "list.h"
+# include "lists.h"
 
 /**
  * @brief First step of parsing, apply a token to each part
@@ -51,20 +51,5 @@ int	get_operator(char *s);
  * @return 1 if the quote state changed else 0.
  */
 int	check_quote(t_quote_t *state, char c);
-
-/**
- * @brief Return true if the node is the same as the input token.
- * @param lst, A pointer to the lexer list.
- * @param token The searched token.
- * @return Return 1 if the condition is true.
- */
-int		peek(t_list **lst, t_token token);
-
-/**
- * @brief Return the first node and set the pointer of lst to the next node.
- * @param lst THe pointer to the list.
- * @return The consumed node.
- */
-t_list	*consume(t_list **lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/27 15:02:14 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/28 22:27:33 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,6 @@
 # define COMMANDS_H
 
 # include "definitions.h"
-
-typedef struct s_cmd
-{
-	char	*str;
-	t_token	token;
-	size_t	PARENTH_DPT;
-	struct s_cmd *nexts;
-}	t_cmd;
 
 /**
  * @brief Displays the current working directory.
