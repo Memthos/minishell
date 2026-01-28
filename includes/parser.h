@@ -6,16 +6,16 @@
 /**
  * @brief First step of parsing, apply a token to each part
  * of the string by separating them.
- * @param lst A pointer to the head of lst.
+ * @param lxr A pointer to the head of the list.
  * @param s The string written as input.
  */
-void	lexer(t_lxr_lst **lst, char *s);
+void	lexer(t_lxr_lst **lxr, char *s);
 
 /**
  * @brief Convert the last node of t_lxr_lst if it only contains numbers.
- * @param lst The node to check.
+ * @param lxr The node to check.
  */
-void	set_io_number_t(t_lxr_lst *lst);
+void	set_io_number_t(t_lxr_lst *lxr);
 
 
 /**

@@ -8,6 +8,7 @@ SRCS =	minishell.c \
 		lexer.c \
 		lexer_tools.c \
 		utils.c \
+		ast_lst_new.c \
 		lxr_lst_add.c \
 		lxr_lst_append.c \
 		lxr_lst_last.c \

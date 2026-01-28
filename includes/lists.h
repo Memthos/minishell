@@ -26,7 +26,7 @@ typedef struct s_lxr_lst
 
 typedef struct s_ast_lst
 {
-	char				*str;
+	char				*data;
 	t_token				token;
 	size_t				p_dpt;
 	struct s_ast_lst	*left;
@@ -86,6 +86,15 @@ t_lxr_lst	*lxr_lst_last(t_lxr_lst *head);
  * @return Nothing.
  */
 void		lxr_lst_append(t_lxr_lst **node, char c, t_token token);
+
+/**
+ * @brief Allocates memory for a new node.
+ * @param data The data to store in the node. It has to be allocated !
+ * @param token The corresponding token for data.
+ * @param p_dpt The current parenthesis depth.
+ * @return The created node.
+ */
+t_ast_lst	*ast_lst_new(char *data, t_token token, size_t p_dpt);
 
 /**
  * @brief Return true if the node is the same as the input token.
