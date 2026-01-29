@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/29 17:10:43 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/29 19:32:08 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*cmd_suffix_r(t_lxr_lst **lxr)
 {
 	char		*str;
 	t_lxr_lst	*consumed;
-
+//					 io_redirect
 	while (peek(lxr, IO_NUMBER) || peek(lxr, WORD))
 	{
 		consumed = consume(lxr);
@@ -54,7 +54,7 @@ static char	*cmd_prefix_r(t_lxr_lst **lxr)
 {
 	char		*str;
 	t_lxr_lst	*consumed;
-
+//					 io_redirect
 	while (peek(lxr, IO_NUMBER) || peek(lxr, WORD))
 	{
 		consumed = consume(lxr);

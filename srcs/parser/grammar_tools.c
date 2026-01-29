@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 10:17:40 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/28 23:11:11 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/29 19:08:08 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 int	peek(t_lxr_lst **node, t_token token)
 {
+	if (!node || !(*node))
+		return (0);
 	if ((*node)->token == token)
 		return (1);
 	return (0);

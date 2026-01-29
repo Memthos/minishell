@@ -41,6 +41,10 @@ char	*make_str(char *input, size_t len);
  */
 int	check_quote(t_quote_t *state, char c);
 
+/// @brief Make the base of the AST tree, calls all the other functions of the AST.
+/// @param lxr A node pointing to the currently looked at token.
+/// @return The newly created ast tree.
+t_ast_lst	*complete_command_r(t_lxr_lst **lxr);
 
 /// @brief Make an ast node for a simple command and consume the lexer.
 /// @param lxr A node pointing to the currently looked at token.

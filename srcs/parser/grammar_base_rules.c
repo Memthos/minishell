@@ -6,52 +6,55 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 16:03:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/29 17:15:37 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/29 19:25:16 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static t_ast_lst	*pipe_sequence_r(t_lxr_lst **lxr)
+{
+	t_ast_lst	*cmd;
+	t_ast_lst	*pipe;
 
+	cmd = simple_command_r(lxr);
+	while (peek(lxr, PIPE))
+	{
+		pipe = ast_lst_new((*lxr)->data, (*lxr)->token, (*lxr)->p_dpt);
+		consume(lxr);
+		pipe->left = cmd;
+		while (peek(lxr, NEW_LINE))
+			consume(lxr);
+		pipe->right = simple_command_r(lxr);
+		cmd = pipe;
+	}
+	return (cmd);
+}
 
+static t_ast_lst	*and_or_r(t_lxr_lst **lxr)
+{
+	t_ast_lst	*cmd;
+	t_ast_lst	*and_or;
 
-// complete_command 	: and_or newline_list
-				 	//  | and_or
+	cmd = pipe_sequence_r(lxr);
+	while (peek(lxr, AND_IF) || peek(lxr, OR_IF))
+	{
+		and_or = ast_lst_new((*lxr)->data, (*lxr)->token, (*lxr)->p_dpt);
+		consume(lxr);
+		and_or->left = cmd;
+		while (peek(lxr, NEW_LINE))
+			consume(lxr);
+		and_or->right = pipe_sequence_r(lxr);
+		cmd = and_or;
+	}
+	return (cmd);
+}
+
 t_ast_lst	*complete_command_r(t_lxr_lst **lxr)
 {
-	and_or_r(lxr);
+	t_ast_lst	*cmd;
+
+	cmd = and_or_r(lxr);
+	while (peek(lxr, NEW_LINE))
+		consume(lxr);
 }
-
-
-// and_or			 	: pipe_sequence and_or_tail
-
-// and_or_tail			: 'AND_IF' linebreak(optional) pipe_sequence and_or_tail
-// 						| 'OR_IF' linebreak(optional) pipe_sequence and_or_tail
-// 						| empty
-void	and_or_r(t_lxr_lst **lxr)
-{
-	pipe_sequence_r(lxr);
-}
-
-// pipe_sequence	 	: simple_command pipe_sequence_tail
-
-// pipe_sequence_tail	: 'PIPE' linebreak(optional) simple_command pipe_sequence_tail
-				 	 // | empty
-void	pipe_sequence_r(t_lxr_lst **lxr)
-{
-	t_ast_lst	*node;
-
-	if ()
-	node = simple_command_r(lxr);
-}
-
-// linebreak		 	: newline_list_tail
-void	linebreak_r(t_lxr_lst **lxr)
-
-
-
-
-newline_list		: 'NEWLINE' newline_list_tail
-
-newline_list_tail	: 'NEWLINE' newline_list_tail
-					| empty
