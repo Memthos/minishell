@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 16:03:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/28 23:10:12 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/29 17:15:37 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,9 @@
 
 // complete_command 	: and_or newline_list
 				 	//  | and_or
-t_ast_lst	*complete_command_r(t_lxr_lst *lst)
+t_ast_lst	*complete_command_r(t_lxr_lst **lxr)
 {
-	t_ast_lst	*cmd;
-
-	cmd = NULL;
-	and_or_r(&lst, &cmd);
+	and_or_r(lxr);
 }
 
 
@@ -31,22 +28,25 @@ t_ast_lst	*complete_command_r(t_lxr_lst *lst)
 // and_or_tail			: 'AND_IF' linebreak(optional) pipe_sequence and_or_tail
 // 						| 'OR_IF' linebreak(optional) pipe_sequence and_or_tail
 // 						| empty
-void	and_or_r(t_lxr_lst **lst, t_ast_lst **cmd)
+void	and_or_r(t_lxr_lst **lxr)
 {
-	pipe_sequence_r(lst, cmd);
+	pipe_sequence_r(lxr);
 }
 
 // pipe_sequence	 	: simple_command pipe_sequence_tail
 
 // pipe_sequence_tail	: 'PIPE' linebreak(optional) simple_command pipe_sequence_tail
 				 	 // | empty
-void	pipe_sequence_r(t_lxr_lst **lst, t_ast_lst **cmd)
+void	pipe_sequence_r(t_lxr_lst **lxr)
 {
-	simple_command_r(lst, cmd);
+	t_ast_lst	*node;
+
+	if ()
+	node = simple_command_r(lxr);
 }
 
 // linebreak		 	: newline_list_tail
-void	linebreak_r(t_lxr_lst **lst, t_ast_lst **cmd)
+void	linebreak_r(t_lxr_lst **lxr)
 
 
 
