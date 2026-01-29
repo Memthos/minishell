@@ -6,11 +6,44 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/28 23:29:56 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/29 17:06:14 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	is_newline(char *s, size_t *index)
+{
+	if (s[0] == '\\' && (s[1] == 't' || s[1] == 'n'
+			|| s[1] == 'v' || s[1] == 'f' || s[1] == 'r'))
+	{
+		(*index)++;
+		return (1);
+	}
+	return (0);
+}
+
+static int	get_operator(char *s)
+{
+	if (s[0] == '=')
+		return (ASSIGNMENT_W);
+	else if (s[0] == '&' && s[1] == '&')
+		return (AND_IF);
+	else if (s[0] == '|' && s[1] == '|')
+		return (OR_IF);
+	else if (s[0] == '<' && s[1] == '<')
+		return (DLESS);
+	else if (s[0] == '>' && s[1] == '>')
+		return (DGREAT);
+	else if (s[0] == '<')
+		return (LESS);
+	else if (s[0] == '>')
+		return (GREAT);
+	else if (s[0] == '|')
+		return (PIPE);
+	else
+		return (0);
+}
 
 static int	check_parenth_dpt(size_t *parenth_dpt, char c)
 {

@@ -17,6 +17,12 @@ void	lexer(t_lxr_lst **lxr, char *s);
  */
 void	set_io_number_t(t_lxr_lst *lxr);
 
+/**
+ * @brief Check if the data inside the node
+ * has the right format to be an ASSIGNMENT_W
+ * @param lxr The node to check.
+ */
+void	check_assignment_w(t_lxr_lst *lxr);
 
 /**
  * @brief Return a new string of len size from input.
@@ -25,22 +31,6 @@ void	set_io_number_t(t_lxr_lst *lxr);
  * @return The newly created string.
  */
 char	*make_str(char *input, size_t len);
-
-
-/**
- * @brief Return true if the next char is a newline.
- * @param s The input string.
- * @param index A pointer to the input index.
- * @return 1 if the next char is a newline else 0.
- */
-int		is_newline(char *s, size_t *index);
-
-/**
- * @brief Return true if the next char is an operator.
- * @param s The input string.
- * @return 1 if the next char is an operator else 0.
- */
-int	get_operator(char *s);
 
 /**
  * @brief Return true if the quote state changed.

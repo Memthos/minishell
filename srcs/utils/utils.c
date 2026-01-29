@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/29 11:27:43 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/29 16:24:23 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ char	*ft_strcpy(char *s)
 		i++;
 	}
 	cpy[i] = '\0';
-	free(s);
 	return (cpy);
 }
 
@@ -68,23 +67,22 @@ void	ft_strjoin_sep(char **s1, const char *s2, char sep)
 	size_t	j;
 	char	*str;
 
-	if (!s2)
+	if (!*s1 || !s2 || sep == 0)
 		return ;
-	str = ft_strcpy(*s1);
+	str = malloc(sizeof(char) + (ft_strlen(*s1) + ft_strlen(s2) + 2));
 	if (!str)
-		return ;
-	*s1 = malloc(sizeof(char) + (ft_strlen(str) + ft_strlen(s2) + (sep != '\0') + 1));
-	if (!*s1)
-		free(str);
-	if (!*s1)
-		return ;
+		return ;//ERROR
 	i = 0;
-	while (str[i++])
-		(*s1)[i - 1] = str[i - 1];
-	if (sep != '\0')
-		(*s1)[i++] = sep;
+	while ((*s1)[i])
+	{
+		str[i] = (*s1)[i];
+		i++;
+	}
+	str[i++] = sep;
 	j = 0;
 	while (s2[j])
-		(*s1)[i++] = s2[j++];
-	(*s1)[i] = '\0';
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	free(*s1);
+	*s1 = str;
 }

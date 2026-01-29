@@ -31,7 +31,10 @@ t_lxr_lst	*lxr_lst_add(t_lxr_lst **head, char *data, t_token t, size_t p_dpt)
 		tmp->p_dpt = p_dpt;
 	}
 	else
+	{
 		tmp->next = lxr_lst_new(data, t, p_dpt);
-	set_io_number_t(tmp);
+		set_io_number_t(tmp);
+		check_assignment_w(tmp);
+	}
 	return (*head);
 }

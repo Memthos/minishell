@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:47:29 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/28 23:30:02 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/29 17:02:34 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,24 @@ void	set_io_number_t(t_lxr_lst *lxr)
 		lxr->token = IO_NUMBER;
 }
 
+void	check_assignment_w(t_lxr_lst *lxr)
+{
+	size_t	i;
+	int		ret;
+
+	if (lxr->token != ASSIGNMENT_W)
+		return ;
+	i = 0;
+	ret = 0;
+	if (!ft_isalpha(lxr->data[i]))
+		ret = 1;
+	while (!ret && lxr->data[i] && (ft_isalpha(lxr->data[i])
+		|| ft_isdigit(lxr->data[i]) || lxr->data[i] == '_'))
+		i++;
+	if (ret || lxr->data[i] != '=')
+		lxr->token = WORD;
+}
+
 char	*make_str(char *input, size_t len)
 {
 	char	*s;
@@ -38,39 +56,6 @@ char	*make_str(char *input, size_t len)
 	while (i++ < len)
 		s[i - 1] = input[i - 1];
 	return (s);
-}
-
-int	is_newline(char *s, size_t *index)
-{
-	if (s[0] == '\\' && (s[1] == 't' || s[1] == 'n'
-			|| s[1] == 'v' || s[1] == 'f' || s[1] == 'r'))
-	{
-		(*index)++;
-		return (1);
-	}
-	return (0);
-}
-
-int	get_operator(char *s)
-{
-	if (s[0] == '=')
-		return (ASSIGNMENT_W);
-	else if (s[0] == '&' && s[1] == '&')
-		return (AND_IF);
-	else if (s[0] == '|' && s[1] == '|')
-		return (OR_IF);
-	else if (s[0] == '<' && s[1] == '<')
-		return (DLESS);
-	else if (s[0] == '>' && s[1] == '>')
-		return (DGREAT);
-	else if (s[0] == '<')
-		return (LESS);
-	else if (s[0] == '>')
-		return (GREAT);
-	else if (s[0] == '|')
-		return (PIPE);
-	else
-		return (0);
 }
 
 int	check_quote(t_quote_t *state, char c)
