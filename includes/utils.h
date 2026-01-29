@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/29 10:56:37 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/29 11:24:07 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 t_status	get_number(const char *s, int *number);
 
 
-/// @brief Copy s and return it in a newly allocated block of memory.
+/// @brief Copy s and free it after copying it in a newly allocated block of memory.
 /// @param s The string to copy.
 /// @return The newly created string.
-char	*ft_strcpy(const char *s);
+char	*ft_strcpy(char *s);
 
 /// @brief Concatenate s2 to s1 and separate them with sep.
 /// @param s1 The address of the string to concatenate

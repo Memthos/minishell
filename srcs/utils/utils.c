@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/29 11:02:01 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/29 11:27:43 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_status	get_number(const char *s, int *number)
 	return (SUCCESS);
 }
 
-char	*ft_strcpy(const char *s)
+char	*ft_strcpy(char *s)
 {
 	char	*cpy;
 	size_t	size;
@@ -58,6 +58,7 @@ char	*ft_strcpy(const char *s)
 		i++;
 	}
 	cpy[i] = '\0';
+	free(s);
 	return (cpy);
 }
 
@@ -71,20 +72,19 @@ void	ft_strjoin_sep(char **s1, const char *s2, char sep)
 		return ;
 	str = ft_strcpy(*s1);
 	if (!str)
-		return (NULL);
-	free(*s1);
-	*s1 = malloc(sizeof(char) + (ft_strlen(str) + ft_strlen(s2) + 2));
-	if (!*s1)
-	{
-		free(str);
 		return ;
-	}
+	*s1 = malloc(sizeof(char) + (ft_strlen(str) + ft_strlen(s2) + (sep != '\0') + 1));
+	if (!*s1)
+		free(str);
+	if (!*s1)
+		return ;
 	i = 0;
 	while (str[i++])
 		(*s1)[i - 1] = str[i - 1];
-	(*s1)[i++] = sep;
+	if (sep != '\0')
+		(*s1)[i++] = sep;
 	j = 0;
 	while (s2[j])
-		str[i++] = s2[j++];
-	str[i] = '\0';
+		(*s1)[i++] = s2[j++];
+	(*s1)[i] = '\0';
 }

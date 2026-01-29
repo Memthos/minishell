@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/28 23:45:09 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/29 11:08:57 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,21 @@
 static char	*cmd_suffix_r(t_lxr_lst **lxr)
 {
 	char	*str;
-	char	*tmp;
 	t_lxr_lst	*consumed;
 
-	str = NULL;
 	while (peek(lxr, IO_NUMBER) || peek(lxr, WORD))
 	{
 		consumed = consume(lxr);
 		if (!str)
 		{
-			str = malloc(sizeof(consumed->data));
+			str = ft_strcpy(consumed->data);
 			if (!str)
 				return (NULL);//FREE
-			ft_strlcpy(str, consumed->data, ft_strlen(consumed->data));
 		}
 		else
-			tmp = ft_strjoin(str, consumed->data);
+			ft_strjoin_sep(&str, consumed->data, ' ');
 		free(consumed->data);
 		free(consumed);
-		free(str);
-		str = tmp;
 	}
 	return (str);
 }
@@ -68,10 +63,7 @@ static char	*cmd_word_r(t_lxr_lst **lxr)
 	if (peek(lxr, WORD))
 	{
 		consumed = consume(lxr);
-		str = malloc(sizeof(consumed->data));
-		if (!str)
-			return (NULL);//FREE
-		ft_strlcpy(str, consumed->data, ft_strlen(consumed->data));
+		str = ft_strcpy(consumed->data);
 		free(consumed->data);
 		free(consumed);
 	}
@@ -85,26 +77,21 @@ static char	*cmd_word_r(t_lxr_lst **lxr)
 static char	*cmd_prefix_r(t_lxr_lst **lxr)
 {
 	char	*str;
-	char	*tmp;
 	t_lxr_lst	*consumed;
 
-	str = NULL;
-	while (peek(lxr, IO_NUMBER) || peek(lxr, ASSIGNMENT_W))
+	while (peek(lxr, IO_NUMBER) || peek(lxr, WORD))
 	{
 		consumed = consume(lxr);
 		if (!str)
 		{
-			str = malloc(sizeof(consumed->data));
+			str = ft_strcpy(consumed->data);
 			if (!str)
 				return (NULL);//FREE
-			ft_strlcpy(str, consumed->data, ft_strlen(consumed->data));
 		}
 		else
-			tmp = ft_strjoin(str, consumed->data);
+			ft_strjoin_sep(&str, consumed->data, ' ');
 		free(consumed->data);
 		free(consumed);
-		free(str);
-		str = tmp;
 	}
 	return (str);
 }
