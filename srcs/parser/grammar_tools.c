@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 10:17:40 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/29 19:08:08 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/30 09:39:48 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ int	peek(t_lxr_lst **node, t_token token)
 	return (0);
 }
 
-t_lxr_lst	*consume(t_lxr_lst **node)
+void	consume(t_lxr_lst **node)
 {
 	t_lxr_lst	*consumed;
 
 	consumed = (*node);
 	(*node) = (*node)->next;
-	return (consumed);
+	free(consumed->data);
+	free(consumed);
 }

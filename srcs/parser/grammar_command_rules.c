@@ -6,68 +6,61 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/29 19:32:08 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/01/30 16:16:55 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*cmd_suffix_r(t_lxr_lst **lxr)
+static t_ast_lst	*cmd_suffix_r(t_lxr_lst **lxr)
 {
-	char		*str;
-	t_lxr_lst	*consumed;
+	char		*node;
 //					 io_redirect
 	while (peek(lxr, IO_NUMBER) || peek(lxr, WORD))
 	{
-		consumed = consume(lxr);
 		if (!str)
 		{
-			str = ft_strcpy(consumed->data);
+			str = ft_strcpy((*lxr)->data);
 			if (!str)
-				return (NULL);//FREE
+			return (NULL);//FREE
 		}
 		else
-			ft_strjoin_sep(&str, consumed->data, ' ');
-		free(consumed->data);
-		free(consumed);
+			ft_strjoin_sep(&str, (*lxr)->data, ' ');
+		consume(lxr);
 	}
 	return (str);
 }
 
-static char	*cmd_word_r(t_lxr_lst **lxr)
+static t_ast_lst	*cmd_word_r(t_lxr_lst **lxr)
 {
-	t_lxr_lst	*consumed;
 	char		*str;
 
 	str = NULL;
-	if (peek(lxr, WORD))
+	if (peek(lxr, WORD) || peek(lxr, ASSIGNMENT_W))
 	{
-		consumed = consume(lxr);
-		str = ft_strcpy(consumed->data);
-		free(consumed->data);
-		free(consumed);
+		str = ft_strcpy((*lxr)->data);
+		consume(lxr);
 	}
 	return (str);
 }
 
-static char	*cmd_prefix_r(t_lxr_lst **lxr)
+static t_ast_lst	*cmd_prefix_r(t_lxr_lst **lxr)
 {
 	char		*str;
-	t_lxr_lst	*consumed;
+
+	str = NULL;
 //					 io_redirect
 	while (peek(lxr, IO_NUMBER) || peek(lxr, WORD))
 	{
-		consumed = consume(lxr);
 		if (!str)
 		{
-			str = ft_strcpy(consumed->data);
+			str = ft_strcpy((*lxr)->data);
 			if (!str)
-				return (NULL);//FREE
+			return (NULL);//FREE
 		}
 		else
-			ft_strjoin_sep(&str, consumed->data, ' ');
-		free(consumed->data);
-		free(consumed);
+			ft_strjoin_sep(&str, (*lxr)->data, ' ');
+		consume(lxr);
 	}
 	return (str);
 }

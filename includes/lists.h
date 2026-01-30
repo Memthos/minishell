@@ -83,7 +83,6 @@ t_lxr_lst	*lxr_lst_last(t_lxr_lst *head);
  * @brief Append a char to the given node.
  * @param node The node to append.
  * @param c The char to append.
- * @return Nothing.
  */
 void		lxr_lst_append(t_lxr_lst **node, char c, t_token token);
 
@@ -105,9 +104,8 @@ t_ast_lst	*ast_lst_new(char *data, t_token token, size_t p_dpt);
 int			peek(t_lxr_lst **node, t_token token);
 
 /**
- * @brief Return the first node and set the pointer of lst to the next node.
- * @param node A pointer to the current node of the list.
- * @return The consumed node.
+ * @brief Set the pointer of node to the next node and free the consumed one.
+ * @param node A pointer to the current node of the lexer.
  */
 t_lxr_lst	*consume(t_lxr_lst **node);
 
