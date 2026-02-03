@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:47:29 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/29 17:02:34 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/03 11:10:42 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,26 @@ void	set_io_number_t(t_lxr_lst *lxr)
 void	check_assignment_w(t_lxr_lst *lxr)
 {
 	size_t	i;
-	int		ret;
+	int		type;
 
 	if (lxr->token != ASSIGNMENT_W)
 		return ;
 	i = 0;
-	ret = 0;
-	if (!ft_isalpha(lxr->data[i]))
-		ret = 1;
-	while (!ret && lxr->data[i] && (ft_isalpha(lxr->data[i])
-		|| ft_isdigit(lxr->data[i]) || lxr->data[i] == '_'))
+	type = 0;
+	if (lxr->data[i] == '$')
+	{
 		i++;
-	if (ret || lxr->data[i] != '=')
+		type = 1;
+	}
+	if (!ft_isalpha(lxr->data[i]))
+	{
+		lxr->token = WORD;
+		return ;
+	}
+	while (lxr->data[i] && (ft_isalnum(lxr->data[i]) || lxr->data[i] == '_'))
+		i++;
+	if ((type == 0 && lxr->data[i] != '=')
+		|| (type == 1 && i != ft_strlen(lxr->data)))
 		lxr->token = WORD;
 }
 

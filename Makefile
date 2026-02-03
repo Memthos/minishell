@@ -15,6 +15,9 @@ SRCS =	minishell.c \
 		lxr_lst_new.c \
 		lxr_lst_remove.c \
 		lxr_lst_size.c \
+		ast_main_rules.c \
+		ast_cmd_rules.c \
+		ast_red_rules.c \
 
 OBJECTS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
 

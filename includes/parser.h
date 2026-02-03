@@ -51,4 +51,8 @@ t_ast_lst	*complete_command_r(t_lxr_lst **lxr);
 /// @return The newly created ast node.
 t_ast_lst	*simple_command_r(t_lxr_lst **lxr);
 
+/// @brief Check if the given node can be of redirect type
+/// @param lxr A pointer to the given node
+int			is_io_redirect(t_lxr_lst **lxr);
+
 #endif
