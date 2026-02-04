@@ -1,35 +1,28 @@
-VPATH = srcs:srcs/lists:srcs/commands:srcs/parser:srcs/utils
-OBJDIR = objs/
-INCLUDES_DIR = includes/
+VPATH=srcs:srcs/lists:srcs/commands:srcs/parser:srcs/utils
+OBJDIR=objs/
+INCLUDES_DIR=includes/
 
-SRCS =	minishell.c \
+SRCS=minishell.c \
 		init.c \
 		sighandle.c \
-		lexer.c \
-		lexer_tools.c \
 		utils.c \
-		ast_lst_new.c \
-		lxr_lst_add.c \
-		lxr_lst_append.c \
-		lxr_lst_last.c \
-		lxr_lst_new.c \
-		lxr_lst_remove.c \
-		lxr_lst_size.c \
-		ast_main_rules.c \
-		ast_cmd_rules.c \
-		ast_red_rules.c \
+		lexer.c lexer_tools.c \
+		ast_lst_new.c ast_main_rules.c ast_cmd_rules.c ast_red_rules.c \
+		lxr_lst_add.c lxr_lst_append.c lxr_lst_last.c lxr_lst_new.c \
+		lxr_lst_remove.c lxr_lst_size.c
 
-OBJECTS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
 
-LIBFT_DIR = libs/libft_tools/
-LIBFT = $(addprefix $(LIBFT_DIR), libft_tools.a)
+OBJECTS=$(addprefix $(OBJDIR), $(SRCS:.c=.o))
 
-LIBS = $(LIBFT) -lreadline
+LIBFT_DIR=libs/libft_tools/
+LIBFT=$(addprefix $(LIBFT_DIR), libft_tools.a)
 
-CC = cc
-CFLAGS = -Werror -Wall -Wextra -g
+LIBS=$(LIBFT) -lreadline
 
-NAME = minishell
+CC=cc
+CFLAGS=-Werror -Wall -Wextra -g
+
+NAME=minishell
 
 all: $(NAME)
 
@@ -44,7 +37,7 @@ $(LIBFT):
 	@make -sC $(LIBFT_DIR) all
 	@echo "Compiled library Libft"
 
-$(OBJDIR) :
+$(OBJDIR):
 	@mkdir -p $(OBJDIR)
 
 clean:

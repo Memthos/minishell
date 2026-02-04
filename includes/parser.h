@@ -41,7 +41,8 @@ char	*make_str(char *input, size_t len);
  */
 int	check_quote(t_quote_t *state, char c);
 
-/// @brief Make the base of the AST tree, calls all the other functions of the AST.
+/// @brief Make the base of the AST tree, calls all the other functions
+/// of the AST.
 /// @param lxr A node pointing to the currently looked at token.
 /// @return The newly created ast tree.
 t_ast_lst	*complete_command_r(t_lxr_lst **lxr);
@@ -54,5 +55,10 @@ t_ast_lst	*simple_command_r(t_lxr_lst **lxr);
 /// @brief Check if the given node can be of redirect type
 /// @param lxr A pointer to the given node
 int			is_io_redirect(t_lxr_lst **lxr);
+
+/// @brief Create an a small ast tree with an io_redirect cmd.
+/// @param lxr A pointer to the currently looked at lexer node.
+/// @return Return a redirect_io ast tree.
+t_ast_lst	*io_redirect_r(t_lxr_lst **lxr);
 
 #endif

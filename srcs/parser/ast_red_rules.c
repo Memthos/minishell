@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:09:08 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/03 16:30:42 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/04 14:39:48 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,34 +28,26 @@ int	is_io_redirect(t_lxr_lst **lxr)
 		return(0);
 }
 
-t_ast_lst	*io_file_r(t_lxr_lst **lxr)
-{}
-
-t_ast_lst	*filename_r(t_lxr_lst **lxr)
-{}
-
-t_ast_lst	*io_here_r(t_lxr_lst **lxr)
-{}
-
-t_ast_lst	*here_end_r(t_lxr_lst **lxr)
-{}
-
-
 t_ast_lst	*io_redirect_r(t_lxr_lst **lxr)
 {
-	t_ast_lst	*cmd;
-	char		*data;
+	t_ast_lst	*io_red;
+	int			i;
 
+	io_red = NULL;
 	if (peek(lxr, IO_NUMBER))
+		io_red = ast_lst_new(lxr);
+	i = 0;
+	while (*lxr && i < 2)
 	{
-		data = ft_strcpy((*lxr)->data);
-		cmd = ast_lst_new(data, (*lxr)->token, (*lxr)->p_dpt);
-		consume(lxr);
+		if (io_red)
+			io_red->left = ast_lst_new(lxr);
+		else
+			io_red = ast_lst_new(lxr);
+		i++;
 	}
-	if (peek(lxr, DLESS))
-	{
-
-	}
+	if (i < 2)
+		lxr_lst_clear(io_red);
+	return (io_red);
 }
 
 io_redirect		 : 'IO_NUMBER' io_file
@@ -63,12 +55,7 @@ io_redirect		 : 'IO_NUMBER' io_file
 				 | 'IO_NUMBER' io_here
 				 |  		   io_here
 
-io_file			 : 'LESS'   filename
-				 | 'GREAT'  filename
-				 | 'DGREAT' filename
-
-filename		 : 'WORD' //"Expansion to have only one field(one filename)"
-
-io_here			 : 'DLESS' here_end
-
-here_end		 : 'WORD' //"Determine delimiter for here-document"
+io_file			 : 'LESS'   'WORD'
+				 | 'GREAT'  'WORD'
+				 | 'DGREAT' 'WORD'
+				 | 'DLESS'  'WORD'

@@ -12,17 +12,22 @@
 
 #include "../../includes/minishell.h"
 
-t_ast_lst	*ast_lst_new(char *data, t_token token, size_t p_dpt)
+t_ast_lst	*ast_lst_new(t_lxr_lst **lxr)
 {
 	t_ast_lst	*new;
+	char		*str;
 
 	new = (t_ast_lst *)malloc(sizeof(t_ast_lst));
 	if (NULL == new)
-		return (NULL); //ADD FREE FOR LEXER ETC.
-	new->data = data;
-	new->token = token;
-	new->p_dpt = p_dpt;
+		return (NULL); //ADD FREE
+	str = ft_strcpy((*lxr)->data);
+	if (!str)
+		return (NULL); //ADD FREE
+	new->data = str;
+	new->token = (*lxr)->token;
+	new->p_dpt = (*lxr)->p_dpt;
 	new->left = NULL;
 	new->right = NULL;
+	consume(lxr);
 	return (new);
 }

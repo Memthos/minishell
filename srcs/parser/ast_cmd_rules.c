@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/03 13:47:23 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/04 14:39:46 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,18 @@ static t_ast_lst	*cmd_suffix_r(t_lxr_lst **lxr)
 {
 	t_ast_lst	*cmd;
 	t_ast_lst	*suffix;
-	char		*data;
 
-	data = NULL;
-	if (is_io_redirect (lxr) || peek(lxr, WORD))
-	{
-		data = ft_strcpy((*lxr)->data);
-		cmd = ast_lst_new(data, (*lxr)->token, (*lxr)->p_dpt);
-		consume(lxr);
-	}
-	else
-		return (NULL);
+	cmd = NULL;
+	if (is_io_redirect(lxr))
+		cmd = io_redirect_r(lxr);
+	else if (peek(lxr, WORD))
+		cmd = ast_lst_new(lxr);
 	while (is_io_redirect (lxr) || peek(lxr, WORD))
 	{
-		data = ft_strcpy((*lxr)->data);
-		suffix = ast_lst_new(data, (*lxr)->token, (*lxr)->p_dpt);
-		consume(lxr);
+		if (is_io_redirect(lxr))
+			suffix = io_redirect_r(lxr);
+		else
+			suffix = ast_lst_new(lxr);
 		suffix->left = cmd;
 		cmd = suffix;
 	}
@@ -41,15 +37,10 @@ static t_ast_lst	*cmd_suffix_r(t_lxr_lst **lxr)
 static t_ast_lst	*cmd_word_r(t_lxr_lst **lxr)
 {
 	t_ast_lst	*node;
-	char		*data;
 
 	node = NULL;
 	if (peek(lxr, WORD) || peek(lxr, ASSIGNMENT_W))
-	{
-		data = ft_strcpy((*lxr)->data);
-		ast_lst_new(data, (*lxr)->token, (*lxr)->p_dpt);
-		consume(lxr);
-	}
+		ast_lst_new(lxr);
 	return (node);
 }
 
@@ -57,22 +48,18 @@ static t_ast_lst	*cmd_prefix_r(t_lxr_lst **lxr)
 {
 	t_ast_lst	*cmd;
 	t_ast_lst	*prefix;
-	char		*data;
 
-	data = NULL;
-	if (is_io_redirect (lxr) || peek(lxr, ASSIGNMENT_W))
-	{
-		data = ft_strcpy((*lxr)->data);
-		cmd = ast_lst_new(data, (*lxr)->token, (*lxr)->p_dpt);
-		consume(lxr);
-	}
-	else
-		return (NULL);
+	cmd = NULL;
+	if (is_io_redirect(lxr))
+		cmd = io_redirect_r(lxr);
+	else if (peek(lxr, ASSIGNMENT_W))
+		cmd = ast_lst_new(lxr);
 	while (is_io_redirect (lxr) || peek(lxr, ASSIGNMENT_W))
 	{
-		data = ft_strcpy((*lxr)->data);
-		prefix = ast_lst_new(data, (*lxr)->token, (*lxr)->p_dpt);
-		consume(lxr);
+		if (is_io_redirect(lxr))
+			prefix = io_redirect_r(lxr);
+		else
+			prefix = ast_lst_new(lxr);
 		prefix->left = cmd;
 		cmd = prefix;
 	}

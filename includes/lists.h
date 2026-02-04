@@ -93,7 +93,7 @@ void		lxr_lst_append(t_lxr_lst **node, char c, t_token token);
  * @param p_dpt The current parenthesis depth.
  * @return The created node.
  */
-t_ast_lst	*ast_lst_new(char *data, t_token token, size_t p_dpt);
+t_ast_lst	*ast_lst_new(t_lxr_lst **lxr);
 
 /**
  * @brief Return true if the node is the same as the input token.
