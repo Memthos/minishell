@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/29 11:24:07 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/06 10:05:43 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@
  * @return A status to tell if the number has been successfully parsed or not.
  */
 t_status	get_number(const char *s, int *number);
-
-
-/// @brief Copy s and free it after copying it in a newly allocated block of memory.
-/// @param s The string to copy.
-/// @return The newly created string.
-char	*ft_strcpy(char *s);
 
 /// @brief Concatenate s2 to s1 and separate them with sep.
 /// @param s1 The address of the string to concatenate

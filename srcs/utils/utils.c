@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/29 16:24:23 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/06 10:05:32 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,6 @@ t_status	get_number(const char *s, int *number)
 	}
 	*number *= sign;
 	return (SUCCESS);
-}
-
-char	*ft_strcpy(char *s)
-{
-	char	*cpy;
-	size_t	size;
-	size_t	i;
-
-	if (!s)
-		return (NULL);
-	size = ft_strlen(s);
-	cpy = malloc (sizeof(char) * (size + 1));
-	i = 0;
-	while (i < size)
-	{
-		cpy[i] = s[i];
-		i++;
-	}
-	cpy[i] = '\0';
-	return (cpy);
 }
 
 void	ft_strjoin_sep(char **s1, const char *s2, char sep)
