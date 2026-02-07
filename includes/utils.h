@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/06 10:05:43 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/07 19:48:09 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,5 @@
  * @return A status to tell if the number has been successfully parsed or not.
  */
 t_status	get_number(const char *s, int *number);
-
-/// @brief Concatenate s2 to s1 and separate them with sep.
-/// @param s1 The address of the string to concatenate
-/// @param s2 The string to add to s1.
-void	ft_strjoin_sep(char **s1, const char *s2, char sep);
 
 #endif
