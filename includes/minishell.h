@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-/*   Updated: 2026/01/28 23:06:08 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/08 12:38:22 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include <curses.h>
 
 //Libft header
-# include "../libs/libft_tools/headers/libft.h"
+# include "../libs/libft_tools/includes/libft.h"
 
 //Typedef and enums headers
 # include "definitions.h"
@@ -41,7 +41,6 @@
 //Chained lists header
 # include "lists.h"
 # include "commands.h"
-# include "../libs/libft_tools/headers/libft.h"
 
 //Signals headers
 # include <signal.h>
