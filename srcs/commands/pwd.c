@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 09:48:05 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/27 15:49:09 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/09 10:31:55 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ t_status	pwd(void)
 
 	path = getcwd(NULL, 0);
 	if (NULL == path)
-		return (PWD_ERROR);
+	{
+		error_output("Failed to get current directory");
+		return (FAILURE);
+	}
 	printf("%s\n", path);
 	free(path);
 	return (SUCCESS);
