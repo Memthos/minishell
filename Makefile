@@ -6,10 +6,9 @@ SRCS=minishell.c \
 		init.c \
 		sighandle.c \
 		utils.c \
-		lexer.c lexer_tools.c \
 		ast_lst_new.c ast_main_rules.c ast_cmd_rules.c ast_red_rules.c \
-		lxr_lst_add.c lxr_lst_append.c lxr_lst_last.c lxr_lst_new.c \
-		lxr_lst_remove.c lxr_lst_size.c
+		ast_tools.c lexer.c lexer_tools.c lxr_lst_add.c lxr_lst_append.c \
+		lxr_lst_last.c lxr_lst_new.c lxr_lst_remove.c lxr_lst_size.c
 
 
 OBJECTS=$(addprefix $(OBJDIR), $(SRCS:.c=.o))
