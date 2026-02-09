@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/24 09:48:05 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/09 10:31:55 by juperrin         ###   ########.fr       */
+/*   Created: 2026/02/09 10:11:38 by juperrin          #+#    #+#             */
+/*   Updated: 2026/02/09 10:31:25 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	pwd(void)
+t_status	cd(const char *path)
 {
-	char	*path;
-
-	path = getcwd(NULL, 0);
 	if (NULL == path)
 	{
-		error_output("Failed to get current directory");
+		error_output("NULL argument for path");
 		return (FAILURE);
 	}
-	printf("%s\n", path);
-	free(path);
+	if (SUCCESS != chdir(path))
+	{
+		error_output("Failed to change current directory");
+		return (FAILURE);
+	}
 	return (SUCCESS);
 }

@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   outputs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/24 09:48:05 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/09 10:31:55 by juperrin         ###   ########.fr       */
+/*   Created: 2026/02/09 10:25:28 by juperrin          #+#    #+#             */
+/*   Updated: 2026/02/09 13:03:31 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#ifndef OUTPUTS_H
+# define OUTPUTS_H
 
-t_status	pwd(void)
-{
-	char	*path;
+# include "enums.h"
 
-	path = getcwd(NULL, 0);
-	if (NULL == path)
-	{
-		error_output("Failed to get current directory");
-		return (FAILURE);
-	}
-	printf("%s\n", path);
-	free(path);
-	return (SUCCESS);
-}
+/**
+ * @brief Display an error on the stderr
+ * @param error The error message to display
+ * @return Returns 0 on success, 1 on failure
+ */
+t_status	error_output(const char *error);
+
+#endif

@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   error_output.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/24 09:48:05 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/09 10:31:55 by juperrin         ###   ########.fr       */
+/*   Created: 2026/02/09 10:23:31 by juperrin          #+#    #+#             */
+/*   Updated: 2026/02/09 13:03:09 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	pwd(void)
+t_status	error_output(const char *error)
 {
-	char	*path;
-
-	path = getcwd(NULL, 0);
-	if (NULL == path)
+	if (NULL == error)
+		return (FAILURE);
+	if (write(STDERR_FILENO, error, ft_strlen(error)) < 0)
 	{
-		error_output("Failed to get current directory");
+		error_output("Failed to write on stderr");
 		return (FAILURE);
 	}
-	printf("%s\n", path);
-	free(path);
+	if (write(STDERR_FILENO, ".\n", 2) < 0)
+	{
+		error_output("Failed to write on stderr");
+		return (FAILURE);
+	}
 	return (SUCCESS);
-}
+};
