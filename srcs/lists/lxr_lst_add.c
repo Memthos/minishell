@@ -12,29 +12,29 @@
 
 #include "../../includes/minishell.h"
 
-t_lxr_lst	*lxr_lst_add(t_lxr_lst **head, char *data, t_token t, size_t p_dpt)
+int	lxr_lst_add(t_lxr_lst **head, char *data, t_token t, size_t p_dpt)
 {
 	t_lxr_lst	*tmp;
 
 	if (NULL == head)
-		return (NULL);
+		return (1);
 	if (NULL == *head)
 	{
 		*head = lxr_lst_new(data, t, p_dpt);
-		return (*head);
+		if (!*head)
+			return (1);
+		return (0);
 	}
 	tmp = lxr_lst_last(*head);
 	if (!tmp->data && tmp->token == TOKEN)
-	{
-		tmp->data = data;
-		tmp->token = t;
-		tmp->p_dpt = p_dpt;
-	}
+		*tmp = (t_lxr_lst){.data = data, .token = t, .p_dpt = p_dpt};
 	else
 	{
 		tmp->next = lxr_lst_new(data, t, p_dpt);
+		if (!tmp->next)
+			return (1);
 		set_io_number_t(tmp);
-		check_assignment_w(tmp);
+		check_ASSIGNMENT(tmp);
 	}
-	return (*head);
+	return (0);
 }

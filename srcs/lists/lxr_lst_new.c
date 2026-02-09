@@ -18,7 +18,7 @@ t_lxr_lst	*lxr_lst_new(char *data, t_token token, size_t p_dpt)
 
 	new = (t_lxr_lst *)malloc(sizeof(t_lxr_lst));
 	if (NULL == new)
-		return (NULL); //ADD FREE FOR LEXER ETC.
+		return (NULL);
 	new->data = data;
 	new->token = token;
 	new->p_dpt = p_dpt;

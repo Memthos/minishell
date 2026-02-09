@@ -12,17 +12,17 @@
 
 #include "../../includes/minishell.h"
 
-void	lxr_lst_append(t_lxr_lst **head, char c, t_token token)
+int	lxr_lst_append(t_lxr_lst **head, char c, t_token token)
 {
 	char		*clean_char;
 	char		*new_str;
 	t_lxr_lst	*tmp;
 
 	if (NULL == head)
-		return ;
+		return (1);
 	clean_char = make_str(&c, 1);
 	if (!clean_char)
-		return ; //ADD FREE FOR LEXER ETC.
+		return (1);
 	tmp = lxr_lst_last(*head);
 	if (!tmp->data)
 		tmp->data = clean_char;
@@ -34,4 +34,5 @@ void	lxr_lst_append(t_lxr_lst **head, char c, t_token token)
 	}
 	if (token != TOKEN)
 		tmp->token = token;
+	return (0);
 }

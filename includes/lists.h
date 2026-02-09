@@ -50,7 +50,7 @@ t_lxr_lst	*lxr_lst_new(char *data, t_token token, size_t p_dpt);
  * @param p_dpt The current parenthesis depth.
  * @return The updated version of the list passed in.
  */
-t_lxr_lst	*lxr_lst_add(t_lxr_lst **head, char *data, t_token t, size_t p_dpt);
+int			lxr_lst_add(t_lxr_lst **head, char *data, t_token t, size_t p_dpt);
 
 /**
  * @brief Removes the last node of head.
@@ -84,7 +84,7 @@ t_lxr_lst	*lxr_lst_last(t_lxr_lst *head);
  * @param node The node to append.
  * @param c The char to append.
  */
-void		lxr_lst_append(t_lxr_lst **node, char c, t_token token);
+int			lxr_lst_append(t_lxr_lst **node, char c, t_token token);
 
 /**
  * @brief Allocates memory for a new node.

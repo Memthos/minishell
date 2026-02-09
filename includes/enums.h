@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:12:03 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/28 10:55:36 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/09 13:57:08 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef enum e_tokens
 {
 	TOKEN,
 	NEW_LINE,
-	ASSIGNMENT_W,
+	ASSIGNMENT,
 	AND_IF,
 	OR_IF,
 	DLESS,
