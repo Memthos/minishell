@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast_tools.c                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/28 10:17:40 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/09 15:50:52 by mperrine         ###   ########.fr       */
+/*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
+/*   Updated: 2026/02/09 16:14:30 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	peek(t_lxr_lst **node, t_token token)
+static int	checker_lxr(t_lxr_lst *lxr)
 {
-	if (!node || !(*node))
-		return (0);
-	if ((*node)->token == token)
-		return (1);
-	return (0);
+	//Check parenthesis
+	//Add quote state to struct to be able to check invalid words
 }
 
-void	consume(t_lxr_lst **node)
+void	parser(char *s)
 {
-	t_lxr_lst	*consumed;
+	t_lxr_lst	*lxr;
+	t_ast_lst	*ast;
+	int			ret;
 
-	consumed = (*node);
-	(*node) = (*node)->next;
-	free(consumed->data);
-	free(consumed);
+	lxr = NULL;
+	ret = 0;
+	lexer(&lxr, s, &ret);
+	free(s);
+	if (ret || checker_lxr(lxr))
+	{
+		lxr_lst_clear(&lxr);
+		exit(1);
+	}
+	ast = complete_command_r(&lxr);
 }

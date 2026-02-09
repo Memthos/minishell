@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:47:29 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/09 14:08:57 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/09 15:51:07 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	set_io_number_t(t_lxr_lst *lxr)
 		lxr->token = IO_NUMBER;
 }
 
-void	check_ASSIGNMENT(t_lxr_lst *lxr)
+void	check_assignment_w(t_lxr_lst *lxr)
 {
 	size_t	i;
 	int		type;
 
-	if (lxr->token != ASSIGNMENT)
+	if (lxr->token != ASSIGNMENT_W)
 		return ;
 	i = 0;
 	type = 0;
@@ -66,7 +66,7 @@ char	*make_str(char *input, size_t len)
 	return (s);
 }
 
-int	check_quote(t_lxr_params *p, char c)
+int	check_quote(t_lxr_p *p, char c)
 {
 	if (c != '"' && c != 39)
 		return (0);

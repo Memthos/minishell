@@ -21,6 +21,7 @@ typedef struct s_lxr_lst
 	char				*data;
 	t_token				token;
 	size_t				p_dpt;
+	int					quote;
 	struct s_lxr_lst	*next;
 }						t_lxr_lst;
 
@@ -33,24 +34,32 @@ typedef struct s_ast_lst
 	struct s_ast_lst	*right;
 }						t_ast_lst;
 
+typedef struct	s_lxr_p
+{
+	t_quote_t	quote;
+	size_t		p_dpt;
+	size_t		i;
+}				t_lxr_p;
+
 /**
  * @brief Allocates memory for a new node.
  * @param data The data to store in the node. It has to be allocated !
  * @param token The corresponding token for data.
  * @param p_dpt The current parenthesis depth.
+ * @param quote The current quote state.
  * @return The created node.
  */
-t_lxr_lst	*lxr_lst_new(char *data, t_token token, size_t p_dpt);
+t_lxr_lst	*lxr_lst_new(char *data, t_token token, size_t p_dpt, int quote);
 
 /**
  * @brief Adds a new node at the end of the list.
  * @param head The head / start of the list.
  * @param data The data to store in the node. It has to be allocated !
  * @param token The corresponding token for data.
- * @param p_dpt The current parenthesis depth.
+ * @param p A pointer to the current lexer params.
  * @return The updated version of the list passed in.
  */
-int			lxr_lst_add(t_lxr_lst **head, char *data, t_token t, size_t p_dpt);
+int			lxr_lst_add(t_lxr_lst **head, char *data, t_token t, t_lxr_p *p);
 
 /**
  * @brief Removes the last node of head.

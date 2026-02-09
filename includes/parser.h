@@ -3,13 +3,6 @@
 
 # include "lists.h"
 
-typedef struct	s_lxr_params
-{
-	t_quote_t	quote;
-	size_t		p_dpt;
-	size_t		i;
-}				t_lxr_params;
-
 /**
  * @brief First step of parsing, apply a token to each part
  * of the string by separating them.
@@ -27,10 +20,10 @@ void	set_io_number_t(t_lxr_lst *lxr);
 
 /**
  * @brief Check if the data inside the node
- * has the right format to be an ASSIGNMENT
+ * has the right format to be an ASSIGNMENT_W
  * @param lxr The node to check.
  */
-void	check_ASSIGNMENT(t_lxr_lst *lxr);
+void	check_assignment_w(t_lxr_lst *lxr);
 
 /**
  * @brief Return a new string of len size from input.
@@ -46,7 +39,7 @@ char	*make_str(char *input, size_t len);
  * @param p A pointer to the lexer params.
  * @return 1 if the quote state changed else 0.
  */
-int			check_quote(t_lxr_params *p, char c);
+int			check_quote(t_lxr_p *p, char c);
 
 /// @brief Make the base of the AST tree, calls all the other functions
 /// of the AST.

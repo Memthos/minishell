@@ -19,7 +19,7 @@ LIBFT=$(addprefix $(LIBFT_DIR), libft_tools.a)
 
 LIBS=$(LIBFT) -lreadline
 
-CC=cc
+CC=gcc
 CFLAGS=-Werror -Wall -Wextra -g
 
 NAME=minishell

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:09:08 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/04 14:39:48 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/09 15:50:37 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_io_redirect(t_lxr_lst **lxr)
 	else if (peek(lxr, DLESS))
 		return (1);
 	else
-		return(0);
+		return (0);
 }
 
 t_ast_lst	*io_redirect_r(t_lxr_lst **lxr)
@@ -49,13 +49,3 @@ t_ast_lst	*io_redirect_r(t_lxr_lst **lxr)
 		lxr_lst_clear(io_red);
 	return (io_red);
 }
-
-io_redirect		 : 'IO_NUMBER' io_file
-				 |  		   io_file
-				 | 'IO_NUMBER' io_here
-				 |  		   io_here
-
-io_file			 : 'LESS'   'WORD'
-				 | 'GREAT'  'WORD'
-				 | 'DGREAT' 'WORD'
-				 | 'DLESS'  'WORD'

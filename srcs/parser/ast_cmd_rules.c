@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/09 13:57:08 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/09 15:45:39 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_ast_lst	*cmd_word_r(t_lxr_lst **lxr)
 	t_ast_lst	*node;
 
 	node = NULL;
-	if (peek(lxr, WORD) || peek(lxr, ASSIGNMENT))
+	if (peek(lxr, WORD) || peek(lxr, ASSIGNMENT_W))
 		ast_lst_new(lxr);
 	return (node);
 }
@@ -52,9 +52,9 @@ static t_ast_lst	*cmd_prefix_r(t_lxr_lst **lxr)
 	cmd = NULL;
 	if (is_io_redirect(lxr))
 		cmd = io_redirect_r(lxr);
-	else if (peek(lxr, ASSIGNMENT))
+	else if (peek(lxr, ASSIGNMENT_W))
 		cmd = ast_lst_new(lxr);
-	while (is_io_redirect (lxr) || peek(lxr, ASSIGNMENT))
+	while (is_io_redirect (lxr) || peek(lxr, ASSIGNMENT_W))
 	{
 		if (is_io_redirect(lxr))
 			prefix = io_redirect_r(lxr);
