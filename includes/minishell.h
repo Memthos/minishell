@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/09 10:28:53 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/10 13:15:07 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # include <sys/ioctl.h>
 # include <dirent.h>
 # include <termios.h>
-# include <term.h>
 # include <curses.h>
+# include <term.h>
 
 //Libft header
 # include "../libs/libft_tools/includes/libft.h"
