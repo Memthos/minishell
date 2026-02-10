@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/09 15:52:03 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/10 17:39:15 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,9 @@ void	lexer(t_lxr_lst **lxr, char *s, int *ret)
 	p = (t_lxr_p){.quote = 0, .p_dpt = 0, .i = 0};
 	while (s[p.i++] && !*ret)
 	{
-		if (!ret && (check_quote(&p, s[p.i - 1])
-				|| (!p.quote && s[p.i - 1] == ' ')
+		if (!ret)
+			check_quote(&p, s[p.i - 1]);
+		if (!ret && ((!p.quote && s[p.i - 1] == ' ')
 				|| (!p.quote && check_parenth_dpt(&p.p_dpt, s[p.i - 1]))))
 			*ret = lxr_lst_add(lxr, NULL, TOKEN, &p);
 		else if (!ret && s[p.i - 1] == '$' && p.quote != S_QUOTE)
@@ -98,8 +99,8 @@ void	lexer(t_lxr_lst **lxr, char *s, int *ret)
 					|| lxr_lst_last(*lxr)->token == ASSIGNMENT_W)))
 			*ret = lxr_lst_append(lxr, s[p.i - 1], TOKEN);
 		else if (!ret)
-			*ret = lxr_lst_add(lxr, make_str(&s[p.i - 1], 1), WORD, p);
+			*ret = lxr_lst_add(lxr, make_str(&s[p.i - 1], 1), WORD, &p);
 	}
 	if (!ret)
-		*ret = lxr_lst_add(lxr, NULL, END_OF_INPUT, p);
+		*ret = lxr_lst_add(lxr, NULL, END_OF_INPUT, &p);
 }
