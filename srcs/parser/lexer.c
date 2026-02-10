@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/10 17:39:15 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/10 17:41:09 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	check_parenth_dpt(size_t *parenth_dpt, char c)
 		(*parenth_dpt)++;
 		return (1);
 	}
-	else if (c == ')' && *parenth_dpt > 0)
+	else if (c == ')')
 	{
 		(*parenth_dpt)--;
 		return (1);
