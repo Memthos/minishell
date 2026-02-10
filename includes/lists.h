@@ -15,13 +15,14 @@
 
 # include "definitions.h"
 # include "enums.h"
+# include <stdlib.h>
 
 typedef struct s_lxr_lst
 {
 	char				*data;
 	t_token				token;
 	size_t				p_dpt;
-	int					quote;
+	long				quote;
 	struct s_lxr_lst	*next;
 }						t_lxr_lst;
 
@@ -29,7 +30,7 @@ typedef struct s_ast_lst
 {
 	char				*data;
 	t_token				token;
-	size_t				p_dpt;
+	long				p_dpt;
 	struct s_ast_lst	*left;
 	struct s_ast_lst	*right;
 }						t_ast_lst;
@@ -37,7 +38,7 @@ typedef struct s_ast_lst
 typedef struct	s_lxr_p
 {
 	t_quote_t	quote;
-	size_t		p_dpt;
+	long		p_dpt;
 	size_t		i;
 }				t_lxr_p;
 
