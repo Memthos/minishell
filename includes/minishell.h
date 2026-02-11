@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/11 10:02:42 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/10 13:15:07 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 
 //Chained lists header
 # include "lists.h"
+# include "commands.h"
 
 //Signals headers
 # include <signal.h>
