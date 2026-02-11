@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lists.h                                             :+:      :+:    :+:   */
+/*   lists.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 11:08:39 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/28 22:27:56 by mperrine         ###   ########.fr       */
+/*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
+/*   Updated: 2026/02/11 12:58:00 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ typedef struct s_lxr_lst
 {
 	char				*data;
 	t_token				token;
-	size_t				p_dpt;
-	long				quote;
+	long				p_dpt;
 	struct s_lxr_lst	*next;
 }						t_lxr_lst;
 
@@ -39,6 +38,7 @@ typedef struct	s_lxr_p
 {
 	t_quote_t	quote;
 	long		p_dpt;
+	int			ret;
 	size_t		i;
 }				t_lxr_p;
 
@@ -47,10 +47,9 @@ typedef struct	s_lxr_p
  * @param data The data to store in the node. It has to be allocated !
  * @param token The corresponding token for data.
  * @param p_dpt The current parenthesis depth.
- * @param quote The current quote state.
  * @return The created node.
  */
-t_lxr_lst	*lxr_lst_new(char *data, t_token token, size_t p_dpt, int quote);
+t_lxr_lst	*lxr_lst_new(char *data, t_token token, long p_dpt);
 
 /**
  * @brief Adds a new node at the end of the list.
@@ -117,6 +116,6 @@ int			peek(t_lxr_lst **node, t_token token);
  * @brief Set the pointer of node to the next node and free the consumed one.
  * @param node A pointer to the current node of the lexer.
  */
-t_lxr_lst	*consume(t_lxr_lst **node);
+void		consume(t_lxr_lst **node);
 
 #endif

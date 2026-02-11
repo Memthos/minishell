@@ -6,17 +6,65 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/10 18:00:29 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/11 14:00:21 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	set_io_number(t_lxr_lst *lxr)
+{
+	size_t	i;
+
+	if (!lxr->data)
+		return ;
+	i = 0;
+	while (lxr->data[i] && lxr->data[i] >= '0' && lxr->data[i] <= '9')
+		i++;
+	if (i == ft_strlen(lxr->data)
+		&& (lxr->next->token > 4 || lxr->next->token < 9))
+		lxr->token = IO_NUMBER;
+}
+
+static void	set_assignment_w(t_lxr_lst *lxr)
+{
+	size_t	i;
+	int		type;
+
+	i = 0;
+	type = 0;
+	if (lxr->data[i] == '$')
+	{
+		i++;
+		type = 1;
+	}
+	if (!ft_isalpha(lxr->data[i]))
+		return ;
+	while (lxr->data[i] && (ft_isalnum(lxr->data[i]) || lxr->data[i] == '_'))
+		i++;
+	if ((!type && lxr->data[i] == '=') || (type && i == ft_strlen(lxr->data)))
+		lxr->token = ASSIGNMENT_W;
+}
+
+static void	set_final_tokens(t_lxr_lst *lxr)
+{
+	if (!lxr)
+		return ;
+	while (lxr)
+	{
+		set_io_number(lxr);
+		set_assignment_w(lxr);
+		lxr = lxr->next;
+	}
+}
 
 static int	parenthesis_check(t_lxr_lst *lxr)
 {
 	long	diff;
 
 	diff = lxr->p_dpt - lxr->next->p_dpt;
+	if (diff == 0)
+		return (1);
 	if (diff < 0 && (lxr->token == AND_IF || lxr->token == OR_IF
 		|| lxr->token == PIPE))
 		return (0);
@@ -28,14 +76,16 @@ static int	parenthesis_check(t_lxr_lst *lxr)
 
 static int	checker_lxr(t_lxr_lst *lxr)
 {
+	if (!lxr)
+		return (1);
 	while (lxr->token != END_OF_INPUT)
 	{
-		if (lxr->p_dpt != lxr->next->p_dpt && parenthesis_check(lxr))
+		if (lxr->p_dpt < 0 || parenthesis_check(lxr))
 			return (1);
-		//Add quote state to struct to be able to check invalid words
+		//quotes
 		lxr = lxr->next;
 	}
-	if (lxr->p_dpt > 0)
+	if (lxr->p_dpt != 0)
 		return (1);
 	return (0);
 }
@@ -44,16 +94,19 @@ void	parser(char *s)
 {
 	t_lxr_lst	*lxr;
 	t_ast_lst	*ast;
-	int			ret;
 
 	lxr = NULL;
-	ret = 0;
-	lexer(&lxr, s, &ret);
-	free(s);
-	if (!lxr || ret || checker_lxr(lxr))
+	if (lexer(&lxr, s))
+	{
+		lxr_lst_clear(&lxr);
+		exit(1);
+	}
+	set_final_tokens(lxr);
+	if (checker_lxr(lxr))
 	{
 		lxr_lst_clear(&lxr);
 		exit(1);
 	}
 	ast = complete_command_r(&lxr);
+	(void)ast;
 }

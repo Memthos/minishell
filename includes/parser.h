@@ -8,22 +8,9 @@
  * of the string by separating them.
  * @param lxr A pointer to the head of the list.
  * @param s The string written as input.
- * @param ret A pointer to an integer, it will be 1 if an error occurred.
+ * @return Return 1 if an error occurred, else 0.
  */
-void	lexer(t_lxr_lst **lxr, char *s, int *ret);
-
-/**
- * @brief Convert the last node of t_lxr_lst if it only contains numbers.
- * @param lxr The node to check.
- */
-void	set_io_number_t(t_lxr_lst *lxr);
-
-/**
- * @brief Check if the data inside the node
- * has the right format to be an ASSIGNMENT_W
- * @param lxr The node to check.
- */
-void	check_assignment_w(t_lxr_lst *lxr);
+int	lexer(t_lxr_lst **lxr, char *s);
 
 /**
  * @brief Return a new string of len size from input.

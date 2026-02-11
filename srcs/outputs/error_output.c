@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_output.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:23:31 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/09 13:03:09 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/11 10:07:31 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,4 @@ t_status	error_output(const char *error)
 		return (FAILURE);
 	}
 	return (SUCCESS);
-};
+}

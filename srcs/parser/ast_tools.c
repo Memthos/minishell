@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 10:17:40 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/09 15:50:52 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/11 09:37:05 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	consume(t_lxr_lst **node)
 	t_lxr_lst	*consumed;
 
 	consumed = (*node);
-	(*node) = (*node)->next;
+	*node = (*node)->next;
 	free(consumed->data);
 	free(consumed);
 }

@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-t_lxr_lst	*lxr_lst_new(char *data, t_token token, size_t p_dpt, int quote)
+t_lxr_lst	*lxr_lst_new(char *data, t_token token, long p_dpt)
 {
 	t_lxr_lst	*new;
 
@@ -22,7 +22,6 @@ t_lxr_lst	*lxr_lst_new(char *data, t_token token, size_t p_dpt, int quote)
 	new->data = data;
 	new->token = token;
 	new->p_dpt = p_dpt;
-	new->quote = quote;
 	new->next = NULL;
 	return (new);
 }

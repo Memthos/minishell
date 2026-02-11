@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:09:08 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/09 15:50:37 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/11 09:35:31 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_ast_lst	*io_redirect_r(t_lxr_lst **lxr)
 		i++;
 	}
 	if (i < 2)
-		lxr_lst_clear(io_red);
+		return (NULL);
+		//Clear lst
 	return (io_red);
 }

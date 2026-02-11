@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/10 18:00:25 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/11 16:53:09 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ static int	is_newline(char *s, size_t *index)
 
 static int	get_operator(char *s)
 {
-	if (s[0] == '=')
-		return (ASSIGNMENT_W);
-	else if (s[0] == '&' && s[1] == '&')
+	if (s[0] == '&' && s[1] == '&')
 		return (AND_IF);
 	else if (s[0] == '|' && s[1] == '|')
 		return (OR_IF);
@@ -41,11 +39,15 @@ static int	get_operator(char *s)
 		return (GREAT);
 	else if (s[0] == '|')
 		return (PIPE);
+	else if (s[0] == '(')
+		return (L_PAREN);
+	else if (s[0] == ')')
+		return (R_PAREN);
 	else
 		return (0);
 }
 
-static int	check_parenth_dpt(size_t *parenth_dpt, char c)
+static int	check_parenth_dpt(long *parenth_dpt, char c)
 {
 	if (c == '(')
 	{
@@ -65,9 +67,7 @@ static int	add_lxr_operator(t_lxr_lst **lxr, char *s, size_t *i, t_lxr_p *p)
 	int	ret;
 
 	ret = 0;
-	if (get_operator(s) == ASSIGNMENT_W)
-		ret = lxr_lst_append(lxr, s[0], ASSIGNMENT_W);
-	else if (get_operator(s) < 7)
+	if (get_operator(s) < 7)
 	{
 		ret = lxr_lst_add(lxr, make_str(s, 2), get_operator(s), p);
 		(*i)++;
@@ -77,30 +77,31 @@ static int	add_lxr_operator(t_lxr_lst **lxr, char *s, size_t *i, t_lxr_p *p)
 	return (ret);
 }
 
-void	lexer(t_lxr_lst **lxr, char *s, int *ret)
+int	lexer(t_lxr_lst **lxr, char *s)
 {
 	t_lxr_p	p;
 
-	p = (t_lxr_p){.quote = 0, .p_dpt = 0, .i = 0};
-	while (s[p.i++] && !*ret)
+	p = (t_lxr_p){.i = 0, .p_dpt = 0, .quote = 0, .ret = 0};
+	while (s[p.i++] && !p.ret)
 	{
-		if (!ret)
+		if (!p.ret)
+		{
 			check_quote(&p, s[p.i - 1]);
-		if (!ret && ((!p.quote && s[p.i - 1] == ' ')
-				|| (!p.quote && check_parenth_dpt(&p.p_dpt, s[p.i - 1]))))
-			*ret = lxr_lst_add(lxr, NULL, TOKEN, &p);
-		else if (!ret && s[p.i - 1] == '$' && p.quote != S_QUOTE)
-			*ret = lxr_lst_add(lxr, make_str(&s[p.i - 1], 1), ASSIGNMENT_W, &p);
-		else if (!ret && !p.quote && get_operator(&s[p.i - 1]))
-			*ret = add_lxr_operator(lxr, &s[p.i - 1], &p.i, &p);
-		else if (!ret && !p.quote && is_newline(&s[p.i - 1], &p.i))
-			*ret = lxr_lst_add(lxr, make_str(&s[p.i - 2], 2), NEW_LINE, &p);
-		else if (!ret && (lxr && *lxr && (lxr_lst_last(*lxr)->token == WORD
-					|| lxr_lst_last(*lxr)->token == ASSIGNMENT_W)))
-			*ret = lxr_lst_append(lxr, s[p.i - 1], TOKEN);
-		else if (!ret)
-			*ret = lxr_lst_add(lxr, make_str(&s[p.i - 1], 1), WORD, &p);
+			check_parenth_dpt(&p.p_dpt, s[p.i - 1]);
+		}
+		if (!p.ret && !p.quote && s[p.i - 1] == ' ')
+			p.ret = lxr_lst_add(lxr, NULL, TOKEN, &p);
+		else if (!p.ret && !p.quote && get_operator(&s[p.i - 1]))
+			p.ret = add_lxr_operator(lxr, &s[p.i - 1], &p.i, &p);
+		else if (!p.ret && !p.quote && is_newline(&s[p.i - 1], &p.i))
+			p.ret = lxr_lst_add(lxr, make_str(&s[p.i - 2], 2), NEW_LINE, &p);
+		else if (!p.ret && lxr && *lxr && lxr_lst_last(*lxr)->token == WORD)
+			p.ret = lxr_lst_append(lxr, s[p.i - 1], TOKEN);
+		else if (!p.ret)
+			p.ret = lxr_lst_add(lxr, make_str(&s[p.i - 1], 1), WORD, &p);
 	}
-	if (!ret)
-		*ret = lxr_lst_add(lxr, NULL, END_OF_INPUT, &p);
+	if (!p.ret)
+		p.ret = lxr_lst_add(lxr, NULL, END_OF_INPUT, &p);
+	free(s);
+	return (p.ret);
 }

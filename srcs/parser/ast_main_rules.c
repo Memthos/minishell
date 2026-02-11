@@ -6,25 +6,32 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 16:03:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/10 11:09:15 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/11 16:51:35 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static t_ast_lst	*command_r(t_lxr_lst **lxr)
+{
+	// simple ou subshell
+	(void)lxr;
+	return (NULL);
+}
 
 static t_ast_lst	*pipe_sequence_r(t_lxr_lst **lxr)
 {
 	t_ast_lst	*cmd;
 	t_ast_lst	*pipe;
 
-	cmd = simple_command_r(lxr);
+	cmd = command_r(lxr);
 	while (peek(lxr, PIPE))
 	{
 		pipe = ast_lst_new(lxr);
 		pipe->left = cmd;
 		while (peek(lxr, NEW_LINE))
 			consume(lxr);
-		pipe->right = simple_command_r(lxr);
+		pipe->right = command_r(lxr);
 		cmd = pipe;
 	}
 	return (cmd);
