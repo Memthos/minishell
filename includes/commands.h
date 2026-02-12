@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/12 08:02:19 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/12 11:04:57 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@
  * @return Nothing on success, the execve error code otherwise.
  */
 int			exec(char *command, int input_fd, int output_fd);
+
+/**
+ * @brief Writes a message on the stdout.
+ * @param msg Ths message to write.
+ * @param line_break If 1(true) adds a line break after the message.
+ * @return 0 on success, 1 on failure.
+ */
+t_status	echo(char *msg, t_uint8 line_break);
 
 /**
  * @brief Displays the current working directory.
