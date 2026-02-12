@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 14:48:54 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/12 08:09:12 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/12 08:15:45 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	exec(char *command, int input_fd, int output_fd)
 	{
 		if (-1 == dup2(output_fd, STDOUT_FILENO))
 		{
-			error_output("Failed to redirect stdout");
+			perror("Failed to redirect stdout");
 			close(output_fd);
 			return (DUP_FAILURE);
 		}
@@ -33,7 +33,7 @@ int	exec(char *command, int input_fd, int output_fd)
 	{
 		if (-1 == dup2(input_fd, STDIN_FILENO))
 		{
-			error_output("Failed to redirect stdin");
+			perror("Failed to redirect stdin");
 			close(input_fd);
 			return (DUP_FAILURE);
 		}
