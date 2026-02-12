@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:38:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/12 11:04:37 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/12 13:44:30 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_status	echo(char *msg, t_uint8 line_break)
 
 	if (NULL == msg)
 	{
-		if (line_break)
-			printf("\n");
+		if (line_break && -1 == write(1, "\n", 1))
+			perror("Failed to write on stdout");
 		return (SUCCESS);
 	}
 	code = SUCCESS;
