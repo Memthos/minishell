@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:09:08 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/11 09:35:31 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/13 15:36:03 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,42 @@ int	is_io_redirect(t_lxr_lst **lxr)
 	if (peek(lxr, IO_NUMBER))
 		return (1);
 	else if (peek(lxr, LESS))
-		return (1);
+		return (2);
 	else if (peek(lxr, GREAT))
-		return (1);
+		return (2);
 	else if (peek(lxr, DGREAT))
-		return (1);
+		return (2);
 	else if (peek(lxr, DLESS))
-		return (1);
+		return (2);
 	else
 		return (0);
 }
 
 t_ast_lst	*io_redirect_r(t_lxr_lst **lxr)
 {
-	t_ast_lst	*io_red;
-	int			i;
+	t_ast_lst	*cmd;
+	t_ast_lst	*tail;
+	int			ret;
 
-	io_red = NULL;
+	ret = 0;
 	if (peek(lxr, IO_NUMBER))
-		io_red = ast_lst_new(lxr);
-	i = 0;
-	while (*lxr && i < 2)
 	{
-		if (io_red)
-			io_red->left = ast_lst_new(lxr);
-		else
-			io_red = ast_lst_new(lxr);
-		i++;
+		cmd = ast_lst_new(lxr);
+		if (!cmd)
+			return (NULL);
 	}
-	if (i < 2)
+	tail = cmd;
+	if (is_io_redirect(lxr) == 2)
+		tail->left = ast_lst_new(lxr);
+	if (!tail->left)
+		ret = 1;
+	else
+		tail = tail->left;
+	if (!ret && peek(lxr, WORD))
+		tail->left = ast_lst_new(lxr);
+	if (ret == 1 || !tail->left)
+		ast_lst_clear(&cmd);
+	if (ret == 1 || !tail->left)
 		return (NULL);
-		//Clear lst
-	return (io_red);
+	return (cmd);
 }

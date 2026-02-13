@@ -29,10 +29,20 @@ char	*make_str(char *input, size_t len);
 int			check_quote(t_lxr_p *p, char c);
 
 /// @brief Make the base of the AST tree, calls all the other functions
-/// of the AST.
+/// of the ast.
 /// @param lxr A node pointing to the currently looked at token.
 /// @return The newly created ast tree.
 t_ast_lst	*complete_command_r(t_lxr_lst **lxr);
+
+/// @brief Make a part of the ast for the and_or rule.
+/// @param lxr A pointer to the current node of lxr.
+/// @return The newly created part of the ast tree.
+t_ast_lst	*and_or_r(t_lxr_lst **lxr);
+
+/// @brief Return the head pointer of a compound command.
+/// @param lxr THe pointer to the current node of lxr.
+/// @return The newly created ast tree.
+t_ast_lst	*compound_cmd_r(t_lxr_lst **lxr);
 
 /// @brief Make an ast node for a simple command and consume the lexer.
 /// @param lxr A node pointing to the currently looked at token.

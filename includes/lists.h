@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/11 12:58:00 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/13 09:44:36 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,10 @@ int			lxr_lst_append(t_lxr_lst **node, char c, t_token token);
  * @return The created node.
  */
 t_ast_lst	*ast_lst_new(t_lxr_lst **lxr);
+
+/// @brief Clear the ast.
+/// @param head A pointer to the first node of the ast.
+void		ast_lst_clear(t_ast_lst **head);
 
 /**
  * @brief Return true if the node is the same as the input token.
