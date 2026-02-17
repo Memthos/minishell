@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 16:03:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/17 16:22:40 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/17 18:50:19 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ static t_ast_lst	*command_r(t_lxr_lst **lxr, int *ret)
 	t_ast_lst	*cmd;
 	t_lxr_lst	*tmp;
 
-	tmp = lxr_lst_new(NULL, CMP_CMD, 0);
-	if (!tmp)
-	{
-		*ret = 0;
-		return (NULL);
-	}
 	if ((*lxr)->token == L_PAREN)
 	{
+		tmp = lxr_lst_new(NULL, CMP_CMD, 0);
+		if (!tmp)
+		{
+			*ret = 0;
+			return (NULL);
+		}
 		consume(lxr);
 		cmd = ast_lst_new(&tmp, ret);
 		if (!*ret)
@@ -48,6 +48,8 @@ static t_ast_lst	*pipe_sequence_r(t_lxr_lst **lxr, int *ret)
 	cmd = command_r(lxr, ret);
 	if (!*ret)
 		return (NULL);
+	if (!peek(lxr, PIPE))
+		return (cmd);
 	while (peek(lxr, PIPE))
 	{
 		pipe = ast_lst_new(lxr, ret);
@@ -73,7 +75,9 @@ t_ast_lst	*and_or_r(t_lxr_lst **lxr, int *ret)
 	cmd = pipe_sequence_r(lxr, ret);
 	if (!*ret)
 		return (NULL);
-	while (*ret && (peek(lxr, AND_IF) || peek(lxr, OR_IF)))
+	if (!peek(lxr, AND_IF) && !peek(lxr, OR_IF))
+		return (cmd);
+	while (peek(lxr, AND_IF) || peek(lxr, OR_IF))
 	{
 		and_or = ast_lst_new(lxr, ret);
 		if (!*ret)
@@ -98,10 +102,7 @@ t_ast_lst	*complete_command_r(t_lxr_lst **lxr)
 	ret = 1;
 	cmd = and_or_r(lxr, &ret);
 	if (!ret)
-	{
-		ast_lst_clear(&cmd);
 		return (NULL);
-	}
 	while (peek(lxr, NEW_LINE))
 		consume(lxr);
 	return (cmd);

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/17 16:18:10 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/17 18:59:06 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,7 @@ static int	checker_lxr(t_lxr_lst *lxr)
 	while (lxr->token != END_OF_INPUT)
 	{
 		if (lxr->p_dpt < 0 || parenthesis_check(lxr))
-		{
-			printf("TEST::%d:%d::\n", lxr->token, lxr->next->token);
 			return (1);
-		}
 		//quotes
 		lxr = lxr->next;
 	}
