@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 11:10:37 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/17 13:56:07 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/17 14:55:22 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,43 @@ typedef struct s_dictionary
 	void				*data;
 	struct s_dictionary	*next;
 }						t_dictionary;
+/**
+ * @brief Creates a new dictionary.
+ * @param key The unique key to access the new data.
+ * @param data The new data to store.
+ * @return The allocated dict on success. NULL on failure.
+ */
+t_dictionary	*dict_new(char *key, void *data);
+
+/**
+ * @brief Adds a new entry to the dictionary passed in.
+ * @param dict The dictionary where to add the new entry.
+ * @param key The unique key to access the new data.
+ * @param data The new data to store.
+ * @return The same dictionary with the new entry on success. NULL on failure.
+ */
+t_dictionary	*dict_add(t_dictionary **dict, char *key, void *data);
+
+/**
+ * @brief Returns a entry based on the key passed in.
+ * @param dict The dictionary to search in.
+ * @param key The unique key to retrieve the entry.
+ * @return The dictionary entry on success, NULL on failure.
+ */
+t_dictionary	*dict_get(t_dictionary *dict, char *key);
+
+/**
+ * @brief Removes an entry based on the given key.
+ * @param dict The dictionary where to remove the entry.
+ * @param key The unique key to remove the wanted entry.
+ * @return The same dictionary without the removed entry.
+ */
+t_dictionary	*dict_remove(t_dictionary **dict, char *key);
+
+/**
+ * @brief Clear the dictionary passed in.
+ * @param dict The dictionary to clear.
+ */
+void			dict_clear(t_dictionary **dict);
 
 #endif
