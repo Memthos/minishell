@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dictionary.c                                       :+:      :+:    :+:   */
+/*   dict_get.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/17 11:10:37 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/17 11:22:12 by juperrin         ###   ########.fr       */
+/*   Created: 2026/02/17 14:06:10 by juperrin          #+#    #+#             */
+/*   Updated: 2026/02/17 14:12:19 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DICTIONARY_H
-# define DICTIONARY_H
+#include "../../includes/minishell.h"
 
-# include "definitions.h"
-
-typedef struct s_dictionary
+t_dictionary	*dict_get(t_dictionary *dict, char *key)
 {
-	char				*key;
-	void				*data;
-	struct s_dictionary	*next;
-}						t_dictionary;
-
-#endif
+	if (NULL == dict || NULL == key)
+		return (NULL);
+	while (dict && dict->key != key)
+		dict = dict->next;
+	return (dict);
+}
