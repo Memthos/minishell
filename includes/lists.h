@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/13 09:44:36 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/17 14:49:41 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_ast_lst
 	struct s_ast_lst	*right;
 }						t_ast_lst;
 
-typedef struct	s_lxr_p
+typedef struct s_lxr_p
 {
 	t_quote_t	quote;
 	long		p_dpt;
@@ -97,12 +97,11 @@ int			lxr_lst_append(t_lxr_lst **node, char c, t_token token);
 
 /**
  * @brief Allocates memory for a new node.
- * @param data The data to store in the node. It has to be allocated !
- * @param token The corresponding token for data.
- * @param p_dpt The current parenthesis depth.
+ * @param lxr The lexer node to use.
+ * @param ret A pointer to an integer to know if there an error.
  * @return The created node.
  */
-t_ast_lst	*ast_lst_new(t_lxr_lst **lxr);
+t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, int *ret);
 
 /// @brief Clear the ast.
 /// @param head A pointer to the first node of the ast.

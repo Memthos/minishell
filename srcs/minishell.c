@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/11 13:09:11 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:19:38 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 int	main(void)
 {
-	t_lxr_lst *lst = NULL;
+	t_ast_lst	*ast;
+
 	char *line = readline("> ");
-	lexer(&lst, line);
-	while (lst)
-	{
-		printf("::%s::TOKEN=%d::P_DPT=%ld::\n", lst->data, lst->token, lst->p_dpt);
-		lst = lst->next;
-	}
+	ast = parser(line);
+	ast_lst_clear(&ast);
 }
 
 //("ARG=test" && HELLO=world) || echo $ARG | echo "$HELLO"

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:38:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/12 13:44:30 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/17 14:38:05 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	echo(char *msg, t_uint8 line_break)
+t_status	ft_echo(char *msg, t_uint8 line_break)
 {
 	t_status	code;
 

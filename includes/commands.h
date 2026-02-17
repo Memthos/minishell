@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/12 11:04:57 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/17 14:37:35 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			exec(char *command, int input_fd, int output_fd);
  * @param line_break If 1(true) adds a line break after the message.
  * @return 0 on success, 1 on failure.
  */
-t_status	echo(char *msg, t_uint8 line_break);
+t_status	ft_echo(char *msg, t_uint8 line_break);
 
 /**
  * @brief Displays the current working directory.
