@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/18 11:32:58 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:40:51 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	env(t_dictionary *env);
 t_status	export(char *envp[], char *name, char *value, bool concatenate);
 
 /**
- * @brief Removes the name environment variable.
- * @param envp The environment variables pointers array.
+ * @brief Removes the 'name' environment variable.
+ * @param env The environment dictionary.
  * @param name The environment variable to remove.
  * @return 0 on success, 1 on failure.
  */
-t_status	unset(char *envp[], char *name);
+t_status	unset(t_dictionary **env, char *name);
 
 #endif
