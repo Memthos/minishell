@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/18 08:31:47 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:02:24 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ t_status	cd(const char *path);
 /**
  * @brief Prints all the environments variables.
  */
-t_status	penv(void);
+void	env(char *envp[]);
 
 #endif
