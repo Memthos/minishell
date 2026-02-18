@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/07 19:48:09 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:00:41 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,11 @@
  * @return A status to tell if the number has been successfully parsed or not.
  */
 t_status	get_number(const char *s, int *number);
+
+/**
+ * @brief Splits a string into two separates allocated strings.
+ * @return Always returns an array that contains two strings.
+ */
+char	**split_at(const char *str, const char c);
 
 #endif
