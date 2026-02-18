@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/18 09:59:28 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:01:25 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@ t_status	pwd(void);
 
 /**
  * @brief Change the current directory
+ * @param path The path where to change the current directory.
+ * @return 0 on success, 1 on failure.
  */
 t_status	cd(const char *path);
 
 /**
  * @brief Prints all the environments variables.
+ * @param envp The environment variables pointers array.
  */
 void	env(char *envp[]);
 
