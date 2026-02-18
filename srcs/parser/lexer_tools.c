@@ -6,13 +6,11 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 14:47:29 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/11 13:46:30 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/17 14:45:04 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-
 
 char	*make_str(char *input, size_t len)
 {

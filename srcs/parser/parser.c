@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/13 13:38:58 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/17 18:59:06 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	set_assignment_w(t_lxr_lst *lxr)
 	size_t	i;
 	int		type;
 
+	if (!lxr->data)
+		return ;
 	i = 0;
 	type = 0;
 	if (lxr->data[i] == '$')
@@ -60,16 +62,14 @@ static void	set_final_tokens(t_lxr_lst *lxr)
 
 static int	parenthesis_check(t_lxr_lst *lxr)
 {
-	long	diff;
-
-	diff = lxr->p_dpt - lxr->next->p_dpt;
-	if (diff == 0)
-		return (1);
-	if (diff < 0 && (lxr->token == AND_IF || lxr->token == OR_IF
-		|| lxr->token == PIPE))
+	if (lxr->next->token != L_PAREN && lxr->token != R_PAREN)
 		return (0);
-	else if (diff > 0 && (lxr->next->token == AND_IF
-		|| lxr->next->token == OR_IF || lxr->next->token == PIPE))
+	else if ((lxr->token == AND_IF || lxr->token == OR_IF || lxr->token == PIPE)
+			&& lxr->next->token == L_PAREN)
+		return (0);
+	else if (lxr->token == R_PAREN && (lxr->next->token == AND_IF
+			|| lxr->next->token == OR_IF || lxr->next->token == PIPE
+			|| lxr->next->token == END_OF_INPUT))
 		return (0);
 	return (1);
 }
@@ -90,7 +90,7 @@ static int	checker_lxr(t_lxr_lst *lxr)
 	return (0);
 }
 
-void	parser(char *s)
+t_ast_lst	*parser(char *s)
 {
 	t_lxr_lst	*lxr;
 	t_ast_lst	*ast;
@@ -108,4 +108,8 @@ void	parser(char *s)
 		exit(1);
 	}
 	ast = complete_command_r(&lxr);
+	lxr_lst_clear(&lxr);
+	if (!ast)
+		exit(1);
+	return (ast);
 }
