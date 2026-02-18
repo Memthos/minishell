@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 11:10:37 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/17 15:09:53 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:45:27 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,7 @@ t_dictionary	*dict_remove(t_dictionary **dict, char *key);
  * @param dict The dictionary to clear.
  */
 void			dict_clear(t_dictionary **dict);
+
+void	dict_display(t_dictionary *dict);
 
 #endif
