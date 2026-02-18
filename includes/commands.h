@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/12 11:04:57 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/18 08:27:57 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,10 @@ t_status	pwd(void);
  * @brief Change the current directory
  */
 t_status	cd(const char *path);
+
+/**
+ * @brief Prints all the environments variables.
+ */
+t_status	penv(void);
 
 #endif
