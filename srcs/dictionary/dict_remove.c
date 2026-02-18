@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:16:14 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/17 14:34:40 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:09:12 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,15 @@ t_dictionary	*dict_remove(t_dictionary **dict, char *key)
 	if (NULL == dict_get(*dict, key))
 		return (NULL);
 	current = *dict;
-	while (current->next->key != key)
+	if (!ft_strcmp(current->key, key))
+	{
+		*dict = current->next;
+		free(current->key);
+		free(current->data);
+		free(current);
+		return (*dict);
+	}
+	while (ft_strcmp(current->next->key, key))
 		current = current->next;
 	rm = current->next;
 	current->next = current->next->next;
