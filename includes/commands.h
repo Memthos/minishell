@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/18 10:01:25 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:10:06 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,12 @@ t_status	cd(const char *path);
  * @brief Prints all the environments variables.
  * @param envp The environment variables pointers array.
  */
-void	env(char *envp[]);
+void		env(char *envp[]);
+
+/**
+ * @brief Adds or update an environment variable
+ */
+t_status	export(char *envp[], char *name, char *value, bool concatenate);
 
 /**
  * @brief Removes the name environment variable.
