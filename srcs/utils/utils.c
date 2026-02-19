@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/19 14:48:39 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:09:49 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,20 @@ t_uint	count_words(const char *str, const char *set)
 		++index;
 	}
 	return (count);
+}
+
+void	free_strings(char **strs)
+{
+	t_uint	index;
+
+	if (NULL == strs)
+		return ;
+	index = 0;
+	while (*(strs + index))
+	{
+		free(*(strs + index));
+		++index;
+	}
+	free(strs);
+	return ;
 }

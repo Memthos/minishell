@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/19 14:50:01 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:09:54 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ char	**split_at(const char *str, const char c);
  * @return The number of words in str.
  */
 t_uint	count_words(const char *str, const char *set);
+
+void	free_strings(char **strs);
 
 #endif
