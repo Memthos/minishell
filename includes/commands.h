@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/18 11:40:51 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/19 08:59:03 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define COMMANDS_H
 
 # include "definitions.h"
+#include "dictionary.h"
 
 /**
  * @brief Execute the command line passed in.
@@ -51,9 +52,15 @@ t_status	cd(const char *path);
 void	env(t_dictionary *env);
 
 /**
- * @brief Adds or update an environment variable
+ * @brief Adds an environment variable to the current environment.
+ * @param env The current environment.
+ * @param name The entry unique name/key.
+ * @param value The entry content.
+ * @param concatenate Concatenate 'value' with the current name value if existing.
+ * @return 0 on success, 1 on failure.
  */
-t_status	export(char *envp[], char *name, char *value, bool concatenate);
+t_status	export(t_dictionary **env, char *name, char *value, bool concatenate);
+
 
 /**
  * @brief Removes the 'name' environment variable.
