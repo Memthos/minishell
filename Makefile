@@ -1,30 +1,31 @@
-VPATH=srcs:srcs/lists:srcs/commands:srcs/dictionary:srcs/parser:srcs/utils
-OBJDIR=objs/
-INCLUDES_DIR=includes/
-
-SRCS=minishell.c \
-		init.c \
-		sighandle.c \
-		utils.c \
-		parser.c \
-		dict_add.c dict_clear.c dict_get.c dict_new.c dict_remove.c dict_update.c dict_display.c \
-		ast_lst_new.c ast_lst_clear.c ast_main_rules.c ast_cmp_rules.c \
-		ast_cmd_rules.c ast_red_rules.c ast_tools.c \
-		lexer.c lexer_tools.c lxr_lst_add.c lxr_lst_append.c \
-		lxr_lst_last.c lxr_lst_new.c lxr_lst_remove.c lxr_lst_size.c
-
-
-OBJECTS=$(addprefix $(OBJDIR), $(SRCS:.c=.o))
-
-LIBFT_DIR=libs/libft_tools/
-LIBFT=$(addprefix $(LIBFT_DIR), libft_tools.a)
-
-LIBS=$(LIBFT) -lreadline
-
 CC=gcc
 CFLAGS=-Werror -Wall -Wextra -g
 
-NAME=minishell
+INCLUDES_DIR = includes/
+
+VPATH = srcs:srcs/lists:srcs/commands:srcs/dictionary:srcs/parser:srcs/utils:srcs/outputs
+SRCS =	minishell.c \
+		init.c \
+		environment.c \
+		sighandle.c \
+		parser.c \
+		ast_lst_new.c ast_lst_clear.c ast_main_rules.c ast_cmp_rules.c \
+		ast_cmd_rules.c ast_red_rules.c ast_tools.c \
+		lexer.c lexer_tools.c lxr_lst_add.c lxr_lst_append.c \
+		lxr_lst_last.c lxr_lst_new.c lxr_lst_remove.c lxr_lst_size.c \
+		cd.c env.c exec.c exit.c export.c ft_echo.c pwd.c unset.c \
+		dict_add.c dict_clear.c dict_get.c dict_new.c dict_remove.c dict_update.c dict_display.c \
+		error_output.c \
+		utils.c
+
+OBJDIR = objs/
+OBJECTS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
+
+LIBFT_DIR = libs/libft_tools/
+LIBFT = $(addprefix $(LIBFT_DIR), libft_tools.a)
+LIBS = $(LIBFT) -lreadline
+
+NAME = minishell
 
 all: $(NAME)
 
