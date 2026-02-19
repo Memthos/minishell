@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/18 10:59:02 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:48:39 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,27 @@ char	**split_at(const char *str, const char c)
 	ft_strlcpy(*split, str, index + 1);
 	ft_strlcpy(*(split + 1), str + index + 1, ft_strlen(str) - index);
 	return (split);
+}
+
+t_uint	count_words(const char *str, const char *set)
+{
+	t_uint	count;
+	t_uint	index;
+	t_uint8	add;
+
+	count = 0;
+	add = 1;
+	index = 0;
+	while (*(str + index))
+	{
+		if (strchr(set, *(str + index)))
+			add = 1;
+		else if (add)
+		{
+			++count;
+			add = 0;
+		}
+		++index;
+	}
+	return (count);
 }
