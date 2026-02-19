@@ -7,7 +7,7 @@ SRCS=minishell.c \
 		sighandle.c \
 		utils.c \
 		parser.c \
-		dict_add.c dict_clear.c dict_get.c dict_new.c dict_remove.c dict_update.c \
+		dict_add.c dict_clear.c dict_get.c dict_new.c dict_remove.c dict_update.c dict_display.c \
 		ast_lst_new.c ast_lst_clear.c ast_main_rules.c ast_cmp_rules.c \
 		ast_cmd_rules.c ast_red_rules.c ast_tools.c \
 		lexer.c lexer_tools.c lxr_lst_add.c lxr_lst_append.c \
