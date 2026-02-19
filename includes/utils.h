@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/18 11:00:41 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/19 14:50:01 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,13 @@ t_status	get_number(const char *s, int *number);
  * @return Always returns an array that contains two strings.
  */
 char	**split_at(const char *str, const char c);
+
+/**
+ * @brief Returns the number of words in str.
+ * @param str The string where to count words.
+ * @param set The character set that contains delimiters.
+ * @return The number of words in str.
+ */
+t_uint	count_words(const char *str, const char *set);
 
 #endif
