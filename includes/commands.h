@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 12:51:32 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/20 17:14:42 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_status	cmd_env(char **args, t_dictionary **env);
  * @param concatenate Concatenate 'value' with the current name value if existing.
  * @return 0 on success, 1 on failure.
  */
-t_status	export(t_dictionary **env, char *name, char *value, bool concatenate);
+t_status	cmd_export(char **args, t_dictionary **env);
 
 
 /**
