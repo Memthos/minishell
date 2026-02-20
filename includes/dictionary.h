@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 11:10:37 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 08:14:37 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:06:07 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,10 @@ t_uint	dict_size(t_dictionary *dict);
 char	**dict_to_array(t_dictionary *dict, char sep);
 
 /**
- * @brief For debug purposes, prints all the key with their assigned values
+ * @brief Displays the all the key and corresponding data of 'dict'.
+ * @param dict The dictionary to display.
+ * @param sep The separation between the key and the data.
  */
-void	dict_display(t_dictionary *dict);
+void	dict_display(t_dictionary *dict, char *sep);
 
 #endif
