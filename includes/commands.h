@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 10:54:07 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/20 12:51:32 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_status	cmd_cd(char **args, t_dictionary **env);
  * @brief Prints all the environments variables.
  * @param env The environment dictionary.
  */
-void	env(t_dictionary *env);
+t_status	cmd_env(char **args, t_dictionary **env);
 
 /**
  * @brief Adds an environment variable to the current environment.
