@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/17 18:59:06 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:35:14 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,15 @@ static void	set_io_number(t_lxr_lst *lxr)
 static void	set_assignment_w(t_lxr_lst *lxr)
 {
 	size_t	i;
-	int		type;
 
 	if (!lxr->data)
 		return ;
 	i = 0;
-	type = 0;
-	if (lxr->data[i] == '$')
-	{
-		i++;
-		type = 1;
-	}
-	if (!ft_isalpha(lxr->data[i]))
+	if (!ft_isalpha(lxr->data[i]) && lxr->data[i] != '_')
 		return ;
 	while (lxr->data[i] && (ft_isalnum(lxr->data[i]) || lxr->data[i] == '_'))
 		i++;
-	if ((!type && lxr->data[i] == '=') || (type && i == ft_strlen(lxr->data)))
+	if (lxr->data[i] == '=')
 		lxr->token = ASSIGNMENT_W;
 }
 
@@ -65,7 +58,7 @@ static int	parenthesis_check(t_lxr_lst *lxr)
 	if (lxr->next->token != L_PAREN && lxr->token != R_PAREN)
 		return (0);
 	else if ((lxr->token == AND_IF || lxr->token == OR_IF || lxr->token == PIPE)
-			&& lxr->next->token == L_PAREN)
+		&& lxr->next->token == L_PAREN)
 		return (0);
 	else if (lxr->token == R_PAREN && (lxr->next->token == AND_IF
 			|| lxr->next->token == OR_IF || lxr->next->token == PIPE

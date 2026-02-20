@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 17:10:27 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/17 18:38:49 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:13:27 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_ast_lst	*compound_cmd_r(t_lxr_lst **lxr, int *ret)
 	}
 	if (!*ret)
 		ast_lst_clear(&term);
+	consume(lxr);
 	return (term);
 }
 
@@ -44,6 +45,7 @@ t_ast_lst	*redirect_loop(t_lxr_lst **lxr, int *ret)
 	t_ast_lst	*red;
 	t_ast_lst	*tail;
 
+	red = NULL;
 	while (is_io_redirect(lxr))
 	{
 		red = io_redirect_r(lxr, ret);

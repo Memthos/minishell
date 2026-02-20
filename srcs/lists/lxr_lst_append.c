@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:08:08 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/11 10:08:09 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:29:00 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int	lxr_lst_append(t_lxr_lst **head, char c, t_token token)
 	else
 	{
 		new_str = ft_strjoin(tmp->data, clean_char);
+		free(clean_char);
+		if (!new_str)
+			return (1);
 		free(tmp->data);
 		tmp->data = new_str;
 	}

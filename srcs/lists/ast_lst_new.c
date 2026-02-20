@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:08:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/17 14:18:52 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/20 12:57:27 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, int *ret)
 	t_ast_lst	*new;
 	char		*str;
 
-	new = (t_ast_lst *)malloc(sizeof(t_ast_lst));
+	new = malloc(sizeof(t_ast_lst));
 	if (NULL == new)
 	{
 		*ret = 0;
