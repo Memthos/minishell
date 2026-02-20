@@ -5,21 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/18 08:25:20 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/18 11:31:18 by juperrin         ###   ########.fr       */
+/*   Created: 2026/02/20 12:51:11 by juperrin          #+#    #+#             */
+/*   Updated: 2026/02/20 15:10:34 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	env(t_dictionary *env)
+t_status	cmd_env(char **args, t_dictionary **env_dict)
 {
-	if (NULL == env)
-		return ;
-	while (env)
-	{
-		printf("%s=%s\n", env->key, (char *)env->data);
-		env = env->next;
-	}
-	return ;
+	if (NULL == env_dict || NULL == *env_dict)
+		return (FAILURE);
+	if (NULL != args && NULL != *args)
+		return (SUCCESS);
+	dict_display(*env_dict, "=");
+	return (SUCCESS);
 }
