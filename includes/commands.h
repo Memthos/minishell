@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/19 08:59:03 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/20 09:41:56 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@
 int			exec(char *command, int input_fd, int output_fd);
 
 /**
- * @brief Writes a message on the stdout.
- * @param msg Ths message to write.
- * @param line_break If 1(true) adds a line break after the message.
- * @return 0 on success, 1 on failure.
+ * @brief Writes a message on the standard output.
+ * @param args The command arguments.
+ * @param env The shell environment.
+ * @return Always returns 0.
  */
-t_status	ft_echo(char *msg, t_uint8 line_break);
+t_status	cmd_echo(char **args, t_dictionary **env);
 
 /**
  * @brief Displays the current working directory.
