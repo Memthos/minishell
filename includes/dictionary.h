@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 11:10:37 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 13:06:07 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/20 15:07:16 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ t_uint	dict_size(t_dictionary *dict);
  * @return An allocated string array that contains all the keys and their values.
  */
 char	**dict_to_array(t_dictionary *dict, char sep);
+
+/**
+ * @brief Sorts in ascii order the dictionary passed in.
+ */
+t_dictionary	*dict_sort(t_dictionary **dict);
 
 /**
  * @brief Displays the all the key and corresponding data of 'dict'.
