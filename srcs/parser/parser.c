@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/20 22:56:46 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/20 23:22:06 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,20 @@
 
 static int	parenthesis_check(t_lxr_lst *lxr)
 {
-	if (lxr->next->token != L_PAREN && lxr->token != R_PAREN)
+	if ((!lxr->next || lxr->next->token != L_PAREN) && lxr->token != R_PAREN)
 		return (0);
-	else if ((lxr->token == AND_IF || lxr->token == OR_IF || lxr->token == PIPE)
-		&& lxr->next->token == L_PAREN)
+
+	if (lxr->next && lxr->next->token == L_PAREN
+		&& (lxr->token == AND_IF || lxr->token == OR_IF || lxr->token == PIPE))
 		return (0);
-	else if (lxr->token == R_PAREN && (lxr->next->token == AND_IF
-			|| lxr->next->token == OR_IF || lxr->next->token == PIPE
-			|| lxr->next->token == END_OF_INPUT))
-		return (0);
+	if (lxr->token == R_PAREN)
+	{
+		if (!lxr->next)
+			return (0);
+		if (lxr->next->token == AND_IF || lxr->next->token == OR_IF
+			|| lxr->next->token == PIPE || lxr->next->token == END_OF_INPUT)
+			return (0);
+	}
 	return (1);
 }
 
