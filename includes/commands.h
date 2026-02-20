@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 09:42:25 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/20 10:54:07 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,12 @@ t_status	cmd_echo(char **args, t_dictionary **env);
 t_status	cmd_pwd(char **args, t_dictionary **env);
 
 /**
- * @brief Change the current directory
- * @param path The path where to change the current directory.
+ * @brief Change the current working directory
+ * @param args The command arguments.
+ * @param env The shell environment.
  * @return 0 on success, 1 on failure.
  */
-t_status	cd(const char *path);
+t_status	cmd_cd(char **args, t_dictionary **env);
 
 /**
  * @brief Prints all the environments variables.
