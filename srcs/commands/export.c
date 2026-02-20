@@ -9,7 +9,7 @@ t_status	export(t_dictionary **env_dict, char *name, char *value, bool concatena
 		return (FAILURE);
 	if (NULL == name && NULL == value)
 	{
-		env(env_dict);
+		env(*env_dict);
 		return (SUCCESS);
 	}
 	entry = dict_get(*env_dict, name);
