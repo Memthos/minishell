@@ -6,31 +6,45 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:11:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/19 15:25:06 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/20 10:48:27 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	cd(const char *path)
+t_status	cmd_cd(char **args, t_dictionary **env)
 {
-	if (NULL == path)
-		return (FAILURE);
-	if (count_words(path, "\t ") > 1)
+	t_dictionary	*dir;
+	char			*path;
+
+	if (NULL != args && NULL != *args && NULL != *(args + 1))
 	{
-		error_output("cd : Too much arguments");
+		error_output("cd : too many arguments");
 		return (FAILURE);
 	}
-	if (!ft_strcmp((char *)path, "-"))
+	path = NULL;
+	if (NULL == args || NULL == *args)
 	{
-		path = getenv("OLDPWD");
-		if (NULL == path)
+		dir = dict_get(*env, "HOME");
+		if (NULL == dir)
 		{
-			error_output("cd: OLDPWD not set");
+			error_output("cd : HOME not set");
 			return (FAILURE);
 		}
-		printf("%s\n", path);
+		path = dir->data;
 	}
+	else if (!ft_strcmp(*args, "-"))
+	{
+		dir = dict_get(*env, "OLDPWD");
+		if (NULL == dir)
+		{
+			error_output("cd : OLDPWD not set");
+			return (FAILURE);
+		}
+		path = dir->data;
+	}
+	else
+		path = *args;
 	if (SUCCESS != chdir(path))
 	{
 		perror("cd");
