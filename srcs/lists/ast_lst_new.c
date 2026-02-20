@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:08:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/20 12:57:27 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/20 20:53:38 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, int *ret)
 		str = NULL;
 	else
 	{
-		str = ft_strcpy((*lxr)->data);
+		str = ft_strdup((*lxr)->data);
 		if (!str)
 		{
 			free(new);

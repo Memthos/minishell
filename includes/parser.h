@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/20 13:43:56 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/20 21:28:24 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ t_ast_lst	*parser(char *s);
 char		*make_str(char *input, size_t len);
 
 /**
- * @brief Return true if the quote state changed.
- * @param state A pointer to the quote state.
- * @param p A pointer to the lexer params.
- * @return 1 if the quote state changed else 0.
+ * @brief Update the quote state depending of the given character.
+ * @param quote A pointer to the quote state.
+ * @param c The currently looked at character.
+ * @return Returns 1 one the state changed, else 0.
  */
-int			check_quote(t_lxr_p *p, char c);
+int			set_quote_state(t_quote_t *quote, char c);
 
 /// @brief Set the finals token so the lexer nodes are correct.
 /// @param lxr A pointer to the head of the lexer.

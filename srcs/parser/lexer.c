@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/17 15:59:10 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/20 21:30:39 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	lexer(t_lxr_lst **lxr, char *s)
 	{
 		if (!p.ret)
 		{
-			check_quote(&p, s[p.i - 1]);
+			set_quote_state(&p.quote, s[p.i - 1]);
 			check_parenth_dpt(&p.p_dpt, s[p.i - 1]);
 		}
 		if (!p.ret && !p.quote && s[p.i - 1] == ' ')
