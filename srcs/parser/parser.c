@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/20 22:05:32 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/20 22:56:46 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,21 @@ static int	parenthesis_check(t_lxr_lst *lxr)
 
 static int	quote_check(t_lxr_lst *lxr)
 {
+	size_t		i;
+	t_quote_t	quote_state;
+
+	if (!lxr->data)
+		return (0);
+	i = 0;
+	quote_state = 0;
+	while (lxr->data[i])
+	{
+		set_quote_state(&quote_state, lxr->data[i]);
+		i++;
+	}
+	if (quote_state != 0)
+		return (1);
+	return (0);
 }
 
 static int	checker_lxr(t_lxr_lst *lxr)
@@ -44,63 +59,6 @@ static int	checker_lxr(t_lxr_lst *lxr)
 	}
 	if (lxr->p_dpt != 0)
 		return (1);
-	return (0);
-}
-
-static int	remove_quotes(t_lxr_lst *lxr, size_t quotes_rmv)
-{
-	t_quote_t	quote_state;
-	size_t		i;
-	size_t		j;
-	char		*str;
-
-	str = malloc(sizeof(char) * (ft_strlen(lxr->data) - quotes_rmv + 1));
-	if (!str)
-		return (1);
-	i = 0;
-	j = 0;
-	quote_state = 0;
-	while (lxr->data[i])
-	{
-		if (!set_quote_state(&quote_state, lxr->data[i]))
-		{
-			str[j] = lxr->data[i];
-			j++;
-		}
-		i++;
-	}
-	str[j] = '\0';
-	free(lxr->data);
-	lxr->data = str;
-	return (0);
-}
-
-static int	update_quotes(t_lxr_lst *lxr)
-{
-	size_t		i;
-	t_quote_t	quote_state;
-	size_t		quotes_rmv;
-
-	while (lxr)
-	{
-		if (lxr->data)
-		{
-			i = 0;
-			quote_state = 0;
-			quotes_rmv = 0;
-			while (lxr->data[i++])
-			{
-				if (set_quote_state(&quote_state, lxr->data[i - 1]))
-					quotes_rmv++;
-			}
-			if (quotes_rmv % 2 == 0)
-			{
-				if (remove_quotes(lxr, quotes_rmv))
-					return (1);
-			}
-		}
-		lxr = lxr->next;
-	}
 	return (0);
 }
 

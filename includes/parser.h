@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/20 21:28:24 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/20 22:34:02 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ int			set_quote_state(t_quote_t *quote, char c);
 /// @brief Set the finals token so the lexer nodes are correct.
 /// @param lxr A pointer to the head of the lexer.
 void		set_final_tokens(t_lxr_lst *lxr);
+
+/// @brief Remove the unnecessary quotes for the date of each lexer node.
+/// @param lxr A pointer to the head of the lexer.
+/// @return 1 If an error happened, else 0.
+int			update_quotes(t_lxr_lst *lxr);
 
 /// @brief Make the base of the AST tree, calls all the other functions
 /// of the ast.
