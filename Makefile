@@ -14,7 +14,7 @@ SRCS =	minishell.c \
 		lexer.c lexer_tools.c lxr_lst_add.c lxr_lst_append.c \
 		lxr_lst_last.c lxr_lst_new.c lxr_lst_remove.c lxr_lst_size.c \
 		cd.c env.c exec.c exit.c export.c ft_echo.c pwd.c unset.c \
-		dict_add.c dict_clear.c dict_get.c dict_new.c dict_remove.c dict_update.c dict_display.c \
+		dict_add.c dict_clear.c dict_get.c dict_new.c dict_remove.c dict_update.c dict_size.c dict_to_array.c dict_display.c \
 		error_output.c \
 		utils.c
 
