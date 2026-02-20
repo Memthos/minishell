@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 14:49:38 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/20 17:27:29 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	**split_at(const char *str, const char c);
 t_uint	count_words(const char *str, const char *set);
 
 void	free_strings(char **strs);
+
+bool	check_var_name(char *name);
 
 void	swap_str(char **a, char **b);
 
