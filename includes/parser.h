@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/17 14:55:11 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:43:56 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ char		*make_str(char *input, size_t len);
  * @return 1 if the quote state changed else 0.
  */
 int			check_quote(t_lxr_p *p, char c);
+
+/// @brief Set the finals token so the lexer nodes are correct.
+/// @param lxr A pointer to the head of the lexer.
+void		set_final_tokens(t_lxr_lst *lxr);
 
 /// @brief Make the base of the AST tree, calls all the other functions
 /// of the ast.

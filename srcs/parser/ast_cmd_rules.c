@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/17 18:47:45 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/20 14:07:01 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_ast_lst	*cmd_suffix_r(t_lxr_lst **lxr, int *ret)
 			suffix = ast_lst_new(lxr, ret);
 		if (!*ret)
 			break ;
-		tail->left = suffix;
+		tail->right = suffix;
 		tail = suffix;
 	}
 	if (!*ret)
