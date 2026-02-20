@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:07:53 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/11 10:07:53 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/20 13:34:33 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ t_lxr_lst	*lxr_lst_remove(t_lxr_lst **head)
 {
 	t_lxr_lst	*cpy;
 
-	if (NULL == head || NULL == *head)
+	if (!head || !*head)
 		return (NULL);
-	if (NULL == (*head)->next)
+	if (!(*head)->next)
 	{
-		free((*head)->data);
+		if ((*head)->data)
+			free((*head)->data);
 		free(*head);
 		*head = NULL;
 		return (NULL);
@@ -28,7 +29,8 @@ t_lxr_lst	*lxr_lst_remove(t_lxr_lst **head)
 	cpy = *head;
 	while (cpy->next->next)
 		cpy = cpy->next;
-	free(cpy->next->data);
+	if (cpy->next->data)
+		free(cpy->next->data);
 	free(cpy->next);
 	cpy->next = NULL;
 	return (*head);

@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 17:27:29 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/20 18:45:21 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_status	get_number(const char *s, int *number);
  * @brief Splits a string into two separates allocated strings.
  * @return Always returns an array that contains two strings.
  */
-char	**split_at(const char *str, const char c);
+char		**split_at(const char *str, const char c);
 
 /**
  * @brief Returns the number of words in str.
@@ -35,9 +35,9 @@ char	**split_at(const char *str, const char c);
  * @param set The character set that contains delimiters.
  * @return The number of words in str.
  */
-t_uint	count_words(const char *str, const char *set);
+t_uint		count_words(const char *str, const char *set);
 
-void	free_strings(char **strs);
+void		free_strings(char **strs);
 
 bool	check_var_name(char *name);
 
