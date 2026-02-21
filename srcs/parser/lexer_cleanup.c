@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 22:31:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/20 22:56:47 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/21 14:43:34 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,24 @@ static int	remove_quotes(t_lxr_lst *lxr, size_t quotes_rmv)
 
 void	set_final_tokens(t_lxr_lst *lxr)
 {
+	size_t	i;
+
 	if (!lxr)
 		return ;
 	while (lxr)
 	{
 		set_io_number(lxr);
 		set_assignment_w(lxr);
+		if (lxr->data)
+		{
+			i = 0;
+			while (lxr->data[i])
+			{
+				if (lxr->data[i] == '*')
+					lxr->token == WILDCARD;
+				i++;
+			}
+		}
 		lxr = lxr->next;
 	}
 }

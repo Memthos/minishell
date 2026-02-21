@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enums.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:12:03 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/21 11:51:21 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/21 13:46:40 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef enum e_tokens
 	L_PAREN,
 	R_PAREN,
 	CMP_CMD,
+	WILDCARD,
 	END_OF_INPUT,
 }	t_token;
 
