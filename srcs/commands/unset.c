@@ -6,13 +6,13 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 09:10:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/21 11:27:57 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/21 11:31:06 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	unset(char **args, t_dictionary **env)
+t_status	cmd_unset(char **args, t_dictionary **env)
 {
 	if (NULL == env || NULL == *env)
 		return (FAILURE);
