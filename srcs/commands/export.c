@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:17:30 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 18:27:53 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/21 11:24:30 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 t_status	cmd_export(char **args, t_dictionary **env_dict)
 {
+	t_status		code;
 	t_dictionary	*cpy;
 	bool			concat;
 	char			**entry;
@@ -28,6 +29,7 @@ t_status	cmd_export(char **args, t_dictionary **env_dict)
 		dict_display(cpy, "=");
 		return (SUCCESS); // Not complete
 	}
+	code = SUCCESS;
 	while (*args)
 	{
 		concat = false;
@@ -57,6 +59,7 @@ t_status	cmd_export(char **args, t_dictionary **env_dict)
 			free(entry[0]);
 			free(entry[1]);
 			free(entry);
+			code = FAILURE;
 			continue ;
 		}
 		if (NULL == dict_add(env_dict, entry[0], entry[1]))
@@ -78,5 +81,5 @@ t_status	cmd_export(char **args, t_dictionary **env_dict)
 		free(entry);
 		++args;
 	}
-	return (SUCCESS);
+	return (code);
 }
