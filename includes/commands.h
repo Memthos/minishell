@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/21 11:31:33 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/21 12:01:10 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,13 @@ t_status	cmd_export(char **args, t_dictionary **env);
  * @return Always return 0.
  */
 t_status	cmd_unset(char **args, t_dictionary **env);
+
+/**
+ * @brief Exit the program.
+ * @param args The command arguments.
+ * @param env The environment dictionary.
+ * @return Return 0 or any code passed as an argument or 2 on bad argument.
+ */
+t_status	cmd_exit(char **args, t_dictionary **env);
 
 #endif
