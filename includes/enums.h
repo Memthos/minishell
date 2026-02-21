@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enums.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:12:03 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/17 12:39:04 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/21 11:51:21 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef enum e_return_status
 {
 	SUCCESS,
 	FAILURE,
+	BAD_ARG,
 	PIPE_FAILURE,
 	FORK_FAILURE,
 	DUP_FAILURE,
