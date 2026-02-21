@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 10:02:10 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/21 12:00:36 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/21 13:19:20 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_status	cmd_exit(char **args, t_dictionary **env)
 {
-	t_status	code;
+	int	code;
 
 	(void)env;
 	printf("exit\n");
