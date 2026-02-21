@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 17:14:42 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/21 12:01:10 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,27 +51,35 @@ t_status	cmd_cd(char **args, t_dictionary **env);
 
 /**
  * @brief Prints all the environments variables.
+ * @param args The command arguments.
  * @param env The environment dictionary.
+ * @return Always return 0, except if env is NULL.
  */
 t_status	cmd_env(char **args, t_dictionary **env);
 
 /**
  * @brief Adds an environment variable to the current environment.
- * @param env The current environment.
- * @param name The entry unique name/key.
- * @param value The entry content.
- * @param concatenate Concatenate 'value' with the current name value if existing.
+ * @param args The command arguments.
+ * @param env The environment dictionary.
  * @return 0 on success, 1 on failure.
  */
 t_status	cmd_export(char **args, t_dictionary **env);
 
 
 /**
- * @brief Removes the 'name' environment variable.
+ * @brief Removes an environment variable.
+ * @param args The command arguments.
  * @param env The environment dictionary.
- * @param name The environment variable to remove.
- * @return 0 on success, 1 on failure.
+ * @return Always return 0.
  */
-t_status	unset(t_dictionary **env, char *name);
+t_status	cmd_unset(char **args, t_dictionary **env);
+
+/**
+ * @brief Exit the program.
+ * @param args The command arguments.
+ * @param env The environment dictionary.
+ * @return Return 0 or any code passed as an argument or 2 on bad argument.
+ */
+t_status	cmd_exit(char **args, t_dictionary **env);
 
 #endif

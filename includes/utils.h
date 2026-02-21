@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 18:45:21 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/21 11:45:04 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ void		free_strings(char **strs);
 bool	check_var_name(char *name);
 
 void	swap_str(char **a, char **b);
+
+bool	str_is_digit(char *str);
 
 #endif
