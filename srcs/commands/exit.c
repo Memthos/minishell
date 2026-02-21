@@ -6,14 +6,34 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 10:02:10 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/18 10:20:59 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/21 12:00:36 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_exit(void) // Pass here all necessary data that needs to be freed
+t_status	cmd_exit(char **args, t_dictionary **env)
 {
-	//Free all necessary data
-	return ;
+	t_status	code;
+
+	(void)env;
+	printf("exit\n");
+	if (NULL == args || NULL == *args)
+		exit(SUCCESS);
+	if (!str_is_digit(*args))
+	{
+		error_output("exit : numeric argument required");
+		exit(BAD_ARG);
+	}
+	if (NULL != *(args + 1))
+	{
+		error_output("exit : too many arguments");
+		exit(FAILURE);
+	}
+	if (SUCCESS != get_number(*args, &code))
+	{
+		error_output("exit : numeric argument required");
+		exit(BAD_ARG);
+	}
+	exit(code % 256);
 }
