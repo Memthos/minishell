@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 17:26:12 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/21 11:44:56 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,17 @@ void	swap_str(char **a, char **b)
 	tmp = *a;
 	*a = *b;
 	*b = tmp;
+}
+
+bool	str_is_digit(char *str)
+{
+	if (NULL == str)
+		return (false);
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (false);
+		++str;
+	}
+	return (true);	
 }
