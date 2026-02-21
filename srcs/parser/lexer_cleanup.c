@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 22:31:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/21 14:43:34 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/21 18:50:44 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	set_final_tokens(t_lxr_lst *lxr)
 			while (lxr->data[i])
 			{
 				if (lxr->data[i] == '*')
-					lxr->token == WILDCARD;
+					lxr->token = WILDCARD;
 				i++;
 			}
 		}
