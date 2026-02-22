@@ -8,7 +8,7 @@ SRCS =	minishell.c \
 		init.c \
 		environment.c \
 		sighandle.c \
-		parser.c parser_tools.c \
+		parser.c parser_tools.c expand.c \
 		ast_lst_new.c ast_lst_clear.c ast_main_rules.c ast_cmp_rules.c \
 		ast_cmd_rules.c ast_red_rules.c ast_tools.c \
 		lexer.c lexer_cleanup.c lxr_lst_add.c lxr_lst_append.c lxr_lst_last.c \

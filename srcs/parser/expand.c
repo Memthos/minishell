@@ -6,30 +6,32 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/21 21:40:36 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/22 15:25:36 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	get_var_name(char *s, char **var)
+static int	get_var_name(char *s, size_t i, char **var)
 {
-	char	*tmp;
-	size_t	i;
+	size_t	size;
 
-	tmp = ft_strchr(s, '$');
-	if (!tmp)
+	size = 0;
+	if (s[i + size] && s[i + size] == '?')
+		size++;
+	else
+	{
+		if (!ft_isalpha(s[i]) && s[i] != '_')
+			return (0);
+		while (s[i + size] && (ft_isalnum(s[i + size]) || s[i + size] == '_'))
+			size++;
+	}
+	if (size == 0)
 		return (0);
-	tmp++;
-	i = 0;
-	while (tmp[i] && (ft_isalnum(tmp[i]) || tmp[i] == '_'))
-		i++;
-	if (i == 0)
-		return (0);
-	*var = malloc(sizeof(char) * (i + 1));
+	*var = malloc(sizeof(char) * (size + 1));
 	if (!*var)
 		return (1);
-	ft_strlcpy(*var, tmp, i + 1);
+	ft_strlcpy(*var, &s[i], size + 1);
 	return (0);
 }
 
@@ -47,54 +49,50 @@ static char	*get_var_value(char *var, char **env)
 			i++;
 		if (!env[i])
 			return (NULL);
-		value = env[i] + ft_strlen(var);
+		value = env[i] + ft_strlen(var) + 1;
 	}
 	return (value);
 }
 
-static int	update_data(char **data, char *var, char **env)
+static int	update_data(char **data, size_t *data_i, char **env)
 {
-	char	*value;
+	char	*var_name;
+	char	*var_val;
 	char	*str;
-	size_t	i;
 
-	value = get_var_value(var, env);
-	if (!value)
+	var_name = NULL;
+	if (get_var_name(*data, *data_i + 1, &var_name))
+		return (1);
+	if (!var_name)
+	{
+		(*data_i)++;
 		return (0);
-	str = malloc(ft_strlen(*data) - ft_strlen(var)+  ft_strlen(value) + 1);
+	}
+	var_val = get_var_value(var_name, env);
+	str = malloc(ft_strlen(*data) - ft_strlen(var_name) + ft_strlen(var_val));
 	if (!str)
 		return (1);
-	i = 0;
-	while ((*data)[i] && (*data)[i] != '$')
-		i++;
-	ft_strlcpy(str, *data, i + 1);
-	ft_strlcpy(str + i, value, ft_strlen(value) + 1);
-	ft_strlcpy(str + i + ft_strlen(value), *data + i + 1 + ft_strlen(var),
-		ft_strlen(*data + i + 1 + ft_strlen(var)) + 1);
-	free(*data);
-	*data = str;
+	str[0] = '\0';
+	ft_strlcat(str, *data, *data_i);
+	ft_strlcat(str, var_val, ft_strlen(var_val) + 1);
+	*data_i += ft_strlen(var_name) + 1;
+	ft_strlcat(str, *data + *data_i, ft_strlen(*data + *data_i) + 1);
 	return (0);
 }
 
 int	expand(t_ast_lst *node, char **env)
 {
-	char	*var;
+	size_t	i;
 
 	if (node->token != WORD || !node->data)
 		return (0);
-	while (ft_strchr(node->data, '$'))
+	i = 0;
+	while (node->data[i])
 	{
-		var = NULL;
-		if (get_var_name(node->data, &var))
+		if (node->data[i] == '$' && update_data(&node->data, &i, env))
 			return (1);
-		if (!var)
-			return (0);
-		if (update_data(&node->data, var, env))
-		{
-			free(var);
-			return (1);
-		}
-		free(var);
+		else
+			i++;
 	}
 	return (0);
 }
