@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 10:23:56 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:51:40 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,11 @@ int			peek(t_lxr_lst **node, t_token token);
  * @param node A pointer to the current node of the lexer.
  */
 void		consume(t_lxr_lst **node);
+
+/**
+ * @brief Counts the number of arguments for the contained command in ast.
+ * @return The number of arguments plus the command.
+ */
+t_uint	ast_cmd_size(t_ast_lst *ast);
 
 #endif
