@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 10:23:38 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 10:26:17 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,10 @@ typedef enum e_tokens
 	WILDCARD,
 	END_OF_INPUT,
 }	t_token;
+
+typedef struct s_shell
+{
+	t_dictionary	*env;
+}	t_shell;
 
 #endif
