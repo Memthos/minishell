@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/22 15:25:36 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/23 10:18:27 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	*get_var_value(char *var, char **env)
 	{
 		i = 0;
 		while (env[i] && (strncmp(env[i], var, ft_strlen(var))
-			|| env[i][ft_strlen(var)] != '='))
+				|| env[i][ft_strlen(var)] != '='))
 			i++;
 		if (!env[i])
 			return (NULL);
@@ -56,27 +56,30 @@ static char	*get_var_value(char *var, char **env)
 
 static int	update_data(char **data, size_t *data_i, char **env)
 {
+	size_t	var_name_s;
 	char	*var_name;
 	char	*var_val;
 	char	*str;
 
 	var_name = NULL;
-	if (get_var_name(*data, *data_i + 1, &var_name))
+	(*data_i)++;
+	if (get_var_name(*data, *data_i, &var_name))
 		return (1);
 	if (!var_name)
-	{
-		(*data_i)++;
 		return (0);
-	}
+	var_name_s = ft_strlen(var_name);
 	var_val = get_var_value(var_name, env);
-	str = malloc(ft_strlen(*data) - ft_strlen(var_name) + ft_strlen(var_val));
+	free(var_name);
+	str = malloc(ft_strlen(*data) - var_name_s + ft_strlen(var_val) + 1);
 	if (!str)
 		return (1);
 	str[0] = '\0';
-	ft_strlcat(str, *data, *data_i);
+	ft_strlcat(str, *data, *data_i - 1);
 	ft_strlcat(str, var_val, ft_strlen(var_val) + 1);
-	*data_i += ft_strlen(var_name) + 1;
+	*data_i += var_name_s;
 	ft_strlcat(str, *data + *data_i, ft_strlen(*data + *data_i) + 1);
+	free(*data);
+	*data = str;
 	return (0);
 }
 
