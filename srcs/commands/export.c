@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:17:30 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/21 11:24:30 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 09:37:49 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_status	cmd_export(char **args, t_dictionary **env_dict)
 	{
 		cpy = *env_dict;
 		dict_sort(&cpy);
-		dict_display(cpy, "=");
-		return (SUCCESS); // Not complete
+		dict_display(cpy, "delcare -x ", "=");
+		return (SUCCESS); // Don't forget the '_' variable.
 	}
 	code = SUCCESS;
 	while (*args)

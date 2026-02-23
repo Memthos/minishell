@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:51:11 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 15:10:34 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 09:38:05 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ t_status	cmd_env(char **args, t_dictionary **env_dict)
 		return (FAILURE);
 	if (NULL != args && NULL != *args)
 		return (SUCCESS);
-	dict_display(*env_dict, "=");
+	dict_display(*env_dict, "", "=");
 	return (SUCCESS);
 }
