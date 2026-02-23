@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:17:30 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 17:45:49 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 17:51:32 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_status	cmd_export(char **args, t_shell *shell)
 			code = FAILURE;
 			continue ;
 		}
-		if (NULL == dict_add(shell->env, entry[0], entry[1]))
+		if (NULL == dict_add(&shell->env, entry[0], entry[1]))
 		{
 			if (!concat)
 			{
