@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 14:52:21 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/23 16:23:14 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,13 @@ int	parser(char *s, t_shell *shell)
 		lxr_lst_clear(&lxr);
 		return (1);
 	}
-	shell->ast = complete_command_r(&lxr);
+	shell->cmd_ast = complete_command_r(&lxr);
 	lxr_lst_clear(&lxr);
-	if (!shell->ast)
+	if (!shell->cmd_ast)
 		return (1);
-	if (expand(shell->ast, shell->env))
+	if (expand(shell->cmd_ast, shell->env))
 		return (1);
-	if (update_quotes(shell->ast))
+	if (update_quotes(shell->cmd_ast))
 		return (1);
 	return (0);
 }
