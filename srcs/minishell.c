@@ -3,30 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 13:45:14 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/23 16:20:49 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	// t_ast_lst	*ast;
+	t_shell	*shell;
 
-	// char *line = readline("> ");
-
-	char	*data1 = malloc(17);
-	ft_strlcpy(data1, "aaa$TEST bbb$ABC", 17);
-	t_dictionary test1 = {.data = "test", .key = "ABC", .next = NULL};
-	t_dictionary test = {.data = "1abc", .key = "TEST", .next = &test1};
-	t_ast_lst one = {.data = data1, .left = NULL, .token = WORD, .right = NULL};
-	expand(&one, &test);
-	printf("TEST::%s::\n", one.data);
-	// ast = parser(line);
-	// ast_lst_clear(&ast);
+	(void)argc;
+	(void)argv;
+	shell = init(envp);
+	if (NULL == shell)
+		return (FAILURE);
+	destroy(shell);
+	return (SUCCESS);
 }
-
-//("ARG=test" && HELLO=world) || echo $ARG | echo "$HELLO"
