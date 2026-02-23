@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 16:22:25 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 17:37:24 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 typedef struct s_shell
 {
-	t_dictionary	*env;
 	const t_command	**commands;
+	t_dictionary	*env;
 	t_ast_lst		*cmd_ast;
 }	t_shell;
 
