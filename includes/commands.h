@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 08:51:00 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 08:54:54 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  * @param env The dictionary environemnt.
  * @return Nothing on success, 1 on failure.
  */
-t_status	exec(char **args, t_dictionary **env);
+t_status	cmd_exec(char **args, t_dictionary **env);
 
 /**
  * @brief Writes a message on the standard output.
