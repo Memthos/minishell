@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 15:46:20 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 16:14:51 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ typedef struct s_shell
 	const t_command	**commands;
 	t_ast_lst		*cmd_ast;
 }	t_shell;
+
+void	destroy(t_shell *shell);
 
 #endif
