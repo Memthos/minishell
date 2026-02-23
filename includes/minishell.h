@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 10:50:00 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 15:26:22 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 
 //Dictionary header
 # include "dictionary.h"
+
+# include "execute.h"
 
 //Commands header
 # include "commands.h"
