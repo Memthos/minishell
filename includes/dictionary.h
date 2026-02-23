@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 11:10:37 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 09:37:10 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 10:07:28 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			dict_clear(t_dictionary **dict);
  * @brief Gives the size of a dictionary.
  * @return The number of entries in a dictionary.
  */
-t_uint	dict_size(t_dictionary *dict);
+t_uint			dict_size(t_dictionary *dict);
 
 /**
  * @brief Transforms a dictionary into a string array.
@@ -81,7 +81,7 @@ t_uint	dict_size(t_dictionary *dict);
  * @param sep The separation character to add between the key and the value.
  * @return An allocated string array that contains all the keys and their values.
  */
-char	**dict_to_array(t_dictionary *dict, char sep);
+char			**dict_to_array(t_dictionary *dict, char sep);
 
 /**
  * @brief Sorts in ascii order the dictionary passed in.
@@ -94,6 +94,6 @@ t_dictionary	*dict_sort(t_dictionary **dict);
  * @param prefix The prefix to print before each line.
  * @param sep The separation between the key and the data.
  */
-void	dict_display(t_dictionary *dict, char *prefix, char *sep);
+void			dict_display(t_dictionary *dict, char *prefix, char *sep);
 
 #endif
