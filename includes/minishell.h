@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 10:23:52 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 10:50:00 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 
 //Typedef and enums headers
 # include "definitions.h"
+
+# include "shell.h"
 
 //Chained lists header
 # include "lists.h"
