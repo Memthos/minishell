@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 13:45:09 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:37:34 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int	expand(t_ast_lst *node, t_dictionary *env)
 {
 	size_t	i;
 
-	if (!node->data || (node->token != WORD && node->token != WILDCARD))
+	if (!node || !node->data
+		|| (node->token != WORD && node->token != WILDCARD))
 		return (0);
 	i = 0;
 	while (node->data[i])
@@ -97,5 +98,9 @@ int	expand(t_ast_lst *node, t_dictionary *env)
 		else
 			i++;
 	}
+	if (expand(node->left, env))
+		return (1);
+	if (expand(node->right, env))
+		return (1);
 	return (0);
 }

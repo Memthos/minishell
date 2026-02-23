@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 14:28:16 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:42:32 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,26 +75,29 @@ static int	checker_lxr(t_lxr_lst *lxr)
 	return (0);
 }
 
-t_ast_lst	*parser(char *s)
+int	parser(char *s, t_shell *shell)
 {
 	t_lxr_lst	*lxr;
-	t_ast_lst	*ast;
 
 	lxr = NULL;
 	if (lexer(&lxr, s))
 	{
 		lxr_lst_clear(&lxr);
-		exit(1);
+		return (1);
 	}
 	set_final_tokens(lxr);
 	if (checker_lxr(lxr))
 	{
 		lxr_lst_clear(&lxr);
-		exit(1);
+		return (1);
 	}
-	ast = complete_command_r(&lxr);
+	shell->ast = complete_command_r(&lxr);
 	lxr_lst_clear(&lxr);
-	if (!ast)
-		exit(1);
-	return (ast);
+	if (!shell->ast)
+		return (1);
+	if (expand(shell->ast, shell->env))
+		return (1);
+	if (update_quotes(shell->ast))
+		return (1);
+	return (0);
 }
