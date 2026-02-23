@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/21 11:45:04 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 10:12:34 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "enums.h"
 
 /**
- * @brief Try to get the first number contained in S and set NUMBER to it.
+ * @brief Trys to get the first number contained in S and set NUMBER to it.
  * @param s The string from which you wanna get a number.
  * @param number A pointer to a number that will contains the result.
  * @return A status to tell if the number has been successfully parsed or not.
@@ -37,12 +37,26 @@ char		**split_at(const char *str, const char c);
  */
 t_uint		count_words(const char *str, const char *set);
 
+/**
+ * @brief Frees each arrays in strs and strs itself.
+ */
 void		free_strings(char **strs);
 
-bool	check_var_name(char *name);
+/**
+ * @brief Checks if a variable name is correct.
+ * @return true on if name is correct, false otherwise.
+ */
+bool		check_var_name(char *name);
 
-void	swap_str(char **a, char **b);
+/**
+ * @brief Swaps a and b.
+ */
+void		swap_str(char **a, char **b);
 
-bool	str_is_digit(char *str);
+/**
+ * @brief Checks if str contains only digits.
+ * @return true on success, false on failure.
+ */
+bool		str_is_digit(char *str);
 
 #endif

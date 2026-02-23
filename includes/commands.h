@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 08:57:04 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 10:06:26 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 # define COMMANDS_H
 
 # include "definitions.h"
-#include "dictionary.h"
+# include "dictionary.h"
+
+typedef struct s_command
+{
+	char		*name;
+	t_status	(*cmd)(char **, t_dictionary **);
+}	t_command;
 
 /**
  * @brief Execute a command with execve.
@@ -63,7 +69,6 @@ t_status	cmd_env(char **args, t_dictionary **env);
  * @return 0 on success, 1 on failure.
  */
 t_status	cmd_export(char **args, t_dictionary **env);
-
 
 /**
  * @brief Removes an environment variable.
