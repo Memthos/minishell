@@ -6,17 +6,17 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:38:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 09:16:00 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 17:44:23 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	cmd_echo(char **args, t_dictionary **env_dict)
+t_status	cmd_echo(char **args, t_shell *shell)
 {
 	t_uint	index;
 
-	(void)env_dict;
+	(void)shell;
 	if (NULL == args)
 		return (SUCCESS);
 	if (NULL == *args)

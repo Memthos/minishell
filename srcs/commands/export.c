@@ -6,13 +6,13 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:17:30 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 10:15:04 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 17:45:49 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	cmd_export(char **args, t_dictionary **env_dict)
+t_status	cmd_export(char **args, t_shell *shell)
 {
 	t_status		code;
 	t_dictionary	*cpy;
@@ -20,11 +20,11 @@ t_status	cmd_export(char **args, t_dictionary **env_dict)
 	char			**entry;
 	char			*tmp;
 
-	if (NULL == env_dict || NULL == *env_dict)
+	if (NULL == shell)
 		return (FAILURE);
 	if (NULL == args || NULL == *args)
 	{
-		cpy = *env_dict;
+		cpy = shell->env;
 		dict_sort(&cpy);
 		dict_display(cpy, "delcare -x ", "=");
 		return (SUCCESS);
@@ -62,18 +62,18 @@ t_status	cmd_export(char **args, t_dictionary **env_dict)
 			code = FAILURE;
 			continue ;
 		}
-		if (NULL == dict_add(env_dict, entry[0], entry[1]))
+		if (NULL == dict_add(shell->env, entry[0], entry[1]))
 		{
 			if (!concat)
 			{
-				dict_update(*env_dict, entry[0], entry[1]);
+				dict_update(shell->env, entry[0], entry[1]);
 				free(entry[0]);
 			}
 			else
 			{
-				cpy = dict_get(*env_dict, entry[0]);
+				cpy = dict_get(shell->env, entry[0]);
 				tmp = ft_strjoin((const char *)cpy->data, entry[1]);
-				dict_update(*env_dict, entry[0], tmp);
+				dict_update(shell->env, entry[0], tmp);
 				free(entry[0]);
 				free(entry[1]);
 			}

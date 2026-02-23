@@ -6,13 +6,13 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:11:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 10:48:27 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 17:43:40 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	cmd_cd(char **args, t_dictionary **env)
+t_status	cmd_cd(char **args, t_shell *shell)
 {
 	t_dictionary	*dir;
 	char			*path;
@@ -25,7 +25,7 @@ t_status	cmd_cd(char **args, t_dictionary **env)
 	path = NULL;
 	if (NULL == args || NULL == *args)
 	{
-		dir = dict_get(*env, "HOME");
+		dir = dict_get(shell->env, "HOME");
 		if (NULL == dir)
 		{
 			error_output("cd : HOME not set");
@@ -35,7 +35,7 @@ t_status	cmd_cd(char **args, t_dictionary **env)
 	}
 	else if (!ft_strcmp(*args, "-"))
 	{
-		dir = dict_get(*env, "OLDPWD");
+		dir = dict_get(shell->env, "OLDPWD");
 		if (NULL == dir)
 		{
 			error_output("cd : OLDPWD not set");

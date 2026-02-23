@@ -6,18 +6,18 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:51:11 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 09:38:05 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 17:45:07 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	cmd_env(char **args, t_dictionary **env_dict)
+t_status	cmd_env(char **args, t_shell *shell)
 {
-	if (NULL == env_dict || NULL == *env_dict)
+	if (NULL == shell)
 		return (FAILURE);
 	if (NULL != args && NULL != *args)
 		return (SUCCESS);
-	dict_display(*env_dict, "", "=");
+	dict_display(shell->env, "", "=");
 	return (SUCCESS);
 }
