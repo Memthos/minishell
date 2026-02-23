@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 10:18:27 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/23 10:24:55 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	get_var_name(char *s, size_t i, char **var)
 	return (0);
 }
 
-static char	*get_var_value(char *var, char **env)
+static char	*get_var_value(char *var, t_dictionary *env)
 {
 	char	*value;
 	size_t	i;
@@ -44,17 +44,16 @@ static char	*get_var_value(char *var, char **env)
 	if (!value)
 	{
 		i = 0;
-		while (env[i] && (strncmp(env[i], var, ft_strlen(var))
-				|| env[i][ft_strlen(var)] != '='))
-			i++;
-		if (!env[i])
+		while (env && strcmp(env->key, var))
+			env = env->next;
+		if (!env)
 			return (NULL);
-		value = env[i] + ft_strlen(var) + 1;
+		value = env->data;
 	}
 	return (value);
 }
 
-static int	update_data(char **data, size_t *data_i, char **env)
+static int	update_data(char **data, size_t *data_i, t_dictionary *env)
 {
 	size_t	var_name_s;
 	char	*var_name;
@@ -83,7 +82,7 @@ static int	update_data(char **data, size_t *data_i, char **env)
 	return (0);
 }
 
-int	expand(t_ast_lst *node, char **env)
+int	expand(t_ast_lst *node, t_dictionary *env)
 {
 	size_t	i;
 
