@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 11:14:10 by juperrin         ###   ########.fr       */
+/*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
+/*   Updated: 2026/02/23 11:13:04 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef SHELL_H
+# define SHELL_H
 
-t_shell	*init(char *envp[])
+# include "dictionary.h"
+# include "commands.h"
+
+typedef struct s_shell
 {
-	t_shell	*shell;
+	t_dictionary	*env;
+	const t_command	**commands;
+}	t_shell;
 
-	shell = (t_shell *)malloc(sizeof(t_shell));
-	if (NULL == shell)
-		return (NULL);
-	if (SUCCESS != init_signals())
-	{
-		free(shell);
-		return (NULL);
-	}
-	shell->env = init_env(envp);
-	if (NULL == shell->env)
-	{
-		free(shell);
-		return (NULL);
-	}
-	init_commands(shell);
-	return (shell);
-}
+#endif

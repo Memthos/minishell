@@ -6,6 +6,7 @@ INCLUDES_DIR = includes/
 VPATH = srcs:srcs/lists:srcs/commands:srcs/dictionary:srcs/parser:srcs/utils:srcs/outputs
 SRCS =	minishell.c \
 		init.c \
+		execute.c \
 		environment.c \
 		sighandle.c \
 		parser.c parser_tools.c expand.c \
