@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/21 12:01:10 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 08:51:00 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@
 #include "dictionary.h"
 
 /**
- * @brief Execute the command line passed in.
- * @param command The command to execute.
- * @param input_fd File descriptor to redirect the stdin. -1 to not redirect.
- * @param output_file File descriptor to redirect the stdout. -1 to not redirect.
- * @return Nothing on success, the execve error code otherwise.
+ * @brief Execute a command with execve.
+ * @param args The command and its arguments.
+ * @param env The dictionary environemnt.
+ * @return Nothing on success, 1 on failure.
  */
-int			exec(char *command, int input_fd, int output_fd);
+t_status	exec(char **args, t_dictionary **env);
 
 /**
  * @brief Writes a message on the standard output.
