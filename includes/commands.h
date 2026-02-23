@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 17:43:05 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 17:49:24 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 # define COMMANDS_H
 
 # include "definitions.h"
-# include "dictionary.h"
 
 # define CMD_COUNT 7
+
+typedef struct s_shell t_shell;
 
 typedef struct s_command
 {
