@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 11:10:37 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 15:07:16 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 09:37:10 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,11 @@ char	**dict_to_array(t_dictionary *dict, char sep);
 t_dictionary	*dict_sort(t_dictionary **dict);
 
 /**
- * @brief Displays the all the key and corresponding data of 'dict'.
+ * @brief Displays a dictionary in this way : 'prefix' 'key' 'sep' 'data'\\n.
  * @param dict The dictionary to display.
+ * @param prefix The prefix to print before each line.
  * @param sep The separation between the key and the data.
  */
-void	dict_display(t_dictionary *dict, char *sep);
+void	dict_display(t_dictionary *dict, char *prefix, char *sep);
 
 #endif
