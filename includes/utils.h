@@ -6,14 +6,14 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 10:12:34 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 10:24:34 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-# include "enums.h"
+# include "definitions.h"
 
 /**
  * @brief Trys to get the first number contained in S and set NUMBER to it.

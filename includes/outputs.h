@@ -6,14 +6,14 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:25:28 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/09 13:03:31 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 10:24:15 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OUTPUTS_H
 # define OUTPUTS_H
 
-# include "enums.h"
+# include "definitions.h"
 
 /**
  * @brief Display an error on the stderr
