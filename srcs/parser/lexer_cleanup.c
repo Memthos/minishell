@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 22:31:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/21 18:50:44 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:51:00 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,31 @@ static void	set_assignment_w(t_lxr_lst *lxr)
 		lxr->token = ASSIGNMENT_W;
 }
 
-static int	remove_quotes(t_lxr_lst *lxr, size_t quotes_rmv)
+static int	remove_quotes(t_ast_lst *ast, size_t quotes_rmv)
 {
 	t_quote_t	quote_state;
 	size_t		i;
 	size_t		j;
 	char		*str;
 
-	str = malloc(sizeof(char) * (ft_strlen(lxr->data) - quotes_rmv + 1));
+	str = malloc(sizeof(char) * (ft_strlen(ast->data) - quotes_rmv + 1));
 	if (!str)
 		return (1);
 	i = 0;
 	j = 0;
 	quote_state = 0;
-	while (lxr->data[i])
+	while (ast->data[i])
 	{
-		if (!set_quote_state(&quote_state, lxr->data[i]))
+		if (!set_quote_state(&quote_state, ast->data[i]))
 		{
-			str[j] = lxr->data[i];
+			str[j] = ast->data[i];
 			j++;
 		}
 		i++;
 	}
 	str[j] = '\0';
-	free(lxr->data);
-	lxr->data = str;
+	free(ast->data);
+	ast->data = str;
 	return (0);
 }
 
@@ -93,31 +93,30 @@ void	set_final_tokens(t_lxr_lst *lxr)
 	}
 }
 
-int	update_quotes(t_lxr_lst *lxr)
+int	update_quotes(t_ast_lst *ast)
 {
 	size_t		i;
 	t_quote_t	quote_state;
 	size_t		quotes_rmv;
 
-	while (lxr)
+	if (!ast || !ast->data)
+		return (0);
+	i = 0;
+	quote_state = 0;
+	quotes_rmv = 0;
+	while (ast->data[i++])
 	{
-		if (lxr->data)
-		{
-			i = 0;
-			quote_state = 0;
-			quotes_rmv = 0;
-			while (lxr->data[i++])
-			{
-				if (set_quote_state(&quote_state, lxr->data[i - 1]))
-					quotes_rmv++;
-			}
-			if (quotes_rmv % 2 == 0)
-			{
-				if (remove_quotes(lxr, quotes_rmv))
-					return (1);
-			}
-		}
-		lxr = lxr->next;
+		if (set_quote_state(&quote_state, ast->data[i - 1]))
+			quotes_rmv++;
 	}
+	if (quotes_rmv % 2 == 0)
+	{
+		if (remove_quotes(ast, quotes_rmv))
+			return (1);
+	}
+	if (update_quotes(ast->left))
+		return (1);
+	if (update_quotes(ast->right))
+		return (1);
 	return (0);
 }

@@ -6,32 +6,41 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 11:12:29 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 15:46:45 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static const t_command	g_built_in_echo = {"echo", &cmd_echo};
-static const t_command	g_built_in_cd = {"cd", &cmd_cd};
-static const t_command	g_built_in_pwd = {"pwd", &cmd_pwd};
-static const t_command	g_built_in_export = {"export", &cmd_export};
-static const t_command	g_built_in_unset = {"unset", &cmd_unset};
-static const t_command	g_built_in_env = {"env", &cmd_env};
-static const t_command	g_built_in_exit = {"exit", &cmd_exit};
-
-static const t_command	*g_built_ins[] = {
-	&g_built_in_echo,
-	&g_built_in_cd,
-	&g_built_in_pwd,
-	&g_built_in_export,
-	&g_built_in_unset,
-	&g_built_in_env,
-	&g_built_in_exit
-};
-
-void	init_commands(t_shell *shell)
+static char	**convert_ast(t_ast_lst *ast)
 {
-	shell->commands = g_built_ins;
-	return ;
+	t_uint	index;
+	t_uint	size;
+	char	**args;
+
+	if (NULL == ast)
+		return (NULL);
+	size = ast_cmd_size(ast);
+	args = (char **)malloc(sizeof(char *) * (size + 1));
+	if (NULL == args)
+		return (NULL);
+	index = 0;
+	while (index < size)
+	{
+		*(args + index) = ast->data;
+		ast = ast->right;
+		++index;
+	}
+	args[index] = NULL;
+	return (args);
+}
+
+t_status	execute(t_shell *shell)
+{
+	char	**args;
+
+	args = convert_ast(shell->cmd_ast);
+	cmd_exec(args, &shell->env);
+	free(args);
+	return (SUCCESS);
 }

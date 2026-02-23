@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 10:28:50 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:50:12 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSER_H
 
 # include "lists.h"
+# include "shell.h"
 
 /// @brief Function tp expand params in user input.
 /// @param node The node with the data to expand.
@@ -32,8 +33,8 @@ int			lexer(t_lxr_lst **lxr, char *s);
 
 /// @brief The main function of the parser.
 /// @param s The line written by the user.
-/// @return The ast tree.
-t_ast_lst	*parser(char *s);
+/// @return 1 if an error occurred, else 0.
+int			parser(char *s, t_shell *shell);
 
 /**
  * @brief Return a new string of len size from input.
@@ -58,7 +59,7 @@ void		set_final_tokens(t_lxr_lst *lxr);
 /// @brief Remove the unnecessary quotes for the date of each lexer node.
 /// @param lxr A pointer to the head of the lexer.
 /// @return 1 If an error happened, else 0.
-int			update_quotes(t_lxr_lst *lxr);
+int			update_quotes(t_ast_lst *ast);
 
 /// @brief Make the base of the AST tree, calls all the other functions
 /// of the ast.

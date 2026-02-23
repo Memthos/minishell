@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 16:14:51 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/23 16:22:25 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "dictionary.h"
 # include "lists.h"
 # include "commands.h"
+# include "lists.h"
 
 typedef struct s_shell
 {
