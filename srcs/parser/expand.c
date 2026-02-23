@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 10:24:55 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/23 13:45:09 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,10 @@ static int	get_var_name(char *s, size_t i, char **var)
 static char	*get_var_value(char *var, t_dictionary *env)
 {
 	char	*value;
-	size_t	i;
 
 	value = getenv(var);
 	if (!value)
 	{
-		i = 0;
 		while (env && strcmp(env->key, var))
 			env = env->next;
 		if (!env)
@@ -61,22 +59,22 @@ static int	update_data(char **data, size_t *data_i, t_dictionary *env)
 	char	*str;
 
 	var_name = NULL;
-	(*data_i)++;
-	if (get_var_name(*data, *data_i, &var_name))
+	if (get_var_name(*data, *data_i + 1, &var_name))
 		return (1);
 	if (!var_name)
 		return (0);
 	var_name_s = ft_strlen(var_name);
 	var_val = get_var_value(var_name, env);
 	free(var_name);
-	str = malloc(ft_strlen(*data) - var_name_s + ft_strlen(var_val) + 1);
+	str = malloc(ft_strlen(*data) - var_name_s + ft_strlen(var_val));
 	if (!str)
 		return (1);
-	str[0] = '\0';
-	ft_strlcat(str, *data, *data_i - 1);
-	ft_strlcat(str, var_val, ft_strlen(var_val) + 1);
-	*data_i += var_name_s;
-	ft_strlcat(str, *data + *data_i, ft_strlen(*data + *data_i) + 1);
+	ft_strlcpy(str, *data, *data_i + 1);
+	ft_strlcat(str, var_val, ft_strlen(str) + ft_strlen(var_val) + 1);
+	ft_strlcat(str, *data + *data_i + 1 + var_name_s, ft_strlen(str)
+		+ ft_strlen(*data + *data_i + 1 + var_name_s) + 1);
+	if (var_val)
+		*data_i += ft_strlen(var_val) - 1;
 	free(*data);
 	*data = str;
 	return (0);
@@ -86,13 +84,16 @@ int	expand(t_ast_lst *node, t_dictionary *env)
 {
 	size_t	i;
 
-	if (node->token != WORD || !node->data)
+	if (!node->data || (node->token != WORD && node->token != WILDCARD))
 		return (0);
 	i = 0;
 	while (node->data[i])
 	{
-		if (node->data[i] == '$' && update_data(&node->data, &i, env))
-			return (1);
+		if (node->data[i] == '$')
+		{
+			if (update_data(&node->data, &i, env))
+				return (1);
+		}
 		else
 			i++;
 	}

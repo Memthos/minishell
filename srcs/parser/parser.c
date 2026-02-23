@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 10:18:12 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/23 10:32:32 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	parenthesis_check(t_lxr_lst *lxr)
 	}
 	else if ((lxr->token == WORD || lxr->token == ASSIGNMENT_W
 			|| lxr->token == WILDCARD) && lxr->next
-			&& lxr->next->token == L_PAREN)
+		&& lxr->next->token == L_PAREN)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/20 22:34:02 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/23 10:28:50 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define PARSER_H
 
 # include "lists.h"
+
+/// @brief Function tp expand params in user input.
+/// @param node The node with the data to expand.
+/// @param env THe dict where some temp variables are stored.
+/// @return ! if an error occurred, else 0.
+int			expand(t_ast_lst *node, t_dictionary *env);
 
 /**
  * @brief First step of parsing, apply a token to each part
