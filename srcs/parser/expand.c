@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 14:37:34 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:53:51 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,17 @@ static int	update_data(char **data, size_t *data_i, t_dictionary *env)
 int	expand(t_ast_lst *node, t_dictionary *env)
 {
 	size_t	i;
+	t_quote_t	quote_state;
 
 	if (!node || !node->data
 		|| (node->token != WORD && node->token != WILDCARD))
 		return (0);
 	i = 0;
+	quote_state = 0;
 	while (node->data[i])
 	{
-		if (node->data[i] == '$')
+		set_quote_state(&quote_state, node->data[i]);
+		if (node->data[i] == '$' && quote_state != 1)
 		{
 			if (update_data(&node->data, &i, env))
 				return (1);
