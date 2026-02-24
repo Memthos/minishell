@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:16:14 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/18 12:09:12 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:49:34 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ t_dictionary	*dict_remove(t_dictionary **dict, char *key)
 	free(rm->key);
 	free(rm->data);
 	free(rm);
-	return (*dict);	
+	return (*dict);
 }

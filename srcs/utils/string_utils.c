@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 09:42:06 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 09:43:01 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:49:53 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	str_is_digit(char *str)
 			return (false);
 		++str;
 	}
-	return (true);	
+	return (true);
 }
 
 char	**split_at(const char *str, const char c)

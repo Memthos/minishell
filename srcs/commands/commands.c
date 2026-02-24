@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/24 10:36:57 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:51:17 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ static const t_command	*g_built_ins[] = {
 	&g_built_in_exit
 };
 
-built_in	get_command(char *name)
+t_built_in	get_command(char *name)
 {
 	t_uint		index;
-	built_in	cmd;
+	t_built_in	cmd;
 
 	cmd = NULL;
 	index = 0;

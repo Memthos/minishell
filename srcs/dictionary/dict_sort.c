@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 14:35:01 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/20 14:54:06 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:49:38 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ t_dictionary	*dict_sort(t_dictionary **dict)
 		}
 		++index;
 	}
-	return (*dict);	
+	return (*dict);
 }
