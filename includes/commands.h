@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 17:49:24 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:28:43 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,21 @@
 
 typedef struct s_shell t_shell;
 
+typedef t_status (*built_in)(char **, t_shell *);
+
 typedef struct s_command
 {
 	char		*name;
 	t_status	(*cmd)(char **, t_shell *);
 }	t_command;
+
+/**
+ * @brief If name is in the built in list, gets the corresponding function,
+ * get cmd_exec otherwise.
+ * @param name The command name to get.
+ * @return A function pointer to the right command to execute.
+ */
+built_in	get_command(char *name);
 
 /**
  * @brief Execute a command with execve.
