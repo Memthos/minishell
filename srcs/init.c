@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 15:50:08 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:31:54 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_shell	*init(char *envp[])
 		free(shell);
 		return (NULL);
 	}
-	init_commands(shell);
 	shell->cmd_ast = NULL;
 	return (shell);
 }
