@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:11:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 17:43:40 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/24 16:08:14 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ t_status	cmd_cd(char **args, t_shell *shell)
 	t_dictionary	*dir;
 	char			*path;
 
-	if (NULL != args && NULL != *args && NULL != *(args + 1))
+	if (NULL != args[1] && NULL != args[2])
 	{
 		error_output("cd : too many arguments");
 		return (FAILURE);
 	}
 	path = NULL;
-	if (NULL == args || NULL == *args)
+	if (NULL == args[1])
 	{
 		dir = dict_get(shell->env, "HOME");
 		if (NULL == dir)
@@ -33,7 +33,7 @@ t_status	cmd_cd(char **args, t_shell *shell)
 		}
 		path = dir->data;
 	}
-	else if (!ft_strcmp(*args, "-"))
+	else if (!ft_strcmp(args[1], "-"))
 	{
 		dir = dict_get(shell->env, "OLDPWD");
 		if (NULL == dir)
@@ -44,7 +44,7 @@ t_status	cmd_cd(char **args, t_shell *shell)
 		path = dir->data;
 	}
 	else
-		path = *args;
+		path = args[1];
 	if (SUCCESS != chdir(path))
 	{
 		perror("cd");
