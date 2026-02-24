@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/24 10:51:17 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/24 15:54:04 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ t_built_in	get_command(char *name)
 	t_uint		index;
 	t_built_in	cmd;
 
+	if (NULL == name)
+		return (NULL);
 	cmd = NULL;
 	index = 0;
 	while (index < CMD_COUNT)
