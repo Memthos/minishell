@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 22:31:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 14:51:00 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/24 16:27:03 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	set_io_number(t_lxr_lst *lxr)
 	i = 0;
 	while (lxr->data[i] && lxr->data[i] >= '0' && lxr->data[i] <= '9')
 		i++;
-	if (i == ft_strlen(lxr->data)
-		&& (lxr->next->token > 4 || lxr->next->token < 9))
+	if (i == ft_strlen(lxr->data) && lxr->next
+		&& (lxr->next->token > 4 && lxr->next->token < 9))
 		lxr->token = IO_NUMBER;
 }
 
