@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:22:04 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 11:13:49 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:27:08 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,5 @@
 t_shell			*init(char *envp[]);
 
 t_dictionary	*init_env(char *envp[]);
-
-void			init_commands(t_shell *shell);
 
 #endif
