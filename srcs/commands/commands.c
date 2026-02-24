@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 14:37:41 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:26:52 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,22 @@ static const t_command	*g_built_ins[] = {
 	&g_built_in_exit
 };
 
-void	init_commands(t_shell *shell)
+built_in	get_command(char *name)
 {
-	shell->commands = g_built_ins;
-	return ;
+	t_uint		index;
+	built_in	cmd;
+
+	index = 0;
+	while (index < CMD_COUNT)
+	{
+		if (!ft_strcmp(g_built_ins[index]->name, name))
+		{
+			cmd = g_built_ins[index]->cmd;
+			break ;
+		}
+		++index;
+	}
+	if (NULL == cmd)
+		cmd = &cmd_exec;
+	return (cmd);
 }
