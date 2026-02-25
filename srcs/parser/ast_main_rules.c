@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 16:03:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/17 18:50:19 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:30:03 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_ast_lst	*command_r(t_lxr_lst **lxr, int *ret)
 			return (NULL);
 		}
 		consume(lxr);
-		cmd = ast_lst_new(&tmp, ret);
+		cmd = ast_lst_new(&tmp, ret, 0);
 		if (!*ret)
 			return (NULL);
 		cmd->left = compound_cmd_r(lxr, ret);
@@ -52,7 +52,7 @@ static t_ast_lst	*pipe_sequence_r(t_lxr_lst **lxr, int *ret)
 		return (cmd);
 	while (peek(lxr, PIPE))
 	{
-		pipe = ast_lst_new(lxr, ret);
+		pipe = ast_lst_new(lxr, ret, 0);
 		if (!*ret)
 			break ;
 		pipe->left = cmd;
@@ -79,7 +79,7 @@ t_ast_lst	*and_or_r(t_lxr_lst **lxr, int *ret)
 		return (cmd);
 	while (peek(lxr, AND_IF) || peek(lxr, OR_IF))
 	{
-		and_or = ast_lst_new(lxr, ret);
+		and_or = ast_lst_new(lxr, ret, 0);
 		if (!*ret)
 			break ;
 		and_or->left = cmd;

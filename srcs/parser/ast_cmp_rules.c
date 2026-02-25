@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 17:10:27 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/20 13:13:27 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:30:04 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 t_ast_lst	*compound_cmd_r(t_lxr_lst **lxr, int *ret)
 {
-	t_ast_lst	*cmd;
 	t_ast_lst	*term;
 	t_ast_lst	*tail;
 
@@ -26,11 +25,10 @@ t_ast_lst	*compound_cmd_r(t_lxr_lst **lxr, int *ret)
 	{
 		while (peek(lxr, NEW_LINE))
 			consume(lxr);
-		cmd = and_or_r(lxr, ret);
+		tail->left = and_or_r(lxr, ret);
 		if (!*ret)
 			break ;
-		tail->left = cmd;
-		tail = cmd;
+		tail = tail->left;
 		while (peek(lxr, NEW_LINE))
 			consume(lxr);
 	}
@@ -46,13 +44,19 @@ t_ast_lst	*redirect_loop(t_lxr_lst **lxr, int *ret)
 	t_ast_lst	*tail;
 
 	red = NULL;
+	if (is_io_redirect(lxr))
+		red = io_redirect_r(lxr, ret);
+	else
+		return (NULL);
+	if (!*ret)
+		return (NULL);
+	tail = red;
 	while (is_io_redirect(lxr))
 	{
-		red = io_redirect_r(lxr, ret);
+		tail->left = io_redirect_r(lxr, ret);
 		if (!*ret)
 			break ;
-		tail->left = red;
-		tail = red;
+		tail = tail->left;
 	}
 	if (!*ret)
 		ast_lst_clear(&red);

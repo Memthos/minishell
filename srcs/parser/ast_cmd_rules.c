@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 14:16:36 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:30:42 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,30 @@
 
 static t_ast_lst	*cmd_suffix_r(t_lxr_lst **lxr, int *ret)
 {
-	t_ast_lst	*cmd;
 	t_ast_lst	*suffix;
 	t_ast_lst	*tail;
 
 	if (is_io_redirect(lxr))
-		cmd = io_redirect_r(lxr, ret);
-	else if (peek(lxr, WORD))
-		cmd = ast_lst_new(lxr, ret);
+		suffix = io_redirect_r(lxr, ret);
+	else if (peek(lxr, WORD) || peek(lxr, ASSIGNMENT_W))
+		suffix = ast_lst_new(lxr, ret, WORD);
 	else
 		return (NULL);
-	tail = cmd;
-	while (*ret && (is_io_redirect (lxr) || peek(lxr, WORD)))
+	tail = suffix;
+	while (*ret && (is_io_redirect (lxr) || peek(lxr, WORD)
+			|| peek(lxr, ASSIGNMENT_W)))
 	{
 		if (is_io_redirect(lxr))
-			suffix = io_redirect_r(lxr, ret);
+			tail->right = io_redirect_r(lxr, ret);
 		else
-			suffix = ast_lst_new(lxr, ret);
+			tail->right = ast_lst_new(lxr, ret, WORD);
 		if (!*ret)
 			break ;
-		tail->right = suffix;
-		tail = suffix;
+		tail = tail->right;
 	}
 	if (!*ret)
-		ast_lst_clear(&cmd);
-	return (cmd);
+		ast_lst_clear(&suffix);
+	return (suffix);
 }
 
 static t_ast_lst	*cmd_word_r(t_lxr_lst **lxr, int *ret)
@@ -47,7 +46,7 @@ static t_ast_lst	*cmd_word_r(t_lxr_lst **lxr, int *ret)
 
 	cmd = NULL;
 	if (peek(lxr, WORD) || peek(lxr, ASSIGNMENT_W))
-		cmd = ast_lst_new(lxr, ret);
+		cmd = ast_lst_new(lxr, ret, 0);
 	if (!*ret)
 		ast_lst_clear(&cmd);
 	return (cmd);
@@ -55,31 +54,29 @@ static t_ast_lst	*cmd_word_r(t_lxr_lst **lxr, int *ret)
 
 static t_ast_lst	*cmd_prefix_r(t_lxr_lst **lxr, int *ret)
 {
-	t_ast_lst	*cmd;
 	t_ast_lst	*prefix;
 	t_ast_lst	*tail;
 
 	if (is_io_redirect(lxr))
-		cmd = io_redirect_r(lxr, ret);
+		prefix = io_redirect_r(lxr, ret);
 	else if (peek(lxr, ASSIGNMENT_W))
-		cmd = ast_lst_new(lxr, ret);
+		prefix = ast_lst_new(lxr, ret, 0);
 	else
 		return (NULL);
-	tail = cmd;
+	tail = prefix;
 	while (*ret && (is_io_redirect (lxr) || peek(lxr, ASSIGNMENT_W)))
 	{
 		if (is_io_redirect(lxr))
-			prefix = io_redirect_r(lxr, ret);
+			tail->left = io_redirect_r(lxr, ret);
 		else
-			prefix = ast_lst_new(lxr, ret);
+			tail->left = ast_lst_new(lxr, ret, 0);
 		if (!*ret)
 			break ;
-		tail->left = prefix;
-		tail = prefix;
+		tail = tail->left;
 	}
 	if (!*ret)
-		ast_lst_clear(&cmd);
-	return (cmd);
+		ast_lst_clear(&prefix);
+	return (prefix);
 }
 
 t_ast_lst	*simple_command_r(t_lxr_lst **lxr, int *ret)
