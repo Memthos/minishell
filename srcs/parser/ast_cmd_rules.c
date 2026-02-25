@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/25 13:30:42 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/25 16:31:09 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static t_ast_lst	*cmd_prefix_r(t_lxr_lst **lxr, int *ret)
 	return (prefix);
 }
 
-t_ast_lst	*simple_command_r(t_lxr_lst **lxr, int *ret)
+static t_ast_lst	*simple_command_r(t_lxr_lst **lxr, int *ret)
 {
 	t_ast_lst	*cmd;
 	t_ast_lst	*prefix;
@@ -97,6 +97,34 @@ t_ast_lst	*simple_command_r(t_lxr_lst **lxr, int *ret)
 	else
 		cmd->left = prefix;
 	cmd->right = cmd_suffix_r(lxr, ret);
+	if (!*ret)
+		ast_lst_clear(&cmd);
+	return (cmd);
+}
+
+t_ast_lst	*command_r(t_lxr_lst **lxr, int *ret)
+{
+	t_ast_lst	*cmd;
+	t_lxr_lst	*tmp;
+
+	if ((*lxr)->token == L_PAREN)
+	{
+		tmp = lxr_lst_new(NULL, CMP_CMD, 0);
+		if (!tmp)
+		{
+			*ret = 0;
+			return (NULL);
+		}
+		consume(lxr);
+		cmd = ast_lst_new(&tmp, ret, 0);
+		if (!*ret)
+			return (NULL);
+		cmd->left = compound_cmd_r(lxr, ret);
+		if (*ret)
+			cmd->right = redirect_loop(lxr, ret);
+	}
+	else
+		cmd = simple_command_r(lxr, ret);
 	if (!*ret)
 		ast_lst_clear(&cmd);
 	return (cmd);
