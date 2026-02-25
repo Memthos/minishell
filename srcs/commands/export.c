@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:17:30 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 17:51:32 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:04:27 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,23 @@
 
 t_status	cmd_export(char **args, t_shell *shell)
 {
-	t_status		code;
-	t_dictionary	*cpy;
 	bool			concat;
 	char			**entry;
 	char			*tmp;
+	t_status		code;
+	t_dictionary	*cpy;
 
 	if (NULL == shell)
 		return (FAILURE);
-	if (NULL == args || NULL == *args)
+	if (NULL == args[1])
 	{
 		cpy = shell->env;
 		dict_sort(&cpy);
-		dict_display(cpy, "delcare -x ", "=");
+		dict_display(cpy, "declare -x ", "=");
 		return (SUCCESS);
 	}
 	code = SUCCESS;
+	++args;
 	while (*args)
 	{
 		concat = false;
