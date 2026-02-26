@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/25 15:11:09 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/26 08:17:19 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_shell
 	t_dictionary	*env;
 	t_dictionary	*locals;
 	t_ast_lst		*cmd_ast;
+	t_ast_lst		*cmd_ast_dup;
+	t_status		exitno;
 }	t_shell;
 
 void	destroy(t_shell *shell);
