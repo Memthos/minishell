@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 10:49:09 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:15:39 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef enum e_return_status
 	SUCCESS,
 	FAILURE,
 	BAD_ARG,
+	ASSIGN_FAILURE,
 	PIPE_FAILURE,
 	FORK_FAILURE,
 	DUP_FAILURE,
