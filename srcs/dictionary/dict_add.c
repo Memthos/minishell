@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 17:43:38 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/18 11:18:11 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:45:12 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ t_dictionary	*dict_add(t_dictionary **dict, char *key, void *data)
 		return (*dict);
 	}
 	if (NULL != dict_get(*dict, key))
-		return (NULL);
+	{
+		dict_update(*dict, key, data);
+		free(key);
+		return (*dict);
+	}
 	cpy = *dict;
 	while (cpy->next)
 		cpy = cpy->next;
