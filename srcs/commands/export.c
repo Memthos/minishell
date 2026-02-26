@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:17:30 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/26 09:44:04 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:56:44 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_status	cmd_export(char **args, t_shell *shell)
 {
-	bool			concat;
+	// bool			concat;
 	char			**entry;
-	char			*tmp;
+	// char			*tmp;
 	t_status		code;
 	t_dictionary	*cpy;
 
@@ -33,7 +33,7 @@ t_status	cmd_export(char **args, t_shell *shell)
 	++args;
 	while (*args)
 	{
-		concat = false;
+		// concat = false;
 		entry = split_at(*args, '=');
 		if (NULL == entry)
 		{
@@ -50,7 +50,7 @@ t_status	cmd_export(char **args, t_shell *shell)
 		}
 		if (entry[0][ft_strlen(entry[0]) - 1] == '+')
 		{
-			concat = true;
+			// concat = true;
 			entry[0][ft_strlen(entry[0]) - 1] = '\0';
 		}
 		if (!check_var_name(entry[0]))
