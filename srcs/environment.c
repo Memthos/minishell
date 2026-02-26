@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 10:31:06 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/18 11:22:58 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:42:36 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,27 @@ t_dictionary	*init_env(char *envp[])
 		++envp;
 	}
 	return (dict);
+}
+
+t_status	update_locals(t_shell *shell, char *assign)
+{
+	char	**args;
+
+	if (NULL == shell || NULL == assign)
+		return (SUCCESS);
+	args = split_at(assign, '=');
+	if (NULL == args)
+	{
+		shell->exitno = ASSIGN_FAILURE;
+		return (ASSIGN_FAILURE);
+	}
+	shell->exitno = SUCCESS;
+	if (NULL == dict_add(&shell->locals, args[0], args[1]))
+	{
+		shell->exitno = ASSIGN_FAILURE;
+		free(args[0]);
+		free(args[1]);
+	}
+	free(args);
+	return (shell->exitno);	
 }
