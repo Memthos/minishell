@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:17:30 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/25 10:04:27 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:44:04 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,23 @@ t_status	cmd_export(char **args, t_shell *shell)
 			code = FAILURE;
 			continue ;
 		}
-		if (NULL == dict_add(&shell->env, entry[0], entry[1]))
-		{
-			if (!concat)
-			{
-				dict_update(shell->env, entry[0], entry[1]);
-				free(entry[0]);
-			}
-			else
-			{
-				cpy = dict_get(shell->env, entry[0]);
-				tmp = ft_strjoin((const char *)cpy->data, entry[1]);
-				dict_update(shell->env, entry[0], tmp);
-				free(entry[0]);
-				free(entry[1]);
-			}
-		}
+		//THIS NEEDS AN UPDATE BECAUSE DICT_ADD DOES NOW DICT_UPDATE
+		// if (NULL == dict_add(&shell->env, entry[0], entry[1]))
+		// {
+		// 	if (!concat)
+		// 	{
+		// 		dict_update(shell->env, entry[0], entry[1]);
+		// 		free(entry[0]);
+		// 	}
+		// 	else
+		// 	{
+		// 		cpy = dict_get(shell->env, entry[0]);
+		// 		tmp = ft_strjoin((const char *)cpy->data, entry[1]);
+		// 		dict_update(shell->env, entry[0], tmp);
+		// 		free(entry[0]);
+		// 		free(entry[1]);
+		// 	}
+		// }
 		free(entry);
 		++args;
 	}
