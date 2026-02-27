@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/27 09:30:22 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/27 09:30:42 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_shell
 	char			**cur_cmd;
 	t_uint			cur_cmd_index;
 	t_status		exitno;
+	int				stdin_fd;
+	int				stdout_fd;
 }	t_shell;
 
 void	destroy(t_shell *shell);
