@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/24 10:50:23 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:28:48 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int			lxr_lst_append(t_lxr_lst **node, char c, t_token token);
  * @param ret A pointer to an integer to know if there an error.
  * @return The created node.
  */
-t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, int *ret);
+t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, int *ret, t_token force);
 
 /// @brief Clear the ast.
 /// @param head A pointer to the first node of the ast.

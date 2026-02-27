@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 14:50:12 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/02/25 16:31:15 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ t_ast_lst	*compound_cmd_r(t_lxr_lst **lxr, int *ret);
 /// @return The newly created ast tree.
 t_ast_lst	*redirect_loop(t_lxr_lst **lxr, int *ret);
 
-/// @brief Make an ast node for a simple command and consume the lexer.
+/// @brief Make an ast tree for a command, either a compound or a simple one.
 /// @param lxr A node pointing to the currently looked at token.
 /// @param ret A pointer to an integer to know if there an error.
-/// @return The newly created ast node.
-t_ast_lst	*simple_command_r(t_lxr_lst **lxr, int *ret);
+/// @return The newly created ast tree.
+t_ast_lst	*command_r(t_lxr_lst **lxr, int *ret);
 
 /// @brief Create an a small ast tree with an io_redirect cmd.
 /// @param lxr A pointer to the currently looked at lexer node.
