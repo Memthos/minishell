@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:11:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/24 16:08:14 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/27 14:56:25 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ t_status	cmd_cd(char **args, t_shell *shell)
 	}
 	else
 		path = args[1];
+	if (NULL == dict_add(&shell->env, ft_strdup("OLDPWD"), ft_strdup(path)))
+		perror("Failed to update OLDPW");
 	if (SUCCESS != chdir(path))
 	{
 		perror("cd");
