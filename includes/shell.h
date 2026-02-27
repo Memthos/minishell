@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/26 09:50:26 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/02/27 09:30:22 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_shell
 	t_dictionary	*env;
 	t_dictionary	*locals;
 	t_ast_lst		*cmd_ast;
+	char			**cur_cmd;
+	t_uint			cur_cmd_index;
 	t_status		exitno;
 }	t_shell;
 
