@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/25 16:31:09 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/02 13:04:09 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,22 @@ static t_ast_lst	*cmd_suffix_r(t_lxr_lst **lxr, int *ret)
 	t_ast_lst	*tail;
 
 	if (is_io_redirect(lxr))
-		suffix = io_redirect_r(lxr, ret);
+		suffix = io_redirect_r(lxr, ret, RIGHT);
 	else if (peek(lxr, WORD) || peek(lxr, ASSIGNMENT_W))
 		suffix = ast_lst_new(lxr, ret, WORD);
 	else
 		return (NULL);
-	tail = suffix;
+	tail = ast_lst_last(suffix, RIGHT);
 	while (*ret && (is_io_redirect (lxr) || peek(lxr, WORD)
 			|| peek(lxr, ASSIGNMENT_W)))
 	{
 		if (is_io_redirect(lxr))
-			tail->right = io_redirect_r(lxr, ret);
+			tail->right = io_redirect_r(lxr, ret, RIGHT);
 		else
 			tail->right = ast_lst_new(lxr, ret, WORD);
 		if (!*ret)
 			break ;
-		tail = tail->right;
+		tail = ast_lst_last(tail, RIGHT);
 	}
 	if (!*ret)
 		ast_lst_clear(&suffix);
@@ -58,21 +58,21 @@ static t_ast_lst	*cmd_prefix_r(t_lxr_lst **lxr, int *ret)
 	t_ast_lst	*tail;
 
 	if (is_io_redirect(lxr))
-		prefix = io_redirect_r(lxr, ret);
+		prefix = io_redirect_r(lxr, ret, LEFT);
 	else if (peek(lxr, ASSIGNMENT_W))
 		prefix = ast_lst_new(lxr, ret, 0);
 	else
 		return (NULL);
-	tail = prefix;
+	tail = ast_lst_last(prefix, LEFT);
 	while (*ret && (is_io_redirect (lxr) || peek(lxr, ASSIGNMENT_W)))
 	{
 		if (is_io_redirect(lxr))
-			tail->left = io_redirect_r(lxr, ret);
+			tail->left = io_redirect_r(lxr, ret, LEFT);
 		else
 			tail->left = ast_lst_new(lxr, ret, 0);
 		if (!*ret)
 			break ;
-		tail = tail->left;
+		tail = ast_lst_last(tail, LEFT);
 	}
 	if (!*ret)
 		ast_lst_clear(&prefix);

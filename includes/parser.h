@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/25 16:31:15 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/02 12:48:43 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,9 @@ t_ast_lst	*command_r(t_lxr_lst **lxr, int *ret);
 /// @brief Create an a small ast tree with an io_redirect cmd.
 /// @param lxr A pointer to the currently looked at lexer node.
 /// @param ret A pointer to an integer to know if there an error.
+/// @param side Side of create the redirect tree, left or right.
 /// @return Return a redirect_io ast tree.
-t_ast_lst	*io_redirect_r(t_lxr_lst **lxr, int *ret);
+t_ast_lst	*io_redirect_r(t_lxr_lst **lxr, int *ret, t_side side);
 
 /// @brief Check if the given node can be of redirect type
 /// @param lxr A pointer to the given node

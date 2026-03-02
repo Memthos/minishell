@@ -1,42 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast_lst_new.c                                      :+:      :+:    :+:   */
+/*   ast_lst_last.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/11 10:08:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/02 13:45:19 by mperrine         ###   ########.fr       */
+/*   Created: 2026/02/11 10:08:02 by mperrine          #+#    #+#             */
+/*   Updated: 2026/03/02 12:52:06 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, int *ret, t_token	force)
+t_ast_lst	*ast_lst_last(t_ast_lst *head, t_side side)
 {
-	t_ast_lst	*new;
-	char		*str;
-
-	new = malloc(sizeof(t_ast_lst));
-	if (NULL == new)
-		*ret = 0;
-	if (!*ret)
+	if (!head)
 		return (NULL);
-	if (!(*lxr)->data)
-		str = NULL;
+	if (side == LEFT)
+	{
+		while (head->left)
+			head = head->left;
+	}
 	else
 	{
-		str = ft_strdup((*lxr)->data);
-		if (!str)
-		{
-			free(new);
-			*ret = 0;
-			return (NULL);
-		}
+		while (head->right)
+			head = head->right;
 	}
-	*new = (t_ast_lst){str, (*lxr)->token, NULL, NULL};
-	if (force)
-		new->token = force;
-	consume(lxr);
-	return (new);
+	return (head);
 }
