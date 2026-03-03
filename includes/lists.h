@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/02 13:43:12 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/03 10:58:13 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,12 @@ t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, int *ret, t_token force);
 /// @brief Clear the ast.
 /// @param head A pointer to the first node of the ast.
 void		ast_lst_clear(t_ast_lst **head);
+
+/// @brief Count the last node of the list.
+/// @param head The head / start of the list.
+/// @param side The side of the list to check.
+/// @return The last node of the list.
+t_ast_lst	*ast_lst_last(t_ast_lst *head, t_side side);
 
 /**
  * @brief Return true if the node is the same as the input token.

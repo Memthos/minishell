@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/26 11:14:57 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/03 10:58:06 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ typedef enum e_quote_t
 	S_QUOTE = 1,
 	D_QUOTE = 2,
 }	t_quote_t;
+
+typedef enum e_side
+{
+	LEFT,
+	RIGHT,
+}	t_side;
 
 typedef enum e_tokens
 {
