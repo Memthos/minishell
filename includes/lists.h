@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/25 13:28:48 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/02 13:43:12 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,11 @@ void		consume(t_lxr_lst **node);
  * @return The number of arguments plus the command.
  */
 t_uint		ast_cmd_size(t_ast_lst *ast);
+
+/**
+ * @brief Counts the number of pipes in ast.
+ * @return The number if pipes in ast.
+ */
+t_uint		ast_pipe_count(t_ast_lst *ast);
 
 #endif
