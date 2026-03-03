@@ -14,7 +14,7 @@ SRCS =	minishell.c \
 		utils.c string_utils.c \
 		parser.c parser_tools.c expand.c \
 		ast_lst_new.c ast_lst_clear.c ast_lst_last.c ast_tools.c \
-		ast_main_rules.c ast_cmp_rules.c ast_cmd_size.c ast_cmd_rules.c \
+		ast_main_rules.c ast_cmp_rules.c ast_cmd_rules.c ast_cmd_utils.c \
 		ast_red_rules.c \
 		lexer.c lexer_cleanup.c lxr_lst_add.c lxr_lst_append.c lxr_lst_last.c \
 		lxr_lst_new.c lxr_lst_remove.c lxr_lst_size.c \
