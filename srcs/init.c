@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/27 09:29:43 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/05 10:27:28 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ t_shell	*init(char *envp[])
 	shell->locals = NULL;
 	shell->cur_cmd = NULL;
 	shell->exitno = SUCCESS;
-	shell->stdin_fd = dup(STDIN_FILENO);
-	shell->stdout_fd = dup(STDOUT_FILENO);
+	shell->pipe_logic.redirect = 0;
+	shell->pipe_logic.pipe_index = 0;
+	shell->pipe_logic.stdin_fd = dup(STDIN_FILENO);
+	shell->pipe_logic.stdout_fd = dup(STDOUT_FILENO);
 	return (shell);
 }
