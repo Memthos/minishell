@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/24 10:49:11 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/05 10:39:34 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ static t_status	minishell(t_shell *shell)
 			error_output("Error append while parsing the command\n");
 			continue ;
 		}
-		if (SUCCESS != execute(shell))
-			error_output("Error append while executing the command\n");
+		printf("execute returned : %d\n\n", execute(shell->cmd_ast, shell));
 	}
 	return (SUCCESS);
 }
