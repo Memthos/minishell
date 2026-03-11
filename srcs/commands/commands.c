@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/11 15:13:04 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/11 16:13:35 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ t_status	run_comand(t_shell *shell)
 
 	if (NULL == shell || NULL == shell->cur_cmd || 0 == shell->cur_cmd_index)
 		return (FAILURE);
+	cmd = get_command(*shell->cur_cmd);
+	if (0 == shell->pipe_depth && &cmd_exec != cmd)
+	{
+		code = cmd(shell->cur_cmd, shell);
+		printf("'%s' return %d\n", *shell->cur_cmd, code);
+		return (code);
+	}
 	pid = fork();
 	if (-1 == pid)
 	{
@@ -71,7 +78,6 @@ t_status	run_comand(t_shell *shell)
 	{
 		printf("Entering sub-process\n");
 		printf("Needed redirection will be applied here\n");
-		cmd = get_command(*shell->cur_cmd);
 		code = cmd(shell->cur_cmd, shell);
 		printf("'%s' return %d\n", *shell->cur_cmd, code);
 		destroy(shell);
