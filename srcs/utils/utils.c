@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 09:42:57 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:13:52 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,25 @@ void	swap_str(char **a, char **b)
 	tmp = *a;
 	*a = *b;
 	*b = tmp;
+}
+
+void	*increment_array(void *array, t_uint count, t_uint size)
+{
+	void	*new;
+
+	if (NULL == array)
+	{
+		array = malloc(size);
+		if (NULL == array)
+			return (NULL);
+		return (array);
+	}
+	if (0 == count)
+		return (array);
+	new = malloc(size * (count + 1));
+	if (NULL == new)
+		return (NULL);
+	ft_memcpy(new, array, count * size);
+	free(array);
+	return (new);
 }
