@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/11 11:21:43 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/11 14:31:52 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ t_status	run_comand(t_shell *shell)
 		exit(code);
 	}
 	printf("Added %d in pids list\n", pid);
-	shell->pids[shell->pids_count] = pid;
-	++shell->pids_count;
+	shell->pids[shell->pid_count] = pid;
+	++shell->pid_count;
 	free(shell->cur_cmd);
 	shell->cur_cmd = NULL;
 	return (SUCCESS);
