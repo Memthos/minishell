@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 10:24:34 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:11:28 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,15 @@ void		swap_str(char **a, char **b);
  * @return true on success, false on failure.
  */
 bool		str_is_digit(char *str);
+
+/**
+ * @brief Reallocs array to add memory for one more element. array have to be NULL if count is 0.
+ * @param array The array to realloc.
+ * @param count The current number of elements in array.
+ * @param size The size of the one element of array.
+ * @return A new array with the updated size.
+ * 
+ */
+void	*increment_array(void *array, t_uint count, t_uint size);
 
 #endif
