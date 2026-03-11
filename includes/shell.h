@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/11 14:31:39 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/11 15:53:27 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_shell
 	t_uint			pid_count;
 	t_uint			pid_index;
 	bool			in_pipe;
-	bool			in_list;
 }	t_shell;
 
 void		destroy(t_shell *shell);
