@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/11 16:10:22 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/12 15:20:15 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ t_shell	*init(char *envp[])
 	shell->locals = NULL;
 	shell->cur_cmd = NULL;
 	shell->exitno = SUCCESS;
+	shell->redirect_output = false;
+	shell->redirect_input = false;
 	shell->pipe1[0] = -1;
 	shell->pipe1[1] = -1;
 	shell->pipe2[0] = -1;
