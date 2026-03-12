@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/11 16:10:09 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/12 15:19:56 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_shell
 	char			**cur_cmd;
 	t_uint			cur_cmd_index;
 	t_status		exitno;
+	bool			redirect_output;
+	bool			redirect_input;
 	int				pipe1[2];
 	int				pipe2[2];
 	t_uint			pipe_index;
