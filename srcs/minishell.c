@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/13 13:59:10 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/13 16:57:11 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static t_status	minishell(t_shell *shell)
 	while (true)
 	{
 		line = readline("$>");
+		add_history(line);
 		if (SUCCESS != parser(line, shell))
 		{
 			ast_lst_clear(&shell->cmd_ast);
