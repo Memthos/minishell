@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/13 10:14:15 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/13 14:14:16 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,11 @@ int	ft_close(int *fd)
 {
 	int	code;
 
-	if (fd < 0)
+	if (*fd < 0)
 		return (SUCCESS);
 	code = close(*fd);
 	if (SUCCESS != code)
 		perror("Close ");
 	*fd = -1;
-	return (code);	
+	return (code);
 }
