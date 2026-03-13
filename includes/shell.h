@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/13 10:52:27 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/13 11:11:38 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,23 @@
 # include "commands.h"
 # include "lists.h"
 
+typedef struct s_pipe_logic
+{
+	int		pipe_depth;
+	t_uint	pipe_index;
+	int		pipe1[2];
+	int		pipe2[2];
+	bool	redirect_output;
+	bool	redirect_input;
+}	t_pipe_logic;
+
+typedef struct s_pids_logic
+{
+	pid_t	*pids;
+	t_uint	pid_count;
+	t_uint	pid_index;
+}	t_pids_logic;
+
 typedef struct s_shell
 {
 	t_dictionary	*env;
@@ -26,15 +43,8 @@ typedef struct s_shell
 	char			**cur_cmd;
 	t_uint			cur_cmd_index;
 	t_status		exitno;
-	bool			redirect_output;
-	bool			redirect_input;
-	int				pipe1[2];
-	int				pipe2[2];
-	t_uint			pipe_index;
-	int				pipe_depth;
-	pid_t			*pids;
-	t_uint			pid_count;
-	t_uint			pid_index;
+	t_pipe_logic	pipes;
+	t_pids_logic	pids;
 }	t_shell;
 
 /**
@@ -42,6 +52,9 @@ typedef struct s_shell
  */
 t_status	update_pids(t_shell *shell, pid_t pid);
 
+/**
+ * @brief Destroys all allocated ressources that have bee not freed, and closes all fd that are opened.
+ */
 void		destroy_shell(t_shell *shell);
 
 t_status	update_locals(t_shell *shell, char *assign);
