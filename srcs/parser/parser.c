@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/13 15:53:55 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/13 19:07:53 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	parser(char *s, t_shell *shell)
 	lxr_lst_clear(&lxr);
 	if (!shell->cmd_ast)
 		return (FAILURE);
-	if (expand(shell->cmd_ast, shell->env))
+	if (expand(shell->cmd_ast))
 		return (FAILURE);
 	if (update_quotes(shell->cmd_ast))
 		return (FAILURE);

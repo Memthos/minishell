@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/13 17:06:31 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/13 19:07:03 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static t_ast_lst	*expand_to_ast(t_lxr_lst **lxr, int *ret)
 	t_ast_lst	*tail;
 
 	ast = NULL;
-	while (!ret && *lxr)
+	while (ret && *lxr)
 	{
 		if (ast)
 		{
@@ -82,11 +82,11 @@ static t_ast_lst	*expand_to_ast(t_lxr_lst **lxr, int *ret)
 			ast = ast_lst_new(lxr, &ret, WORD);
 			tail = ast;
 		}
-		if (ret)
+		if (!ret)
 			break ;
 		consume(lxr);
 	}
-	if (ret)
+	if (!ret)
 		ast_lst_clear(&ast);
 	lxr_lst_clear(lxr);
 	return (ast);
@@ -98,12 +98,12 @@ static int	check_expand_data(t_ast_lst *node)
 	t_lxr_lst	*lxr;
 	int			ret;
 
-	ret = 0;
+	ret = 1;
 	lxr = NULL;
 	if (lexer(&lxr, node->data))
 		return (1);
 	ast = expand_to_ast(&lxr, &ret);
-	if (ret || !ast)
+	if (!ret || !ast)
 		return (1);
 	ast_lst_last(ast, RIGHT)->right = node->right;
 	node->right = ast;
