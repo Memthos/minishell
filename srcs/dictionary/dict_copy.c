@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dict_display.c                                     :+:      :+:    :+:   */
+/*   dict_copy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/18 11:43:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/13 14:35:00 by juperrin         ###   ########.fr       */
+/*   Created: 2026/03/13 15:01:29 by juperrin          #+#    #+#             */
+/*   Updated: 2026/03/13 15:25:01 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	dict_display(t_dictionary *dict, char *prefix, char *sep, char *suffix)
+t_dictionary	*dict_copy(const t_dictionary *dict)
 {
-	while (dict)
+	t_dictionary	*cpy;
+	t_dictionary	*head;
+
+	if (NULL == dict)
+		return (NULL);
+	cpy = malloc(sizeof(t_dictionary));
+	head = cpy;
+	cpy->key = ft_strdup(dict->key);
+	cpy->data = ft_strdup(dict->data);
+	while (dict->next)
 	{
-		printf("%s%s%s%s%s\n", prefix, dict->key, sep, (char *)dict->data, suffix);
+		cpy->next = malloc(sizeof(t_dictionary));
+		cpy->next->key = ft_strdup(dict->next->key);
+		cpy->next->data = ft_strdup(dict->next->data);
+		cpy->next->next = NULL;
+		cpy = cpy->next;
 		dict = dict->next;
 	}
-	return ;
+	return (head);
 }

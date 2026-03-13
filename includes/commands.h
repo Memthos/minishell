@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/24 15:57:53 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/13 14:30:29 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,15 @@ typedef struct s_command
  * @brief If name is in the built in list, gets the corresponding function,
  * get cmd_exec otherwise.
  * @param name The command name to get.
- * @return A function pointer to the right command to execute, NULL if name is NULL.
+ * @return A function pointer to the right command to execute,
+ * NULL if name is NULL.
  */
 t_built_in	get_command(char *name);
+
+/**
+ * @brief Runs the command contains in shell->cur_cmd in a child process.
+ */
+t_status	run_comand(t_shell *shell);
 
 /**
  * @brief Execute a command with execve.

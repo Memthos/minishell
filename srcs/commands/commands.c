@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/24 15:54:04 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/13 11:19:07 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,82 @@ t_built_in	get_command(char *name)
 	if (NULL == cmd)
 		cmd = &cmd_exec;
 	return (cmd);
+}
+
+t_status	run_comand(t_shell *shell)
+{
+	t_status	code;
+	pid_t		pid;
+	t_built_in	cmd;
+
+	if (NULL == shell || NULL == shell->cur_cmd || 0 == shell->cur_cmd_index)
+		return (FAILURE);
+	cmd = get_command(*shell->cur_cmd);
+	if (0 == shell->pipes.pipe_depth && &cmd_exec != cmd)
+	{
+		code = cmd(shell->cur_cmd, shell);
+		printf("'%s' return %d\n", *shell->cur_cmd, code);
+		return (code);
+	}	
+	pid = fork();	
+	if (-1 == pid)	
+	{	
+		shell->exitno = FORK_FAILURE;
+		return (FORK_FAILURE);	
+	}	
+	if (0 == pid)	
+	{	
+		if (shell->pipes.redirect_output)	
+		{
+			if (0 == shell->pipes.pipe_index % 2)
+			{
+				if (-1 == dup2(shell->pipes.pipe1[1], STDOUT_FILENO))
+				{
+					destroy_shell(shell);
+					exit(DUP_FAILURE);
+				}
+				ft_close(&shell->pipes.pipe1[0]);
+				ft_close(&shell->pipes.pipe1[1]);
+			}
+			else
+			{
+				if (-1 == dup2(shell->pipes.pipe2[1], STDOUT_FILENO))
+				{
+					destroy_shell(shell);
+					exit(DUP_FAILURE);
+				}
+				ft_close(&shell->pipes.pipe2[0]);
+				ft_close(&shell->pipes.pipe2[1]);
+			}
+		}
+		if (shell->pipes.redirect_input)
+		{
+			if (0 == (shell->pipes.pipe_index - 1) % 2)
+			{
+				if (-1 == dup2(shell->pipes.pipe1[0], STDIN_FILENO))
+				{
+					destroy_shell(shell);
+					exit(DUP_FAILURE);
+				}
+				ft_close(&shell->pipes.pipe1[0]);
+				ft_close(&shell->pipes.pipe1[1]);
+			}
+			else
+			{
+				if (-1 == dup2(shell->pipes.pipe2[0], STDIN_FILENO))
+				{
+					destroy_shell(shell);
+					exit(DUP_FAILURE);
+				}
+				ft_close(&shell->pipes.pipe2[0]);
+				ft_close(&shell->pipes.pipe2[1]);
+			}
+		}
+		code = cmd(shell->cur_cmd, shell);
+		dprintf(2, "'%s' return %d\n", *shell->cur_cmd, code);
+		destroy_shell(shell);
+		exit(code);
+	}
+	shell->exitno = update_pids(shell, pid);
+	return (shell->exitno);
 }

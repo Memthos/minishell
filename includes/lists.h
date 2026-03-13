@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/13 17:02:36 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/13 17:10:29 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void		consume(t_lxr_lst **node);
 /**
  * @brief Counts the number of commands in ast.
  */
-t_uint	ast_cmd_count(t_ast_lst *ast);
+t_uint		ast_cmd_count(t_ast_lst *ast);
 
 /**
  * @brief Counts the number of arguments for the contained command in ast.

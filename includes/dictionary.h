@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 11:10:37 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/23 10:07:28 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/13 15:26:43 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ void			dict_clear(t_dictionary **dict);
 t_uint			dict_size(t_dictionary *dict);
 
 /**
+ * @brief Allocates a new dictionary which is a copy in the dictionary passed in.
+ */
+t_dictionary	*dict_copy(const t_dictionary *dict);
+
+/**
  * @brief Transforms a dictionary into a string array.
  * @param dict The dictionary to transform.
  * @param sep The separation character to add between the key and the value.
@@ -92,8 +97,9 @@ t_dictionary	*dict_sort(t_dictionary **dict);
  * @brief Displays a dictionary in this way : 'prefix' 'key' 'sep' 'data'\\n.
  * @param dict The dictionary to display.
  * @param prefix The prefix to print before each line.
+ * @param suffix The suffix to print a the end of each line.
  * @param sep The separation between the key and the data.
  */
-void			dict_display(t_dictionary *dict, char *prefix, char *sep);
+void			dict_display(t_dictionary *dict, char *prefix, char *sep, char *suffix);
 
 #endif

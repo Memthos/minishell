@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/23 14:57:13 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/13 17:06:31 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	get_var_name(char *s, size_t i, char **var)
 			size++;
 	}
 	if (size == 0)
-		return (0);
+		return (1);
 	*var = malloc(sizeof(char) * (size + 1));
 	if (!*var)
 		return (1);
@@ -35,23 +35,7 @@ static int	get_var_name(char *s, size_t i, char **var)
 	return (0);
 }
 
-static char	*get_var_value(char *var, t_dictionary *env)
-{
-	char	*value;
-
-	value = getenv(var);
-	if (!value)
-	{
-		while (env && strcmp(env->key, var))
-			env = env->next;
-		if (!env)
-			return (NULL);
-		value = env->data;
-	}
-	return (value);
-}
-
-static int	update_data(char **data, size_t *data_i, t_dictionary *env)
+static int	update_data(char **data, size_t *data_i)
 {
 	size_t	var_name_s;
 	char	*var_name;
@@ -64,7 +48,7 @@ static int	update_data(char **data, size_t *data_i, t_dictionary *env)
 	if (!var_name)
 		return (0);
 	var_name_s = ft_strlen(var_name);
-	var_val = get_var_value(var_name, env);
+	var_val = getenv(var_name);
 	free(var_name);
 	str = malloc(ft_strlen(*data) - var_name_s + ft_strlen(var_val));
 	if (!str)
@@ -80,7 +64,53 @@ static int	update_data(char **data, size_t *data_i, t_dictionary *env)
 	return (0);
 }
 
-int	expand(t_ast_lst *node, t_dictionary *env)
+static t_ast_lst	*expand_to_ast(t_lxr_lst **lxr, int *ret)
+{
+	t_ast_lst	*ast;
+	t_ast_lst	*tail;
+
+	ast = NULL;
+	while (!ret && *lxr)
+	{
+		if (ast)
+		{
+			tail->right = ast_lst_new(lxr, &ret, WORD);
+			tail = tail->right;
+		}
+		else
+		{
+			ast = ast_lst_new(lxr, &ret, WORD);
+			tail = ast;
+		}
+		if (ret)
+			break ;
+		consume(lxr);
+	}
+	if (ret)
+		ast_lst_clear(&ast);
+	lxr_lst_clear(lxr);
+	return (ast);
+}
+
+static int	check_expand_data(t_ast_lst *node)
+{
+	t_ast_lst	*ast;
+	t_lxr_lst	*lxr;
+	int			ret;
+
+	ret = 0;
+	lxr = NULL;
+	if (lexer(&lxr, node->data))
+		return (1);
+	ast = expand_to_ast(&lxr, &ret);
+	if (ret || !ast)
+		return (1);
+	ast_lst_last(ast, RIGHT)->right = node->right;
+	node->right = ast;
+	return (0);
+}
+
+int	expand(t_ast_lst *node)
 {
 	size_t		i;
 	t_quote_t	quote_state;
@@ -95,15 +125,15 @@ int	expand(t_ast_lst *node, t_dictionary *env)
 		set_quote_state(&quote_state, node->data[i]);
 		if (node->data[i] == '$' && quote_state != 1)
 		{
-			if (update_data(&node->data, &i, env))
+			if (update_data(&node->data, &i))
+				return (1);
+			if (check_expand_data(node))
 				return (1);
 		}
 		else
 			i++;
 	}
-	if (expand(node->left, env))
-		return (1);
-	if (expand(node->right, env))
+	if (expand(node->left) || expand(node->right))
 		return (1);
 	return (0);
 }

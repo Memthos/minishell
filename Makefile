@@ -6,7 +6,7 @@ INCLUDES_DIR = includes/
 VPATH = srcs:srcs/lists:srcs/commands:srcs/dictionary:srcs/parser:srcs/utils:srcs/outputs
 SRCS =	minishell.c \
 		init.c \
-		destroy.c \
+		shell.c \
 		execute.c \
 		environment.c \
 		sighandle.c \
@@ -20,8 +20,8 @@ SRCS =	minishell.c \
 		lxr_lst_new.c lxr_lst_remove.c lxr_lst_size.c \
 		commands.c exec.c cd.c env.c exit.c export.c echo.c pwd.c unset.c \
 		dict_add.c dict_clear.c dict_get.c dict_new.c dict_remove.c \
+		dict_update.c dict_size.c dict_sort.c dict_copy.c dict_to_array.c dict_display.c \
 		dict_update.c dict_size.c dict_sort.c dict_to_array.c dict_display.c
-SRCS_BONUS=
 
 OBJDIR = objs/
 OBJECTS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
