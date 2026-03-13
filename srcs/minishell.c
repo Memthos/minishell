@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/11 09:15:43 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/13 13:59:10 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static t_status	minishell(t_shell *shell)
 {
 	char	*line;
-	int		status;
 
 	if (NULL == shell)
 		return (SUCCESS);
@@ -25,20 +24,15 @@ static t_status	minishell(t_shell *shell)
 		if (SUCCESS != parser(line, shell))
 		{
 			ast_lst_clear(&shell->cmd_ast);
-			error_output("Error append while parsing the command\n");
 			continue ;
 		}
-		printf("execute returned : %d\n\n", execute(shell->cmd_ast, shell));
-		printf("Now waiting for all asynchronous process to finish\n");
-		shell->pids_index = 0;
-		while (shell->pids_index < shell->pids_count)
-		{
-			waitpid(shell->pids[shell->pids_index], &status, 0);
-			++shell->pids_index;
-		}
-		free(shell->pids);
-		shell->pids_index = 0;
-		shell->pids = NULL;
+		execute(shell->cmd_ast, shell);
+		printf("execution returned : %d\n", shell->exitno);
+		free(shell->cur_cmd);
+		shell->cur_cmd = NULL;
+		ast_lst_clear(&shell->cmd_ast);
+		wait_for_processes(shell);
+		shell->pipes.pipe_index = 0;
 	}
 	return (SUCCESS);
 }
@@ -53,6 +47,6 @@ int	main(int argc, char **argv, char **envp)
 	if (NULL == shell)
 		return (FAILURE);
 	minishell(shell);
-	destroy(shell);
+	destroy_shell(shell);
 	return (SUCCESS);
 }
