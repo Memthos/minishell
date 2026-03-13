@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/13 13:53:59 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/13 17:03:23 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	destroy_shell(t_shell *shell)
 	dict_clear(&shell->env);
 	dict_clear(&shell->locals);
 	ast_lst_clear(&shell->cmd_ast);
+	rl_clear_history();
 	free(shell);
 	dprintf(2, "Shell has been destroyed\n");
 	return ;
