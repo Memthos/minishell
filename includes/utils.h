@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/13 10:15:02 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/13 14:04:55 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ void	*increment_array(void *array, t_uint count, t_uint size);
 /**
  * @brief Closes the fd passed in and set its value to -1. Does nothing if fd < 0.
  */
-int	ft_close(int *fd);
+int		ft_close(int *fd);
 
 #endif
