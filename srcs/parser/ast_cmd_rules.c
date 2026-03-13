@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/13 19:32:37 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/13 19:36:45 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	cmd_arg_r(t_ast_lst **cmd, t_lxr_lst **lxr, int *ret)
 				tmp = *cmd;
 			ast_lst_last(*cmd, RIGHT)->right = ast_lst_new(lxr, ret, WORD);
 			if (!ret && tmp)
-				ast_lst_clear(tmp);
+				ast_lst_clear(&tmp);
 			else if (tmp)
 				(*cmd)->left = tmp;
 		}

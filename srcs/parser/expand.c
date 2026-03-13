@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/13 19:07:03 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/13 19:36:31 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ static t_ast_lst	*expand_to_ast(t_lxr_lst **lxr, int *ret)
 	{
 		if (ast)
 		{
-			tail->right = ast_lst_new(lxr, &ret, WORD);
+			tail->right = ast_lst_new(lxr, ret, WORD);
 			tail = tail->right;
 		}
 		else
 		{
-			ast = ast_lst_new(lxr, &ret, WORD);
+			ast = ast_lst_new(lxr, ret, WORD);
 			tail = ast;
 		}
 		if (!ret)
