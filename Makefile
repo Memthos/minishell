@@ -21,9 +21,11 @@ SRCS =	minishell.c \
 		commands.c exec.c cd.c env.c exit.c export.c echo.c pwd.c unset.c \
 		dict_add.c dict_clear.c dict_get.c dict_new.c dict_remove.c \
 		dict_update.c dict_size.c dict_sort.c dict_to_array.c dict_display.c
+SRCS_BONUS=
 
 OBJDIR = objs/
 OBJECTS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
+OBJECTS_BONUS = $(addprefix $(OBJDIR), $(SRCS_BONUS:.c=.o))
 
 LIBFT_DIR = libs/libft_tools/
 LIBFT = $(addprefix $(LIBFT_DIR), libft_tools.a)
@@ -33,9 +35,16 @@ NAME = minishell
 
 all: $(NAME)
 
+bonus: $(OBJDIR).bonus
+
 $(NAME): $(OBJECTS) | $(LIBFT)
 	@$(CC) $(CFLAGS) -o $@ $^ -I$(INCLUDES_DIR) $(LIBS)
 	@echo "Finished compiling Minishell"
+
+$(OBJDIR).bonus: $(OBJECTS_BONUS) | $(LIBFT)
+	@$(CC) $(CFLAGS) -o $@ $^ -I$(INCLUDES_DIR) $(LIBS)
+	@touch $(OBJDIR).bonus
+	@echo "Finished compiling Minishell bonuses"
 
 $(OBJDIR)%.o: %.c | $(OBJDIR)
 	@$(CC) $(CFLAGS) -o $@ -c $<
@@ -60,4 +69,4 @@ fclean: clean
 re: clean all
 	@echo "Recompiled Minishell"
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
