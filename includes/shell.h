@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/12 15:19:56 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/13 10:52:27 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,12 @@ typedef struct s_shell
 	t_uint			pid_index;
 }	t_shell;
 
-void		destroy(t_shell *shell);
+/**
+ * @brief Adds pid to the list of pids in shell.
+ */
+t_status	update_pids(t_shell *shell, pid_t pid);
+
+void		destroy_shell(t_shell *shell);
 
 t_status	update_locals(t_shell *shell, char *assign);
 
