@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/13 13:21:08 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/13 14:30:48 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ typedef struct s_shell
 t_status	update_pids(t_shell *shell, pid_t pid);
 
 /**
- * @brief If pids list is not null, wait for all pid in pids to finish their execution.
+ * @brief If pids list is not null, wait for all pid in pids
+ * to finish their execution.
  */
 t_status	wait_for_processes(t_shell *shell);
 
 /**
- * @brief Destroys all allocated ressources that have bee not freed, and closes all fd that are opened.
+ * @brief Destroys all allocated ressources that have bee not
+ * freed, and closes all fd that are opened.
  */
 void		destroy_shell(t_shell *shell);
 

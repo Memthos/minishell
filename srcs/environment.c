@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 10:31:06 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/26 09:42:36 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/13 14:29:23 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ t_status	update_locals(t_shell *shell, char *assign)
 		free(args[1]);
 	}
 	free(args);
-	return (shell->exitno);	
+	return (shell->exitno);
 }
