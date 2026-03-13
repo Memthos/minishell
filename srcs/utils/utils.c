@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/11 15:13:52 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/13 10:14:15 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,17 @@ void	*increment_array(void *array, t_uint count, t_uint size)
 	ft_memcpy(new, array, count * size);
 	free(array);
 	return (new);
+}
+
+int	ft_close(int *fd)
+{
+	int	code;
+
+	if (fd < 0)
+		return (SUCCESS);
+	code = close(*fd);
+	if (SUCCESS != code)
+		perror("Close ");
+	*fd = -1;
+	return (code);	
 }
