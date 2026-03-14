@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/13 16:57:11 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/14 16:34:17 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static t_status	minishell(t_shell *shell)
 		}
 		execute(shell->cmd_ast, shell);
 		printf("execution returned : %d\n", shell->exitno);
-		free(shell->cur_cmd);
-		shell->cur_cmd = NULL;
 		ast_lst_clear(&shell->cmd_ast);
 		wait_for_processes(shell);
 		shell->pipes.pipe_index = 0;
