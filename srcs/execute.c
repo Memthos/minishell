@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/14 14:18:57 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/14 17:49:52 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		return (SUCCESS);
 	if (WORD == cmd->token)
 	{
-		execute(cmd->right, shell);
+		execute(cmd->left, shell);
 		if (NULL == shell->cur_cmd)
 		{
 			shell->cur_cmd_index = 0;
@@ -92,6 +92,29 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 			ft_close(&shell->pipes.pipe2[1]);
 		}
 		--shell->pipes.pipe_depth;
+	}
+	if (GREAT == cmd->token || DGREAT == cmd->token)
+	{
+		if (NULL == cmd->left)
+		{
+			shell->exitno = BAD_ARG;
+			return (shell->exitno);
+		}
+		ft_close(&shell->redirects.output_redirect_fd);
+		shell->redirects.redirect_output = true;
+		shell->redirects.flags = O_WRONLY | O_CREAT;
+		if (DGREAT == cmd->token)
+			shell->redirects.flags |= O_APPEND;
+		else
+			shell->redirects.flags |= O_TRUNC;
+		shell->redirects.output_redirect_fd = open(cmd->left->data, shell->redirects.flags, 0644);
+		if (-1 == shell->redirects.output_redirect_fd)
+		{
+			perror("open");
+			shell->exitno = OPEN_FAILURE;
+			return (shell->exitno);
+		}
+		execute(cmd->left->left, shell);
 	}
 	if (AND_IF == cmd->token || OR_IF == cmd->token)
 	{

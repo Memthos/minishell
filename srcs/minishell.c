@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 18:14:59 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/14 18:24:15 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static t_status	minishell(t_shell *shell)
 			continue ;
 		execute(shell->cmd_ast, shell);
 		printf("execution returned : %d\n", shell->exitno);
-		free(shell->cur_cmd);
-		shell->cur_cmd = NULL;
 		ast_lst_clear(&shell->cmd_ast);
 		wait_for_processes(shell);
 		shell->pipes.pipe_index = 0;
