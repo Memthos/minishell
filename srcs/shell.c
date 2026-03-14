@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/14 15:42:37 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/14 18:17:31 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	destroy_shell(t_shell *shell)
 	ft_close(&shell->pipes.pipe1[1]);
 	ft_close(&shell->pipes.pipe2[0]);
 	ft_close(&shell->pipes.pipe2[1]);
+	ft_close(&shell->redirects.stdin_dup);
+	ft_close(&shell->redirects.stdout_dup);
 	dict_clear(&shell->env);
 	dict_clear(&shell->locals);
 	ast_lst_clear(&shell->cmd_ast);
