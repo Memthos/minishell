@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/13 14:30:48 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:08:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ typedef struct s_pipe_logic
 	bool	redirect_input;
 }	t_pipe_logic;
 
+typedef struct s_redir_logic
+{
+	bool	redirect_output;
+	int		output_redirect_fd;
+	t_uint	flags;
+}	t_redir_logic;
+
 typedef struct s_pids_logic
 {
 	pid_t	*pids;
@@ -44,6 +51,7 @@ typedef struct s_shell
 	t_uint			cur_cmd_index;
 	t_status		exitno;
 	t_pipe_logic	pipes;
+	t_redir_logic	redirects;
 	t_pids_logic	pids;
 }	t_shell;
 
