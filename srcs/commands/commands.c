@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/14 16:44:20 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/14 16:50:04 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,13 +133,13 @@ t_status	run_comand(t_shell *shell)
 				exit(DUP_FAILURE);
 			}
 			ft_close(&shell->redirects.output_redirect_fd);
-			shell->redirects.redirect_output = false;
 		}
 		code = cmd(shell->cur_cmd, shell);
 		printf("'%s' return %d\n", *shell->cur_cmd, code);
 		destroy_shell(shell);
 		exit(code);
 	}
+	shell->redirects.redirect_output = false;
 	ft_close(&shell->redirects.output_redirect_fd);
 	free(shell->cur_cmd);
 	shell->cur_cmd = NULL;
