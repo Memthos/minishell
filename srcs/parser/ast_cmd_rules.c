@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/13 19:36:45 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/14 13:04:21 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,20 @@ static void	cmd_arg_r(t_ast_lst **cmd, t_lxr_lst **lxr, int *ret)
 {
 	t_ast_lst	*tmp;
 
-	tmp = NULL;
 	while (ret && (peek(lxr, WORD) || peek(lxr, ASSIGNMENT_W)))
 	{
+		tmp = NULL;
 		if (!cmd || !*cmd)
 			*cmd = ast_lst_new(lxr, ret, WORD);
 		else
 		{
-			if ((*cmd)->token != WORD && (*cmd)->token != ASSIGNMENT_W)
+			if ((*cmd)->token != WORD)
+			{
 				tmp = *cmd;
-			ast_lst_last(*cmd, RIGHT)->right = ast_lst_new(lxr, ret, WORD);
+				*cmd = ast_lst_new(lxr, ret, WORD);
+			}
+			else
+				ast_lst_last(*cmd, RIGHT)->right = ast_lst_new(lxr, ret, WORD);
 			if (!ret && tmp)
 				ast_lst_clear(&tmp);
 			else if (tmp)
