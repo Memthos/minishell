@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/13 11:19:07 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/14 16:36:25 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,16 @@ t_status	run_comand(t_shell *shell)
 		code = cmd(shell->cur_cmd, shell);
 		printf("'%s' return %d\n", *shell->cur_cmd, code);
 		return (code);
-	}	
-	pid = fork();	
-	if (-1 == pid)	
-	{	
+	}
+	pid = fork();
+	if (-1 == pid)
+	{
 		shell->exitno = FORK_FAILURE;
-		return (FORK_FAILURE);	
-	}	
-	if (0 == pid)	
-	{	
-		if (shell->pipes.redirect_output)	
+		return (FORK_FAILURE);
+	}
+	if (0 == pid)
+	{
+		if (shell->pipes.redirect_output)
 		{
 			if (0 == shell->pipes.pipe_index % 2)
 			{
@@ -122,11 +122,24 @@ t_status	run_comand(t_shell *shell)
 				ft_close(&shell->pipes.pipe2[1]);
 			}
 		}
+		if (shell->redirects.redirect_output)
+		{
+			if (-1 == dup2(shell->redirects.output_redirect_fd, STDOUT_FILENO))
+			{
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
+			}
+			ft_close(&shell->redirects.output_redirect_fd);
+			shell->redirects.redirect_output = false;
+		}
 		code = cmd(shell->cur_cmd, shell);
-		dprintf(2, "'%s' return %d\n", *shell->cur_cmd, code);
+		printf("'%s' return %d\n", *shell->cur_cmd, code);
 		destroy_shell(shell);
 		exit(code);
 	}
+	ft_close(&shell->redirects.output_redirect_fd);
+	free(shell->cur_cmd);
+	shell->cur_cmd = NULL;
 	shell->exitno = update_pids(shell, pid);
 	return (shell->exitno);
 }
