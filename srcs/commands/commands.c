@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/14 18:06:25 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/14 18:18:53 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,29 @@ t_status	run_comand(t_shell *shell)
 	cmd = get_command(*shell->cur_cmd);
 	if (0 == shell->pipes.pipe_depth && &cmd_exec != cmd)
 	{
+		if (shell->redirects.redirect_output)
+		{
+			if (-1 == dup2(shell->redirects.output_redirect_fd, STDOUT_FILENO))
+			{
+				perror("dup2");
+				ft_close(&shell->redirects.output_redirect_fd);
+				free(shell->cur_cmd);
+				shell->cur_cmd = NULL;
+				shell->exitno = DUP_FAILURE;
+				return (shell->exitno);
+			}
+			shell->redirects.redirect_output = false;
+			ft_close(&shell->redirects.output_redirect_fd);
+		}
 		shell->exitno = cmd(shell->cur_cmd, shell);
+		if (-1 == dup2(shell->redirects.stdout_dup, STDOUT_FILENO))
+		{
+			perror("dup2");
+			shell->exitno = DUP_FAILURE;
+		}
 		printf("'%s' return %d\n", *shell->cur_cmd, shell->exitno);
 		free(shell->cur_cmd);
 		shell->cur_cmd = NULL;
-		shell->exitno = shell->exitno;
 		return (shell->exitno);
 	}
 	pid = fork();
