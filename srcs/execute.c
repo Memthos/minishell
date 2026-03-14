@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/13 14:00:31 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/14 14:18:57 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		return (SUCCESS);
 	if (WORD == cmd->token)
 	{
+		execute(cmd->right, shell);
 		if (NULL == shell->cur_cmd)
 		{
 			shell->cur_cmd_index = 0;
