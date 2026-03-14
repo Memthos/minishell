@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 18:43:07 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/14 18:45:36 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void	check_expand_data(t_ast_lst *node, t_status *status)
 	lxr = NULL;
 	lexer(&lxr, node->data, status);
 	if (!*status)
-		ast = expand_to_ast(&lxr, &status);
+		ast = expand_to_ast(&lxr, status);
 	if (*status || !ast)
 		return ;
 	ast_lst_last(ast, RIGHT)->right = node->right;
@@ -112,7 +112,7 @@ void	expand(t_ast_lst *node, t_status *status)
 
 	if (*status || !node || !node->data
 		|| (node->token != WORD && node->token != WILDCARD))
-		return (0);
+		return ;
 	i = 0;
 	quote_state = 0;
 	while (node->data[i])

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 17:01:37 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 18:06:01 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/14 18:48:05 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	checker_lxr(t_lxr_lst *lxr, t_status *status)
 	if (!lxr)
 		return ;
 	if (lxr->token == AND_IF || lxr->token == OR_IF || lxr->token == PIPE)
-		return (FAILURE);
+	{
+		*status = OPERATOR_FAILURE;
+		return ;
+	}
 	while (!*status && lxr->token != END_OF_INPUT)
 	{
 		if (lxr->p_dpt < 0 || parenthesis_check(lxr))

@@ -6,13 +6,14 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 16:03:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 18:07:58 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/14 18:50:09 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static t_ast_lst	*pipe_seq_tree(t_lxr_lst **lxr, t_ast_lst **node, t_status *status)
+static t_ast_lst	*pipe_seq_tree(t_lxr_lst **lxr, t_ast_lst **node,
+	t_status *status)
 {
 	t_ast_lst	*pipe;
 
@@ -51,7 +52,8 @@ static t_ast_lst	*pipe_sequence_r(t_lxr_lst **lxr, t_status *status)
 	return (pipe);
 }
 
-static t_ast_lst	*and_or_tree(t_lxr_lst **lxr, t_ast_lst **node, t_status *status)
+static t_ast_lst	*and_or_tree(t_lxr_lst **lxr, t_ast_lst **node,
+	t_status *status)
 {
 	t_ast_lst	*and_or;
 
