@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/14 16:50:04 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/14 18:06:25 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_built_in	get_command(char *name)
 
 t_status	run_comand(t_shell *shell)
 {
-	t_status	code;
 	pid_t		pid;
 	t_built_in	cmd;
 
@@ -64,9 +63,12 @@ t_status	run_comand(t_shell *shell)
 	cmd = get_command(*shell->cur_cmd);
 	if (0 == shell->pipes.pipe_depth && &cmd_exec != cmd)
 	{
-		code = cmd(shell->cur_cmd, shell);
-		printf("'%s' return %d\n", *shell->cur_cmd, code);
-		return (code);
+		shell->exitno = cmd(shell->cur_cmd, shell);
+		printf("'%s' return %d\n", *shell->cur_cmd, shell->exitno);
+		free(shell->cur_cmd);
+		shell->cur_cmd = NULL;
+		shell->exitno = shell->exitno;
+		return (shell->exitno);
 	}
 	pid = fork();
 	if (-1 == pid)
@@ -134,10 +136,10 @@ t_status	run_comand(t_shell *shell)
 			}
 			ft_close(&shell->redirects.output_redirect_fd);
 		}
-		code = cmd(shell->cur_cmd, shell);
-		printf("'%s' return %d\n", *shell->cur_cmd, code);
+		shell->exitno = cmd(shell->cur_cmd, shell);
+		printf("'%s' return %d\n", *shell->cur_cmd, shell->exitno);
 		destroy_shell(shell);
-		exit(code);
+		exit(shell->exitno);
 	}
 	shell->redirects.redirect_output = false;
 	ft_close(&shell->redirects.output_redirect_fd);
