@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/14 14:35:47 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/14 15:15:25 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_status	wait_for_processes(t_shell *shell)
 			(int *)&shell->exitno, 0);
 		if (WIFEXITED(shell->exitno))
 			shell->exitno = WEXITSTATUS(shell->exitno);
-		printf(2, "Process %d exited with status %d\n", shell->pids.pids[shell->pids.pid_index], shell->exitno);
+		printf("Process %d exited with status %d\n", shell->pids.pids[shell->pids.pid_index], shell->exitno);
 		++shell->pids.pid_index;
 	}
 	free(shell->pids.pids);
@@ -68,6 +68,6 @@ void	destroy_shell(t_shell *shell)
 	ast_lst_clear(&shell->cmd_ast);
 	rl_clear_history();
 	free(shell);
-	printf(2, "Shell has been destroyed\n");
+	printf("Shell has been destroyed\n");
 	return ;
 }
