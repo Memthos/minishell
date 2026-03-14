@@ -6,56 +6,56 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 17:10:27 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/02 13:13:16 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/14 17:28:09 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_ast_lst	*compound_cmd_r(t_lxr_lst **lxr, int *ret)
+t_ast_lst	*compound_cmd_r(t_lxr_lst **lxr, t_status *status)
 {
 	t_ast_lst	*term;
 	t_ast_lst	*tail;
 
-	term = and_or_r(lxr, ret);
-	if (!*ret)
+	term = and_or_r(lxr, status);
+	if (*status)
 		return (NULL);
 	tail = term;
 	while (!peek(lxr, R_PAREN))
 	{
 		while (peek(lxr, NEW_LINE))
 			consume(lxr);
-		tail->left = and_or_r(lxr, ret);
-		if (!*ret)
+		tail->left = and_or_r(lxr, status);
+		if (*status)
 			break ;
 		tail = tail->left;
 		while (peek(lxr, NEW_LINE))
 			consume(lxr);
 	}
-	if (!*ret)
+	if (*status)
 		ast_lst_clear(&term);
 	consume(lxr);
 	return (term);
 }
 
-t_ast_lst	*redirect_loop(t_lxr_lst **lxr, int *ret)
+t_ast_lst	*redirect_loop(t_lxr_lst **lxr, t_status *status)
 {
 	t_ast_lst	*red;
 	t_ast_lst	*tail;
 
 	if (is_io_redirect(lxr))
-		red = io_redirect_r(lxr, ret, RIGHT);
+		red = io_redirect_r(lxr, status, RIGHT);
 	else
 		return (NULL);
 	tail = ast_lst_last(red, RIGHT);
-	while (*ret && is_io_redirect (lxr))
+	while (!*status && is_io_redirect (lxr))
 	{
-		tail->right = io_redirect_r(lxr, ret, RIGHT);
-		if (!*ret)
+		tail->right = io_redirect_r(lxr, status, RIGHT);
+		if (*status)
 			break ;
 		tail = ast_lst_last(tail, RIGHT);
 	}
-	if (!*ret)
+	if (*status)
 		ast_lst_clear(&red);
 	return (red);
 }

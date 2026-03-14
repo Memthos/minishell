@@ -6,13 +6,13 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 17:43:38 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/11 13:03:55 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/14 16:30:11 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	lxr_lst_add(t_lxr_lst **head, char *data, t_token t, t_lxr_p *p)
+t_status	lxr_lst_add(t_lxr_lst **head, char *data, t_token t, long p_dpt)
 {
 	t_lxr_lst	*tmp;
 
@@ -20,19 +20,19 @@ int	lxr_lst_add(t_lxr_lst **head, char *data, t_token t, t_lxr_p *p)
 		return (1);
 	if (NULL == *head)
 	{
-		*head = lxr_lst_new(data, t, p->p_dpt);
+		*head = lxr_lst_new(data, t, p_dpt);
 		if (!*head)
-			return (1);
-		return (0);
+			return (ALLOCATION_FAILURE);
+		return (SUCCESS);
 	}
 	tmp = lxr_lst_last(*head);
 	if (!tmp->data && tmp->token == TOKEN)
-		*tmp = (t_lxr_lst){.data = data, .token = t, .p_dpt = p->p_dpt};
+		*tmp = (t_lxr_lst){.data = data, .token = t, .p_dpt = p_dpt};
 	else
 	{
-		tmp->next = lxr_lst_new(data, t, p->p_dpt);
+		tmp->next = lxr_lst_new(data, t, p_dpt);
 		if (!tmp->next)
-			return (1);
+			return (ALLOCATION_FAILURE);
 	}
-	return (0);
+	return (SUCCESS);
 }

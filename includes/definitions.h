@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   definitions.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/14 15:12:07 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/14 18:05:04 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ typedef enum e_return_status
 	OPEN_FAILURE,
 	OVERFLOW,
 	UNDERFLOW,
+	PARENTHESIS_FAILURE,
+	QUOTES_FAILURE,
+	REDIRECTION_FAILURE,
 }	t_status;
 
 typedef enum e_quote_t
@@ -48,7 +51,6 @@ typedef enum e_tokens
 {
 	TOKEN,
 	NEW_LINE,
-	ASSIGNMENT_W,
 	AND_IF,
 	OR_IF,
 	DLESS,

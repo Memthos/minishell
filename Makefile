@@ -12,16 +12,18 @@ SRCS =	minishell.c \
 		sighandle.c \
 		error_output.c \
 		utils.c string_utils.c \
-		parser.c parser_tools.c expand.c \
+		parser.c expand.c quotes.c \
 		ast_lst_new.c ast_lst_clear.c ast_lst_last.c ast_tools.c \
 		ast_main_rules.c ast_cmp_rules.c ast_cmd_rules.c ast_cmd_utils.c \
 		ast_red_rules.c \
-		lexer.c lexer_cleanup.c lxr_lst_add.c lxr_lst_append.c lxr_lst_last.c \
-		lxr_lst_new.c lxr_lst_remove.c lxr_lst_size.c \
+		lexer.c lxr_checks.c lxr_post_tokenization.c lxr_lst_add.c \
+		lxr_lst_append.c lxr_lst_last.c lxr_lst_new.c lxr_lst_remove.c \
+		lxr_lst_size.c \
 		commands.c exec.c cd.c env.c exit.c export.c echo.c pwd.c unset.c \
 		dict_add.c dict_clear.c dict_get.c dict_new.c dict_remove.c \
-		dict_update.c dict_size.c dict_sort.c dict_copy.c dict_to_array.c dict_display.c \
-		dict_update.c dict_size.c dict_sort.c dict_to_array.c dict_display.c
+		dict_update.c dict_size.c dict_sort.c dict_copy.c dict_to_array.c \
+		dict_display.c dict_update.c dict_size.c dict_sort.c dict_to_array.c \
+		dict_display.c
 
 OBJDIR = objs/
 OBJECTS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))

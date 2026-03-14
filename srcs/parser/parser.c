@@ -6,98 +6,51 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/13 19:07:53 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/14 18:15:00 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	parenthesis_check(t_lxr_lst *lxr)
+char	*make_str(char *input, size_t len)
 {
-	if (lxr->token == L_PAREN || lxr->token == AND_IF
-		|| lxr->token == OR_IF || lxr->token == PIPE)
-	{
-		if (!lxr->next || lxr->next->token == END_OF_INPUT
-			|| lxr->next->token == R_PAREN || lxr->next->token == AND_IF
-			|| lxr->next->token == OR_IF || lxr->next->token == PIPE)
-			return (FAILURE);
-	}
-	else if (lxr->token == R_PAREN)
-	{
-		if (lxr->next && (lxr->next->token == WORD
-				|| lxr->next->token == WILDCARD
-				|| lxr->next->token == ASSIGNMENT_W
-				|| lxr->next->token == L_PAREN))
-			return (FAILURE);
-	}
-	else if ((lxr->token == WORD || lxr->token == ASSIGNMENT_W
-			|| lxr->token == WILDCARD) && lxr->next
-		&& lxr->next->token == L_PAREN)
-		return (FAILURE);
-	return (SUCCESS);
-}
+	char	*s;
+	size_t	i;
 
-static int	quote_check(t_lxr_lst *lxr)
-{
-	size_t		i;
-	t_quote_t	quote_state;
-
-	if (!lxr->data)
-		return (SUCCESS);
+	s = malloc(sizeof(char) * (len + 1));
+	if (!s)
+		return (NULL);
+	s[len] = '\0';
 	i = 0;
-	quote_state = 0;
-	while (lxr->data[i])
-	{
-		set_quote_state(&quote_state, lxr->data[i]);
-		i++;
-	}
-	if (quote_state != 0)
-		return (FAILURE);
-	return (SUCCESS);
+	while (i++ < len)
+		s[i - 1] = input[i - 1];
+	return (s);
 }
 
-static int	checker_lxr(t_lxr_lst *lxr)
-{
-	if (!lxr)
-		return (FAILURE);
-	if (lxr->token == AND_IF || lxr->token == OR_IF || lxr->token == PIPE)
-		return (FAILURE);
-	while (lxr->token != END_OF_INPUT)
-	{
-		if (lxr->p_dpt < 0 || parenthesis_check(lxr))
-			return (FAILURE);
-		if (quote_check(lxr))
-			return (FAILURE);
-		lxr = lxr->next;
-	}
-	if (lxr->p_dpt != 0)
-		return (FAILURE);
-	return (SUCCESS);
-}
-
-int	parser(char *s, t_shell *shell)
+t_status	parser(char *s, t_shell *shell)
 {
 	t_lxr_lst	*lxr;
+	t_status	status;
 
 	lxr = NULL;
-	if (lexer(&lxr, s))
-	{
-		lxr_lst_clear(&lxr);
-		return (FAILURE);
-	}
-	set_final_tokens(lxr);
-	if (checker_lxr(lxr))
-	{
-		lxr_lst_clear(&lxr);
-		return (FAILURE);
-	}
-	shell->cmd_ast = complete_command_r(&lxr);
+	status = SUCCESS;
+	if (!s)
+		return (SUCCESS);
+	lexer(&lxr, s, &status);
+	if (!lxr)
+		return (status);
+	if (!status)
+		set_final_tokens(lxr);
+	if (!status)
+		checker_lxr(lxr, &status);
+	if (!status)
+		shell->cmd_ast = complete_command_r(&lxr, &status);
 	lxr_lst_clear(&lxr);
-	if (!shell->cmd_ast)
-		return (FAILURE);
-	if (expand(shell->cmd_ast))
-		return (FAILURE);
-	if (update_quotes(shell->cmd_ast))
-		return (FAILURE);
-	return (SUCCESS);
+	if (!status)
+		expand(shell->cmd_ast, &status);
+	if (!status)
+		update_quotes(shell->cmd_ast, &status);
+	if (status)
+		ast_lst_clear(&shell->cmd_ast);
+	return (status);
 }

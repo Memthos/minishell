@@ -6,31 +6,31 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 13:04:21 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/14 18:07:05 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	cmd_arg_r(t_ast_lst **cmd, t_lxr_lst **lxr, int *ret)
+static void	cmd_arg_r(t_ast_lst **cmd, t_lxr_lst **lxr, t_status *status)
 {
 	t_ast_lst	*tmp;
 
-	while (ret && (peek(lxr, WORD) || peek(lxr, ASSIGNMENT_W)))
+	while (!*status && peek(lxr, WORD))
 	{
 		tmp = NULL;
 		if (!cmd || !*cmd)
-			*cmd = ast_lst_new(lxr, ret, WORD);
+			*cmd = ast_lst_new(lxr, status);
 		else
 		{
 			if ((*cmd)->token != WORD)
 			{
 				tmp = *cmd;
-				*cmd = ast_lst_new(lxr, ret, WORD);
+				*cmd = ast_lst_new(lxr, status);
 			}
 			else
-				ast_lst_last(*cmd, RIGHT)->right = ast_lst_new(lxr, ret, WORD);
-			if (!ret && tmp)
+				ast_lst_last(*cmd, RIGHT)->right = ast_lst_new(lxr, status);
+			if (*status && tmp)
 				ast_lst_clear(&tmp);
 			else if (tmp)
 				(*cmd)->left = tmp;
@@ -38,36 +38,35 @@ static void	cmd_arg_r(t_ast_lst **cmd, t_lxr_lst **lxr, int *ret)
 	}
 }
 
-static void	cmd_redirect_r(t_ast_lst **cmd, t_lxr_lst **lxr, int *ret)
+static void	cmd_redirect_r(t_ast_lst **cmd, t_lxr_lst **lxr, t_status *status)
 {
-	while (ret && is_io_redirect(lxr))
+	while (!*status && is_io_redirect(lxr))
 	{
 		if (!cmd || !*cmd)
-			*cmd = io_redirect_r(lxr, ret, LEFT);
+			*cmd = io_redirect_r(lxr, status, LEFT);
 		else
-			ast_lst_last(*cmd, LEFT)->left = io_redirect_r(lxr, ret, LEFT);
+			ast_lst_last(*cmd, LEFT)->left = io_redirect_r(lxr, status, LEFT);
 	}
 }
 
-static t_ast_lst	*simple_command_r(t_lxr_lst **lxr, int *ret)
+static t_ast_lst	*simple_command_r(t_lxr_lst **lxr, t_status *status)
 {
 	t_ast_lst	*cmd;
 
 	cmd = NULL;
-	while (ret && (is_io_redirect(lxr) || peek(lxr, WORD)
-		|| peek(lxr, ASSIGNMENT_W)))
+	while (!*status && (is_io_redirect(lxr) || peek(lxr, WORD)))
 	{
 		if (is_io_redirect(lxr))
-			cmd_redirect_r(&cmd, lxr, ret);
+			cmd_redirect_r(&cmd, lxr, status);
 		else
-			cmd_arg_r(&cmd, lxr, ret);
+			cmd_arg_r(&cmd, lxr, status);
 	}
-	if (!ret)
+	if (*status)
 		ast_lst_clear(&cmd);
 	return (cmd);
 }
 
-t_ast_lst	*command_r(t_lxr_lst **lxr, int *ret)
+t_ast_lst	*command_r(t_lxr_lst **lxr, t_status *status)
 {
 	t_ast_lst	*cmd;
 	t_lxr_lst	*tmp;
@@ -77,20 +76,20 @@ t_ast_lst	*command_r(t_lxr_lst **lxr, int *ret)
 		tmp = lxr_lst_new(NULL, CMP_CMD, 0);
 		if (!tmp)
 		{
-			*ret = 0;
+			*status = ALLOCATION_FAILURE;
 			return (NULL);
 		}
 		consume(lxr);
-		cmd = ast_lst_new(&tmp, ret, 0);
-		if (!*ret)
+		cmd = ast_lst_new(&tmp, status);
+		if (*status)
 			return (NULL);
-		cmd->left = compound_cmd_r(lxr, ret);
-		if (*ret)
-			cmd->right = redirect_loop(lxr, ret);
+		cmd->left = compound_cmd_r(lxr, status);
+		if (!*status)
+			cmd->right = redirect_loop(lxr, status);
 	}
 	else
-		cmd = simple_command_r(lxr, ret);
-	if (!*ret)
+		cmd = simple_command_r(lxr, status);
+	if (*status)
 		ast_lst_clear(&cmd);
 	return (cmd);
 }

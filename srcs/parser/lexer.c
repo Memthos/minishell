@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/20 21:30:39 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/14 16:37:04 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,46 +62,46 @@ static int	check_parenth_dpt(long *parenth_dpt, char c)
 	return (0);
 }
 
-static int	add_lxr_operator(t_lxr_lst **lxr, char *s, size_t *i, t_lxr_p *p)
+static t_status	add_operator(t_lxr_lst **lxr, char *s, size_t *i, long p_dpt)
 {
-	int	ret;
+	t_status	ret;
 
-	ret = 0;
+	ret = SUCCESS;
 	if (get_operator(s) < 7)
 	{
-		ret = lxr_lst_add(lxr, make_str(s, 2), get_operator(s), p);
+		ret = lxr_lst_add(lxr, make_str(s, 2), get_operator(s), p_dpt);
 		(*i)++;
 	}
 	else
-		ret = lxr_lst_add(lxr, make_str(s, 1), get_operator(s), p);
+		ret = lxr_lst_add(lxr, make_str(s, 1), get_operator(s), p_dpt);
 	return (ret);
 }
 
-int	lexer(t_lxr_lst **lxr, char *s)
+void	lexer(t_lxr_lst **lxr, char *s, t_status *status)
 {
-	t_lxr_p	p;
+	t_quote_t	quote_state;
+	long		p_dpt;
+	size_t		i;
 
-	p = (t_lxr_p){.i = 0, .p_dpt = 0, .quote = 0, .ret = 0};
-	while (s[p.i++] && !p.ret)
+	i = 0;
+	p_dpt = 0;
+	quote_state = 0;
+	while (s[i++] && !*status)
 	{
-		if (!p.ret)
-		{
-			set_quote_state(&p.quote, s[p.i - 1]);
-			check_parenth_dpt(&p.p_dpt, s[p.i - 1]);
-		}
-		if (!p.ret && !p.quote && s[p.i - 1] == ' ')
-			p.ret = lxr_lst_add(lxr, NULL, TOKEN, &p);
-		else if (!p.ret && !p.quote && get_operator(&s[p.i - 1]))
-			p.ret = add_lxr_operator(lxr, &s[p.i - 1], &p.i, &p);
-		else if (!p.ret && !p.quote && is_newline(&s[p.i - 1], &p.i))
-			p.ret = lxr_lst_add(lxr, make_str(&s[p.i - 2], 2), NEW_LINE, &p);
-		else if (!p.ret && lxr && *lxr && lxr_lst_last(*lxr)->token == WORD)
-			p.ret = lxr_lst_append(lxr, s[p.i - 1], TOKEN);
-		else if (!p.ret)
-			p.ret = lxr_lst_add(lxr, make_str(&s[p.i - 1], 1), WORD, &p);
+		set_quote_state(&quote_state, s[i - 1]);
+		check_parenth_dpt(&p_dpt, s[i - 1]);
+		if (!quote_state && s[i - 1] == ' ')
+			*status = lxr_lst_add(lxr, NULL, TOKEN, p_dpt);
+		else if (!quote_state && get_operator(&s[i - 1]))
+			*status = add_operator(lxr, &s[i - 1], &i, p_dpt);
+		else if (!quote_state && is_newline(&s[i - 1], &i))
+			*status = lxr_lst_add(lxr, make_str(&s[i - 2], 2), NEW_LINE, p_dpt);
+		else if (lxr && *lxr && lxr_lst_last(*lxr)->token == WORD)
+			*status = lxr_lst_append(lxr, s[i - 1], TOKEN);
+		else
+			*status = lxr_lst_add(lxr, make_str(&s[i - 1], 1), WORD, p_dpt);
 	}
-	if (!p.ret)
-		p.ret = lxr_lst_add(lxr, NULL, END_OF_INPUT, &p);
+	if (!*status)
+		*status = lxr_lst_add(lxr, NULL, END_OF_INPUT, p_dpt);
 	free(s);
-	return (p.ret);
 }

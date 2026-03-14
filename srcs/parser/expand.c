@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/13 19:36:31 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/14 18:18:12 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ static t_ast_lst	*expand_to_ast(t_lxr_lst **lxr, int *ret)
 	{
 		if (ast)
 		{
-			tail->right = ast_lst_new(lxr, ret, WORD);
+			tail->right = ast_lst_new(lxr, ret);
 			tail = tail->right;
 		}
 		else
 		{
-			ast = ast_lst_new(lxr, ret, WORD);
+			ast = ast_lst_new(lxr, ret);
 			tail = ast;
 		}
 		if (!ret)
@@ -92,7 +92,7 @@ static t_ast_lst	*expand_to_ast(t_lxr_lst **lxr, int *ret)
 	return (ast);
 }
 
-static int	check_expand_data(t_ast_lst *node)
+static int	check_expand_data(t_ast_lst *node, t_status *status)
 {
 	t_ast_lst	*ast;
 	t_lxr_lst	*lxr;
@@ -100,7 +100,7 @@ static int	check_expand_data(t_ast_lst *node)
 
 	ret = 1;
 	lxr = NULL;
-	if (lexer(&lxr, node->data))
+	if (lexer(&lxr, node->data, status))
 		return (1);
 	ast = expand_to_ast(&lxr, &ret);
 	if (!ret || !ast)
@@ -110,12 +110,12 @@ static int	check_expand_data(t_ast_lst *node)
 	return (0);
 }
 
-int	expand(t_ast_lst *node)
+void	expand(t_ast_lst *node, t_status *status)
 {
 	size_t		i;
 	t_quote_t	quote_state;
 
-	if (!node || !node->data
+	if (*status || !node || !node->data
 		|| (node->token != WORD && node->token != WILDCARD))
 		return (0);
 	i = 0;
@@ -127,13 +127,12 @@ int	expand(t_ast_lst *node)
 		{
 			if (update_data(&node->data, &i))
 				return (1);
-			if (check_expand_data(node))
+			if (check_expand_data(node, status))
 				return (1);
 		}
 		else
 			i++;
 	}
-	if (expand(node->left) || expand(node->right))
-		return (1);
-	return (0);
+	expand(node->left, status);
+	expand(node->right, status);
 }

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 12:49:35 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/14 18:08:22 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,6 @@ typedef struct s_ast_lst
 	struct s_ast_lst	*right;
 }						t_ast_lst;
 
-typedef struct s_lxr_p
-{
-	t_quote_t	quote;
-	long		p_dpt;
-	int			ret;
-	size_t		i;
-}				t_lxr_p;
-
 /**
  * @brief Allocates memory for a new node.
  * @param data The data to store in the node. It has to be allocated !
@@ -54,10 +46,10 @@ t_lxr_lst	*lxr_lst_new(char *data, t_token token, long p_dpt);
  * @param head The head / start of the list.
  * @param data The data to store in the node. It has to be allocated !
  * @param token The corresponding token for data.
- * @param p A pointer to the current lexer params.
- * @return The updated version of the list passed in.
+ * @param p_dpt The current parenthesis depth.
+ * @return The exit status of the function.
  */
-int			lxr_lst_add(t_lxr_lst **head, char *data, t_token t, t_lxr_p *p);
+t_status	lxr_lst_add(t_lxr_lst **head, char *data, t_token t, long p_dpt);
 
 /**
  * @brief Removes the last node of head.
@@ -90,17 +82,17 @@ t_lxr_lst	*lxr_lst_last(t_lxr_lst *head);
  * @brief Append a char to the given node.
  * @param node The node to append.
  * @param c The char to append.
+ * @return The exit status of the function.
  */
-int			lxr_lst_append(t_lxr_lst **node, char c, t_token token);
+t_status	lxr_lst_append(t_lxr_lst **node, char c, t_token token);
 
 /**
  * @brief Allocates memory for a new node.
  * @param lxr The lexer node to use.
- * @param ret A pointer to an integer to know if there an error.
- * @param force Force the token of the newly created node.
+ * @param status The status of the parser.
  * @return The created node.
  */
-t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, int *ret, t_token force);
+t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, t_status *status);
 
 /// @brief Clear the ast.
 /// @param head A pointer to the first node of the ast.
