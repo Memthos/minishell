@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 18:17:05 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/14 18:39:32 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		expand(t_ast_lst *node, t_status *status);
  * @param s The string written as input.
  * @return Return 1 if an error occurred, else 0.
  */
-int			lexer(t_lxr_lst **lxr, char *s, t_status *status);
+void		lexer(t_lxr_lst **lxr, char *s, t_status *status);
 
 /// @brief The main function of the parser.
 /// @param s The line written by the user.
