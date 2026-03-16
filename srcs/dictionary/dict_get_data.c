@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:06:10 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 15:54:50 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:07:58 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ char	*dict_get_data(t_dictionary *dict, char *key)
 	node = dict_get(dict, key);
 	if (!node)
 		return (NULL);
-	return (dict->data);
+	return (node->data);
 }
