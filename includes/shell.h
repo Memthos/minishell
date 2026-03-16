@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 12:57:25 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 15:38:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,21 @@ typedef struct s_pids_logic
 typedef struct s_shell
 {
 	t_dictionary	*env;
-	t_dictionary	*locals;
 	t_ast_lst		*cmd_ast;
 	char			**cur_cmd;
 	t_uint			cur_cmd_index;
 	t_status		exitno;
+	t_status		last_exitno;
 	t_pipe_logic	pipes;
 	t_redir_logic	redirects;
 	t_pids_logic	pids;
 	t_uint			cmp_depth;
 }	t_shell;
+
+/**
+ * @brief Initialises pipe_logic struct values to defaults.
+ */
+t_status	init_pipes(t_pipe_logic *pipes);
 
 /**
  * @brief Adds pid to the list of pids in shell.
@@ -77,7 +82,5 @@ t_status	wait_for_processes(t_shell *shell);
  * freed, and closes all fd that are opened.
  */
 void		destroy_shell(t_shell *shell);
-
-t_status	update_locals(t_shell *shell, char *assign);
 
 #endif

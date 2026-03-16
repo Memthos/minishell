@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/14 18:17:31 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 14:51:52 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_status	wait_for_processes(t_shell *shell)
 			(int *)&shell->exitno, 0);
 		if (WIFEXITED(shell->exitno))
 			shell->exitno = WEXITSTATUS(shell->exitno);
-		printf("Process %d exited with status %d\n", shell->pids.pids[shell->pids.pid_index], shell->exitno);
 		++shell->pids.pid_index;
 	}
 	free(shell->pids.pids);
@@ -60,6 +59,7 @@ void	destroy_shell(t_shell *shell)
 	if (NULL != shell->pids.pids)
 		free(shell->pids.pids);
 	ft_close(&shell->redirects.output_redirect_fd);
+	ft_close(&shell->redirects.input_redirect_fd);
 	ft_close(&shell->pipes.pipe1[0]);
 	ft_close(&shell->pipes.pipe1[1]);
 	ft_close(&shell->pipes.pipe2[0]);
@@ -67,10 +67,8 @@ void	destroy_shell(t_shell *shell)
 	ft_close(&shell->redirects.stdin_dup);
 	ft_close(&shell->redirects.stdout_dup);
 	dict_clear(&shell->env);
-	dict_clear(&shell->locals);
 	ast_lst_clear(&shell->cmd_ast);
 	rl_clear_history();
 	free(shell);
-	printf("Shell has been destroyed\n");
 	return ;
 }

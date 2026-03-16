@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:11:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/27 14:56:25 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:17:38 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_status	cmd_cd(char **args, t_shell *shell)
 
 	if (NULL != args[1] && NULL != args[2])
 	{
-		error_output("cd : too many arguments");
+		error_output("cd : too many arguments\n");
 		return (FAILURE);
 	}
 	path = NULL;
@@ -28,7 +28,7 @@ t_status	cmd_cd(char **args, t_shell *shell)
 		dir = dict_get(shell->env, "HOME");
 		if (NULL == dir)
 		{
-			error_output("cd : HOME not set");
+			error_output("cd : HOME not set\n");
 			return (FAILURE);
 		}
 		path = dir->data;
@@ -38,7 +38,7 @@ t_status	cmd_cd(char **args, t_shell *shell)
 		dir = dict_get(shell->env, "OLDPWD");
 		if (NULL == dir)
 		{
-			error_output("cd : OLDPWD not set");
+			error_output("cd : OLDPWD not set\n");
 			return (FAILURE);
 		}
 		path = dir->data;
@@ -46,7 +46,7 @@ t_status	cmd_cd(char **args, t_shell *shell)
 	else
 		path = args[1];
 	if (NULL == dict_add(&shell->env, ft_strdup("OLDPWD"), ft_strdup(path)))
-		perror("Failed to update OLDPW");
+		perror("malloc");
 	if (SUCCESS != chdir(path))
 	{
 		perror("cd");
