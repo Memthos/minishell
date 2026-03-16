@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 15:39:13 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 15:54:52 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static t_status	update_data(char **data, size_t *data_i, t_dictionary *dict)
 		return (SUCCESS);
 	}
 	name_len = ft_strlen(str);
-	value = dict_get(dict, str)->data;
+	value = dict_get_data(dict, str);
 	free(str);
 	str = malloc(ft_strlen(*data) - name_len + ft_strlen(value));
 	if (!str)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dictionary.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 11:10:37 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/13 15:26:43 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 15:52:17 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ t_dictionary	*dict_add(t_dictionary **dict, char *key, void *data);
  * @return The dictionary entry on success, NULL on failure.
  */
 t_dictionary	*dict_get(t_dictionary *dict, char *key);
+
+/// @brief Returns the data of an entry based on the key passed in.
+/// @param dict The dictionary to search in.
+/// @param key The unique key to retrieve the entry.
+/// @return The dictionary entry data on success, NULL on failure.
+char			*dict_get_data(t_dictionary *dict, char *key);
 
 /**
  * @brief Updates an entry in the dictionary passed in.
