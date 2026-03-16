@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 14:22:44 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 14:25:01 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_pids_logic
 typedef struct s_shell
 {
 	t_dictionary	*env;
-	t_dictionary	*locals;
 	t_ast_lst		*cmd_ast;
 	char			**cur_cmd;
 	t_uint			cur_cmd_index;
