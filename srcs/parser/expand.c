@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 15:54:52 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:39:35 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast)
 	if (!ast->data)
 		status = ALLOCATION_FAILURE;
 	ast->token = WORD;
+	ast->expanded = 1;
 	ast->left = NULL;
 	ast->right = NULL;
 	ast_lst_clear(&tmp);
@@ -32,7 +33,10 @@ static t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast)
 	{
 		ast_lst_last(ast, RIGHT)->right = ast_lst_new(lxr, &status);
 		if (!status)
+		{
 			ast_lst_last(ast, RIGHT)->token = WORD;
+			ast_lst_last(ast, RIGHT)->expanded = 1;
+		}
 	}
 	return (status);
 }

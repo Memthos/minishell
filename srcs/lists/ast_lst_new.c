@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:08:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 18:06:35 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:37:02 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, t_status *status)
 			return (NULL);
 		}
 	}
-	*new = (t_ast_lst){str, (*lxr)->token, NULL, NULL};
+	*new = (t_ast_lst){str, (*lxr)->token, 0, NULL, NULL};
 	consume(lxr);
 	return (new);
 }
