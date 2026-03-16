@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/14 18:13:45 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 10:40:22 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	set_shell(t_shell *shell)
 	shell->locals = NULL;
 	shell->cur_cmd = NULL;
 	shell->exitno = SUCCESS;
+	shell->cmp_depth = 0;
 	shell->pipes.redirect_output = false;
 	shell->pipes.redirect_input = false;
 	shell->pipes.pipe1[0] = -1;
