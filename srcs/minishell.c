@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 14:52:09 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 15:44:33 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ static t_status	minishell(t_shell *shell)
 		add_history(line);
 		if (SUCCESS != parser(line, shell))
 			continue ;
-		execute(shell->cmd_ast, shell);
-		printf("%d\n", shell->exitno);
+		shell->last_exitno = execute(shell->cmd_ast, shell);
+		wait_for_processes(shell);
+		if (shell->exitno)
+			shell->last_exitno = shell->exitno;
+		printf("$? : %d\n", shell->last_exitno);
 		ast_lst_clear(&shell->cmd_ast);
-		printf("%d\n", wait_for_processes(shell));
 		shell->pipes.pipe_index = 0;
 		shell->exitno = SUCCESS;
 	}
