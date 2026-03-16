@@ -6,46 +6,52 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 12:51:00 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 15:54:52 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static t_ast_lst	*expand_to_ast(t_lxr_lst **lxr, t_status *status)
+static t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast)
 {
-	t_ast_lst	*ast;
+	t_status	status;
+	t_ast_lst	*tmp;
 
-	ast = NULL;
-	while (!*status && *lxr)
+	status = SUCCESS;
+	tmp = ast_lst_new(lxr, &status);
+	if (status)
+		return (status);
+	ast->data = ft_strdup(tmp->data);
+	if (!ast->data)
+		status = ALLOCATION_FAILURE;
+	ast->token = WORD;
+	ast->left = NULL;
+	ast->right = NULL;
+	ast_lst_clear(&tmp);
+	while (!status && *lxr && (*lxr)->token != END_OF_INPUT)
 	{
-		if (ast)
-			ast_lst_last(ast, RIGHT)->right = ast_lst_new(lxr, status);
-		else
-			ast = ast_lst_new(lxr, status);
-		if (*status)
-			break ;
-		consume(lxr);
+		ast_lst_last(ast, RIGHT)->right = ast_lst_new(lxr, &status);
+		if (!status)
+			ast_lst_last(ast, RIGHT)->token = WORD;
 	}
-	if (*status)
-		ast_lst_clear(&ast);
-	return (ast);
+	return (status);
 }
 
 static void	update_ast(t_ast_lst *node, t_status *status)
 {
-	t_ast_lst	*ast;
 	t_lxr_lst	*lxr;
+	t_ast_lst	*right;
 
 	lxr = NULL;
+	right = node->right;
 	lexer(&lxr, node->data, status);
 	if (!*status)
-		ast = expand_to_ast(&lxr, status);
+		*status = expand_to_ast(&lxr, node);
 	lxr_lst_clear(&lxr);
-	if (*status || !ast)
-		return ;
-	ast_lst_last(ast, RIGHT)->right = node->right;
-	node->right = ast;
+	if (!*status)
+		ast_lst_last(node, RIGHT)->right = right;
+	else
+		ast_lst_clear(&right);
 }
 
 static int	get_var_name(char *s, char **name)
@@ -71,7 +77,7 @@ static int	get_var_name(char *s, char **name)
 	return (0);
 }
 
-static t_status	update_data(char **data, size_t *data_i)
+static t_status	update_data(char **data, size_t *data_i, t_dictionary *dict)
 {
 	size_t	name_len;
 	char	*value;
@@ -86,7 +92,7 @@ static t_status	update_data(char **data, size_t *data_i)
 		return (SUCCESS);
 	}
 	name_len = ft_strlen(str);
-	value = getenv(str);
+	value = dict_get_data(dict, str);
 	free(str);
 	str = malloc(ft_strlen(*data) - name_len + ft_strlen(value));
 	if (!str)
@@ -100,7 +106,7 @@ static t_status	update_data(char **data, size_t *data_i)
 	return (SUCCESS);
 }
 
-void	expand(t_ast_lst *node, t_status *status)
+void	expand(t_ast_lst *node, t_status *status, t_dictionary *dict)
 {
 	size_t		i;
 	t_quote_t	quote_state;
@@ -110,18 +116,18 @@ void	expand(t_ast_lst *node, t_status *status)
 		return ;
 	i = 0;
 	quote_state = 0;
-	while (node->data[i])
+	while (!*status && node->data[i])
 	{
 		set_quote_state(&quote_state, node->data[i]);
 		if (quote_state != 1 && node->data[i] == '$' && node->data[i + 1])
 		{
-			*status = update_data(&node->data, &i);
+			*status = update_data(&node->data, &i, dict);
 			if (!*status)
 				update_ast(node, status);
 		}
 		else
 			i++;
 	}
-	expand(node->left, status);
-	expand(node->right, status);
+	expand(node->left, status, dict);
+	expand(node->right, status, dict);
 }

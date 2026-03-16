@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 18:39:32 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 15:37:56 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 /// @brief Function tp expand params in user input.
 /// @param node The node with the data to expand.
 /// @param status The status of the parser.
-void		expand(t_ast_lst *node, t_status *status);
+/// @param dict A reference to the dictionary storing all the env variables.
+void		expand(t_ast_lst *node, t_status *status, t_dictionary *dict);
 
 /**
  * @brief First step of parsing, apply a token to each part
