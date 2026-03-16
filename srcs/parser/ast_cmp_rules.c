@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 17:10:27 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 10:20:17 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 10:35:01 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,13 @@ t_ast_lst	*compound_cmd_r(t_lxr_lst **lxr, t_status *status)
 t_ast_lst	*redirect_loop(t_lxr_lst **lxr, t_status *status)
 {
 	t_ast_lst	*red;
-	t_ast_lst	*tail;
 
 	if (is_io_redirect(lxr))
 		red = io_redirect_r(lxr, status, LEFT);
 	else
 		return (NULL);
-	tail = ast_lst_last(red, LEFT);
 	while (!*status && is_io_redirect (lxr))
-	{
-		tail->right = io_redirect_r(lxr, status, LEFT);
-		if (*status)
-			break ;
-		tail = ast_lst_last(tail, LEFT);
-	}
+		ast_lst_last(red, LEFT)->left = io_redirect_r(lxr, status, LEFT);
 	if (*status)
 		ast_lst_clear(&red);
 	return (red);
