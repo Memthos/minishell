@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/14 17:49:52 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 10:24:13 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,9 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 			execute(cmd->right, shell);
 	}
 	if (CMP_CMD == cmd->token)
+	{
+		execute(cmd->right, shell);
 		execute(cmd->left, shell);
+	}
 	return (shell->exitno);
 }
