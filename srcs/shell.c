@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 13:39:59 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 14:12:57 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_status	wait_for_processes(t_shell *shell)
 			(int *)&shell->exitno, 0);
 		if (WIFEXITED(shell->exitno))
 			shell->exitno = WEXITSTATUS(shell->exitno);
-		printf("Process %d exited with status %d\n", shell->pids.pids[shell->pids.pid_index], shell->exitno);
+		printf("%d : %d\n", shell->pids.pids[shell->pids.pid_index], shell->exitno);
 		++shell->pids.pid_index;
 	}
 	free(shell->pids.pids);
