@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 10:33:29 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 12:51:00 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,35 +48,46 @@ static void	update_ast(t_ast_lst *node, t_status *status)
 	node->right = ast;
 }
 
-static char	*get_var_name(char *s)
+static int	get_var_name(char *s, char **name)
 {
-	char	*name;
 	size_t	size;
 
-	if (s[0] == '?' || ft_isdigit(s[0]))
+	size = 0;
+	if (ft_isalpha(s[0]) || s[size] == '_')
+	{
+		while (ft_isalnum(s[size]) || s[size] == '_')
+			size++;
+	}
+	else if (s[0] == '?' || s[0] == '@' || s[0] == '*' || s[0] == '#'
+		|| s[0] == '$' || s[0] == '!' || s[0] == '-' || s[0] == '_'
+		|| ft_isdigit(s[0]))
 		size = 1;
 	else
-		size = ft_strlen(s);
+		return (0);
 	*name = malloc(sizeof(char) * (size + 1));
 	if (!*name)
-		return (NULL);
-	ft_strlcpy(name, s, size + 1);
-	return (name);
+		return (1);
+	ft_strlcpy(*name, s, size + 1);
+	return (0);
 }
 
 static t_status	update_data(char **data, size_t *data_i)
 {
 	size_t	name_len;
-	char	*name;
 	char	*value;
 	char	*str;
 
-	name = get_var_name(*data + *data_i + 1);
-	if (!name)
+	str = NULL;
+	if (get_var_name(*data + *data_i + 1, &str))
 		return (ALLOCATION_FAILURE);
-	name_len = ft_strlen(name);
-	value = getenv(name);
-	free(name);
+	if (!str)
+	{
+		(*data_i)++;
+		return (SUCCESS);
+	}
+	name_len = ft_strlen(str);
+	value = getenv(str);
+	free(str);
 	str = malloc(ft_strlen(*data) - name_len + ft_strlen(value));
 	if (!str)
 		return (ALLOCATION_FAILURE);
