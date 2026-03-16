@@ -6,17 +6,18 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:56:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 17:58:49 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 18:03:34 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	apply_wildcards(t_ast_lst *ast, t_status *status)
+static char	**	get_files(t_status *status)
 {
-	(void)ast;
-	DIR	*directory;
+	DIR				*directory;
 	struct dirent	*cur_file;
+	t_files_lst		*files;
+
 
 	directory =  opendir(".");
 	if (!directory)
@@ -28,8 +29,11 @@ void	apply_wildcards(t_ast_lst *ast, t_status *status)
 	while (cur_file)
 	{
 		cur_file = readdir(directory);
-		if (cur_file)
-			printf("|%s|\n", cur_file->d_name);
 	}
 	closedir(directory);
+}
+
+void	apply_wildcards(t_ast_lst *ast, t_status *status)
+{
+
 }
