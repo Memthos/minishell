@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 15:38:47 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:58:11 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ t_status	parser(char *s, t_shell *shell)
 	lxr_lst_clear(&lxr);
 	if (!status)
 		expand(shell->cmd_ast, &status, shell->env);
+	//Wildcards
 	if (!status)
 		update_quotes(shell->cmd_ast, &status);
-	if (status)
-		ast_lst_clear(&shell->cmd_ast);
 	return (status);
 }
