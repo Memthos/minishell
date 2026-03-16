@@ -7,8 +7,8 @@ VPATH = srcs:srcs/lists:srcs/commands:srcs/dictionary:srcs/parser:srcs/utils:src
 SRCS =	minishell.c \
 		init.c \
 		shell.c \
+		pipes.c \
 		execute.c \
-		environment.c \
 		sighandle.c \
 		error_output.c \
 		utils.c string_utils.c \
