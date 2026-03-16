@@ -12,7 +12,7 @@ SRCS =	minishell.c \
 		sighandle.c \
 		error_output.c \
 		utils.c string_utils.c \
-		parser.c expand.c quotes.c \
+		parser.c expand.c quotes.c wildcards.c \
 		ast_lst_new.c ast_lst_clear.c ast_lst_last.c ast_tools.c \
 		ast_main_rules.c ast_cmp_rules.c ast_cmd_rules.c ast_cmd_utils.c \
 		ast_red_rules.c \
