@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:48:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/13 14:03:11 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 15:21:45 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ t_status	cmd_exec(char **args, t_shell *shell)
 	execve(*args, args, envp);
 	perror(*args);
 	free_strings(envp);
-	return (FAILURE);
+	return (127);
 }
