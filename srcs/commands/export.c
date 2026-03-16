@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:17:30 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 16:03:20 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:14:16 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ t_status	cmd_export(char **args, t_shell *shell)
 		entry = split_at(*args, '=');
 		if (NULL == entry)
 		{
-			if (!ft_isalpha(**args))
+			if (!check_var_name(*args))
 			{
-				error_output("export : not a valid identifier");
+				error_output("export : not a valid identifier\n");
 				code = FAILURE;
 			}
 			++args;
@@ -61,7 +61,7 @@ t_status	cmd_export(char **args, t_shell *shell)
 		}
 		if (!check_var_name(entry[0]))
 		{
-			error_output("export : not a valid identifier");
+			error_output("export : not a valid identifier\n");
 			++args;
 			free(entry[0]);
 			free(entry[1]);
