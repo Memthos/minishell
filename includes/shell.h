@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 12:57:25 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 14:22:44 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,5 @@ t_status	wait_for_processes(t_shell *shell);
  * freed, and closes all fd that are opened.
  */
 void		destroy_shell(t_shell *shell);
-
-t_status	update_locals(t_shell *shell, char *assign);
 
 #endif
