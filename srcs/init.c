@@ -6,11 +6,32 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 11:04:50 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 14:19:59 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static t_dictionary	*init_env(char *envp[])
+{
+	t_dictionary	*dict;
+	char			**tmp;
+
+	dict = NULL;
+	while (*envp)
+	{
+		tmp = split_at(*envp, '=');
+		if (NULL == dict_add(&dict, tmp[0], tmp[1]))
+		{
+			free(tmp);
+			dict_clear(&dict);
+			return (NULL);
+		}
+		free(tmp);
+		++envp;
+	}
+	return (dict);
+}
 
 static void	set_shell(t_shell *shell)
 {
@@ -21,14 +42,7 @@ static void	set_shell(t_shell *shell)
 	shell->cur_cmd = NULL;
 	shell->exitno = SUCCESS;
 	shell->cmp_depth = 0;
-	shell->pipes.redirect_output = false;
-	shell->pipes.redirect_input = false;
-	shell->pipes.pipe1[0] = -1;
-	shell->pipes.pipe1[1] = -1;
-	shell->pipes.pipe2[0] = -1;
-	shell->pipes.pipe2[1] = -1;
-	shell->pipes.pipe_index = 0;
-	shell->pipes.pipe_depth = 0;
+	init_pipes(&shell->pipes);
 	shell->redirects.stdin_dup = dup(STDIN_FILENO);
 	shell->redirects.stdout_dup = dup(STDOUT_FILENO);
 	shell->redirects.redirect_output = false;
