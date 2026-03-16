@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 14:19:59 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 14:27:03 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	set_shell(t_shell *shell)
 	if (NULL == shell)
 		return ;
 	shell->cmd_ast = NULL;
-	shell->locals = NULL;
 	shell->cur_cmd = NULL;
 	shell->exitno = SUCCESS;
 	shell->cmp_depth = 0;
