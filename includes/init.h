@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:22:04 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/24 10:27:08 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/16 14:20:26 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 # include "definitions.h"
 
+/**
+ * @brief Initialises Minishell.
+ */
 t_shell			*init(char *envp[]);
-
-t_dictionary	*init_env(char *envp[]);
 
 #endif
