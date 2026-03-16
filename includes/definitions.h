@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/14 18:47:42 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 17:09:02 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef enum e_return_status
 	QUOTES_FAILURE,
 	REDIRECTION_FAILURE,
 	OPERATOR_FAILURE,
+	WILDCARD_FAILURE,
 }	t_status;
 
 typedef enum e_quote_t
