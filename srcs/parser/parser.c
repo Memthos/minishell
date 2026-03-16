@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 18:15:00 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 15:38:47 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_status	parser(char *s, t_shell *shell)
 		shell->cmd_ast = complete_command_r(&lxr, &status);
 	lxr_lst_clear(&lxr);
 	if (!status)
-		expand(shell->cmd_ast, &status);
+		expand(shell->cmd_ast, &status, shell->env);
 	if (!status)
 		update_quotes(shell->cmd_ast, &status);
 	if (status)
