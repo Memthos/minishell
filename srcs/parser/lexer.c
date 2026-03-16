@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 16:37:04 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 13:09:07 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static t_status	add_operator(t_lxr_lst **lxr, char *s, size_t *i, long p_dpt)
 	t_status	ret;
 
 	ret = SUCCESS;
-	if (get_operator(s) < 7)
+	if (get_operator(s) < 6)
 	{
 		ret = lxr_lst_add(lxr, make_str(s, 2), get_operator(s), p_dpt);
 		(*i)++;
