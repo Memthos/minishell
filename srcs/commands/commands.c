@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 14:57:24 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/17 10:33:48 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,29 @@ t_status	run_comand(t_shell *shell)
 	}
 	if (0 == pid)
 	{
+		if (shell->pipes.redirect_input)
+		{
+			if (0 == (shell->pipes.pipe_index - 1) % 2)
+			{
+				if (-1 == dup2(shell->pipes.pipe1[0], STDIN_FILENO))
+				{
+					destroy_shell(shell);
+					exit(DUP_FAILURE);
+				}
+				ft_close(&shell->pipes.pipe1[0]);
+				ft_close(&shell->pipes.pipe1[1]);
+			}
+			else
+			{
+				if (-1 == dup2(shell->pipes.pipe2[0], STDIN_FILENO))
+				{
+					destroy_shell(shell);
+					exit(DUP_FAILURE);
+				}
+				ft_close(&shell->pipes.pipe2[0]);
+				ft_close(&shell->pipes.pipe2[1]);
+			}
+		}
 		if (shell->pipes.redirect_output)
 		{
 			if (0 == shell->pipes.pipe_index % 2)
@@ -125,28 +148,16 @@ t_status	run_comand(t_shell *shell)
 				ft_close(&shell->pipes.pipe2[1]);
 			}
 		}
-		if (shell->pipes.redirect_input)
+		if (shell->redirects.redirect_input)
 		{
-			if (0 == (shell->pipes.pipe_index - 1) % 2)
+			if (-1 == dup2(shell->redirects.input_redirect_fd, STDIN_FILENO))
 			{
-				if (-1 == dup2(shell->pipes.pipe1[0], STDIN_FILENO))
-				{
-					destroy_shell(shell);
-					exit(DUP_FAILURE);
-				}
-				ft_close(&shell->pipes.pipe1[0]);
-				ft_close(&shell->pipes.pipe1[1]);
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
 			}
-			else
-			{
-				if (-1 == dup2(shell->pipes.pipe2[0], STDIN_FILENO))
-				{
-					destroy_shell(shell);
-					exit(DUP_FAILURE);
-				}
-				ft_close(&shell->pipes.pipe2[0]);
-				ft_close(&shell->pipes.pipe2[1]);
-			}
+			dprintf(2, "Child input closed\n");
+			ft_close(&shell->redirects.input_redirect_fd);
 		}
 		if (shell->redirects.redirect_output)
 		{
@@ -156,30 +167,21 @@ t_status	run_comand(t_shell *shell)
 				destroy_shell(shell);
 				exit(DUP_FAILURE);
 			}
+			dprintf(2, "Child output closed\n");
 			ft_close(&shell->redirects.output_redirect_fd);
-		}
-		if (shell->redirects.redirect_input)
-		{
-			if (-1 == dup2(shell->redirects.input_redirect_fd, STDIN_FILENO))
-			{
-				perror("dup2");
-				destroy_shell(shell);
-				exit(DUP_FAILURE);
-			}
-			ft_close(&shell->redirects.input_redirect_fd);
 		}
 		code = cmd(shell->cur_cmd, shell);
 		printf("%s : %d\n", *shell->cur_cmd, code);
 		destroy_shell(shell);
 		exit(code);
 	}
+	shell->redirects.redirect_input = false;
+	ft_close(&shell->redirects.input_redirect_fd);
 	if (0 == shell->cmp_depth)
 	{
 		shell->redirects.redirect_output = false;
 		ft_close(&shell->redirects.output_redirect_fd);
 	}
-	shell->redirects.redirect_input = false;
-	ft_close(&shell->redirects.input_redirect_fd);
 	free(shell->cur_cmd);
 	shell->cur_cmd = NULL;
 	shell->exitno = update_pids(shell, pid);
