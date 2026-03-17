@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast_lst_new.c                                      :+:      :+:    :+:   */
+/*   files_lst_add.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/11 10:08:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/17 11:03:34 by mperrine         ###   ########.fr       */
+/*   Created: 2026/03/17 11:06:02 by mperrine          #+#    #+#             */
+/*   Updated: 2026/03/17 11:14:13 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, t_status *status)
+int	files_lst_add(char *s, t_files_lst **files, t_status *status)
 {
-	t_ast_lst	*new;
-	char		*str;
+	t_files_lst	*node;
 
-	new = malloc(sizeof(t_ast_lst));
-	if (NULL == new)
+	node = malloc(sizeof(t_files_lst));
+	if (!node)
+	{
+
+		*status = ALLOCATION_FAILURE;
+		return (1);
+	}
+	node->data = ft_strdup(s);
+	if (!node->data)
 	{
 		*status = ALLOCATION_FAILURE;
-		return (NULL);
+		return (1);
 	}
-	if (!(*lxr)->data)
-		str = NULL;
+	node->next = NULL;
+	if (!files || !*files)
+		*files = node;
 	else
-	{
-		str = ft_strdup((*lxr)->data);
-		if (!str)
-		{
-			free(new);
-			*status = ALLOCATION_FAILURE;
-			return (NULL);
-		}
-	}
-	*new = (t_ast_lst){str, (*lxr)->token, 0, NULL, NULL};
-	consume(lxr);
-	return (new);
+		file_lst_last(*files)->next = node;
+	return (0);
 }
