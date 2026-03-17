@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/14 16:44:30 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/17 14:47:16 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,4 +120,18 @@ int	ft_close(int *fd)
 		perror("close");
 	*fd = -1;
 	return (code);
+}
+
+bool	check_path(t_shell *shell)
+{
+	t_dictionary	*e;
+
+	if (NULL == shell || NULL == shell->env)
+		return (false);
+	e = dict_get(shell->env, shell);
+	if (NULL == e)
+		return (false);
+	if (((char *)e->data)[0] == '\0')
+		return (false);
+	return (true);	
 }
