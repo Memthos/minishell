@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 17:04:35 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/17 17:46:27 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		update_quotes(t_ast_lst *ast, t_status *status);
 /// @brief Search for wildcards if necessary and add them to the ast.
 /// @param ast A pointer to the head of the ast.
 /// @param status The status of the parser.
-void	apply_wildcards(t_ast_lst *ast, t_status *status);
+void		apply_wildcards(t_ast_lst *node, t_status *status);
 
 /// @brief Make the base of the AST tree, calls all the other functions
 /// of the ast.

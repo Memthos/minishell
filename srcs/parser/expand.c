@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 16:39:35 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/17 17:49:45 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,22 +115,24 @@ void	expand(t_ast_lst *node, t_status *status, t_dictionary *dict)
 	size_t		i;
 	t_quote_t	quote_state;
 
-	if (*status || !node || !node->data
-		|| (node->token != WORD && node->token != WILDCARD))
+	if (*status || !node)
 		return ;
 	i = 0;
 	quote_state = 0;
-	while (!*status && node->data[i])
+	if (node->data && (node->token == WORD || node->token == WILDCARD))
 	{
-		set_quote_state(&quote_state, node->data[i]);
-		if (quote_state != 1 && node->data[i] == '$' && node->data[i + 1])
+		while (!*status && node->data[i])
 		{
-			*status = update_data(&node->data, &i, dict);
-			if (!*status)
-				update_ast(node, status);
+			set_quote_state(&quote_state, node->data[i]);
+			if (quote_state != 1 && node->data[i] == '$' && node->data[i + 1])
+			{
+				*status = update_data(&node->data, &i, dict);
+				if (!*status)
+					update_ast(node, status);
+			}
+			else
+				i++;
 		}
-		else
-			i++;
 	}
 	expand(node->left, status, dict);
 	expand(node->right, status, dict);
