@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/17 19:10:30 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/17 20:28:02 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@ static t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast)
 	while (!status && *lxr && (*lxr)->token != END_OF_INPUT)
 	{
 		ast_lst_last(ast, RIGHT)->right = ast_lst_new(lxr, &status);
-		if (!status)
-		{
-			ast_lst_last(ast, RIGHT)->token = WORD;
-			ast_lst_last(ast, RIGHT)->expanded = 1;
-		}
+		if (status)
+			break ;
+		ast_lst_last(ast, RIGHT)->token = WORD;
+		ast_lst_last(ast, RIGHT)->expanded = 1;
 	}
 	return (status);
 }

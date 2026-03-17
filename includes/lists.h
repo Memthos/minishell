@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/17 19:00:11 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/17 20:03:05 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,6 @@ void		files_lst_clear(t_files_lst **head);
 /// @brief Pop the given node from the list.
 /// @param node The node to pop.
 /// @return The node or NULL if it was freed.
-t_files_lst	*files_lst_pop(t_files_lst *node);
+t_files_lst	*files_lst_pop(t_files_lst **node);
 
 #endif

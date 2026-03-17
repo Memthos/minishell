@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 18:07:05 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/17 19:42:09 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ static void	cmd_arg_r(t_ast_lst **cmd, t_lxr_lst **lxr, t_status *status)
 {
 	t_ast_lst	*tmp;
 
-	while (!*status && peek(lxr, WORD))
+	while (!*status && (peek(lxr, WORD) || peek(lxr, WILDCARD)))
 	{
 		tmp = NULL;
 		if (!cmd || !*cmd)
 			*cmd = ast_lst_new(lxr, status);
 		else
 		{
-			if ((*cmd)->token != WORD)
+			if ((*cmd)->token != WORD && (*cmd)->token != WILDCARD)
 			{
 				tmp = *cmd;
 				*cmd = ast_lst_new(lxr, status);
@@ -54,7 +54,8 @@ static t_ast_lst	*simple_command_r(t_lxr_lst **lxr, t_status *status)
 	t_ast_lst	*cmd;
 
 	cmd = NULL;
-	while (!*status && (is_io_redirect(lxr) || peek(lxr, WORD)))
+	while (!*status && (is_io_redirect(lxr) || peek(lxr, WORD)
+		|| peek(lxr, WILDCARD)))
 	{
 		if (is_io_redirect(lxr))
 			cmd_redirect_r(&cmd, lxr, status);
