@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/17 10:43:25 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/17 10:47:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,6 @@ t_status	run_comand(t_shell *shell)
 				destroy_shell(shell);
 				exit(DUP_FAILURE);
 			}
-			dprintf(2, "Child input closed\n");
 			ft_close(&shell->redirects.input_redirect_fd);
 		}
 		if (shell->redirects.redirect_output)
@@ -163,7 +162,6 @@ t_status	run_comand(t_shell *shell)
 				destroy_shell(shell);
 				exit(DUP_FAILURE);
 			}
-			dprintf(2, "Child output closed\n");
 			ft_close(&shell->redirects.output_redirect_fd);
 		}
 		code = cmd(shell->cur_cmd, shell);
