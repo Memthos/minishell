@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/13 14:30:14 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/17 14:49:38 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,11 @@ void		*increment_array(void *array, t_uint count, t_uint size);
  * Does nothing if fd < 0.
  */
 int			ft_close(int *fd);
+
+/**
+ * @brief Checks if the PATH environment variable looks correct.
+ * @return True on success, false on failure.
+ */
+bool	check_path(t_shell *shell);
 
 #endif

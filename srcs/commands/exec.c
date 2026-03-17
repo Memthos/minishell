@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:48:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 16:18:44 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/17 17:42:25 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,70 @@
 
 t_status	cmd_exec(char **args, t_shell *shell)
 {
-	char	**envp;
+	t_dictionary	*path;
+	t_uint			index;
+	char			**paths;
+	char			**envp;
+	char			*tmp;
 
 	if (NULL == args || NULL == *args)
 		return (FAILURE);
-	envp = dict_to_array(shell->env, '=');
-	execve(*args, args, envp);
-	if (ENOENT == errno)
+	if (access(*args, F_OK | X_OK) < 0)
 	{
-		if (ft_strchr(*args, '/'))
-			perror(*args);
-		else
+		if (!check_path(shell))
 		{
-			error_output(*args);
-			error_output(": command not found\n");
+			if (ft_strchr(*args, '/') || !check_path(shell))
+				perror(*args);
+			else
+			{
+				error_output(*args);
+				error_output(": command not found\n");
+			}
+			return (127);
+		}
+		path = dict_get(shell->env, "PATH");
+		paths = ft_split(path->data, ':');
+		if (NULL == paths)
+		{
+			perror("malloc");
+			return (FAILURE);
+		}
+		index = 0;
+		while (*(paths + index))
+		{
+			tmp = ft_strjoin_sep(*(paths + index), *args, '/');
+			if (NULL == tmp)
+			{
+				perror("malloc");
+				++index;
+				continue ;
+			}
+			if (!access(tmp, F_OK | X_OK))
+			{
+				free(*args);
+				*args = tmp;
+				break ;
+			}
+			free(tmp);
+			++index;
+		}
+		if (NULL == *(paths + index))
+		{
+			if (ft_strchr(*args, '/') || !check_path(shell))
+				perror(*args);
+			else
+			{
+				error_output(*args);
+				error_output(": command not found\n");
+			}
+			free_strings(paths);
+			return (127);
 		}
 	}
+	envp = dict_to_array(shell->env, '=');
+	execve(*args, args, envp);
+	perror(*args);
 	free_strings(envp);
-	return (127);
+	free_strings(paths);
+	return (SUCCESS);
 }

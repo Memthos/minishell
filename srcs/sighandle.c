@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 00:46:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/01/24 10:42:22 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:37:34 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,13 @@ static void	sig_intercept(int signo, siginfo_t *info, void *other)
 	(void)info;
 	(void)other;
 	g_signal = signo;
-	printf("signal %d received\n", g_signal);
+	if (SIGINT == g_signal)
+	{
+		write(STDERR_FILENO, "\n", 1);
+		rl_replace_line("", 1);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 	return ;
 }
 
