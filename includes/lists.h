@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/17 18:38:34 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/17 19:00:11 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,13 @@ t_status	lxr_lst_append(t_lxr_lst **node, char c, t_token token);
  * @return The created node.
  */
 t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, t_status *status);
+
+/// @brief Allocates memory for a new node.
+/// @param data The data of the new node.
+/// @param token The token of the new node.
+/// @param status The status of the parser.
+/// @return The created node.
+t_ast_lst	*ast_lst_new_char(char *data, t_token token, t_status *status);
 
 /// @brief Clear the ast.
 /// @param head A pointer to the first node of the ast.
