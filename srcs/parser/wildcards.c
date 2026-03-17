@@ -1,40 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast_lst_new.c                                      :+:      :+:    :+:   */
+/*   wildcards.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/11 10:08:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 16:37:02 by mperrine         ###   ########.fr       */
+/*   Created: 2026/03/16 16:56:51 by mperrine          #+#    #+#             */
+/*   Updated: 2026/03/16 18:03:34 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, t_status *status)
+static char	**	get_files(t_status *status)
 {
-	t_ast_lst	*new;
-	char		*str;
+	DIR				*directory;
+	struct dirent	*cur_file;
+	t_files_lst		*files;
 
-	new = malloc(sizeof(t_ast_lst));
-	if (NULL == new)
-		*status = ALLOCATION_FAILURE;
-	if (*status)
-		return (NULL);
-	if (!(*lxr)->data)
-		str = NULL;
-	else
+
+	directory =  opendir(".");
+	if (!directory)
 	{
-		str = ft_strdup((*lxr)->data);
-		if (!str)
-		{
-			free(new);
-			*status = ALLOCATION_FAILURE;
-			return (NULL);
-		}
+		*status = WILDCARD_FAILURE;
+		return ;
 	}
-	*new = (t_ast_lst){str, (*lxr)->token, 0, NULL, NULL};
-	consume(lxr);
-	return (new);
+	cur_file = readdir(directory);
+	while (cur_file)
+	{
+		cur_file = readdir(directory);
+	}
+	closedir(directory);
+}
+
+void	apply_wildcards(t_ast_lst *ast, t_status *status)
+{
+
 }

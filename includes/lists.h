@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 18:08:22 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 18:03:05 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,16 @@ typedef struct s_ast_lst
 {
 	char				*data;
 	t_token				token;
+	int					expanded;
 	struct s_ast_lst	*left;
 	struct s_ast_lst	*right;
 }						t_ast_lst;
+
+typedef struct s_files_lst
+{
+	char				*data;
+	struct s_files_lst	*next;
+}						t_files_lst;
 
 /**
  * @brief Allocates memory for a new node.

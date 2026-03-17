@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 16:56:31 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 16:20:06 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:41:07 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,21 @@ void	update_quotes(t_ast_lst *ast, t_status *status)
 	t_quote_t	quote_state;
 	size_t		quotes_rmv;
 
-	if (*status || !ast || !ast->data)
+	if (*status || !ast)
 		return ;
 	i = 0;
 	quote_state = 0;
 	quotes_rmv = 0;
-	while (ast->data[i++])
+	if (ast->data && !ast->expanded)
 	{
-		if (set_quote_state(&quote_state, ast->data[i - 1]))
-			quotes_rmv++;
+		while (ast->data[i++])
+		{
+			if (set_quote_state(&quote_state, ast->data[i - 1]))
+				quotes_rmv++;
+		}
+		if (quotes_rmv > 0 && quotes_rmv % 2 == 0)
+			*status = remove_quotes(ast, quotes_rmv);
 	}
-	if (quotes_rmv > 0 && quotes_rmv % 2 == 0)
-		*status = remove_quotes(ast, quotes_rmv);
 	update_quotes(ast->left, status);
 	update_quotes(ast->right, status);
 }
