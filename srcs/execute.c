@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 15:19:58 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/17 10:43:10 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		{
 			shell->cur_cmd[shell->cur_cmd_index] = NULL;
 			shell->exitno = run_comand(shell);
+			free(shell->cur_cmd);
+			shell->cur_cmd = NULL;
 			return (shell->exitno);
 		}
 		execute(cmd->right, shell);
