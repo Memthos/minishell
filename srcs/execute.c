@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/18 14:44:20 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:45:42 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 			shell->redirects.out_flags |= O_APPEND;
 		else
 			shell->redirects.out_flags |= O_TRUNC;
-		shell->redirects.output_redirect_fd = open(cmd->left->data, shell->redirects.out_flags, 0644);
+		shell->redirects.output_redirect_fd = open(cmd->left->data,
+				shell->redirects.out_flags, 0644);
 		if (-1 == shell->redirects.output_redirect_fd)
 		{
 			perror("open");
@@ -128,7 +129,8 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		ft_close(&shell->redirects.input_redirect_fd);
 		shell->redirects.redirect_input = true;
 		shell->redirects.in_flags = O_RDONLY;
-		shell->redirects.input_redirect_fd = open(cmd->left->data, shell->redirects.in_flags);
+		shell->redirects.input_redirect_fd = open(cmd->left->data,
+				shell->redirects.in_flags);
 		if (-1 == shell->redirects.input_redirect_fd)
 		{
 			perror("open");
@@ -160,7 +162,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	{
 		++shell->cmp_depth;
 		if (cmd->right && (GREAT == cmd->right->token
-			|| DGREAT == cmd->right->token))
+				|| DGREAT == cmd->right->token))
 			shell->redirects.cmp_redirect++;
 		execute(cmd->right, shell);
 		execute(cmd->left, shell);
