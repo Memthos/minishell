@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:56:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/18 09:42:30 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 10:49:07 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void	apply_wildcards(t_ast_lst *node, t_status *status)
 			filter_files(&files, node->data);
 			if (files)
 				update_ast(node, &files, status);
+			else
+				node->token = WORD;
 		}
 	}
 	if (files)
