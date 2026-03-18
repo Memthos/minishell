@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/17 10:43:10 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/18 11:09:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,16 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 			return (shell->exitno);
 		}
 		execute(cmd->left->left, shell);
+	}
+	if (DGREAT == cmd->token)
+	{
+		++shell->heredoc.count;
+		if (shell->heredoc.count > shell->heredoc.max)
+		{
+			error_output("maximum here-document count exceeded");
+			shell->exitno = BAD_ARG;
+			return (shell->exitno);
+		}
 	}
 	if (AND_IF == cmd->token || OR_IF == cmd->token)
 	{
