@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/17 15:17:20 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/18 17:55:26 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,14 @@ void	*increment_array(void *array, t_uint count, t_uint size)
 
 	if (NULL == array)
 	{
-		array = malloc(size);
+		array = ft_calloc(1, size);
 		if (NULL == array)
 			return (NULL);
 		return (array);
 	}
 	if (0 == count)
 		return (array);
-	new = malloc(size * (count + 1));
+	new = ft_calloc(count + 1, size);
 	if (NULL == new)
 		return (NULL);
 	ft_memcpy(new, array, count * size);
