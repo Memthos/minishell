@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/18 17:06:01 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/18 17:30:01 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ typedef struct s_redir_logic
 {
 	int		stdout_dup;
 	int		stdin_dup;
-	int		output_redir_count;
-	char	**output_files;
+	int		output_arr_count;
+	int		output_cur_arr_index;
+	char	***output_files;
 	bool	redirect_input;
 	int		input_redirect_fd;
 	t_uint	out_flags;
