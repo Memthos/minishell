@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 14:51:52 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/18 16:52:35 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	destroy_shell(t_shell *shell)
 		free(shell->cur_cmd);
 	if (NULL != shell->pids.pids)
 		free(shell->pids.pids);
-	ft_close(&shell->redirects.output_redirect_fd);
+	if (NULL != shell->redirects.output_redirect_fds)
+		free(shell->redirects.output_redirect_fds);
 	ft_close(&shell->redirects.input_redirect_fd);
 	ft_close(&shell->pipes.pipe1[0]);
 	ft_close(&shell->pipes.pipe1[1]);
