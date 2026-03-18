@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/18 09:46:43 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:05:52 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,17 @@ t_ast_lst	*io_redirect_r(t_lxr_lst **lxr, t_status *status, t_side side);
 /// @brief Check if the given node can be of redirect type
 /// @param lxr A pointer to the given node
 int			is_io_redirect(t_lxr_lst **lxr);
+
+/// @brief Check if the given tree contains a here_doc redirection.
+/// @param red The given tree.
+/// @param side THe side to move on.
+/// @return 1 if a here_doc was found, else 0.
+int			is_heredoc(t_ast_lst *red, t_side side);
+
+/// @brief Check if the limiter of the heredoc has quotes.
+/// @param red Redirection tree.
+/// @param side SIde to search.
+/// @return 1 if a quote was found or the limiter is NULL, else 0.
+int	limiter_quotes(t_ast_lst *red, t_side side);
 
 #endif
