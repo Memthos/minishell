@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/18 11:09:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:44:20 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,10 +159,17 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	if (CMP_CMD == cmd->token)
 	{
 		++shell->cmp_depth;
+		if (cmd->right && (GREAT == cmd->right->token
+			|| DGREAT == cmd->right->token))
+			shell->redirects.cmp_redirect++;
 		execute(cmd->right, shell);
 		execute(cmd->left, shell);
-		shell->redirects.redirect_output = false;
-		ft_close(&shell->redirects.output_redirect_fd);
+		if (shell->redirects.cmp_redirect)
+		{
+			shell->redirects.redirect_output = false;
+			ft_close(&shell->redirects.output_redirect_fd);
+			--shell->redirects.cmp_redirect;
+		}
 		--shell->cmp_depth;
 	}
 	return (shell->exitno);
