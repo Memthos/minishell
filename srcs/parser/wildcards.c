@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:56:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/17 20:35:52 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 09:42:30 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,69 +50,46 @@ static void	update_ast(t_ast_lst *node, t_files_lst **files, t_status *status)
 		ast_lst_clear(&right);
 }
 
-static void	filter_files(t_files_lst **files, char *model)
+static int	file_check(t_files_lst **cur, char *model)
 {
 	size_t		i;
 	size_t		j;
+
+	i = 0;
+	j = 0;
+	while (model[i] || (*cur)->data[j])
+	{
+		while (model[i] && (*cur)->data[j] && model[i] == (*cur)->data[j])
+		{
+			i++;
+			j++;
+		}
+		if (model[i] == '*')
+		{
+			i++;
+			while ((*cur)->data[j] && (*cur)->data[j] != next_char(model, i))
+				j++;
+		}
+		if (model[i] != (*cur)->data[j] && model[i] != '*')
+			return (1);
+		else if (model[i] == '\0' && (*cur)->data[j] == '\0')
+			return (0);
+	}
+	return (1);
+}
+
+static void	filter_files(t_files_lst **files, char *model)
+{
 	t_files_lst	**cur;
 
 	cur = files;
 	while (*cur)
 	{
-		i = 0;
-		j = 0;
-		while (model[i] && (*cur)->data[j])
-		{
-			while (model[i] && (*cur)->data[j] && model[i] == (*cur)->data[j])
-			{
-				i++;
-				j++;
-			}
-			if (model[i] == '*')
-			{
-				while (model[i] && model[i] == '*')
-					i++;
-				while ((*cur)->data[j] && model[i] != (*cur)->data[j])
-					j++;
-			}
-			if (model[i] != (*cur)->data[j])
-			{
-				files_lst_pop(cur);
-				break ;
-			}
-			else if (model[i] == '\0' && (*cur)->data[j] == '\0')
-			{
-				cur = &(*cur)->next;
-				break ;
-			}
-		}
+		if (file_check(cur, model))
+			files_lst_pop(cur);
+		else
+			cur = &(*cur)->next;
 	}
-}
-
-static t_files_lst	*get_files(t_status *status)
-{
-	DIR				*directory;
-	struct dirent	*cur_file;
-	t_files_lst		*files;
-
-	files = NULL;
-	directory =  opendir(".");
-	if (!directory)
-	{
-		*status = WILDCARD_FAILURE;
-		return (NULL);
-	}
-	cur_file = readdir(directory);
-	while (cur_file)
-	{
-		if (files_lst_add(cur_file->d_name, &files, status))
-			break ;
-		cur_file = readdir(directory);
-	}
-	closedir(directory);
-	if (*status)
-		files_lst_clear(&files);
-	return (files);
 }
 
 void	apply_wildcards(t_ast_lst *node, t_status *status)

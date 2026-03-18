@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:06:02 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/17 11:14:13 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 09:47:20 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	files_lst_add(char *s, t_files_lst **files, t_status *status)
 	node = malloc(sizeof(t_files_lst));
 	if (!node)
 	{
-
 		*status = ALLOCATION_FAILURE;
 		return (1);
 	}

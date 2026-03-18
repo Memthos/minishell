@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/17 14:49:38 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/18 09:47:50 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ bool		str_is_digit(char *str);
  * @param count The current number of elements in array.
  * @param size The size of the one element of array.
  * @return A new array with the updated size.
- * 
+ *
  */
 void		*increment_array(void *array, t_uint count, t_uint size);
 
@@ -80,6 +80,6 @@ int			ft_close(int *fd);
  * @brief Checks if the PATH environment variable looks correct.
  * @return True on success, false on failure.
  */
-bool	check_path(t_shell *shell);
+bool		check_path(t_shell *shell);
 
 #endif

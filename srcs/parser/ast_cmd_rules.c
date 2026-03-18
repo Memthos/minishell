@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/17 19:42:09 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 09:40:31 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static t_ast_lst	*simple_command_r(t_lxr_lst **lxr, t_status *status)
 
 	cmd = NULL;
 	while (!*status && (is_io_redirect(lxr) || peek(lxr, WORD)
-		|| peek(lxr, WILDCARD)))
+			|| peek(lxr, WILDCARD)))
 	{
 		if (is_io_redirect(lxr))
 			cmd_redirect_r(&cmd, lxr, status);

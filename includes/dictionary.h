@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 11:10:37 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 15:52:17 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 09:48:21 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void			dict_clear(t_dictionary **dict);
 t_uint			dict_size(t_dictionary *dict);
 
 /**
- * @brief Allocates a new dictionary which is a copy in the dictionary passed in.
+ * @brief Allocates a new dictionary which is a copy in the dictionary passed in
  */
 t_dictionary	*dict_copy(const t_dictionary *dict);
 

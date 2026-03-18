@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/17 17:46:27 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 09:46:43 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,17 @@ void		update_quotes(t_ast_lst *ast, t_status *status);
 /// @param ast A pointer to the head of the ast.
 /// @param status The status of the parser.
 void		apply_wildcards(t_ast_lst *node, t_status *status);
+
+/// @brief Function to list all the files and directories from the current one
+/// @param status The status of the parser.
+/// @return A chained list with all the files that were found.
+t_files_lst	*get_files(t_status *status);
+
+/// @brief Return the next char that is not a * in the wildcard model.
+/// @param model The string to search from.
+/// @param i The current index of the model.
+/// @return The next valid char.
+char		next_char(char *model, size_t i);
 
 /// @brief Make the base of the AST tree, calls all the other functions
 /// of the ast.
