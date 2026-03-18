@@ -6,11 +6,43 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:09:08 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 18:07:32 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:04:45 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	limiter_quotes(t_ast_lst *red, t_side side)
+{
+	char	*s;
+	size_t	i;
+
+	s = ast_lst_last(red, side)->data;
+	if (!s)
+		return (1);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '"' || s[i] == 39)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	is_heredoc(t_ast_lst *red, t_side side)
+{
+	while (red)
+	{
+		if (red->token == DLESS)
+			return (1);
+		if (side == LEFT)
+			red = red->left;
+		else
+			red = red->right;
+	}
+	return (0);
+}
 
 int	is_io_redirect(t_lxr_lst **lxr)
 {

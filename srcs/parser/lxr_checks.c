@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 17:01:37 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 18:48:05 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:22:59 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ static int	quote_check(t_lxr_lst *lxr)
 	if (!lxr->data)
 		return (SUCCESS);
 	i = 0;
-	quote_state = 0;
+	quote_state = NONE;
 	while (lxr->data[i])
 	{
 		set_quote_state(&quote_state, lxr->data[i]);
 		i++;
 	}
-	if (quote_state != 0)
+	if (quote_state != NONE)
 		return (QUOTES_FAILURE);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/17 20:03:05 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:27:22 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_ast_lst
 {
 	char				*data;
 	t_token				token;
-	int					expanded;
+	int					expand_state;
 	struct s_ast_lst	*left;
 	struct s_ast_lst	*right;
 }						t_ast_lst;

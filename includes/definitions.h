@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 17:09:02 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:11:30 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ typedef enum e_return_status
 
 typedef enum e_quote_t
 {
-	S_QUOTE = 1,
-	D_QUOTE = 2,
+	NONE,
+	S_QUOTE,
+	D_QUOTE,
 }	t_quote_t;
 
 typedef enum e_side
@@ -48,6 +49,13 @@ typedef enum e_side
 	LEFT,
 	RIGHT,
 }	t_side;
+
+typedef enum e_expand
+{
+	DENY,
+	ALLOW,
+	HEREDOC_ALLOW,
+}	t_expand;
 
 typedef enum e_tokens
 {

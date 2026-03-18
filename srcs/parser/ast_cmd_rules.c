@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/18 09:40:31 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:12:04 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,24 @@ static void	cmd_arg_r(t_ast_lst **cmd, t_lxr_lst **lxr, t_status *status)
 
 static void	cmd_redirect_r(t_ast_lst **cmd, t_lxr_lst **lxr, t_status *status)
 {
+	t_ast_lst	*red;
+
 	while (!*status && is_io_redirect(lxr))
 	{
+		red = io_redirect_r(lxr, status, LEFT);
+		if (*status)
+			break ;
+		if (is_heredoc(red, LEFT))
+		{
+			if (limiter_quotes(red, LEFT))
+				ast_lst_last(red, LEFT)->expand_state = DENY;
+			else
+				ast_lst_last(red, LEFT)->expand_state = HEREDOC_ALLOW;
+		}
 		if (!cmd || !*cmd)
-			*cmd = io_redirect_r(lxr, status, LEFT);
+			*cmd = red;
 		else
-			ast_lst_last(*cmd, LEFT)->left = io_redirect_r(lxr, status, LEFT);
+			ast_lst_last(*cmd, LEFT)->left = red;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:08:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/17 18:59:02 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:07:07 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_ast_lst	*ast_lst_new_char(char *data, t_token token, t_status *status)
 		*status = ALLOCATION_FAILURE;
 		return (NULL);
 	}
-	*new = (t_ast_lst){str, token, 0, NULL, NULL};
+	*new = (t_ast_lst){str, token, ALLOW, NULL, NULL};
 	return (new);
 }
 

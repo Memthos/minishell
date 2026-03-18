@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 13:09:07 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:23:01 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,16 +85,16 @@ void	lexer(t_lxr_lst **lxr, char *s, t_status *status)
 
 	i = 0;
 	p_dpt = 0;
-	quote_state = 0;
+	quote_state = NONE;
 	while (s[i++] && !*status)
 	{
 		set_quote_state(&quote_state, s[i - 1]);
 		check_parenth_dpt(&p_dpt, s[i - 1]);
-		if (!quote_state && s[i - 1] == ' ')
+		if (quote_state == NONE && s[i - 1] == ' ')
 			*status = lxr_lst_add(lxr, NULL, TOKEN, p_dpt);
-		else if (!quote_state && get_operator(&s[i - 1]))
+		else if (quote_state == NONE&& get_operator(&s[i - 1]))
 			*status = add_operator(lxr, &s[i - 1], &i, p_dpt);
-		else if (!quote_state && is_newline(&s[i - 1], &i))
+		else if (quote_state == NONE && is_newline(&s[i - 1], &i))
 			*status = lxr_lst_add(lxr, make_str(&s[i - 2], 2), NEW_LINE, p_dpt);
 		else if (lxr && *lxr && lxr_lst_last(*lxr)->token == WORD)
 			*status = lxr_lst_append(lxr, s[i - 1], TOKEN);

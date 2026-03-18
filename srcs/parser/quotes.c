@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 16:56:31 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 16:41:07 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:12:47 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	set_quote_state(t_quote_t *quote, char c)
 		if (*quote == S_QUOTE)
 			return (0);
 		else if (*quote == D_QUOTE)
-			*quote = 0;
+			*quote = NONE;
 		else
 			*quote = D_QUOTE;
 		return (1);
@@ -29,7 +29,7 @@ int	set_quote_state(t_quote_t *quote, char c)
 	if (*quote == D_QUOTE)
 		return (0);
 	else if (*quote == S_QUOTE)
-		*quote = 0;
+		*quote = NONE;
 	else
 		*quote = S_QUOTE;
 	return (1);
@@ -74,7 +74,7 @@ void	update_quotes(t_ast_lst *ast, t_status *status)
 	i = 0;
 	quote_state = 0;
 	quotes_rmv = 0;
-	if (ast->data && !ast->expanded)
+	if (ast->data && ast->expand_state != DENY)
 	{
 		while (ast->data[i++])
 		{

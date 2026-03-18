@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/17 20:28:02 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/18 15:13:31 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast)
 	if (!ast->data)
 		status = ALLOCATION_FAILURE;
 	ast->token = WORD;
-	ast->expanded = 1;
+	ast->expand_state = DENY;
 	ast->right = NULL;
 	ast_lst_clear(&tmp);
 	while (!status && *lxr && (*lxr)->token != END_OF_INPUT)
@@ -34,7 +34,7 @@ static t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast)
 		if (status)
 			break ;
 		ast_lst_last(ast, RIGHT)->token = WORD;
-		ast_lst_last(ast, RIGHT)->expanded = 1;
+		ast_lst_last(ast, RIGHT)->expand_state = DENY;
 	}
 	return (status);
 }
@@ -116,13 +116,14 @@ void	expand(t_ast_lst *node, t_status *status, t_dictionary *dict)
 	if (*status || !node)
 		return ;
 	i = 0;
-	quote_state = 0;
-	if (node->data && (node->token == WORD || node->token == WILDCARD))
+	quote_state = NONE;
+	if (node->data && node->expand_state != DENY
+		&& (node->token == WORD || node->token == WILDCARD))
 	{
 		while (!*status && node->data[i])
 		{
 			set_quote_state(&quote_state, node->data[i]);
-			if (quote_state != 1 && node->data[i] == '$' && node->data[i + 1])
+			if (quote_state != 0 && node->data[i] == '$' && node->data[i + 1])
 			{
 				*status = update_data(&node->data, &i, dict);
 				if (!*status)
