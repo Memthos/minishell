@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/17 10:47:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:41:27 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_status	run_comand(t_shell *shell)
 			perror("dup2");
 			shell->exitno = DUP_FAILURE;
 		}
-		printf("%s : %d\n", *shell->cur_cmd, shell->exitno);
+		dprintf(2, "%s : %d\n", *shell->cur_cmd, shell->exitno);
 		return (shell->exitno);
 	}
 	pid = fork();
@@ -165,13 +165,13 @@ t_status	run_comand(t_shell *shell)
 			ft_close(&shell->redirects.output_redirect_fd);
 		}
 		code = cmd(shell->cur_cmd, shell);
-		printf("%s : %d\n", *shell->cur_cmd, code);
+		dprintf(2, "%s : %d\n", *shell->cur_cmd, code);
 		destroy_shell(shell);
 		exit(code);
 	}
 	shell->redirects.redirect_input = false;
 	ft_close(&shell->redirects.input_redirect_fd);
-	if (0 == shell->cmp_depth)
+	if (!shell->redirects.cmp_redirect)
 	{
 		shell->redirects.redirect_output = false;
 		ft_close(&shell->redirects.output_redirect_fd);
