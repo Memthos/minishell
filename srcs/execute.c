@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/18 14:45:42 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:52:10 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,13 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		{
 			shell->exitno = BAD_ARG;
 			return (shell->exitno);
+		}
+		if (access(cmd->left->data, F_OK) < 0)
+		{
+			error_output(cmd->left->data);
+			error_output(": No such file or directory\n");
+			shell->exitno = FAILURE;
+			return (FAILURE);
 		}
 		ft_close(&shell->redirects.input_redirect_fd);
 		shell->redirects.redirect_input = true;
