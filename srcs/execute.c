@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/18 14:52:10 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/18 16:26:11 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		}
 		execute(cmd->left->left, shell);
 	}
-	if (DGREAT == cmd->token)
+	if (DLESS == cmd->token)
 	{
 		++shell->heredoc.count;
 		if (shell->heredoc.count > shell->heredoc.max)
