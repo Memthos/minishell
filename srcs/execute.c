@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 13:46:15 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 14:24:03 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,15 +137,13 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		}
 		if (access(cmd->left->data, F_OK) < 0)
 		{
-			error_output(cmd->left->data);
-			error_output(": No such file or directory\n");
+			error_output(cmd->left->data, FILE_NOT_FOUND);
 			shell->exitno = FAILURE;
 			return (FAILURE);
 		}
 		else if (access(cmd->left->data, R_OK) < 0)
 		{
-			error_output(cmd->left->data);
-			error_output(": Permission denied\n");
+			error_output(cmd->left->data, PERMISSION_ERROR);
 			shell->exitno = FAILURE;
 			return (FAILURE);
 		}
@@ -172,7 +170,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		++shell->heredoc.count;
 		if (shell->heredoc.count > shell->heredoc.max)
 		{
-			error_output("maximum here-document count exceeded");
+			error_output(NULL, HEREDOC_COUNT_EXCEEDED);
 			shell->exitno = BAD_ARG;
 			return (shell->exitno);
 		}

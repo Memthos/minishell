@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:17:30 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 16:14:16 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 14:30:04 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_status	cmd_export(char **args, t_shell *shell)
 		{
 			if (!check_var_name(*args))
 			{
-				error_output("export : not a valid identifier\n");
+				error_output("export : not a valid identifier", -1);
 				code = FAILURE;
 			}
 			++args;
@@ -61,7 +61,7 @@ t_status	cmd_export(char **args, t_shell *shell)
 		}
 		if (!check_var_name(entry[0]))
 		{
-			error_output("export : not a valid identifier\n");
+			error_output("export : not a valid identifier", -1);
 			++args;
 			free(entry[0]);
 			free(entry[1]);

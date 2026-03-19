@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 09:48:05 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/16 16:14:26 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 14:30:59 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_status	cmd_pwd(char **args, t_shell *shell)
 			pwd_env = dict_get(shell->env, "PWD");
 		if (NULL == pwd_env)
 		{
-			error_output("cd : failed to retrieve current working directory\n");
+			error_output("cd : failed to retrieve current working directory", -1);
 			return (FAILURE);
 		}
 		printf("%s\n", (char *)pwd_env->data);

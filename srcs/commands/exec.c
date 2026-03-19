@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:48:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/17 17:42:25 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 14:25:39 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ t_status	cmd_exec(char **args, t_shell *shell)
 			if (ft_strchr(*args, '/') || !check_path(shell))
 				perror(*args);
 			else
-			{
-				error_output(*args);
-				error_output(": command not found\n");
-			}
+				error_output(*args, COMMAND_NOT_FOUND);
 			return (127);
 		}
 		path = dict_get(shell->env, "PATH");
@@ -66,10 +63,7 @@ t_status	cmd_exec(char **args, t_shell *shell)
 			if (ft_strchr(*args, '/') || !check_path(shell))
 				perror(*args);
 			else
-			{
-				error_output(*args);
-				error_output(": command not found\n");
-			}
+				error_output(*args, COMMAND_NOT_FOUND);
 			free_strings(paths);
 			return (127);
 		}
