@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   definitions.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/18 15:11:30 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/19 14:24:48 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,18 @@ typedef enum e_return_status
 	SUCCESS,
 	FAILURE,
 	BAD_ARG,
+	OVERFLOW,
+	UNDERFLOW,
 	ALLOCATION_FAILURE,
-	ASSIGN_FAILURE,
 	EXECVE_FAILURE,
 	PIPE_FAILURE,
 	FORK_FAILURE,
 	DUP_FAILURE,
 	OPEN_FAILURE,
-	OVERFLOW,
-	UNDERFLOW,
+	FILE_NOT_FOUND,
+	PERMISSION_ERROR,
+	COMMAND_NOT_FOUND,
+	HEREDOC_COUNT_EXCEEDED,
 	PARENTHESIS_FAILURE,
 	QUOTES_FAILURE,
 	REDIRECTION_FAILURE,
