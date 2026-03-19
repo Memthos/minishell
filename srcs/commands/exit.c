@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 10:02:10 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 10:38:57 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 10:47:35 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@ t_status	cmd_exit(char **args, t_shell *shell)
 		destroy_shell(shell);
 		exit(SUCCESS);
 	}
-	if (!str_is_digit(args[1]))
-	{
-		error_output("exit : numeric argument required\n");
-		destroy_shell(shell);
-		exit(BAD_ARG);
-	}
 	if (NULL != args[2])
 	{
 		error_output("exit : too many arguments\n");
@@ -42,5 +36,5 @@ t_status	cmd_exit(char **args, t_shell *shell)
 		exit(BAD_ARG);
 	}
 	destroy_shell(shell);
-	exit(code % 256);
+	exit(code & 0xff);
 }
