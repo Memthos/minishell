@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 09:04:36 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 09:22:29 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,16 @@ t_status	run_comand(t_shell *shell)
 				exit(DUP_FAILURE);
 			}
 			ft_close(&shell->redirects.input_redirect_fd);
+		}
+		else if (-1 != shell->redirects.input_cmp_redirect_fd)
+		{
+			if (-1 == dup2(shell->redirects.input_cmp_redirect_fd, STDIN_FILENO))
+			{
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
+			}
+			ft_close(&shell->redirects.input_cmp_redirect_fd);
 		}
 		if (-1 != shell->redirects.output_redirect_fd)
 		{
