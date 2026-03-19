@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 08:59:06 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 09:04:36 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,6 @@ t_status	run_comand(t_shell *shell)
 		}
 		if (-1 != shell->redirects.output_redirect_fd)
 		{
-			dprintf(2, "Close redirection\n");
 			if (-1 == dup2(shell->redirects.output_redirect_fd, STDOUT_FILENO))
 			{
 				perror("dup2");
@@ -174,7 +173,6 @@ t_status	run_comand(t_shell *shell)
 		}
 		else if (-1 != shell->redirects.output_cmp_redirect_fd)
 		{
-			dprintf(2, "CMP_CMD redirection\n");
 			if (-1 == dup2(shell->redirects.output_cmp_redirect_fd, STDOUT_FILENO))
 			{
 				perror("dup2");
