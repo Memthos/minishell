@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 14:24:03 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 14:42:11 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		return (shell->exitno);
 	if (WORD == cmd->token)
 	{
-		execute(cmd->left, shell);
 		if (SUCCESS != shell->exitno)
 			return (shell->exitno);
+		execute(cmd->left, shell);
 		if (NULL == shell->cur_cmd)
 		{
 			shell->cur_cmd_index = 0;
@@ -28,8 +28,8 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 			if (NULL == shell->cur_cmd)
 			{
 				perror("malloc");
-				shell->exitno = ALLOCATION_FAILURE;
-				return (ALLOCATION_FAILURE);
+				shell->exitno = FAILURE;
+				return (shell->exitno);
 			}
 		}
 		shell->cur_cmd[shell->cur_cmd_index] = cmd->data;
@@ -52,7 +52,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 			if (-1 == pipe(shell->pipes.pipe1))
 			{
 				perror("pipe");
-				shell->exitno = PIPE_FAILURE;
+				shell->exitno = FAILURE;
 				return (shell->exitno);
 			}
 			shell->pipes.redirect_output = true;
@@ -69,7 +69,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 				if (-1 == pipe(shell->pipes.pipe1))
 				{
 					perror("pipe");
-					shell->exitno = PIPE_FAILURE;
+					shell->exitno = FAILURE;
 					return (shell->exitno);
 				}
 			}
@@ -78,7 +78,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 				if (-1 == pipe(shell->pipes.pipe2))
 				{
 					perror("pipe");
-					shell->exitno = PIPE_FAILURE;
+					shell->exitno = FAILURE;
 					return (shell->exitno);
 				}
 			}
@@ -101,11 +101,6 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	}
 	if (GREAT == cmd->token || DGREAT == cmd->token)
 	{
-		if (NULL == cmd->left)
-		{
-			shell->exitno = BAD_ARG;
-			return (shell->exitno);
-		}
 		ft_close(&shell->redirects.output_redirect_fd);
 		shell->redirects.out_flags = O_WRONLY | O_CREAT;
 		if (DGREAT == cmd->token)
@@ -117,7 +112,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		if (-1 == shell->redirects.output_redirect_fd)
 		{
 			perror("open");
-			shell->exitno = OPEN_FAILURE;
+			shell->exitno = FAILURE;
 			return (shell->exitno);
 		}
 		if (shell->redirects.is_cmp_redir)
@@ -130,11 +125,6 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	}
 	if (LESS == cmd->token)
 	{
-		if (NULL == cmd->left)
-		{
-			shell->exitno = BAD_ARG;
-			return (shell->exitno);
-		}
 		if (access(cmd->left->data, F_OK) < 0)
 		{
 			error_output(cmd->left->data, FILE_NOT_FOUND);
@@ -154,7 +144,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		if (-1 == shell->redirects.input_redirect_fd)
 		{
 			perror("open");
-			shell->exitno = OPEN_FAILURE;
+			shell->exitno = FAILURE;
 			return (shell->exitno);
 		}
 		if (shell->redirects.is_cmp_redir)
