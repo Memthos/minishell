@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/18 17:55:26 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 10:45:01 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ t_status	get_number(const char *s, int *number)
 		*number = *number * 10 + (*(s + index++) - '0');
 	}
 	*number *= sign;
+	if (*(s + index))
+		return (BAD_ARG);
 	return (SUCCESS);
 }
 
