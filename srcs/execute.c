@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 09:25:00 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 09:59:28 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 			shell->pipes.redirect_output = true;
 		}
 		execute(cmd->left, shell);
+		ft_close(&shell->redirects.input_redirect_fd);
+		ft_close(&shell->redirects.output_redirect_fd);
 		shell->pipes.redirect_output = false;
 		++shell->pipes.pipe_index;
 		if (shell->pipes.pipe_depth > 1)
