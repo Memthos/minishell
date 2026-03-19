@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:09:08 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/19 19:52:12 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/19 21:24:09 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static t_ast_lst	*main_redirect(t_lxr_lst **lxr, t_status *status,
 		if (*lxr)
 			parser_error_print((*lxr)->data);
 		else
-			parser_error_print(NULL);
+			parser_error_print("newline");
 		ast_lst_clear(&red);
 	}
 	return (red);
