@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/18 16:53:40 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/18 16:31:08 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,21 @@ t_status	run_comand(t_shell *shell)
 	cmd = get_command(*shell->cur_cmd);
 	if (0 == shell->pipes.pipe_depth && &cmd_exec != cmd)
 	{
-		//will redirect output here
+		if (shell->redirects.redirect_output)
+		{
+			if (-1 == dup2(shell->redirects.output_redirect_fd, STDOUT_FILENO))
+			{
+				perror("dup2");
+				ft_close(&shell->redirects.output_redirect_fd);
+				shell->exitno = DUP_FAILURE;
+				return (shell->exitno);
+			}
+			if (0 == shell->cmp_depth)
+			{
+				shell->redirects.redirect_output = false;
+				ft_close(&shell->redirects.output_redirect_fd);
+			}
+		}
 		shell->exitno = cmd(shell->cur_cmd, shell);
 		if (-1 == dup2(shell->redirects.stdout_dup, STDOUT_FILENO))
 		{
@@ -140,7 +154,16 @@ t_status	run_comand(t_shell *shell)
 			}
 			ft_close(&shell->redirects.input_redirect_fd);
 		}
-		//will redirect output here
+		if (shell->redirects.redirect_output && !(shell->pipes.redirect_output && shell->redirects.cmp_redirect))
+		{
+			if (-1 == dup2(shell->redirects.output_redirect_fd, STDOUT_FILENO))
+			{
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
+			}
+			ft_close(&shell->redirects.output_redirect_fd);
+		}
 		code = cmd(shell->cur_cmd, shell);
 		dprintf(2, "%s : %d\n", *shell->cur_cmd, code);
 		destroy_shell(shell);
@@ -148,6 +171,11 @@ t_status	run_comand(t_shell *shell)
 	}
 	shell->redirects.redirect_input = false;
 	ft_close(&shell->redirects.input_redirect_fd);
+	if (!shell->redirects.cmp_redirect)
+	{
+		shell->redirects.redirect_output = false;
+		ft_close(&shell->redirects.output_redirect_fd);
+	}
 	shell->exitno = update_pids(shell, pid);
 	return (shell->exitno);
 }

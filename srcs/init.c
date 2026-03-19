@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/18 16:51:27 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/18 14:35:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ static void	set_shell(t_shell *shell)
 	init_pipes(&shell->pipes);
 	shell->redirects.stdin_dup = dup(STDIN_FILENO);
 	shell->redirects.stdout_dup = dup(STDOUT_FILENO);
-	shell->redirects.output_redirection_count = 0;
-	shell->redirects.output_redirect_fds = NULL;
+	shell->redirects.cmp_redirect = 0;
+	shell->redirects.redirect_output = false;
+	shell->redirects.output_redirect_fd = -1;
 	shell->redirects.redirect_input = false;
 	shell->redirects.input_redirect_fd = -1;
 	shell->heredoc.count = 0;
