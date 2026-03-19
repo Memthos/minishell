@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:09:08 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/18 15:04:45 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/19 19:52:12 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,12 @@ int	is_io_redirect(t_lxr_lst **lxr)
 		return (0);
 }
 
-t_ast_lst	*io_redirect_r(t_lxr_lst **lxr, t_status *status, t_side side)
+static t_ast_lst	*main_redirect(t_lxr_lst **lxr, t_status *status,
+	t_side side)
 {
-	t_ast_lst	*cmd;
 	t_ast_lst	*red;
 
-	cmd = NULL;
-	if (peek(lxr, IO_NUMBER))
-		cmd = ast_lst_new(lxr, status);
+	red = NULL;
 	if (!*status && is_io_redirect(lxr) == 2)
 		red = ast_lst_new(lxr, status);
 	else
@@ -80,13 +78,36 @@ t_ast_lst	*io_redirect_r(t_lxr_lst **lxr, t_status *status, t_side side)
 		red->right = ast_lst_new(lxr, status);
 	else
 		*status = REDIRECTION_FAILURE;
-	if (cmd && side == LEFT)
-		cmd->left = red;
-	else if (cmd && side == RIGHT)
-		cmd->right = red;
-	else
-		cmd = red;
 	if (*status)
-		ast_lst_clear(&cmd);
-	return (cmd);
+	{
+		if (*lxr)
+			parser_error_print((*lxr)->data);
+		else
+			parser_error_print(NULL);
+		ast_lst_clear(&red);
+	}
+	return (red);
+}
+
+t_ast_lst	*io_redirect_r(t_lxr_lst **lxr, t_status *status, t_side side)
+{
+	t_ast_lst	*io_red;
+	t_ast_lst	*red;
+
+	io_red = NULL;
+	red = NULL;
+	if (peek(lxr, IO_NUMBER))
+		io_red = ast_lst_new(lxr, status);
+	if (*status)
+		return (NULL);
+	red = main_redirect(lxr, status, side);
+	if (io_red && side == LEFT)
+		io_red->left = red;
+	else if (io_red && side == RIGHT)
+		io_red->right = red;
+	else
+		io_red = red;
+	if (*status)
+		ast_lst_clear(&io_red);
+	return (io_red);
 }

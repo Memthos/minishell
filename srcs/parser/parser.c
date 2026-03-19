@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/16 17:00:25 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/19 19:52:15 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,11 @@ t_status	parser(char *s, t_shell *shell)
 	if (!s)
 		return (SUCCESS);
 	lexer(&lxr, s, &status);
-	if (!lxr)
-		return (status);
 	if (!status)
+	{
 		set_final_tokens(lxr);
-	if (!status)
 		checker_lxr(lxr, &status);
+	}
 	if (!status)
 		shell->cmd_ast = complete_command_r(&lxr, &status);
 	lxr_lst_clear(&lxr);
@@ -52,5 +51,7 @@ t_status	parser(char *s, t_shell *shell)
 		apply_wildcards(shell->cmd_ast, &status);
 	if (!status)
 		update_quotes(shell->cmd_ast, &status);
+	if (status == ALLOCATION_FAILURE || status == READDIR_FAILURE)
+		error_output("parser", status);
 	return (status);
 }

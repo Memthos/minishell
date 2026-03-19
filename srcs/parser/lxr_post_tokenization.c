@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 22:31:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/14 18:04:38 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/19 18:07:32 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static void	set_io_number(t_lxr_lst *lxr)
 
 void	set_final_tokens(t_lxr_lst *lxr)
 {
+	if (!lxr)
+		return ;
 	while (lxr)
 	{
 		set_wildcard(lxr);

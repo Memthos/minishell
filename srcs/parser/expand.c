@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/18 15:13:31 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/19 18:24:34 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast)
 	ast->expand_state = DENY;
 	ast->right = NULL;
 	ast_lst_clear(&tmp);
-	while (!status && *lxr && (*lxr)->token != END_OF_INPUT)
+	while (!status && *lxr)
 	{
 		ast_lst_last(ast, RIGHT)->right = ast_lst_new(lxr, &status);
 		if (status)

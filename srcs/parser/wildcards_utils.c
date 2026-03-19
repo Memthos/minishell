@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 09:41:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/18 09:43:39 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/19 19:50:47 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_files_lst	*get_files(t_status *status)
 	directory = opendir(".");
 	if (!directory)
 	{
-		*status = WILDCARD_FAILURE;
+		*status = READDIR_FAILURE;
 		return (NULL);
 	}
 	cur_file = readdir(directory);
@@ -38,6 +38,8 @@ t_files_lst	*get_files(t_status *status)
 		if (files_lst_add(cur_file->d_name, &files, status))
 			break ;
 		cur_file = readdir(directory);
+		if (!cur_file)
+			*status = READDIR_FAILURE;
 	}
 	closedir(directory);
 	if (*status)

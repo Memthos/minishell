@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   outputs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:25:28 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 14:17:10 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 18:12:52 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,10 @@
  * @return Returns 0 on success, 1 on failure
  */
 t_status	error_output(const char *arg, int error);
+
+/// @brief Display an error from the parser on the stderr
+/// @param arg The arg that failed.
+/// @return Returns 0 on success, 1 on failure
+t_status	parser_error_print(const char *arg);
 
 #endif

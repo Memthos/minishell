@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_output.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:23:31 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 14:33:42 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 19:51:57 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_status	error_output(const char *arg, int error)
 		"dup failure", "open failure", "No such file or directory",
 		"Permission denied", "command not found",
 		"maximum here-document count exceeded",
+		"Failed to read directory content"
 	};
 
 	if (NULL != arg)
@@ -35,6 +36,25 @@ t_status	error_output(const char *arg, int error)
 			return (FAILURE);
 	}
 	if (write(STDERR_FILENO, "\n", 1) < 0)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+t_status	parser_error_print(const char *arg)
+{
+	if (write(2, "parser: syntax error near unexpected token `", 44) < 0)
+		return (FAILURE);
+	if (arg)
+	{
+		if (write(2, arg, ft_strlen(arg)) < 0)
+			return (FAILURE);
+	}
+	else
+	{
+		if (write(2, "newline", 7) < 0)
+			return (FAILURE);
+	}
+	if (write(STDERR_FILENO, "'\n", 2) < 0)
 		return (FAILURE);
 	return (SUCCESS);
 }

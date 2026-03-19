@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/18 14:27:22 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/19 19:04:33 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_lxr_lst	*lxr_lst_last(t_lxr_lst *head);
  * @param c The char to append.
  * @return The exit status of the function.
  */
-t_status	lxr_lst_append(t_lxr_lst **node, char c, t_token token);
+t_status	lxr_lst_append(t_lxr_lst **node, char c);
 
 /**
  * @brief Allocates memory for a new node.

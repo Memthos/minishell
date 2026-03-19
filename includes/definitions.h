@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   definitions.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 14:24:48 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 19:24:55 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ typedef enum e_return_status
 	PERMISSION_ERROR,
 	COMMAND_NOT_FOUND,
 	HEREDOC_COUNT_EXCEEDED,
+	READDIR_FAILURE,
 	PARENTHESIS_FAILURE,
 	QUOTES_FAILURE,
-	REDIRECTION_FAILURE,
 	OPERATOR_FAILURE,
-	WILDCARD_FAILURE,
+	REDIRECTION_FAILURE,
 }	t_status;
 
 typedef enum e_quote_t
@@ -77,7 +77,6 @@ typedef enum e_tokens
 	R_PAREN,
 	CMP_CMD,
 	WILDCARD,
-	END_OF_INPUT,
 }	t_token;
 
 #endif
