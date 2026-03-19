@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 09:59:28 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 13:46:15 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	if (WORD == cmd->token)
 	{
 		execute(cmd->left, shell);
+		if (SUCCESS != shell->exitno)
+			return (shell->exitno);
 		if (NULL == shell->cur_cmd)
 		{
 			shell->cur_cmd_index = 0;
@@ -140,6 +142,13 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 			shell->exitno = FAILURE;
 			return (FAILURE);
 		}
+		else if (access(cmd->left->data, R_OK) < 0)
+		{
+			error_output(cmd->left->data);
+			error_output(": Permission denied\n");
+			shell->exitno = FAILURE;
+			return (FAILURE);
+		}
 		ft_close(&shell->redirects.input_redirect_fd);
 		shell->redirects.in_flags = O_RDONLY;
 		shell->redirects.input_redirect_fd = open(cmd->left->data,
@@ -175,7 +184,10 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		if (AND_IF == cmd->token && SUCCESS == shell->exitno)
 			execute(cmd->right, shell);
 		if (OR_IF == cmd->token && SUCCESS != shell->exitno)
+		{
+			shell->exitno = SUCCESS;
 			execute(cmd->right, shell);
+		}
 	}
 	if (CMP_CMD == cmd->token)
 	{
