@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/18 16:26:11 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 08:33:47 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 			return (shell->exitno);
 		}
 		ft_close(&shell->redirects.output_redirect_fd);
-		shell->redirects.redirect_output = true;
 		shell->redirects.out_flags = O_WRONLY | O_CREAT;
 		if (DGREAT == cmd->token)
 			shell->redirects.out_flags |= O_APPEND;
@@ -116,6 +115,12 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 			perror("open");
 			shell->exitno = OPEN_FAILURE;
 			return (shell->exitno);
+		}
+		if (shell->redirects.is_cmp_redir)
+		{
+			ft_close(&shell->redirects.output_cmp_redirect_fd);
+			shell->redirects.output_cmp_redirect_fd = shell->redirects.output_redirect_fd;
+			shell->redirects.output_redirect_fd = -1;
 		}
 		execute(cmd->left->left, shell);
 	}
@@ -168,17 +173,11 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	if (CMP_CMD == cmd->token)
 	{
 		++shell->cmp_depth;
-		if (cmd->right && (GREAT == cmd->right->token
-				|| DGREAT == cmd->right->token))
-			shell->redirects.cmp_redirect++;
+		shell->redirects.is_cmp_redir = true;
 		execute(cmd->right, shell);
+		shell->redirects.is_cmp_redir = false;
 		execute(cmd->left, shell);
-		if (shell->redirects.cmp_redirect)
-		{
-			shell->redirects.redirect_output = false;
-			ft_close(&shell->redirects.output_redirect_fd);
-			--shell->redirects.cmp_redirect;
-		}
+		ft_close(&shell->redirects.output_cmp_redirect_fd);
 		--shell->cmp_depth;
 	}
 	return (shell->exitno);
