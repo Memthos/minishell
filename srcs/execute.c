@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 08:59:39 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 09:25:00 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,12 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 			shell->exitno = OPEN_FAILURE;
 			return (shell->exitno);
 		}
+		if (shell->redirects.is_cmp_redir)
+		{
+			ft_close(&shell->redirects.input_cmp_redirect_fd);
+			shell->redirects.input_cmp_redirect_fd = shell->redirects.input_redirect_fd;
+			shell->redirects.input_redirect_fd = -1;
+		}
 		execute(cmd->left->left, shell);
 	}
 	if (DLESS == cmd->token)
@@ -177,6 +183,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		shell->redirects.is_cmp_redir = false;
 		execute(cmd->left, shell);
 		ft_close(&shell->redirects.output_cmp_redirect_fd);
+		ft_close(&shell->redirects.input_cmp_redirect_fd);
 		--shell->cmp_depth;
 	}
 	return (shell->exitno);
