@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/18 14:41:05 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 13:34:55 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static t_status	minishell(t_shell *shell)
 		ast_lst_clear(&shell->cmd_ast);
 		shell->pipes.pipe_index = 0;
 		shell->heredoc.count = 0;
+		shell->exitno = SUCCESS;
 	}
 	return (SUCCESS);
 }
