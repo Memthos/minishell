@@ -6,15 +6,36 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:38:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/24 16:22:26 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 10:30:31 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static bool	is_dash_n(const char *s)
+{
+	t_uint	index;
+
+	if (NULL == s)
+		return (false);
+	if (*s != '-')
+		return (false);
+	index = 1;
+	while (*(s + index))
+	{
+		if (*(s + index) != 'n')
+			return (false);
+		++index;
+	}
+	if (1 == index)
+		return (false);
+	return (true);
+}
+
 t_status	cmd_echo(char **args, t_shell *shell)
 {
 	t_uint	index;
+	bool	line_break;
 
 	(void)shell;
 	if (NULL == args[1])
@@ -22,9 +43,13 @@ t_status	cmd_echo(char **args, t_shell *shell)
 		write(STDOUT_FILENO, "\n", 1);
 		return (SUCCESS);
 	}
+	line_break = true;
 	index = 1;
-	while (*(args + index) && !strcmp(*(args + index), "-n"))
+	while (is_dash_n(*(args + index)))
+	{
+		line_break = false;
 		++index;
+	}
 	while (*(args + index))
 	{
 		write(STDOUT_FILENO, *(args + index), ft_strlen(*(args + index)));
@@ -32,7 +57,7 @@ t_status	cmd_echo(char **args, t_shell *shell)
 			write(STDOUT_FILENO, " ", 1);
 		++index;
 	}
-	if (ft_strcmp(args[1], "-n"))
+	if (line_break)
 		write(STDOUT_FILENO, "\n", 1);
 	return (SUCCESS);
 }
