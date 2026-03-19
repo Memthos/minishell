@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 08:20:06 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/19 08:59:54 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static void	set_shell(t_shell *shell)
 	shell->redirects.is_cmp_redir = false;
 	shell->redirects.output_cmp_redirect_fd = -1;
 	shell->redirects.output_redirect_fd = -1;
-	shell->redirects.redirect_input = false;
 	shell->redirects.input_redirect_fd = -1;
 	shell->heredoc.count = 0;
 	shell->heredoc.max = 16;
