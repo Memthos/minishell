@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/20 12:51:08 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/20 12:56:31 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 static t_command	get_built_in(t_uint idx)
 {
 	const t_command	built_ins[] = {
-		{"echo", &cmd_echo},
-		{"cd", &cmd_cd},
-		{"pwd", &cmd_pwd},
-		{"export", &cmd_export},
-		{"unset", &cmd_unset},
-		{"env", &cmd_env},
-		{"exit", &cmd_exit}};
+	{"echo", &cmd_echo},
+	{"cd", &cmd_cd},
+	{"pwd", &cmd_pwd},
+	{"export", &cmd_export},
+	{"unset", &cmd_unset},
+	{"env", &cmd_env},
+	{"exit", &cmd_exit}};
+
 	return (built_ins[idx]);
 }
 

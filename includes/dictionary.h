@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 11:10:37 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/18 09:48:21 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/20 12:57:27 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ t_dictionary	*dict_sort(t_dictionary **dict);
  * @param suffix The suffix to print a the end of each line.
  * @param sep The separation between the key and the data.
  */
-void			dict_display(t_dictionary *dict, char *prefix, char *sep, char *suffix);
+void			dict_display(t_dictionary *dict, char *prefix, char *sep,
+					char *suffix);
 
 #endif

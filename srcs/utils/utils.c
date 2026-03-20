@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 10:45:01 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/20 12:55:59 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ t_status	get_number(const char *s, int *number)
 		++index;
 	sign = 1;
 	if (*(s + index) == '-' || *(s + index) == '+')
-	{
-		if (*(s + index++) == '-')
-			sign = -1;
-	}
+		sign = (*(s + index++) % 43) * -1 + 1;
 	*number = 0;
 	while (ft_isdigit(*(s + index)))
 	{
@@ -135,5 +132,5 @@ bool	check_path(t_shell *shell)
 		return (false);
 	if (*((char *)e->data) == '\0')
 		return (false);
-	return (true);	
+	return (true);
 }
