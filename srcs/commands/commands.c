@@ -3,32 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 09:22:29 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/20 12:51:08 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static const t_command	g_built_in_echo = {"echo", &cmd_echo};
-static const t_command	g_built_in_cd = {"cd", &cmd_cd};
-static const t_command	g_built_in_pwd = {"pwd", &cmd_pwd};
-static const t_command	g_built_in_export = {"export", &cmd_export};
-static const t_command	g_built_in_unset = {"unset", &cmd_unset};
-static const t_command	g_built_in_env = {"env", &cmd_env};
-static const t_command	g_built_in_exit = {"exit", &cmd_exit};
-
-static const t_command	*g_built_ins[] = {
-	&g_built_in_echo,
-	&g_built_in_cd,
-	&g_built_in_pwd,
-	&g_built_in_export,
-	&g_built_in_unset,
-	&g_built_in_env,
-	&g_built_in_exit
-};
+static t_command	get_built_in(t_uint idx)
+{
+	const t_command	built_ins[] = {
+		{"echo", &cmd_echo},
+		{"cd", &cmd_cd},
+		{"pwd", &cmd_pwd},
+		{"export", &cmd_export},
+		{"unset", &cmd_unset},
+		{"env", &cmd_env},
+		{"exit", &cmd_exit}};
+	return (built_ins[idx]);
+}
 
 t_built_in	get_command(char *name)
 {
@@ -41,9 +36,9 @@ t_built_in	get_command(char *name)
 	index = 0;
 	while (index < CMD_COUNT)
 	{
-		if (!ft_strcmp(g_built_ins[index]->name, name))
+		if (!ft_strcmp(get_built_in(index).name, name))
 		{
-			cmd = g_built_ins[index]->cmd;
+			cmd = get_built_in(index).cmd;
 			break ;
 		}
 		++index;
