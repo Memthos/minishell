@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/18 15:05:52 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/20 08:44:56 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,6 @@ int			is_heredoc(t_ast_lst *red, t_side side);
 /// @param red Redirection tree.
 /// @param side SIde to search.
 /// @return 1 if a quote was found or the limiter is NULL, else 0.
-int	limiter_quotes(t_ast_lst *red, t_side side);
+int			limiter_quotes(t_ast_lst *red, t_side side);
 
 #endif
