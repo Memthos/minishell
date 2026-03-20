@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 17:01:37 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/19 19:01:10 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/20 08:49:55 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ static t_status	r_parenthesis_check(t_lxr_lst *lxr)
 	}
 	else if (lxr->token == R_PAREN)
 	{
-		if (!lxr->next || lxr->next->token != L_PAREN)
+		if (!lxr->next || (lxr->next->token != L_PAREN
+			&& lxr->next->token != WORD && lxr->next->token != WILDCARD))
 			return (SUCCESS);
 		parser_error_print(lxr->next->data);
 		return (PARENTHESIS_FAILURE);
