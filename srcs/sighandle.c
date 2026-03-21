@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 00:46:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/21 15:13:41 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/21 16:25:58 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ static void	sig_intercept(int signo, siginfo_t *info, void *other)
 	}
 	if (SIGQUIT == g_signal)
 	{
-		rl_on_new_line();
-		rl_redisplay();
+		
 	}
 	return ;
 }
