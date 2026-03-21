@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/20 12:56:31 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/21 15:28:27 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ t_status	run_comand(t_shell *shell)
 			perror("dup2");
 			shell->exitno = DUP_FAILURE;
 		}
-		dprintf(2, "%s : %d\n", *shell->cur_cmd, shell->exitno);
 		return (shell->exitno);
 	}
 	pid = fork();
@@ -188,7 +187,6 @@ t_status	run_comand(t_shell *shell)
 			ft_close(&shell->redirects.output_cmp_redirect_fd);
 		}
 		code = cmd(shell->cur_cmd, shell);
-		dprintf(2, "%s : %d\n", *shell->cur_cmd, code);
 		destroy_shell(shell);
 		exit(code);
 	}
