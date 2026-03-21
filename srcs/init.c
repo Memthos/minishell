@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/21 14:13:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/21 16:22:45 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static t_dictionary	*init_env(char *envp[])
 		free(tmp);
 		++envp;
 	}
+	if (NULL == dict_add(&dict, ft_strdup("OLDPWD"), getcwd(NULL, 0)))
+		perror("malloc");
 	return (dict);
 }
 
