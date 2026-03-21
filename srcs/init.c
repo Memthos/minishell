@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 09:23:45 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/21 14:13:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ t_shell	*init(char *envp[])
 
 	shell = (t_shell *)malloc(sizeof(t_shell));
 	if (NULL == shell)
+	{
+		perror("malloc");
 		return (NULL);
+	}
 	if (SUCCESS != init_signals())
 	{
 		free(shell);
