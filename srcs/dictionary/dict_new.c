@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:08:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/17 13:59:21 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/21 14:13:45 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ t_dictionary	*dict_new(char *key, void *data)
 		return (NULL);
 	dict = (t_dictionary *)malloc(sizeof(t_dictionary));
 	if (NULL == dict)
+	{
+		perror("malloc");
 		return (NULL);
+	}
 	dict->key = key;
 	dict->data = data;
 	dict->next = NULL;
