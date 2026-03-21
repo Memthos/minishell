@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 09:48:05 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/21 15:49:32 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/21 15:59:38 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,32 @@
 
 t_status	cmd_pwd(char **args, t_shell *shell)
 {
-	t_dictionary	*pwd_env;
-	char			*path;
+	char	*cwd;
 
 	(void)args;
-	pwd_env = dict_get(shell->env, "PWD");
-	if (pwd_env)
-	{
-		printf("%s\n", (char *)pwd_env->data);
-		return (SUCCESS);
-	}
-	path = getcwd(NULL, 0);
-	if (NULL == path)
-	{
-		perror("pwd");
+	cwd = get_cwd(shell);
+	if (NULL == cwd)
 		return (FAILURE);
-	}
-	printf("%s\n", path);
-	free(path);
+	printf("%s\n", cwd);
+	free(cwd);
 	return (SUCCESS);
+}
+
+char	*get_cwd(t_shell *shell)
+{
+	char			*cwd;
+	t_dictionary	*cwd_dict;
+
+	cwd_dict = dict_get(shell->env, "PWD");
+	if (cwd_dict)
+	{
+		cwd = ft_strdup(cwd_dict->data);
+		if (NULL == cwd)
+			perror("malloc");
+		return (cwd);
+	}
+	cwd = getcwd(NULL, 0);
+	if (NULL == cwd)
+		perror("pwd");
+	return (cwd);
 }
