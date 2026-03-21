@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 09:48:05 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/21 15:59:38 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/21 16:16:16 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,15 @@ char	*get_cwd(t_shell *shell)
 	char			*cwd;
 	t_dictionary	*cwd_dict;
 
-	cwd_dict = dict_get(shell->env, "PWD");
-	if (cwd_dict)
-	{
-		cwd = ft_strdup(cwd_dict->data);
-		if (NULL == cwd)
-			perror("malloc");
-		return (cwd);
-	}
 	cwd = getcwd(NULL, 0);
+	if (cwd)
+		return (cwd);
+	perror("pwd");
+	cwd_dict = dict_get(shell->env, "PWD");
+	if (NULL == cwd_dict)
+		return (NULL);
+	cwd = ft_strdup(cwd_dict->data);
 	if (NULL == cwd)
-		perror("pwd");
+		perror("malloc");
 	return (cwd);
 }
