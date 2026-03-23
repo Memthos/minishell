@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/23 17:24:20 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/23 17:37:28 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,12 @@ t_status	wait_for_processes(t_shell *shell)
 			shell->exitno = WTERMSIG(shell->exitno) + 128;
 		++shell->pids.pid_index;
 	}
-	if (SIGQUIT + 128 == shell->exitno)
-		printf("Quit\n");
+	if (shell->exitno >= 128)
+	{
+		if (SIGQUIT + 128 == shell->exitno)
+			printf("Quit");
+		printf("\n");
+	}
 	free(shell->pids.pids);
 	shell->pids.pids = NULL;
 	shell->pids.pid_count = 0;
