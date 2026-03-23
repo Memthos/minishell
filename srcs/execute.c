@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/23 17:48:43 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/23 18:54:03 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,10 +169,11 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	{
 		execute(cmd->left, shell);
 		wait_for_processes(shell);
+		if (SIGINT + 128 == shell->exitno)
+			return (shell->exitno);
 		if (AND_IF == cmd->token && SUCCESS == shell->exitno)
 			execute(cmd->right, shell);
-		if (OR_IF == cmd->token && SUCCESS != shell->exitno
-			&& SIGINT + 128 != shell->exitno)
+		if (OR_IF == cmd->token && SUCCESS != shell->exitno)
 		{
 			shell->exitno = SUCCESS;
 			execute(cmd->right, shell);
