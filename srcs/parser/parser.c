@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/19 19:52:15 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/23 12:48:45 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_status	parser(char *s, t_shell *shell)
 	if (!status)
 		apply_wildcards(shell->cmd_ast, &status);
 	if (!status)
-		update_quotes(shell->cmd_ast, &status);
+		remove_ast_quotes(shell->cmd_ast, &status);
 	if (status == ALLOCATION_FAILURE || status == READDIR_FAILURE)
 		error_output("parser", status);
 	return (status);
