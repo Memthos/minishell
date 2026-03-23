@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/23 12:43:54 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/23 12:51:26 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	expand(t_ast_lst *node, t_status *status, t_dictionary *dict)
 	if (*status || !node)
 		return ;
 	i = 0;
-	if (node->data && node->expand_state != DENY
+	if (node->data && node->expand_state != DENY && ft_strchr(node->data, '$')
 		&& (node->token == WORD || node->token == WILDCARD))
 	{
 		if (remove_node_quotes(node, status, 1))
