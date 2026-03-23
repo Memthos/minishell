@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/20 08:44:56 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/23 12:44:04 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,16 @@ int			set_quote_state(t_quote_t *quote, char c);
 /// @param lxr A pointer to the head of the lexer.
 void		set_final_tokens(t_lxr_lst *lxr);
 
+/// @brief Remove the quotes of the given node.
+/// @param ast A pointer to the ast node.
+/// @param status The status of the parser.
+/// @return 1 if the quote sate passed though S_QUOTE, else 0.
+int			remove_node_quotes(t_ast_lst *ast, t_status *status, int is_expand);
+
 /// @brief Remove the unnecessary quotes for the date of each lexer node.
 /// @param ast A pointer to the head of the ast.
 /// @param status The status of the parser.
-void		update_quotes(t_ast_lst *ast, t_status *status);
+void		remove_ast_quotes(t_ast_lst *ast, t_status *status);
 
 /// @brief Search for wildcards if necessary and add them to the ast.
 /// @param ast A pointer to the head of the ast.

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/19 18:24:34 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/23 12:51:26 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,26 +111,26 @@ static t_status	update_data(char **data, size_t *data_i, t_dictionary *dict)
 void	expand(t_ast_lst *node, t_status *status, t_dictionary *dict)
 {
 	size_t		i;
-	t_quote_t	quote_state;
 
 	if (*status || !node)
 		return ;
 	i = 0;
-	quote_state = NONE;
-	if (node->data && node->expand_state != DENY
+	if (node->data && node->expand_state != DENY && ft_strchr(node->data, '$')
 		&& (node->token == WORD || node->token == WILDCARD))
 	{
-		while (!*status && node->data[i])
+		if (remove_node_quotes(node, status, 1))
 		{
-			set_quote_state(&quote_state, node->data[i]);
-			if (quote_state != 0 && node->data[i] == '$' && node->data[i + 1])
+			while (!*status && node->data[i])
 			{
-				*status = update_data(&node->data, &i, dict);
-				if (!*status)
-					update_ast(node, status);
+				if (node->data[i] == '$' && node->data[i + 1])
+				{
+					*status = update_data(&node->data, &i, dict);
+					if (!*status)
+						update_ast(node, status);
+				}
+				else
+					i++;
 			}
-			else
-				i++;
 		}
 	}
 	expand(node->left, status, dict);
