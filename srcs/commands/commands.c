@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/21 15:28:27 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/23 14:41:01 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ t_status	run_comand(t_shell *shell)
 	}
 	if (0 == pid)
 	{
+		restore_signals();
 		if (shell->pipes.redirect_input)
 		{
 			if (0 == (shell->pipes.pipe_index - 1) % 2)
