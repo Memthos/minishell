@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 00:46:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/23 14:50:31 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/23 16:45:01 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,26 @@ t_status	init_normal_signals(void)
 		return (FAILURE);
 	}
 	action.sa_handler = SIG_IGN;
+	if (SUCCESS != sigaction(SIGQUIT, &action, NULL))
+	{
+		perror("sigaction");
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
+t_status	init_execution_signals(void)
+{
+	struct sigaction	action;
+
+	ft_bzero(&action, sizeof(action));
+	action.sa_sigaction = NULL;
+	action.sa_handler = SIG_IGN;
+	if (SUCCESS != sigaction(SIGINT, &action, NULL))
+	{
+		perror("sigaction");
+		return (FAILURE);
+	}
 	if (SUCCESS != sigaction(SIGQUIT, &action, NULL))
 	{
 		perror("sigaction");
