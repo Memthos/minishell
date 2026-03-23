@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 00:46:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/23 13:24:53 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/23 14:50:31 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,35 @@ t_status	init_normal_signals(void)
 	action.sa_sigaction = &sig_intercept_normal;
 	action.sa_flags = SA_SIGINFO;
 	if (SUCCESS != sigaction(SIGINT, &action, NULL))
+	{
+		perror("sigaction");
 		return (FAILURE);
+	}
 	action.sa_handler = SIG_IGN;
 	if (SUCCESS != sigaction(SIGQUIT, &action, NULL))
+	{
+		perror("sigaction");
 		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
+t_status	restore_signals(void)
+{
+	struct sigaction	action;
+
+	ft_bzero(&action, sizeof(action));
+	action.sa_sigaction = NULL;
+	action.sa_handler = SIG_DFL;
+	if (SUCCESS != sigaction(SIGINT, &action, NULL))
+	{
+		perror("sigaction");
+		return (FAILURE);
+	}
+	if (SUCCESS != sigaction(SIGQUIT, &action, NULL))
+	{
+		perror("sigaction");
+		return (FAILURE);
+	}
 	return (SUCCESS);
 }
