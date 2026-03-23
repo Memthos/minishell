@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:56:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/18 15:12:56 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/23 13:17:14 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,31 +50,26 @@ static void	update_ast(t_ast_lst *node, t_files_lst **files, t_status *status)
 		ast_lst_clear(&right);
 }
 
-static int	file_check(t_files_lst **cur, char *model)
+static int	file_check(char *data, char *model)
 {
-	size_t		i;
-	size_t		j;
-
-	i = 0;
-	j = 0;
-	while (model[i] || (*cur)->data[j])
+	if (*model == '\0' && *data == '\0')
+		return (0);
+	if (*model == '*')
 	{
-		while (model[i] && (*cur)->data[j] && model[i] == (*cur)->data[j])
-		{
-			i++;
-			j++;
-		}
-		if (model[i] == '*')
-		{
-			i++;
-			while ((*cur)->data[j] && (*cur)->data[j] != next_char(model, i))
-				j++;
-		}
-		if (model[i] != (*cur)->data[j] && model[i] != '*')
-			return (1);
-		else if (model[i] == '\0' && (*cur)->data[j] == '\0')
+		while (*model == '*')
+			model++;
+		if (*model == '\0')
 			return (0);
+		while (*data)
+		{
+			if (file_check(data, model) == 0)
+				return (0);
+			data++;
+		}
+		return (1);
 	}
+	if (*data == *model)
+		return (file_check(data + 1, model + 1));
 	return (1);
 }
 
@@ -85,7 +80,9 @@ static void	filter_files(t_files_lst **files, char *model)
 	cur = files;
 	while (*cur)
 	{
-		if (file_check(cur, model))
+		if (!(*cur)->data)
+			files_lst_pop(cur);
+		else if (file_check((*cur)->data, model))
 			files_lst_pop(cur);
 		else
 			cur = &(*cur)->next;
