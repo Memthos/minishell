@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/21 15:23:36 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/23 16:48:06 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_status	minishell(t_shell *shell)
 		if (NULL == line)
 			break ;
 		add_history(line);
+		init_execution_signals();
 		if (SUCCESS != parser(line, shell))
 		{
 			ast_lst_clear(&shell->cmd_ast);
@@ -37,6 +38,7 @@ static t_status	minishell(t_shell *shell)
 		shell->pipes.pipe_index = 0;
 		shell->heredoc.count = 0;
 		shell->exitno = SUCCESS;
+		init_normal_signals();
 	}
 	return (SUCCESS);
 }
