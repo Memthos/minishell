@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 09:41:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/21 14:16:10 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/23 13:24:32 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ t_files_lst	*get_files(t_status *status)
 	files = NULL;
 	directory = opendir(".");
 	if (!directory)
-	{
 		*status = READDIR_FAILURE;
+	if (!directory)
 		return (NULL);
-	}
 	cur_file = readdir(directory);
 	while (cur_file)
 	{
-		if (files_lst_add(cur_file->d_name, &files, status))
+		if (ft_strcmp(cur_file->d_name, ".") != 0
+			&& ft_strcmp(cur_file->d_name, "..") != 0)
+			files_lst_add(cur_file->d_name, &files, status);
+		if (*status)
 			break ;
 		cur_file = readdir(directory);
 	}
