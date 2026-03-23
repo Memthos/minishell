@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 00:37:53 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/23 14:48:42 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/23 16:51:42 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ extern int	g_signal;
  * @return SUCCESS on success, FAILURE otherwise
  */
 t_status	init_normal_signals(void);
+
+/**
+ * @brief Initialises the 'execution signals',
+ * that overrides 'normal signals' during execution.
+ * @return 0 on success, 1 on failure.
+ */
+t_status	init_execution_signals(void);
 
 /**
  * @brief Restores signal action to defaults.
