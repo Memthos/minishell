@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 16:56:31 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/23 13:26:04 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/23 16:16:47 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	set_quote_state(t_quote_t *quote, char c)
 	return (1);
 }
 
-static t_status	remove_quotes(t_ast_lst *ast, size_t quotes_rmv)
+t_status	remove_quotes(t_ast_lst *ast, size_t quotes_rmv)
 {
 	t_quote_t	quote_state;
 	size_t		i;
@@ -63,31 +63,24 @@ static t_status	remove_quotes(t_ast_lst *ast, size_t quotes_rmv)
 	return (SUCCESS);
 }
 
-int	remove_node_quotes(t_ast_lst *ast, t_status *status, int is_expand)
+void	remove_node_quotes(t_ast_lst *ast, t_status *status)
 {
 	size_t		i;
-	int			can_expand;
 	size_t		quotes_rmv;
 	t_quote_t	quote_state;
 
 	if (!ast || !ast->data)
-		return (1);
+		return ;
 	i = 0;
-	can_expand = 1;
 	quotes_rmv = 0;
 	quote_state = NONE;
 	while (ast->data[i++])
 	{
 		if (set_quote_state(&quote_state, ast->data[i - 1]))
 			quotes_rmv++;
-		if (quote_state == S_QUOTE)
-			can_expand = 0;
 	}
-	if (is_expand && can_expand == 0)
-		return (0);
-	else if (quotes_rmv > 0 && quotes_rmv % 2 == 0)
+	if (quotes_rmv > 0 && quotes_rmv % 2 == 0)
 		*status = remove_quotes(ast, quotes_rmv);
-	return (can_expand);
 }
 
 void	remove_ast_quotes(t_ast_lst *ast, t_status *status)
@@ -95,7 +88,7 @@ void	remove_ast_quotes(t_ast_lst *ast, t_status *status)
 	if (*status || !ast)
 		return ;
 	if (ast->data && ast->expand_state != DENY)
-		remove_node_quotes(ast, status, 0);
+		remove_node_quotes(ast, status);
 	remove_ast_quotes(ast->left, status);
 	remove_ast_quotes(ast->right, status);
 }

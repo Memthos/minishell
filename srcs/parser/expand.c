@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/23 12:51:26 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/23 16:22:34 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	get_var_name(char *s, char **name)
 	size_t	size;
 
 	size = 0;
-	if (ft_isalpha(s[0]) || s[size] == '_')
+	if (ft_isalpha(s[0]) || s[0] == '_')
 	{
 		while (ft_isalnum(s[size]) || s[size] == '_')
 			size++;
@@ -111,27 +111,27 @@ static t_status	update_data(char **data, size_t *data_i, t_dictionary *dict)
 void	expand(t_ast_lst *node, t_status *status, t_dictionary *dict)
 {
 	size_t		i;
+	size_t		quotes_rmv;
 
 	if (*status || !node)
 		return ;
 	i = 0;
-	if (node->data && node->expand_state != DENY && ft_strchr(node->data, '$')
-		&& (node->token == WORD || node->token == WILDCARD))
+	quotes_rmv = 0;
+	if (can_expand(node) && get_quotes_rmv(node, &quotes_rmv))
 	{
-		if (remove_node_quotes(node, status, 1))
+		while (!*status && node->data[i])
 		{
-			while (!*status && node->data[i])
+			if (node->data[i] == '$' && node->data[i + 1])
 			{
-				if (node->data[i] == '$' && node->data[i + 1])
-				{
-					*status = update_data(&node->data, &i, dict);
-					if (!*status)
-						update_ast(node, status);
-				}
-				else
-					i++;
+				*status = update_data(&node->data, &i, dict);
+				if (!*status)
+					update_ast(node, status);
 			}
+			else
+				i++;
 		}
+		if (quotes_rmv > 0 && quotes_rmv % 2 == 0)
+			*status = remove_quotes(node, quotes_rmv);
 	}
 	expand(node->left, status, dict);
 	expand(node->right, status, dict);
