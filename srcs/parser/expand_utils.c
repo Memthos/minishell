@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/23 16:22:24 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/23 20:05:32 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,29 @@ int	get_quotes_rmv(t_ast_lst *ast, size_t *quotes_rmv)
 		i++;
 	}
 	return (1);
+}
+
+t_status	shift_ast(t_ast_lst *node)
+{
+	// t_status	status;
+	// t_ast_lst	*right;
+	// t_ast_lst	*left;
+
+	// status = SUCCESS;
+	// right = node->right;
+	// left = node->left;
+	// if (right)
+	// {
+	// 	*node = (t_ast_lst) {right->data, right->token, right->expand_state,
+	// 		left, right->right};
+	// 	if (right->left)
+	// 		ast_lst_clear(&right->left);
+	// 	free(right);
+	// }
+	// else
+	// {
+	// }
+	(void)node;
+	return (SUCCESS);
+	// return (status);
 }
