@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 00:46:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/21 16:25:58 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/23 13:20:52 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ static void	sig_intercept(int signo, siginfo_t *info, void *other)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	if (SIGQUIT == g_signal)
-	{
-		
-	}
 	return ;
 }
 
@@ -42,6 +38,7 @@ t_status	init_signals(void)
 	action.sa_flags = SA_SIGINFO;
 	if (SUCCESS != sigaction(SIGINT, &action, NULL))
 		return (FAILURE);
+	action.sa_handler = SIG_IGN;
 	if (SUCCESS != sigaction(SIGQUIT, &action, NULL))
 		return (FAILURE);
 	return (SUCCESS);
