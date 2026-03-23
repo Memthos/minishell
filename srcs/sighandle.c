@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 00:46:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/23 13:20:52 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/23 13:24:53 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_signal = 0;
 
-static void	sig_intercept(int signo, siginfo_t *info, void *other)
+static void	sig_intercept_normal(int signo, siginfo_t *info, void *other)
 {
 	(void)info;
 	(void)other;
@@ -29,12 +29,12 @@ static void	sig_intercept(int signo, siginfo_t *info, void *other)
 	return ;
 }
 
-t_status	init_signals(void)
+t_status	init_normal_signals(void)
 {
 	struct sigaction	action;
 
 	ft_bzero(&action, sizeof(action));
-	action.sa_sigaction = &sig_intercept;
+	action.sa_sigaction = &sig_intercept_normal;
 	action.sa_flags = SA_SIGINFO;
 	if (SUCCESS != sigaction(SIGINT, &action, NULL))
 		return (FAILURE);
