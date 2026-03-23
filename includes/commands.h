@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/13 14:30:29 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/21 16:02:01 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,19 @@ t_status	cmd_exec(char **args, t_shell *shell);
 t_status	cmd_echo(char **args, t_shell *shell);
 
 /**
- * @brief Displays the current working directory.
+ * @brief Displays the current working directory using get_cwd function.
  * @param args The command and its arguments.
  * @param env The global shell structure.
  * @return 0 on success, 1 on failure.
  */
 t_status	cmd_pwd(char **args, t_shell *shell);
+
+/**
+ * @brief Returns the current working directory based first on PWD env variable,
+ * and the getcwd func if PWD is not set.
+ * @return The allocated current working directory.
+ */
+char	*get_cwd(t_shell *shell);
 
 /**
  * @brief Change the current working directory

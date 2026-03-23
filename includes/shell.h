@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/20 12:53:18 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/21 15:15:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_shell
 	char			**cur_cmd;
 	t_uint			cur_cmd_index;
 	t_status		exitno;
-	t_status		last_exitno;
 	t_pipe_logic	pipes;
 	t_redir_logic	redirects;
 	t_heredoc		heredoc;

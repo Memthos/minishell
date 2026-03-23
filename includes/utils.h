@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/18 09:47:50 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/23 10:03:44 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,11 @@ int			ft_close(int *fd);
  * @return True on success, false on failure.
  */
 bool		check_path(t_shell *shell);
+
+/**
+ * @brief Updates the SHLVL environment variable value.
+ * @return The updated environment. 
+ */
+t_dictionary	*update_shlvl(t_dictionary **env);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/20 12:55:59 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/23 10:03:13 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,4 +133,25 @@ bool	check_path(t_shell *shell)
 	if (*((char *)e->data) == '\0')
 		return (false);
 	return (true);
+}
+
+t_dictionary	*update_shlvl(t_dictionary **env)
+{
+	t_dictionary	*shlvl;
+	int				lvl;
+
+	if (NULL == env)
+		return (NULL);
+	shlvl = dict_get(*env, "SHLVL");
+	if (NULL == shlvl || SUCCESS != get_number(shlvl->data, &lvl))
+	{
+		if (NULL == dict_add(env, ft_strdup("SHLVL"), ft_strdup("0")))
+			perror("malloc");
+		return (*env);
+	}
+	free(shlvl->data);
+	shlvl->data = ft_itoa(lvl + 1);
+	if (NULL == shlvl->data)
+		perror("malloc");
+	return (*env);
 }

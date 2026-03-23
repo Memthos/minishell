@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/21 14:11:34 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/21 15:23:36 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 static t_status	minishell(t_shell *shell)
 {
-	char	*line;
+	char		*line;
+	t_status	code;
 
-	if (NULL == shell)
-		return (SUCCESS);
 	while (true)
 	{
 		line = readline("$>");
@@ -29,11 +28,11 @@ static t_status	minishell(t_shell *shell)
 			ast_lst_clear(&shell->cmd_ast);
 			continue ;
 		}
-		shell->last_exitno = execute(shell->cmd_ast, shell);
+		code = execute(shell->cmd_ast, shell);
 		wait_for_processes(shell);
-		if (shell->exitno)
-			shell->last_exitno = shell->exitno;
-		dprintf(2, "$? : %d\n", shell->last_exitno);
+		if (code && !shell->exitno)
+			shell->exitno = code;
+		dprintf(2, "$? : %d\n", shell->exitno);
 		ast_lst_clear(&shell->cmd_ast);
 		shell->pipes.pipe_index = 0;
 		shell->heredoc.count = 0;

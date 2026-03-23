@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:17:30 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 14:30:04 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/21 15:41:10 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,13 @@ t_status	cmd_export(char **args, t_shell *shell)
 		{
 			cpy = dict_get(shell->env, entry[0]);
 			tmp = ft_strjoin((const char *)cpy->data, entry[1]);
-			dict_add(&shell->env, entry[0], tmp);
+			if (NULL == dict_add(&shell->env, entry[0], tmp))
+				perror("malloc");
 			free(entry[1]);
 		}
 		else
-			dict_add(&shell->env, entry[0], entry[1]);
+			if (NULL == dict_add(&shell->env, entry[0], entry[1]))
+				perror("malloc");
 		free(entry);
 		++args;
 	}
