@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 16:56:31 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/23 12:48:45 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/23 13:26:04 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ static t_status	remove_quotes(t_ast_lst *ast, size_t quotes_rmv)
 
 int	remove_node_quotes(t_ast_lst *ast, t_status *status, int is_expand)
 {
-	size_t	i;
+	size_t		i;
+	int			can_expand;
 	size_t		quotes_rmv;
 	t_quote_t	quote_state;
-	int			can_expand;
 
 	if (!ast || !ast->data)
 		return (1);
 	i = 0;
+	can_expand = 1;
 	quotes_rmv = 0;
 	quote_state = NONE;
-	can_expand = 1;
 	while (ast->data[i++])
 	{
 		if (set_quote_state(&quote_state, ast->data[i - 1]))
