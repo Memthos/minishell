@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/24 09:33:46 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/24 10:22:00 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,18 @@ int	get_quotes_rmv(t_ast_lst *ast, size_t *quotes_rmv)
 		i++;
 	}
 	return (1);
+}
+
+char	*get_expand_value(char *var_name, t_shell *shell)
+{
+	char	*value;
+	char	*tmp;
+
+	value = NULL;
+	tmp = dict_get_data(shell->env, var_name);
+	if (tmp)
+		value = ft_strdup(tmp);
+	else if (!tmp && ft_strcmp(var_name, "?") == 0)
+		value = ft_itoa(shell->exitno);
+	return (value);
 }

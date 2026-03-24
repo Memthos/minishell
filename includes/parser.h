@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/24 09:33:41 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/24 10:12:18 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,19 @@
 /// @brief Function to expand params in user input.
 /// @param node The node with the data to expand.
 /// @param status The status of the parser.
-/// @param dict A reference to the dictionary storing all the env variables.
-void		expand(t_ast_lst *node, t_status *status, t_dictionary *dict);
+/// @param shell A reference to the variables of the shell.
+void		expand(t_ast_lst *node, t_status *status, t_shell *shell);
 
 /// @brief Function to check if the node data can be expanded
 /// @param node he node with the data to expand.
 /// @return 1 if the data can be expanded, else 0.
 int			can_expand(t_ast_lst *node);
+
+/// @brief Search a value for the expand variable name.
+/// @param var_name The name of the expand variable to search for.
+/// @param shell A reference to the variables of the shell.
+/// @return Either the variable value or NULL if nothing was found.
+char	*get_expand_value(char *var_name, t_shell *shell);
 
 /// @brief Function to get the number of quotes to remove the the given node.
 /// @param ast A pointer to the ast node.

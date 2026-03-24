@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/24 09:50:49 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/24 10:20:09 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ static void	update_ast(t_ast_lst *node, t_status *status)
 	t_lxr_lst	*lxr;
 	t_ast_lst	*right;
 
-	if (*status)
-		return ;
 	lxr = NULL;
 	right = node->right;
 	lexer(&lxr, node->data, status);
@@ -68,7 +66,7 @@ static void	update_ast(t_ast_lst *node, t_status *status)
 		ast_lst_clear(&right);
 }
 
-static int	get_var_name(char *s, char **name)
+static int	get_var_name(char *s, char **name, size_t *data_i)
 {
 	size_t	size;
 
@@ -83,7 +81,10 @@ static int	get_var_name(char *s, char **name)
 		|| ft_isdigit(s[0]))
 		size = 1;
 	else
+	{
+		(*data_i)++;
 		return (0);
+	}
 	*name = malloc(sizeof(char) * (size + 1));
 	if (!*name)
 		return (1);
@@ -91,22 +92,19 @@ static int	get_var_name(char *s, char **name)
 	return (0);
 }
 
-static t_status	update_data(char **data, size_t *data_i, t_dictionary *dict)
+static t_status	update_data(char **data, size_t *data_i, t_shell *shell)
 {
 	size_t	name_len;
 	char	*value;
 	char	*str;
 
 	str = NULL;
-	if (get_var_name(*data + *data_i + 1, &str))
+	if (get_var_name(*data + *data_i + 1, &str, data_i))
 		return (ALLOCATION_FAILURE);
 	if (!str)
-	{
-		(*data_i)++;
 		return (SUCCESS);
-	}
 	name_len = ft_strlen(str);
-	value = dict_get_data(dict, str);
+	value = get_expand_value(str, shell);
 	free(str);
 	str = calloc(ft_strlen(*data) - name_len + ft_strlen(value), 1);
 	if (!str)
@@ -116,11 +114,13 @@ static t_status	update_data(char **data, size_t *data_i, t_dictionary *dict)
 	ft_strlcat(str, *data + *data_i + 1 + name_len, ft_strlen(str)
 		+ ft_strlen(*data + *data_i + 1 + name_len) + 1);
 	free(*data);
+	free(value);
 	*data = str;
+	*data_i = 0;
 	return (SUCCESS);
 }
 
-void	expand(t_ast_lst *node, t_status *status, t_dictionary *dict)
+void	expand(t_ast_lst *node, t_status *status, t_shell *shell)
 {
 	size_t		i;
 	size_t		quotes_rmv;
@@ -135,9 +135,9 @@ void	expand(t_ast_lst *node, t_status *status, t_dictionary *dict)
 		{
 			if (node->data[i] == '$' && node->data[i + 1])
 			{
-				*status = update_data(&node->data, &i, dict);
-				update_ast(node, status);
-				i = 0;
+				*status = update_data(&node->data, &i, shell);
+				if (!*status)
+					update_ast(node, status);
 			}
 			else
 				i++;
@@ -145,6 +145,6 @@ void	expand(t_ast_lst *node, t_status *status, t_dictionary *dict)
 		if (quotes_rmv > 0 && quotes_rmv % 2 == 0)
 			*status = remove_quotes(node, quotes_rmv);
 	}
-	expand(node->left, status, dict);
-	expand(node->right, status, dict);
+	expand(node->left, status, shell);
+	expand(node->right, status, shell);
 }
