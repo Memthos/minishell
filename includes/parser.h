@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/23 19:16:57 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/24 09:33:41 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ int			can_expand(t_ast_lst *node);
 /// quotes to remove.
 /// @return 1 if the quote state has never been through S_QUOTE state, else 0.
 int			get_quotes_rmv(t_ast_lst *ast, size_t *quotes_rmv);
-
-/// @brief Shift the ast nodes by one to the left by removing the current one.
-/// @param node The node to remove.
-/// @return The status of the parser.
-t_status	shift_ast(t_ast_lst *node);
 
 /**
  * @brief First step of parsing, apply a token to each part

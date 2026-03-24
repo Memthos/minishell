@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/23 19:15:31 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/24 09:50:49 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,20 @@ static void	update_ast(t_ast_lst *node, t_status *status)
 	t_lxr_lst	*lxr;
 	t_ast_lst	*right;
 
+	if (*status)
+		return ;
 	lxr = NULL;
 	right = node->right;
 	lexer(&lxr, node->data, status);
 	if (!*status)
 	{
 		if (!lxr)
-			*status = shift_ast(node);
+		{
+			node->data = calloc(1, 1);
+			if (!node->data)
+				*status = ALLOCATION_FAILURE;
+			return ;
+		}
 		else
 			*status = expand_to_ast(&lxr, node);
 	}
@@ -101,7 +108,7 @@ static t_status	update_data(char **data, size_t *data_i, t_dictionary *dict)
 	name_len = ft_strlen(str);
 	value = dict_get_data(dict, str);
 	free(str);
-	str = calloc(ft_strlen(*data) - name_len + ft_strlen(value) + 1, 1);
+	str = calloc(ft_strlen(*data) - name_len + ft_strlen(value), 1);
 	if (!str)
 		return (ALLOCATION_FAILURE);
 	ft_strlcpy(str, *data, *data_i + 1);
@@ -124,13 +131,13 @@ void	expand(t_ast_lst *node, t_status *status, t_dictionary *dict)
 	quotes_rmv = 0;
 	if (can_expand(node) && get_quotes_rmv(node, &quotes_rmv))
 	{
-		while (!*status && node->data[i])
+		while (!*status && node->data && node->data[i])
 		{
 			if (node->data[i] == '$' && node->data[i + 1])
 			{
 				*status = update_data(&node->data, &i, dict);
-				if (!*status)
-					update_ast(node, status);
+				update_ast(node, status);
+				i = 0;
 			}
 			else
 				i++;
