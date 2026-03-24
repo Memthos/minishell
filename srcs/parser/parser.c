@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/23 12:48:45 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/24 09:57:30 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_status	parser(char *s, t_shell *shell)
 		shell->cmd_ast = complete_command_r(&lxr, &status);
 	lxr_lst_clear(&lxr);
 	if (!status)
-		expand(shell->cmd_ast, &status, shell->env);
+		expand(shell->cmd_ast, &status, shell);
 	if (!status)
 		apply_wildcards(shell->cmd_ast, &status);
 	if (!status)

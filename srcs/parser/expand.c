@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/23 12:51:26 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/24 10:20:09 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,17 @@ static void	update_ast(t_ast_lst *node, t_status *status)
 	right = node->right;
 	lexer(&lxr, node->data, status);
 	if (!*status)
-		*status = expand_to_ast(&lxr, node);
+	{
+		if (!lxr)
+		{
+			node->data = calloc(1, 1);
+			if (!node->data)
+				*status = ALLOCATION_FAILURE;
+			return ;
+		}
+		else
+			*status = expand_to_ast(&lxr, node);
+	}
 	lxr_lst_clear(&lxr);
 	if (!*status)
 		ast_lst_last(node, RIGHT)->right = right;
@@ -56,12 +66,12 @@ static void	update_ast(t_ast_lst *node, t_status *status)
 		ast_lst_clear(&right);
 }
 
-static int	get_var_name(char *s, char **name)
+static int	get_var_name(char *s, char **name, size_t *data_i)
 {
 	size_t	size;
 
 	size = 0;
-	if (ft_isalpha(s[0]) || s[size] == '_')
+	if (ft_isalpha(s[0]) || s[0] == '_')
 	{
 		while (ft_isalnum(s[size]) || s[size] == '_')
 			size++;
@@ -71,7 +81,10 @@ static int	get_var_name(char *s, char **name)
 		|| ft_isdigit(s[0]))
 		size = 1;
 	else
+	{
+		(*data_i)++;
 		return (0);
+	}
 	*name = malloc(sizeof(char) * (size + 1));
 	if (!*name)
 		return (1);
@@ -79,24 +92,21 @@ static int	get_var_name(char *s, char **name)
 	return (0);
 }
 
-static t_status	update_data(char **data, size_t *data_i, t_dictionary *dict)
+static t_status	update_data(char **data, size_t *data_i, t_shell *shell)
 {
 	size_t	name_len;
 	char	*value;
 	char	*str;
 
 	str = NULL;
-	if (get_var_name(*data + *data_i + 1, &str))
+	if (get_var_name(*data + *data_i + 1, &str, data_i))
 		return (ALLOCATION_FAILURE);
 	if (!str)
-	{
-		(*data_i)++;
 		return (SUCCESS);
-	}
 	name_len = ft_strlen(str);
-	value = dict_get_data(dict, str);
+	value = get_expand_value(str, shell);
 	free(str);
-	str = malloc(ft_strlen(*data) - name_len + ft_strlen(value));
+	str = calloc(ft_strlen(*data) - name_len + ft_strlen(value), 1);
 	if (!str)
 		return (ALLOCATION_FAILURE);
 	ft_strlcpy(str, *data, *data_i + 1);
@@ -104,35 +114,37 @@ static t_status	update_data(char **data, size_t *data_i, t_dictionary *dict)
 	ft_strlcat(str, *data + *data_i + 1 + name_len, ft_strlen(str)
 		+ ft_strlen(*data + *data_i + 1 + name_len) + 1);
 	free(*data);
+	free(value);
 	*data = str;
+	*data_i = 0;
 	return (SUCCESS);
 }
 
-void	expand(t_ast_lst *node, t_status *status, t_dictionary *dict)
+void	expand(t_ast_lst *node, t_status *status, t_shell *shell)
 {
 	size_t		i;
+	size_t		quotes_rmv;
 
 	if (*status || !node)
 		return ;
 	i = 0;
-	if (node->data && node->expand_state != DENY && ft_strchr(node->data, '$')
-		&& (node->token == WORD || node->token == WILDCARD))
+	quotes_rmv = 0;
+	if (can_expand(node) && get_quotes_rmv(node, &quotes_rmv))
 	{
-		if (remove_node_quotes(node, status, 1))
+		while (!*status && node->data && node->data[i])
 		{
-			while (!*status && node->data[i])
+			if (node->data[i] == '$' && node->data[i + 1])
 			{
-				if (node->data[i] == '$' && node->data[i + 1])
-				{
-					*status = update_data(&node->data, &i, dict);
-					if (!*status)
-						update_ast(node, status);
-				}
-				else
-					i++;
+				*status = update_data(&node->data, &i, shell);
+				if (!*status)
+					update_ast(node, status);
 			}
+			else
+				i++;
 		}
+		if (quotes_rmv > 0 && quotes_rmv % 2 == 0)
+			*status = remove_quotes(node, quotes_rmv);
 	}
-	expand(node->left, status, dict);
-	expand(node->right, status, dict);
+	expand(node->left, status, shell);
+	expand(node->right, status, shell);
 }
