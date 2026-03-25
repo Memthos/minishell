@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/25 15:48:47 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/25 20:45:43 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef enum e_expand
 typedef enum e_tokens
 {
 	TOKEN,
+	NEW_LINE,
 	AND_IF,
 	OR_IF,
 	DLESS,

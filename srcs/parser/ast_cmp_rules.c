@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 17:10:27 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/25 15:49:06 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/25 20:47:47 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,14 @@ t_ast_lst	*compound_cmd_r(t_lxr_lst **lxr, t_status *status)
 	tail = term;
 	while (!peek(lxr, R_PAREN))
 	{
+		while (peek(lxr, NEW_LINE))
+			consume(lxr);
 		tail->left = and_or_r(lxr, status);
 		if (*status)
 			break ;
 		tail = tail->left;
+		while (peek(lxr, NEW_LINE))
+			consume(lxr);
 	}
 	if (*status)
 		ast_lst_clear(&term);

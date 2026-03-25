@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 17:43:38 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/19 19:09:50 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/25 21:00:19 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_status	lxr_lst_add(t_lxr_lst **head, char *data, t_token t, long p_dpt)
 {
 	t_lxr_lst	*tmp;
 
-	if (!data && t != TOKEN)
+	if (!data && t != TOKEN && t != NEW_LINE)
 		return (ALLOCATION_FAILURE);
 	if (NULL == head)
 		return (FAILURE);
