@@ -6,20 +6,16 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/24 09:47:45 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/25 15:49:30 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	is_newline(char *s, size_t *index)
+static int	ft_isspace(char *s)
 {
-	if (s[0] == '\\' && (s[1] == 't' || s[1] == 'n'
-			|| s[1] == 'v' || s[1] == 'f' || s[1] == 'r'))
-	{
-		(*index)++;
+	if ((s[0] >= 9 && s[0] <= 13) || s[0] == ' ')
 		return (1);
-	}
 	return (0);
 }
 
@@ -90,12 +86,12 @@ void	lexer(t_lxr_lst **lxr, char *s, t_status *status)
 	{
 		set_quote_state(&quote_state, s[i - 1]);
 		check_parenth_dpt(&p_dpt, s[i - 1]);
-		if (quote_state == NONE && s[i - 1] == ' ')
+		if (s[i - 1] == '\\')
+			continue ;
+		else if (quote_state == NONE && ft_isspace(&s[i - 1]))
 			*status = lxr_lst_add(lxr, NULL, TOKEN, p_dpt);
 		else if (quote_state == NONE && get_operator(&s[i - 1]))
 			*status = add_operator(lxr, &s[i - 1], &i, p_dpt);
-		else if (quote_state == NONE && is_newline(&s[i - 1], &i))
-			*status = lxr_lst_add(lxr, make_str(&s[i - 2], 2), NEW_LINE, p_dpt);
 		else if (lxr && *lxr && lxr_lst_last(*lxr)->token == WORD)
 			*status = lxr_lst_append(lxr, s[i - 1]);
 		else
