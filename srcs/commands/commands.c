@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/23 14:41:01 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:27:36 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,53 +99,25 @@ t_status	run_comand(t_shell *shell)
 	if (0 == pid)
 	{
 		restore_signals();
-		if (shell->pipes.redirect_input)
+		if (-1 != shell->pipes.input_pipe[0])
 		{
-			if (0 == (shell->pipes.pipe_index - 1) % 2)
+			if (-1 == dup2(shell->pipes.input_pipe[0], STDIN_FILENO))
 			{
-				if (-1 == dup2(shell->pipes.pipe1[0], STDIN_FILENO))
-				{
-					destroy_shell(shell);
-					exit(DUP_FAILURE);
-				}
-				ft_close(&shell->pipes.pipe1[0]);
-				ft_close(&shell->pipes.pipe1[1]);
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
 			}
-			else
-			{
-				if (-1 == dup2(shell->pipes.pipe2[0], STDIN_FILENO))
-				{
-					destroy_shell(shell);
-					exit(DUP_FAILURE);
-				}
-				ft_close(&shell->pipes.pipe2[0]);
-				ft_close(&shell->pipes.pipe2[1]);
-			}
+			ft_close(&shell->pipes.input_pipe[0]);
 		}
-		if (shell->pipes.redirect_output)
+		if (-1 != shell->pipes.output_pipe[1])
 		{
-			if (0 == shell->pipes.pipe_index % 2)
+			if (-1 == dup2(shell->pipes.output_pipe[1], STDOUT_FILENO))
 			{
-				if (-1 == dup2(shell->pipes.pipe1[1], STDOUT_FILENO))
-				{
-					perror("dup2");
-					destroy_shell(shell);
-					exit(DUP_FAILURE);
-				}
-				ft_close(&shell->pipes.pipe1[0]);
-				ft_close(&shell->pipes.pipe1[1]);
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
 			}
-			else
-			{
-				if (-1 == dup2(shell->pipes.pipe2[1], STDOUT_FILENO))
-				{
-					perror("dup2");
-					destroy_shell(shell);
-					exit(DUP_FAILURE);
-				}
-				ft_close(&shell->pipes.pipe2[0]);
-				ft_close(&shell->pipes.pipe2[1]);
-			}
+			ft_close(&shell->pipes.output_pipe[1]);
 		}
 		if (-1 != shell->redirects.input_redirect_fd)
 		{
