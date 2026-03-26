@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/21 15:15:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/26 12:43:51 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_pids_logic
 typedef struct s_shell
 {
 	t_dictionary	*env;
-	t_ast_lst		*cmd_ast;
+	t_cmd_lst		*cmd_ast;
 	char			**cur_cmd;
 	t_uint			cur_cmd_index;
 	t_status		exitno;

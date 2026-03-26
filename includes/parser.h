@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/24 10:12:18 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/26 09:48:45 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,10 @@ char		next_char(char *model, size_t i);
 /// @brief Make the base of the AST tree, calls all the other functions
 /// of the ast.
 /// @param lxr A node pointing to the currently looked at token.
+/// @param shell A pointer to the main structure of minishell.
 /// @param status The status of the parser.
-/// @return The newly created ast tree.
-t_ast_lst	*complete_command_r(t_lxr_lst **lxr, t_status *status);
+void		complete_command_r(t_lxr_lst **lxr, t_shell *shell,
+	t_status *status);
 
 /// @brief Make a part of the ast for the and_or rule.
 /// @param lxr A pointer to the current node of lxr.

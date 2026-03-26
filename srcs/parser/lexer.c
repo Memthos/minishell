@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/25 20:52:18 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/26 13:43:35 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,7 @@ void	lexer(t_lxr_lst **lxr, char *s, t_status *status)
 	{
 		set_quote_state(&quote_state, s[i - 1]);
 		check_parenth_dpt(&p_dpt, s[i - 1]);
-		if (quote_state == NONE && s[i - 1] == '\\')
-			continue ;
-		else if (quote_state == NONE && ft_isspace(&s[i - 1]))
+		if (quote_state == NONE && ft_isspace(&s[i - 1]))
 			*status = lxr_lst_add(lxr, NULL, TOKEN, p_dpt);
 		else if (quote_state == NONE && s[i - 1] == '\n')
 			*status = lxr_lst_add(lxr, NULL, NEW_LINE, p_dpt);
