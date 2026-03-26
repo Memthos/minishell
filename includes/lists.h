@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/23 12:25:15 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/26 14:21:21 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ typedef struct s_files_lst
 	char				*data;
 	struct s_files_lst	*next;
 }						t_files_lst;
+
+typedef struct s_cmd_lst
+{
+	t_ast_lst			*ast;
+	struct s_cmd_lst	*next;
+}						t_cmd_lst;
 
 /**
  * @brief Allocates memory for a new node.
@@ -174,5 +180,26 @@ void		files_lst_clear(t_files_lst **head);
 /// @param node The node to pop.
 /// @return The node or NULL if it was freed.
 t_files_lst	*files_lst_pop(t_files_lst **node);
+
+/// @brief Add a node at the head of the list.
+/// @param node The node to add to the list.
+/// @param cmds The head / start of the list.
+/// @param status The status of the parser.
+/// @return
+t_status	cmds_lst_add(t_ast_lst *ast, t_cmd_lst **cmds);
+
+/// @brief Return the last node of the list.
+/// @param head The head / start of the list.
+/// @return The last node of the list.
+t_cmd_lst	*cmds_lst_last(t_cmd_lst *head);
+
+/// @brief Removes the last node of head.
+/// @param head The head / start of the list.
+/// @return The updated version of the list passed in.
+t_cmd_lst	*cmds_lst_remove(t_cmd_lst **head);
+
+/// @brief Clears the list passed in.
+/// @param head The head / start of the list.
+void		cmds_lst_clear(t_cmd_lst **head);
 
 #endif

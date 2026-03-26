@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 16:03:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/25 20:46:50 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/26 13:25:22 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,17 @@ t_ast_lst	*and_or_r(t_lxr_lst **lxr, t_status *status)
 	return (and_or);
 }
 
-t_ast_lst	*complete_command_r(t_lxr_lst **lxr, t_status *status)
+void	complete_command_r(t_lxr_lst **lxr, t_shell *shell, t_status *status)
 {
-	t_ast_lst	*cmd;
+	t_ast_lst	*ast;
 
-	if (!lxr || !*lxr)
-		return (NULL);
-	cmd = and_or_r(lxr, status);
-	if (*status)
-		return (NULL);
-	while (peek(lxr, NEW_LINE))
-		consume(lxr);
-	return (cmd);
+	while (lxr && *lxr)
+	{
+		ast = and_or_r(lxr, status);
+		if (*status)
+			return ;
+		cmds_lst_add(ast, &shell->cmd_ast);
+		while (peek(lxr, NEW_LINE))
+			consume(lxr);
+	}
 }

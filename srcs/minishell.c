@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/24 12:55:56 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/26 14:32:20 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_status	minishell(t_shell *shell)
 		init_execution_signals();
 		if (SUCCESS != parser(line, shell))
 		{
-			ast_lst_clear(&shell->cmd_ast);
+			cmds_lst_clear(&shell->cmd_ast);
 			shell->exitno = 2;
 			continue ;
 		}
@@ -35,7 +35,7 @@ static t_status	minishell(t_shell *shell)
 		if (code && !shell->exitno)
 			shell->exitno = code;
 		dprintf(2, "$? : %d\n", shell->exitno);
-		ast_lst_clear(&shell->cmd_ast);
+		cmds_lst_clear(&shell->cmd_ast);
 		shell->pipes.pipe_index = 0;
 		shell->heredoc.count = 0;
 		shell->exitno = SUCCESS;
