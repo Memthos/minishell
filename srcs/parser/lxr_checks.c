@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 17:01:37 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/20 12:53:39 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:50:34 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static t_status	quote_check(t_lxr_lst *lxr)
 
 void	checker_lxr(t_lxr_lst *lxr, t_status *status)
 {
-	if (!lxr)
+	if (*status || !lxr)
 		return ;
 	if (lxr->token == AND_IF || lxr->token == OR_IF || lxr->token == PIPE)
 	{

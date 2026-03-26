@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/26 13:43:35 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:48:07 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,20 +84,21 @@ void	lexer(t_lxr_lst **lxr, char *s, t_status *status)
 	i = 0;
 	p_dpt = 0;
 	quote_state = NONE;
-	while (s[i++] && !*status)
+	while (s[i] && !*status)
 	{
-		set_quote_state(&quote_state, s[i - 1]);
-		check_parenth_dpt(&p_dpt, s[i - 1]);
-		if (quote_state == NONE && ft_isspace(&s[i - 1]))
+		set_quote_state(&quote_state, s[i]);
+		check_parenth_dpt(&p_dpt, s[i]);
+		if (quote_state == NONE && ft_isspace(&s[i]))
 			*status = lxr_lst_add(lxr, NULL, TOKEN, p_dpt);
-		else if (quote_state == NONE && s[i - 1] == '\n')
+		else if (quote_state == NONE && s[i] == '\n')
 			*status = lxr_lst_add(lxr, NULL, NEW_LINE, p_dpt);
-		else if (quote_state == NONE && get_operator(&s[i - 1]))
-			*status = add_operator(lxr, &s[i - 1], &i, p_dpt);
+		else if (quote_state == NONE && get_operator(&s[i]))
+			*status = add_operator(lxr, &s[i], &i, p_dpt);
 		else if (lxr && *lxr && lxr_lst_last(*lxr)->token == WORD)
-			*status = lxr_lst_append(lxr, s[i - 1]);
+			*status = lxr_lst_append(lxr, s[i]);
 		else
-			*status = lxr_lst_add(lxr, make_str(&s[i - 1], 1), WORD, p_dpt);
+			*status = lxr_lst_add(lxr, make_str(&s[i], 1), WORD, p_dpt);
+		i++;
 	}
 	free(s);
 }

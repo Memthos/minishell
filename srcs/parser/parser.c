@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/26 09:45:27 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:53:28 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_status	parser(char *s, t_shell *shell)
 {
 	t_lxr_lst	*lxr;
 	t_status	status;
+	t_cmd_lst	*cur;
 
 	lxr = NULL;
 	status = SUCCESS;
@@ -38,19 +39,18 @@ t_status	parser(char *s, t_shell *shell)
 		return (SUCCESS);
 	lexer(&lxr, s, &status);
 	if (!status)
-	{
 		set_final_tokens(lxr);
-		checker_lxr(lxr, &status);
-	}
-	if (!status)
-		complete_command_r(&lxr, shell, &status);
+	checker_lxr(lxr, &status);
+	complete_command_r(&lxr, shell, &status);
 	lxr_lst_clear(&lxr);
-	if (!status)
-		expand(shell->cmd_ast, &status, shell);
-	if (!status)
-		apply_wildcards(shell->cmd_ast, &status);
-	if (!status)
-		remove_ast_quotes(shell->cmd_ast, &status);
+	cur = shell->cmd_ast;
+	while (!status && cur)
+	{
+		expand(cur->ast, &status, shell);
+		apply_wildcards(cur->ast, &status);
+		remove_ast_quotes(cur->ast, &status);
+		cur = cur->next;
+	}
 	if (status == ALLOCATION_FAILURE || status == READDIR_FAILURE)
 		error_output("parser", status);
 	return (status);

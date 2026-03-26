@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 16:03:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/26 13:25:22 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:57:37 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,15 @@ void	complete_command_r(t_lxr_lst **lxr, t_shell *shell, t_status *status)
 {
 	t_ast_lst	*ast;
 
-	while (lxr && *lxr)
+	while (!*status && lxr && *lxr)
 	{
 		ast = and_or_r(lxr, status);
-		if (*status)
-			return ;
 		cmds_lst_add(ast, &shell->cmd_ast);
+		if (*status)
+			break ;
 		while (peek(lxr, NEW_LINE))
 			consume(lxr);
 	}
+	if (*status)
+		cmds_lst_clear(&shell->cmd_ast);
 }
