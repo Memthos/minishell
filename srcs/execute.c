@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/23 18:54:03 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:27:23 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,56 +47,8 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	if (PIPE == cmd->token)
 	{
 		++shell->pipes.pipe_depth;
-		if (!ast_pipe_count(cmd->left))
-		{
-			if (-1 == pipe(shell->pipes.pipe1))
-			{
-				perror("pipe");
-				shell->exitno = FAILURE;
-				return (shell->exitno);
-			}
-			shell->pipes.redirect_output = true;
-		}
 		execute(cmd->left, shell);
-		ft_close(&shell->redirects.input_redirect_fd);
-		ft_close(&shell->redirects.output_redirect_fd);
-		shell->pipes.redirect_output = false;
-		++shell->pipes.pipe_index;
-		if (shell->pipes.pipe_depth > 1)
-		{
-			if (0 == shell->pipes.pipe_index % 2)
-			{
-				if (-1 == pipe(shell->pipes.pipe1))
-				{
-					perror("pipe");
-					shell->exitno = FAILURE;
-					return (shell->exitno);
-				}
-			}
-			else
-			{
-				if (-1 == pipe(shell->pipes.pipe2))
-				{
-					perror("pipe");
-					shell->exitno = FAILURE;
-					return (shell->exitno);
-				}
-			}
-			shell->pipes.redirect_output = true;
-		}
-		shell->pipes.redirect_input = true;
 		execute(cmd->right, shell);
-		shell->pipes.redirect_input = false;
-		if (0 == (shell->pipes.pipe_index - 1) % 2)
-		{
-			ft_close(&shell->pipes.pipe1[0]);
-			ft_close(&shell->pipes.pipe1[1]);
-		}
-		else
-		{
-			ft_close(&shell->pipes.pipe2[0]);
-			ft_close(&shell->pipes.pipe2[1]);
-		}
 		--shell->pipes.pipe_depth;
 	}
 	if (GREAT == cmd->token || DGREAT == cmd->token)
