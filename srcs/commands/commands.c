@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/26 15:27:36 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/27 16:03:30 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,26 +99,6 @@ t_status	run_comand(t_shell *shell)
 	if (0 == pid)
 	{
 		restore_signals();
-		if (-1 != shell->pipes.input_pipe[0])
-		{
-			if (-1 == dup2(shell->pipes.input_pipe[0], STDIN_FILENO))
-			{
-				perror("dup2");
-				destroy_shell(shell);
-				exit(DUP_FAILURE);
-			}
-			ft_close(&shell->pipes.input_pipe[0]);
-		}
-		if (-1 != shell->pipes.output_pipe[1])
-		{
-			if (-1 == dup2(shell->pipes.output_pipe[1], STDOUT_FILENO))
-			{
-				perror("dup2");
-				destroy_shell(shell);
-				exit(DUP_FAILURE);
-			}
-			ft_close(&shell->pipes.output_pipe[1]);
-		}
 		if (-1 != shell->redirects.input_redirect_fd)
 		{
 			if (-1 == dup2(shell->redirects.input_redirect_fd, STDIN_FILENO))
