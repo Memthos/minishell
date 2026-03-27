@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/26 14:21:21 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/27 16:31:00 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,11 @@ t_uint		ast_cmd_size(t_ast_lst *ast);
  * @return The number if pipes in ast.
  */
 t_uint		ast_pipe_count(t_ast_lst *ast);
+
+/**
+ * @brief Counts the number of pipe that redirects an entire CMP_CMD output.
+ */
+t_uint	ast_output_cmp_pipe_count(t_ast_lst *ast);
 
 /// @brief Return the last node of the list.
 /// @param head The head / start of the list.
