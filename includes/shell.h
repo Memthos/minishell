@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/30 15:22:02 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:09:13 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ typedef struct s_redir_logic
 
 typedef struct s_heredoc
 {
-	t_uint8		count;
-	t_uint8		max;
-	t_ast_lst	*lim;
+	t_uint8			count;
+	t_uint8			max;
+	t_hd_lst	*heredocs;
 }	t_heredoc;
 
 typedef struct s_pids_logic

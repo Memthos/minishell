@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/30 14:16:38 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:02:43 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	set_shell(t_shell *shell)
 	shell->redirects.input_cmp_redirect_fd = -1;
 	shell->heredoc.count = 0;
 	shell->heredoc.max = 16;
-	shell->heredoc.lim = NULL;
+	shell->heredoc.heredocs = NULL;
 	shell->pids.pids = NULL;
 	shell->pids.pid_count = 0;
 	shell->pids.pid_index = 0;

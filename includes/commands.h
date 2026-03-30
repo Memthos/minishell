@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/30 14:28:59 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:22:38 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ t_status	cmd_unset(char **args, t_shell *shell);
 t_status	cmd_exit(char **args, t_shell *shell);
 
 /// @brief Get the heredoc input from the user.
-/// @param shell A pointer to th the shell structure.
+/// @param shell A pointer to the the shell structure.
 /// @return 1 if an error occurred, else 0.
-int			get_heredoc_data(t_shell *shell);
+int			heredocs_loop(t_shell *shell);
 
 #endif

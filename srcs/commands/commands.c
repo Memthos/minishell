@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/30 14:20:49 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:22:49 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_status	run_comand(t_shell *shell)
 		return (FAILURE);
 	if (shell->heredoc.count != 0)
 	{
-		if (get_heredoc_data(shell))
+		if (heredocs_loop(shell))
 		{
 			error_output(NULL, shell->exitno);
 			return (shell->exitno);

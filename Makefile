@@ -26,7 +26,8 @@ SRCS =	minishell.c \
 		dict_to_array.c dict_display.c dict_update.c dict_size.c dict_sort.c \
 		dict_to_array.c dict_display.c \
 		files_lst_add.c files_lst_last.c files_lst_remove.c \
-		cmds_lst_add.c cmds_lst_last.c cmds_lst_remove.c
+		cmds_lst_add.c cmds_lst_last.c cmds_lst_remove.c \
+		heredoc_lst_add.c heredoc_lst_last.c heredoc_lst_remove.c
 
 OBJDIR = objs/
 OBJECTS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
