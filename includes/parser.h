@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/26 15:56:19 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/30 14:39:38 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@
 /// @param status The status of the parser.
 /// @param shell A reference to the variables of the shell.
 void		expand(t_ast_lst *node, t_status *status, t_shell *shell);
+
+/// @brief Function to expand the given data.
+/// @param data THe data to expand.
+/// @param data_i The current index in the data.
+/// @param shell A pointer to the shell struct.
+/// @return The exit status of the function
+t_status	update_expand_data(char **data, size_t *data_i, t_shell *shell);
 
 /// @brief Function to check if the node data can be expanded
 /// @param node he node with the data to expand.

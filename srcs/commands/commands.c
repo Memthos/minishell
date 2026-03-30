@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/27 16:03:30 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/30 14:20:49 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ t_status	run_comand(t_shell *shell)
 
 	if (NULL == shell || NULL == shell->cur_cmd || 0 == shell->cur_cmd_index)
 		return (FAILURE);
+	if (shell->heredoc.count != 0)
+	{
+		if (get_heredoc_data(shell))
+		{
+			error_output(NULL, shell->exitno);
+			return (shell->exitno);
+		}
+	}
 	cmd = get_command(*shell->cur_cmd);
 	if (0 == shell->pipes.pipe_depth && &cmd_exec != cmd)
 	{

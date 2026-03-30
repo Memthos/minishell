@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:12:47 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/18 15:12:04 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/30 15:29:43 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	cmd_redirect_r(t_ast_lst **cmd, t_lxr_lst **lxr, t_status *status)
 		if (is_heredoc(red, LEFT))
 		{
 			if (limiter_quotes(red, LEFT))
-				ast_lst_last(red, LEFT)->expand_state = DENY;
+				ast_lst_last(red, LEFT)->expand_state = HEREDOC_DENY;
 			else
 				ast_lst_last(red, LEFT)->expand_state = HEREDOC_ALLOW;
 		}

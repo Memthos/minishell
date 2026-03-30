@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/25 20:45:43 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/30 15:26:13 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef enum e_expand
 {
 	DENY,
 	ALLOW,
+	HEREDOC_DENY,
 	HEREDOC_ALLOW,
 }	t_expand;
 

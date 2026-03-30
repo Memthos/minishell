@@ -1,4 +1,4 @@
-CC=gcc
+CC=cc
 CFLAGS=-Werror -Wall -Wextra -g
 
 INCLUDES_DIR = includes/
@@ -8,7 +8,7 @@ SRCS =	minishell.c \
 		init.c \
 		shell.c \
 		pipes.c \
-		execute.c \
+		execute.c heredoc.c \
 		sighandle.c \
 		error_output.c \
 		utils.c string_utils.c \
