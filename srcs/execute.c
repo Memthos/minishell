@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/26 15:27:23 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:36:40 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,13 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 			shell->exitno = BAD_ARG;
 			return (shell->exitno);
 		}
+		if (heredoc_lst_add(cmd->left, &shell->heredoc.heredocs))
+		{
+			error_output(NULL, ALLOCATION_FAILURE);
+			shell->exitno = ALLOCATION_FAILURE;
+			return (shell->exitno);
+		}
+		execute(cmd->left->left, shell);
 	}
 	if (AND_IF == cmd->token || OR_IF == cmd->token)
 	{

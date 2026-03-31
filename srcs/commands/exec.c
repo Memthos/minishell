@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:48:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/23 10:23:26 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:42:00 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_status	cmd_exec(char **args, t_shell *shell)
 	char			**envp;
 	char			*tmp;
 
+	paths = NULL;
 	if (NULL == args || NULL == *args)
 		return (FAILURE);
 	if (access(*args, F_OK | X_OK) < 0)

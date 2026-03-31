@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/24 10:20:09 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/30 14:39:47 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static int	get_var_name(char *s, char **name, size_t *data_i)
 	return (0);
 }
 
-static t_status	update_data(char **data, size_t *data_i, t_shell *shell)
+t_status	update_expand_data(char **data, size_t *data_i, t_shell *shell)
 {
 	size_t	name_len;
 	char	*value;
@@ -135,7 +135,7 @@ void	expand(t_ast_lst *node, t_status *status, t_shell *shell)
 		{
 			if (node->data[i] == '$' && node->data[i + 1])
 			{
-				*status = update_data(&node->data, &i, shell);
+				*status = update_expand_data(&node->data, &i, shell);
 				if (!*status)
 					update_ast(node, status);
 			}

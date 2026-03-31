@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/27 16:31:00 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/03/31 10:20:26 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "definitions.h"
 # include <stdlib.h>
+# include "shell.h"
 
 typedef struct s_lxr_lst
 {
@@ -44,6 +45,12 @@ typedef struct s_cmd_lst
 	t_ast_lst			*ast;
 	struct s_cmd_lst	*next;
 }						t_cmd_lst;
+
+typedef struct s_heredoc_lst
+{
+	t_ast_lst				*node;
+	struct s_heredoc_lst	*next;
+}							t_hd_lst;
 
 /**
  * @brief Allocates memory for a new node.
@@ -206,5 +213,25 @@ t_cmd_lst	*cmds_lst_remove(t_cmd_lst **head);
 /// @brief Clears the list passed in.
 /// @param head The head / start of the list.
 void		cmds_lst_clear(t_cmd_lst **head);
+
+/// @brief Add a node the the heredoc lst.
+/// @param ast THe data of the new node.
+/// @param lst A pointer to the head of the list.
+/// @return The exit status.
+t_status	heredoc_lst_add(t_ast_lst *ast, t_hd_lst **lst);
+
+/// @brief Return the last node of the heredoc list.
+/// @param head A pointer to the head of the list.
+/// @return THe last node of the list.
+t_hd_lst	*heredoc_lst_last(t_hd_lst *head);
+
+/// @brief Remove the last node of the heredoc list.
+/// @param head A pointer to the head of the list.
+/// @return The head of the list.
+t_hd_lst	*heredoc_lst_remove(t_hd_lst **head);
+
+/// @brief Clear the heredoc list.
+/// @param head A pointer to the head of the heredoc list.
+void		heredoc_lst_clear(t_hd_lst **head);
 
 #endif
