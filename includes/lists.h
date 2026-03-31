@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/31 10:24:55 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/31 13:19:05 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,10 @@ t_uint		ast_pipe_count(t_ast_lst *ast);
 /// @param ast A pointer to a node of the ast.
 /// @return THe number of heredocs fo the current command
 t_uint		ast_heredoc_count(t_ast_lst *ast);
+/**
+ * @brief Counts the number of pipe that redirects an entire CMP_CMD output.
+ */
+t_uint	ast_output_cmp_pipe_count(t_ast_lst *ast);
 
 /// @brief Return the last node of the list.
 /// @param head The head / start of the list.
