@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/31 13:12:39 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/31 18:01:06 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_pipe_logic
 {
 	int		pipe_depth;
 	t_uint	pipe_index;
+	t_uint	cmp_pipe_index;
 	int		input_pipe[2];
 	int		input_cmp_pipe[2];
 	int		output_pipe[2];
