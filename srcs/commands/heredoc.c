@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:20:07 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/31 09:36:27 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/31 13:16:35 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	heredoc_to_input(t_shell *shell, char *data)
 		return (1);
 	}
 	write(pipe_fds[1], data, ft_strlen(data));
-	ft_close(pipe_fds[1]);
+	ft_close(&pipe_fds[1]);
 	if (shell->redirects.is_cmp_redir)
 	{
 		ft_close(&shell->redirects.input_cmp_redirect_fd);
@@ -37,11 +37,11 @@ static int	heredoc_to_input(t_shell *shell, char *data)
 	return (0);
 }
 
-static int	expand_heredoc(t_shell *shell, t_hd_lst *heredoc, char **data)
+static int	expand_heredoc(t_shell *shell, t_ast_lst *node, char **data)
 {
 	size_t	i;
 
-	if (heredoc->node->expand_state == HEREDOC_DENY)
+	if (node->expand_state == HEREDOC_DENY)
 		return (0);
 	i = 0;
 	while ((*data)[i])
@@ -88,11 +88,11 @@ static int	input_read(t_shell *shell, char *lim, char **data)
 	return (0);
 }
 
-static int	read_heredoc(t_shell *shell, t_hd_lst *heredoc, char **data)
+static int	read_heredoc(t_shell *shell, t_ast_lst *node, char **data)
 {
 	char	*lim;
 
-	lim = ft_strjoin(heredoc->node->data, "\n");
+	lim = ft_strjoin(node->data, "\n");
 	if (!lim)
 	{
 		free(*data);
@@ -109,29 +109,19 @@ static int	read_heredoc(t_shell *shell, t_hd_lst *heredoc, char **data)
 	return (0);
 }
 
-int	heredocs_loop(t_shell *shell)
+int	heredoc(t_shell *shell, t_ast_lst *node)
 {
-	t_hd_lst	*cur;
 	char		*data;
-	int			ret;
 
-	ret = 0;
-	cur = shell->heredoc.heredocs;
-	while (!ret && cur)
-	{
-		data = calloc(1, 1);
-		if (!data || read_heredoc(shell, cur, &data))
-			ret = 1;
-		if (!ret && expand_heredoc(shell, cur, &data))
-			ret = 1;
-		if (!ret && heredoc_to_input(shell, data))
-			ret = 1;
-		if (!ret)
-		{
-			free(data);
-			cur = cur->next;
-		}
-	}
-	heredoc_lst_clear(&shell->heredoc.heredocs);
-	return (ret);
+	data = calloc(1, 1);
+	if (!data)
+		return (1);
+	if (read_heredoc(shell, node, &data))
+		return (1);
+	if (expand_heredoc(shell, node, &data))
+		return (1);
+	if (heredoc_to_input(shell, data))
+		return (1);
+	free(data);
+	return (0);
 }

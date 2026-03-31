@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/30 16:15:27 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/03/31 10:24:55 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,6 @@ typedef struct s_cmd_lst
 	t_ast_lst			*ast;
 	struct s_cmd_lst	*next;
 }						t_cmd_lst;
-
-typedef struct s_heredoc_lst
-{
-	t_ast_lst				*node;
-	struct s_heredoc_lst	*next;
-}							t_hd_lst;
 
 /**
  * @brief Allocates memory for a new node.
@@ -157,10 +151,15 @@ t_uint		ast_cmd_count(t_ast_lst *ast);
 t_uint		ast_cmd_size(t_ast_lst *ast);
 
 /**
- * @brief Counts the number of pipes in ast.
+ * @brief Count the number of pipes in ast.
  * @return The number if pipes in ast.
  */
 t_uint		ast_pipe_count(t_ast_lst *ast);
+
+/// @brief Count the number of heredocs in the current command
+/// @param ast A pointer to a node of the ast.
+/// @return THe number of heredocs fo the current command
+t_uint		ast_heredoc_count(t_ast_lst *ast);
 
 /// @brief Return the last node of the list.
 /// @param head The head / start of the list.
@@ -208,25 +207,5 @@ t_cmd_lst	*cmds_lst_remove(t_cmd_lst **head);
 /// @brief Clears the list passed in.
 /// @param head The head / start of the list.
 void		cmds_lst_clear(t_cmd_lst **head);
-
-/// @brief Add a node the the heredoc lst.
-/// @param ast THe data of the new node.
-/// @param lst A pointer to the head of the list.
-/// @return The exit status.
-t_status	heredoc_lst_add(t_ast_lst *ast, t_hd_lst **lst);
-
-/// @brief Return the last node of the heredoc list.
-/// @param head A pointer to the head of the list.
-/// @return THe last node of the list.
-t_hd_lst	*heredoc_lst_last(t_hd_lst *head);
-
-/// @brief Remove the last node of the heredoc list.
-/// @param head A pointer to the head of the list.
-/// @return The head of the list.
-t_hd_lst	*heredoc_lst_remove(t_hd_lst **head);
-
-/// @brief Clear the heredoc list.
-/// @param head A pointer to the head of the heredoc list.
-void		heredoc_lst_clear(t_hd_lst **head);
 
 #endif
