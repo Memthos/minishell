@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_cmd_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:48:22 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/01 13:05:08 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 16:27:40 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,15 @@ t_uint	ast_output_cmp_pipe_count(t_ast_lst *ast)
 	count += ast_output_cmp_pipe_count(ast->left);
 	count += ast_output_cmp_pipe_count(ast->right);
 	return (count);
+}
+
+bool	is_cmp_pipe(t_ast_lst *node)
+{
+	if (NULL == node)
+		return (false);
+	if (node->left && CMP_CMD == node->left->token)
+		return (true);
+	if (node->right && CMP_CMD == node->right->token)
+		return (true);
+	return (false);	
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/31 13:12:39 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 15:32:16 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ typedef struct s_pipe_logic
 {
 	int		pipe_depth;
 	t_uint	pipe_index;
-	int		input_pipe[2];
-	int		input_cmp_pipe[2];
-	int		output_pipe[2];
-	int		output_cmp_pipe[2];
+	t_uint	cmp_pipe_index;
+	bool	redirect_input;
+	bool	redirect_output;
+	int		left_pipe[2];
+	int		right_pipe[2];
+	int		left_cmp_pipe[2];
+	int		right_cmp_pipe[2];
 }	t_pipe_logic;
 
 typedef struct s_redir_logic
@@ -66,6 +69,12 @@ typedef struct s_shell
  * @brief Initialises pipe_logic struct values to defaults.
  */
 t_status	init_pipes(t_pipe_logic *pipes);
+
+/**
+ * @brief Returns the current pipe / cmp_pipe where outputs
+ * needs to be redirected, based on pipe_index / cmp_pipe_index.
+ */
+int	*get_cur_pipe(t_pipe_logic *pipes, bool input, bool cmp_pipe);
 
 /**
  * @brief Adds pid to the list of pids in shell.

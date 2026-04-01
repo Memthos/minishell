@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/01 13:06:17 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 16:26:59 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,24 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	if (PIPE == cmd->token)
 	{
 		++shell->pipes.pipe_depth;
+		if (!ast_pipe_count(cmd->left))
+		{
+			if (-1 == pipe(shell->pipes.left_pipe))
+			{
+				perror("pipe");
+				shell->exitno = FAILURE;
+				return (shell->exitno);
+			}
+			shell->pipes.redirect_output = true;
+		}
 		execute(cmd->left, shell);
+		shell->pipes.redirect_output = false;
+		++shell->pipes.pipe_index;
+		shell->pipes.redirect_input = true;
 		execute(cmd->right, shell);
+		shell->pipes.redirect_input = false;
+		ft_close(&shell->pipes.left_pipe[0]);
+		ft_close(&shell->pipes.left_pipe[1]);
 		--shell->pipes.pipe_depth;
 	}
 	if (GREAT == cmd->token || DGREAT == cmd->token)
