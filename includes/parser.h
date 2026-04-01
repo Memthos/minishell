@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/01 13:57:34 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 17:34:32 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int			set_quote_state(t_quote_t *quote, char c);
 
 /// @brief Set the finals token so the lexer nodes are correct.
 /// @param lxr A pointer to the head of the lexer.
-void		set_final_tokens(t_lxr_lst *lxr);
+void		set_final_tokens(t_lxr_lst **lxr);
 
 /// @brief Remove the nb of quotes from the given node.
 /// @param ast A pointer to the ast node.

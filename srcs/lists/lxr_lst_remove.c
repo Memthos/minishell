@@ -6,11 +6,34 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:07:53 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/20 13:34:33 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 17:37:45 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+t_lxr_lst	*lxr_lst_pop(t_lxr_lst **node)
+{
+	t_lxr_lst	*new_next;
+
+	if (!node || !*node)
+		return (NULL);
+	if (!(*node)->next)
+	{
+		if ((*node)->data)
+			free((*node)->data);
+		free(*node);
+		*node = NULL;
+		return (NULL);
+	}
+	new_next = (*node)->next->next;
+	if ((*node)->data)
+		free((*node)->data);
+	(*node)->data = (*node)->next->data;
+	free((*node)->next);
+	(*node)->next = new_next;
+	return (*node);
+}
 
 t_lxr_lst	*lxr_lst_remove(t_lxr_lst **head)
 {

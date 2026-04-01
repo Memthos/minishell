@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/31 10:17:30 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 17:08:03 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_status	minishell(t_shell *shell)
 
 	while (true)
 	{
-		line = readline("$>");
+		line = readline("$> ");
 		if (NULL == line)
 			break ;
 		add_history(line);

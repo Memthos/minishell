@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:23:31 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 21:23:52 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 19:03:33 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,23 @@ t_status	parser_error_print(const char *arg)
 	if (write(2, arg, ft_strlen(arg)) < 0)
 		return (FAILURE);
 	if (write(STDERR_FILENO, "'\n", 2) < 0)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+t_status	heredoc_error_print(const char *arg)
+{
+	if (!arg)
+		return (FAILURE);
+	if (write(2, "minishell: warning: here-document at line ", 42) < 0)
+		return (FAILURE);
+	if (write(2, "nbr", 3) < 0)
+		return (FAILURE);
+	if (write(STDERR_FILENO, " delimited by end-of-file (wanted `", 35) < 0)
+		return (FAILURE);
+	if (write(2, arg, ft_strlen(arg)) < 0)
+		return (FAILURE);
+	if (write(2, "')\n", 3) < 0)
 		return (FAILURE);
 	return (SUCCESS);
 }

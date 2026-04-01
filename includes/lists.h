@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/01 13:55:57 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 17:37:26 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ t_lxr_lst	*lxr_lst_remove(t_lxr_lst **head);
  * @param head The head / start of the list.
  */
 void		lxr_lst_clear(t_lxr_lst **head);
+
+/// @brief Pop the given node from the list.
+/// @param node The node to pop.
+/// @return The node or NULL if it was freed.
+t_lxr_lst	*lxr_lst_pop(t_lxr_lst **node);
 
 /**
  * @brief Count the number of nodes in a list.

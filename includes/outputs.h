@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:25:28 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 18:12:52 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 19:05:02 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,10 @@ t_status	error_output(const char *arg, int error);
 /// @param arg The arg that failed.
 /// @return Returns 0 on success, 1 on failure
 t_status	parser_error_print(const char *arg);
+
+/// @brief Display an error from the parser on the stderr
+/// @param arg The arg that failed.
+/// @return Returns 0 on success, 1 on failure
+t_status	heredoc_error_print(const char *arg);
 
 #endif

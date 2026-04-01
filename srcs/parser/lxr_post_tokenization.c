@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 22:31:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/19 18:07:32 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 17:43:54 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,20 @@ static void	set_io_number(t_lxr_lst *lxr)
 		lxr->token = IO_NUMBER;
 }
 
-void	set_final_tokens(t_lxr_lst *lxr)
+void	set_final_tokens(t_lxr_lst **lxr)
 {
-	if (!lxr)
+	t_lxr_lst	**cpy;
+
+	if (!lxr || !*lxr)
 		return ;
-	while (lxr)
+	cpy = lxr;
+	while (*cpy)
 	{
-		set_wildcard(lxr);
-		set_io_number(lxr);
-		lxr = lxr->next;
+		set_wildcard(*cpy);
+		set_io_number(*cpy);
+		if ((*cpy)->token == TOKEN)
+			lxr_lst_pop(cpy);
+		else
+			cpy = &(*cpy)->next;
 	}
 }

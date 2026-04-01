@@ -6,13 +6,13 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:20:07 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/01 13:52:38 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 19:07:32 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	expand_heredoc(t_shell *shell, t_ast_lst *node, char **data)
+static int	write_heredoc(t_shell *shell, t_ast_lst *node, int fd, char **data)
 {
 	size_t	i;
 
@@ -35,35 +35,65 @@ static int	expand_heredoc(t_shell *shell, t_ast_lst *node, char **data)
 		else
 			i++;
 	}
+	write(fd, *data, ft_strlen(*data));
+	write(fd, "\n", 1);
 	return (0);
 }
 
-static int	heredoc_child(t_shell *shell, t_ast_lst *node, int pipe_fds[2])
+static int	input_read(t_shell *shell, char *lim, t_ast_lst *node, int *fd)
 {
-	char	*data;
+	char	*read;
 	int		ret;
 
 	ret = 0;
-	ft_close(&pipe_fds[0]);
-	heredoc_signals();
-	data = calloc(1, 1);
-	if (!data)
-		return (1);
-	if (!ret && read_heredoc(shell, node, &data))
-		ret = 1;
-	if (!ret && expand_heredoc(shell, node, &data))
-		ret = 1;
-	if (!ret)
-		write(pipe_fds[1], data, ft_strlen(data));
-	ft_close(&pipe_fds[1]);
-	free(data);
-	destroy_shell(shell);
-	exit(ret);
+	while (!ret)
+	{
+		read = readline("> ");
+		if (g_signal == SIGINT)
+			break ;
+		if (!read)
+		{
+			heredoc_error_print(lim);
+			break ;
+		}
+		if (ft_strcmp(read, lim) == 0)
+			break ;
+		if (write_heredoc(shell, node, *fd, &read))
+			ret = 1;
+		free(read);
+	}
+	if (read)
+		free(read);
+	ft_close(fd);
+	return (ret);
 }
 
-void	wait_child(t_shell *shell, pid_t pid, int pipe_fds[2])
+static int	read_heredoc(t_shell *shell, t_ast_lst *node, int *fd)
 {
-	ft_close(&pipe_fds[1]);
+	char	*lim;
+
+	if (shell->redirects.is_cmp_redir)
+		lim = node->right->data;
+	else
+		lim = node->left->data;
+	if (input_read(shell, lim, node, fd))
+	{
+		shell->exitno = ALLOCATION_FAILURE;
+		return (1);
+	}
+	return (0);
+}
+
+int	heredoc(t_shell *shell, t_ast_lst *node)
+{
+	int	pipe_fds[2];
+
+	heredoc_signals();
+	if (pipe(pipe_fds) == -1)
+	{
+		shell->exitno = PIPE_FAILURE;
+		return (1);
+	}
 	if (shell->redirects.is_cmp_redir)
 	{
 		ft_close(&shell->redirects.input_cmp_redirect_fd);
@@ -74,31 +104,7 @@ void	wait_child(t_shell *shell, pid_t pid, int pipe_fds[2])
 		ft_close(&shell->redirects.input_redirect_fd);
 		shell->redirects.input_redirect_fd = pipe_fds[0];
 	}
-	waitpid(pid, (int *)&shell->exitno, 0);
-	if (WIFEXITED(shell->exitno))
-		shell->exitno = WEXITSTATUS(shell->exitno);
-	if (WIFSIGNALED(shell->exitno))
-		shell->exitno = WTERMSIG(shell->exitno) + 128;
-}
-
-int	heredoc(t_shell *shell, t_ast_lst *node)
-{
-	int		pipe_fds[2];
-	pid_t	pid;
-
-	if (pipe(pipe_fds) == -1)
-	{
-		shell->exitno = PIPE_FAILURE;
+	if (read_heredoc(shell, node, &pipe_fds[1]))
 		return (1);
-	}
-	pid = fork();
-	if (pid == -1)
-	{
-		shell->exitno = FORK_FAILURE;
-		return (1);
-	}
-	if (pid == 0)
-		heredoc_child(shell, node, pipe_fds);
-	wait_child(shell, pid, pipe_fds);
 	return (0);
 }

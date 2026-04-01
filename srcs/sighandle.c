@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 00:46:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/31 16:12:37 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 18:33:44 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,31 @@ static void	sig_intercept_normal(int signo, siginfo_t *info, void *other)
 	return ;
 }
 
+static void	sig_exit_heredoc(int signo, siginfo_t *info, void *other)
+{
+	char	c;
+
+	(void)info;
+	(void)other;
+	c = '\n';
+	g_signal = signo;
+	if (SIGINT == g_signal)
+	{
+		ioctl(0, TIOCSTI, &c);
+		rl_on_new_line();
+		rl_replace_line("", 1);
+	}
+	return ;
+	return ;
+}
+
 t_status	init_normal_signals(void)
 {
 	struct sigaction	action;
 
 	ft_bzero(&action, sizeof(action));
 	action.sa_sigaction = &sig_intercept_normal;
-	action.sa_flags = SA_SIGINFO;
+	action.sa_flags = 0;
 	if (SUCCESS != sigaction(SIGINT, &action, NULL))
 	{
 		perror("sigaction");
@@ -95,8 +113,8 @@ t_status	heredoc_signals(void)
 	struct sigaction	action;
 
 	ft_bzero(&action, sizeof(action));
-	action.sa_sigaction = NULL;
-	action.sa_handler = SIG_DFL;
+	action.sa_sigaction = &sig_exit_heredoc;
+	action.sa_flags = SA_SIGINFO;
 	if (SUCCESS != sigaction(SIGINT, &action, NULL))
 	{
 		perror("sigaction");

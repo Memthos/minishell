@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/26 15:53:28 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 17:34:41 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_status	parser(char *s, t_shell *shell)
 		return (SUCCESS);
 	lexer(&lxr, s, &status);
 	if (!status)
-		set_final_tokens(lxr);
+		set_final_tokens(&lxr);
 	checker_lxr(lxr, &status);
 	complete_command_r(&lxr, shell, &status);
 	lxr_lst_clear(&lxr);
