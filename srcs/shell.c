@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/26 15:33:17 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/01 14:51:37 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,14 @@ void	destroy_shell(t_shell *shell)
 	ft_close(&shell->redirects.output_cmp_redirect_fd);
 	ft_close(&shell->redirects.input_redirect_fd);
 	ft_close(&shell->redirects.input_cmp_redirect_fd);
-	ft_close(&shell->pipes.input_pipe[0]);
-	ft_close(&shell->pipes.input_pipe[1]);
-	ft_close(&shell->pipes.output_pipe[0]);
-	ft_close(&shell->pipes.output_pipe[1]);
+	ft_close(&shell->pipes.left_pipe[0]);
+	ft_close(&shell->pipes.left_pipe[1]);
+	ft_close(&shell->pipes.right_pipe[0]);
+	ft_close(&shell->pipes.right_pipe[1]);
+	ft_close(&shell->pipes.left_cmp_pipe[0]);
+	ft_close(&shell->pipes.left_cmp_pipe[1]);
+	ft_close(&shell->pipes.right_cmp_pipe[0]);
+	ft_close(&shell->pipes.right_cmp_pipe[1]);
 	ft_close(&shell->redirects.stdin_dup);
 	ft_close(&shell->redirects.stdout_dup);
 	dict_clear(&shell->env);
