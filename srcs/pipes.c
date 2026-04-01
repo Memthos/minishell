@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:13:45 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/01 13:32:49 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/01 13:37:29 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,21 @@ t_status	init_pipes(t_pipe_logic *pipes)
 	pipes->pipe_index = 0;
 	pipes->pipe_depth = 0;
 	return (SUCCESS);
+}
+
+int	*get_cur_pipe(t_pipe_logic *pipes, bool cmp_pipe)
+{
+	if (NULL == pipes)
+		return (NULL);
+	if (cmp_pipe)
+	{
+		if (pipes->cmp_pipe_index % 2)
+			return (pipes->right_cmp_pipe);
+		else
+			return (pipes->left_cmp_pipe);
+	}
+	if (pipes->pipe_index % 2)
+		return (pipes->right_pipe);
+	else
+		return (pipes->left_pipe);
 }
