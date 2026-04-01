@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/01 14:22:50 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/01 15:32:16 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_pipe_logic
 	int		pipe_depth;
 	t_uint	pipe_index;
 	t_uint	cmp_pipe_index;
+	bool	redirect_input;
+	bool	redirect_output;
 	int		left_pipe[2];
 	int		right_pipe[2];
 	int		left_cmp_pipe[2];
