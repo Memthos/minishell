@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/01 16:06:34 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/01 16:33:54 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ t_status	run_comand(t_shell *shell)
 	if (0 == pid)
 	{
 		restore_signals();
+		ft_close(&shell->redirects.stdin_dup);
+		ft_close(&shell->redirects.stdout_dup);
 		output_pipe = get_cur_pipe(&shell->pipes, false, false);
 		input_pipe = get_cur_pipe(&shell->pipes, true, false);
 		if (shell->pipes.redirect_output)
