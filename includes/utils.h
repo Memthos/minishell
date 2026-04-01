@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/23 10:03:44 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/01 13:56:19 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
  * @param number A pointer to a number that will contains the result.
  * @return A status to tell if the number has been successfully parsed or not.
  */
-t_status	get_number(const char *s, int *number);
+t_status		get_number(const char *s, int *number);
 
 /**
  * @brief Splits a string into two separates allocated strings.
  * @return Always returns an array that contains two strings.
  */
-char		**split_at(const char *str, const char c);
+char			**split_at(const char *str, const char c);
 
 /**
  * @brief Returns the number of words in str.
@@ -35,29 +35,29 @@ char		**split_at(const char *str, const char c);
  * @param set The character set that contains delimiters.
  * @return The number of words in str.
  */
-t_uint		count_words(const char *str, const char *set);
+t_uint			count_words(const char *str, const char *set);
 
 /**
  * @brief Frees each arrays in strs and strs itself.
  */
-void		free_strings(char **strs);
+void			free_strings(char **strs);
 
 /**
  * @brief Checks if a variable name is correct.
  * @return true on if name is correct, false otherwise.
  */
-bool		check_var_name(char *name);
+bool			check_var_name(char *name);
 
 /**
  * @brief Swaps a and b.
  */
-void		swap_str(char **a, char **b);
+void			swap_str(char **a, char **b);
 
 /**
  * @brief Checks if str contains only digits.
  * @return true on success, false on failure.
  */
-bool		str_is_digit(char *str);
+bool			str_is_digit(char *str);
 
 /**
  * @brief Reallocs array to add memory for one more element.
@@ -68,23 +68,23 @@ bool		str_is_digit(char *str);
  * @return A new array with the updated size.
  *
  */
-void		*increment_array(void *array, t_uint count, t_uint size);
+void			*increment_array(void *array, t_uint count, t_uint size);
 
 /**
  * @brief Closes the fd passed in and set its value to -1.
  * Does nothing if fd < 0.
  */
-int			ft_close(int *fd);
+int				ft_close(int *fd);
 
 /**
  * @brief Checks if the PATH environment variable looks correct.
  * @return True on success, false on failure.
  */
-bool		check_path(t_shell *shell);
+bool			check_path(t_shell *shell);
 
 /**
  * @brief Updates the SHLVL environment variable value.
- * @return The updated environment. 
+ * @return The updated environment.
  */
 t_dictionary	*update_shlvl(t_dictionary **env);
 

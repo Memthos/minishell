@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/31 13:16:36 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 13:06:17 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,14 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	}
 	if (DLESS == cmd->token)
 	{
-		if (ast_heredoc_count(cmd) > shell->heredoc_max)
+		if (ast_heredoc_count(cmd, shell->redirects.is_cmp_redir)
+			> shell->heredoc_max)
 		{
 			error_output(NULL, HEREDOC_COUNT_EXCEEDED);
 			shell->exitno = BAD_ARG;
 			return (shell->exitno);
 		}
-		if (heredoc(shell, cmd->left))
+		if (heredoc(shell, cmd))
 		{
 			error_output(NULL, shell->exitno);
 			return (shell->exitno);

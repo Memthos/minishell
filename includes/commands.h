@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/31 10:25:53 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 13:56:58 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_status	cmd_pwd(char **args, t_shell *shell);
  * and the getcwd func if PWD is not set.
  * @return The allocated current working directory.
  */
-char	*get_cwd(t_shell *shell);
+char		*get_cwd(t_shell *shell);
 
 /**
  * @brief Change the current working directory
@@ -116,5 +116,12 @@ t_status	cmd_exit(char **args, t_shell *shell);
 /// @param shell A pointer to the the shell structure.
 /// @return 1 if an error occurred, else 0.
 int			heredoc(t_shell *shell, t_ast_lst *node);
+
+/// @brief Function that get the heredoc input from the user.
+/// @param shell A pointer to the shell.
+/// @param node THe node with the redirection.
+/// @param data THe variable to write.
+/// @return 1 if an error occurred, else 0.
+int			read_heredoc(t_shell *shell, t_ast_lst *node, char **data);
 
 #endif
