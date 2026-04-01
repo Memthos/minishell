@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:37:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/31 10:23:06 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 16:06:34 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_status	run_comand(t_shell *shell)
 {
 	t_status	code;
 	pid_t		pid;
+	int			*output_pipe;
+	int			*input_pipe;
 	t_built_in	cmd;
 
 	if (NULL == shell || NULL == shell->cur_cmd || 0 == shell->cur_cmd_index)
@@ -99,6 +101,30 @@ t_status	run_comand(t_shell *shell)
 	if (0 == pid)
 	{
 		restore_signals();
+		output_pipe = get_cur_pipe(&shell->pipes, false, false);
+		input_pipe = get_cur_pipe(&shell->pipes, true, false);
+		if (shell->pipes.redirect_output)
+		{
+			if (-1 == dup2(output_pipe[1], STDOUT_FILENO))
+			{
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
+			}
+			ft_close(&output_pipe[0]);
+			ft_close(&output_pipe[1]);
+		}
+		if (shell->pipes.redirect_input)
+		{
+			if (-1 == dup2(input_pipe[0], STDIN_FILENO))
+			{
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
+			}
+			ft_close(&input_pipe[0]);
+			ft_close(&input_pipe[1]);
+		}
 		if (-1 != shell->redirects.input_redirect_fd)
 		{
 			if (-1 == dup2(shell->redirects.input_redirect_fd, STDIN_FILENO))
