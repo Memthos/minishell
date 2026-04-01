@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/01 13:39:15 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/01 14:22:50 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_status	init_pipes(t_pipe_logic *pipes);
  * @brief Returns the current pipe / cmp_pipe where outputs
  * needs to be redirected, based on pipe_index / cmp_pipe_index.
  */
-int	*get_cur_pipe(t_pipe_logic *pipes, bool cmp_pipe);
+int	*get_cur_pipe(t_pipe_logic *pipes, bool input, bool cmp_pipe);
 
 /**
  * @brief Adds pid to the list of pids in shell.
