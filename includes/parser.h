@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/30 14:39:38 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 13:57:34 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char		next_char(char *model, size_t i);
 /// @param shell A pointer to the main structure of minishell.
 /// @param status The status of the parser.
 void		complete_command_r(t_lxr_lst **lxr, t_shell *shell,
-	t_status *status);
+				t_status *status);
 
 /// @brief Make a part of the ast for the and_or rule.
 /// @param lxr A pointer to the current node of lxr.

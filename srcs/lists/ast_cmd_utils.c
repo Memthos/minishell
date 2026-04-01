@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:48:22 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/01 13:29:02 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/01 16:27:40 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_uint	ast_pipe_count(t_ast_lst *ast)
 	return (count);
 }
 
-t_uint	ast_heredoc_count(t_ast_lst *ast)
+t_uint	ast_heredoc_count(t_ast_lst *ast, bool is_cmp)
 {
 	t_uint	count;
 
@@ -69,7 +69,10 @@ t_uint	ast_heredoc_count(t_ast_lst *ast)
 	count = 0;
 	if (DLESS == ast->token)
 		count = 1;
-	count += ast_heredoc_count(ast->left);
+	if (is_cmp)
+		count += ast_heredoc_count(ast->left, is_cmp);
+	else
+		count += ast_heredoc_count(ast->right, is_cmp);
 	return (count);
 }
 

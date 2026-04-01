@@ -6,23 +6,63 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:20:07 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/31 13:16:35 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/01 13:52:38 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	heredoc_to_input(t_shell *shell, char *data)
+static int	expand_heredoc(t_shell *shell, t_ast_lst *node, char **data)
 {
-	int	pipe_fds[2];
+	size_t	i;
 
-	if (pipe(pipe_fds) == -1)
+	if (shell->redirects.is_cmp_redir
+		&& node->right->expand_state == HEREDOC_DENY)
+		return (0);
+	else if (node->left->expand_state == HEREDOC_DENY)
+		return (0);
+	i = 0;
+	while ((*data)[i])
 	{
-		free(data);
-		shell->exitno = PIPE_FAILURE;
-		return (1);
+		if ((*data)[i] == '$' && (*data)[i + 1])
+		{
+			if (update_expand_data(data, &i, shell))
+			{
+				shell->exitno = ALLOCATION_FAILURE;
+				return (1);
+			}
+		}
+		else
+			i++;
 	}
-	write(pipe_fds[1], data, ft_strlen(data));
+	return (0);
+}
+
+static int	heredoc_child(t_shell *shell, t_ast_lst *node, int pipe_fds[2])
+{
+	char	*data;
+	int		ret;
+
+	ret = 0;
+	ft_close(&pipe_fds[0]);
+	heredoc_signals();
+	data = calloc(1, 1);
+	if (!data)
+		return (1);
+	if (!ret && read_heredoc(shell, node, &data))
+		ret = 1;
+	if (!ret && expand_heredoc(shell, node, &data))
+		ret = 1;
+	if (!ret)
+		write(pipe_fds[1], data, ft_strlen(data));
+	ft_close(&pipe_fds[1]);
+	free(data);
+	destroy_shell(shell);
+	exit(ret);
+}
+
+void	wait_child(t_shell *shell, pid_t pid, int pipe_fds[2])
+{
 	ft_close(&pipe_fds[1]);
 	if (shell->redirects.is_cmp_redir)
 	{
@@ -34,94 +74,31 @@ static int	heredoc_to_input(t_shell *shell, char *data)
 		ft_close(&shell->redirects.input_redirect_fd);
 		shell->redirects.input_redirect_fd = pipe_fds[0];
 	}
-	return (0);
-}
-
-static int	expand_heredoc(t_shell *shell, t_ast_lst *node, char **data)
-{
-	size_t	i;
-
-	if (node->expand_state == HEREDOC_DENY)
-		return (0);
-	i = 0;
-	while ((*data)[i])
-	{
-		if ((*data)[i] == '$' && (*data)[i + 1])
-		{
-			if (update_expand_data(data, &i, shell))
-			{
-				shell->exitno = ALLOCATION_FAILURE;
-				free(*data);
-				return (1);
-			}
-		}
-		else
-			i++;
-	}
-	return (0);
-}
-
-static int	input_read(t_shell *shell, char *lim, char **data)
-{
-	char	*read;
-	char	*tmp;
-
-	while (1)
-	{
-		write (1, "> ", 2);
-		read = get_next_line(0);
-		if (ft_strcmp(read, lim) == 0)
-		{
-			free(read);
-			break ;
-		}
-		tmp = ft_strjoin(*data, read);
-		free(read);
-		if (!tmp)
-		{
-			shell->exitno = ALLOCATION_FAILURE;
-			return (1);
-		}
-		free(*data);
-		*data = tmp;
-	}
-	return (0);
-}
-
-static int	read_heredoc(t_shell *shell, t_ast_lst *node, char **data)
-{
-	char	*lim;
-
-	lim = ft_strjoin(node->data, "\n");
-	if (!lim)
-	{
-		free(*data);
-		shell->exitno = ALLOCATION_FAILURE;
-		return (1);
-	}
-	if (input_read(shell, lim, data))
-	{
-		free(lim);
-		free(*data);
-		return (1);
-	}
-	free(lim);
-	return (0);
+	waitpid(pid, (int *)&shell->exitno, 0);
+	if (WIFEXITED(shell->exitno))
+		shell->exitno = WEXITSTATUS(shell->exitno);
+	if (WIFSIGNALED(shell->exitno))
+		shell->exitno = WTERMSIG(shell->exitno) + 128;
 }
 
 int	heredoc(t_shell *shell, t_ast_lst *node)
 {
-	char		*data;
+	int		pipe_fds[2];
+	pid_t	pid;
 
-	data = calloc(1, 1);
-	if (!data)
+	if (pipe(pipe_fds) == -1)
+	{
+		shell->exitno = PIPE_FAILURE;
 		return (1);
-	if (read_heredoc(shell, node, &data))
+	}
+	pid = fork();
+	if (pid == -1)
+	{
+		shell->exitno = FORK_FAILURE;
 		return (1);
-	if (expand_heredoc(shell, node, &data))
-		return (1);
-	if (heredoc_to_input(shell, data))
-		return (1);
-	free(data);
+	}
+	if (pid == 0)
+		heredoc_child(shell, node, pipe_fds);
+	wait_child(shell, pid, pipe_fds);
 	return (0);
 }
