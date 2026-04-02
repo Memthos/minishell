@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/01 16:26:59 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/02 10:46:06 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 t_status	execute(t_ast_lst *cmd, t_shell *shell)
 {
+	int	*cur_pipe;
+
 	if (NULL == cmd)
 		return (shell->exitno);
 	if (WORD == cmd->token)
@@ -49,7 +51,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		++shell->pipes.pipe_depth;
 		if (!ast_pipe_count(cmd->left))
 		{
-			if (-1 == pipe(shell->pipes.left_pipe))
+			if (-1 == pipe(get_cur_pipe(&shell->pipes, false, false)))
 			{
 				perror("pipe");
 				shell->exitno = FAILURE;
@@ -63,8 +65,9 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		shell->pipes.redirect_input = true;
 		execute(cmd->right, shell);
 		shell->pipes.redirect_input = false;
-		ft_close(&shell->pipes.left_pipe[0]);
-		ft_close(&shell->pipes.left_pipe[1]);
+		cur_pipe = get_cur_pipe(&shell->pipes, true, false);
+		ft_close(&cur_pipe[0]);
+		ft_close(&cur_pipe[1]);
 		--shell->pipes.pipe_depth;
 	}
 	if (GREAT == cmd->token || DGREAT == cmd->token)
