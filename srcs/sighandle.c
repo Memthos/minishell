@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 00:46:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/01 18:33:44 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/02 12:58:14 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,18 @@ static void	sig_intercept_normal(int signo, siginfo_t *info, void *other)
 	return ;
 }
 
-static void	sig_exit_heredoc(int signo, siginfo_t *info, void *other)
+static void	sig_intercept_heredoc(int signo, siginfo_t *info, void *other)
 {
-	char	c;
-
 	(void)info;
 	(void)other;
-	c = '\n';
 	g_signal = signo;
 	if (SIGINT == g_signal)
 	{
-		ioctl(0, TIOCSTI, &c);
-		rl_on_new_line();
+		write(STDERR_FILENO, "\n", 1);
 		rl_replace_line("", 1);
+		rl_on_new_line();
+		close(STDIN_FILENO);
 	}
-	return ;
 	return ;
 }
 
@@ -113,8 +110,7 @@ t_status	heredoc_signals(void)
 	struct sigaction	action;
 
 	ft_bzero(&action, sizeof(action));
-	action.sa_sigaction = &sig_exit_heredoc;
-	action.sa_flags = SA_SIGINFO;
+	action.sa_sigaction = &sig_intercept_heredoc;
 	if (SUCCESS != sigaction(SIGINT, &action, NULL))
 	{
 		perror("sigaction");
