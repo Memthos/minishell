@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/02 10:46:06 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/02 16:20:22 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,16 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		execute(cmd->left, shell);
 		shell->pipes.redirect_output = false;
 		++shell->pipes.pipe_index;
+		if (shell->pipes.pipe_depth > 1)
+		{
+			if (-1 == pipe(get_cur_pipe(&shell->pipes, false, false)))
+			{
+				perror("pipe");
+				shell->exitno = FAILURE;
+				return (shell->exitno);
+			}
+			shell->pipes.redirect_output = true;
+		}
 		shell->pipes.redirect_input = true;
 		execute(cmd->right, shell);
 		shell->pipes.redirect_input = false;
