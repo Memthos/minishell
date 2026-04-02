@@ -6,11 +6,31 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:20:07 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/01 19:07:32 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/02 14:59:16 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	heredoc_parent(t_shell *shell, pid_t pid, int pipe_fds[2])
+{
+	ft_close(&pipe_fds[1]);
+	if (shell->redirects.is_cmp_redir)
+	{
+		ft_close(&shell->redirects.input_cmp_redirect_fd);
+		shell->redirects.input_cmp_redirect_fd = pipe_fds[0];
+	}
+	else
+	{
+		ft_close(&shell->redirects.input_redirect_fd);
+		shell->redirects.input_redirect_fd = pipe_fds[0];
+	}
+	waitpid(pid, (int *)&shell->exitno, 0);
+	if (WIFEXITED(shell->exitno))
+		shell->exitno = WEXITSTATUS(shell->exitno);
+	if (WIFSIGNALED(shell->exitno))
+		shell->exitno = WTERMSIG(shell->exitno) + 128;
+}
 
 static int	write_heredoc(t_shell *shell, t_ast_lst *node, int fd, char **data)
 {
@@ -27,84 +47,80 @@ static int	write_heredoc(t_shell *shell, t_ast_lst *node, int fd, char **data)
 		if ((*data)[i] == '$' && (*data)[i + 1])
 		{
 			if (update_expand_data(data, &i, shell))
-			{
-				shell->exitno = ALLOCATION_FAILURE;
 				return (1);
-			}
 		}
 		else
 			i++;
 	}
 	write(fd, *data, ft_strlen(*data));
 	write(fd, "\n", 1);
+	free(*data);
+	*data = NULL;
 	return (0);
 }
 
-static int	input_read(t_shell *shell, char *lim, t_ast_lst *node, int *fd)
+static char	*heredoc_limiter(t_shell *shell, t_ast_lst *node)
+{
+	if (shell->redirects.is_cmp_redir)
+		return (node->right->data);
+	else
+		return (node->left->data);
+}
+
+static int	heredoc_child(t_shell *shell, t_ast_lst *node, int pipe_fds[2])
 {
 	char	*read;
 	int		ret;
 
 	ret = 0;
+	read = NULL;
 	while (!ret)
 	{
 		read = readline("> ");
 		if (g_signal == SIGINT)
-			break ;
-		if (!read)
+			ret = 2;
+		if (!ret && !read)
 		{
-			heredoc_error_print(lim);
+			heredoc_error_print(heredoc_limiter(shell, node));
 			break ;
 		}
-		if (ft_strcmp(read, lim) == 0)
+		if (!ret && ft_strcmp(read, heredoc_limiter(shell, node)) == 0)
 			break ;
-		if (write_heredoc(shell, node, *fd, &read))
-			ret = 1;
-		free(read);
+		if (!ret)
+			ret = write_heredoc(shell, node, pipe_fds[1], &read);
 	}
 	if (read)
 		free(read);
-	ft_close(fd);
-	return (ret);
-}
-
-static int	read_heredoc(t_shell *shell, t_ast_lst *node, int *fd)
-{
-	char	*lim;
-
-	if (shell->redirects.is_cmp_redir)
-		lim = node->right->data;
-	else
-		lim = node->left->data;
-	if (input_read(shell, lim, node, fd))
-	{
-		shell->exitno = ALLOCATION_FAILURE;
-		return (1);
-	}
-	return (0);
+	ft_close(&pipe_fds[1]);
+	destroy_shell(shell);
+	exit (ret);
 }
 
 int	heredoc(t_shell *shell, t_ast_lst *node)
 {
-	int	pipe_fds[2];
+	int		pipe_fds[2];
+	pid_t	pid;
 
-	heredoc_signals();
 	if (pipe(pipe_fds) == -1)
 	{
 		shell->exitno = PIPE_FAILURE;
 		return (1);
 	}
-	if (shell->redirects.is_cmp_redir)
+	pid = fork();
+	if (pid == -1)
 	{
-		ft_close(&shell->redirects.input_cmp_redirect_fd);
-		shell->redirects.input_cmp_redirect_fd = pipe_fds[0];
-	}
-	else
-	{
-		ft_close(&shell->redirects.input_redirect_fd);
-		shell->redirects.input_redirect_fd = pipe_fds[0];
-	}
-	if (read_heredoc(shell, node, &pipe_fds[1]))
+		ft_close(&pipe_fds[0]);
+		ft_close(&pipe_fds[1]);
+		shell->exitno = FORK_FAILURE;
 		return (1);
+	}
+	if (pid == 0)
+	{
+		heredoc_signals();
+		ft_close(&pipe_fds[0]);
+		heredoc_child(shell, node, pipe_fds);
+	}
+	heredoc_parent(shell, pid, pipe_fds);
+	dup2(shell->redirects.stdin_dup, STDIN_FILENO);
 	return (0);
 }
