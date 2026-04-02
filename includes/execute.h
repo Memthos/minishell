@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:38:19 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/26 08:20:59 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/02 17:35:07 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 # include "definitions.h"
 # include "lists.h"
 
+/**
+ * @brief Executes all necessary things to do in the command ast.
+ */
 t_status	execute(t_ast_lst *cmd, t_shell *shell);
+
+/**
+ * @brief Executes the command contained in cur_cmd.
+ */
+t_status	execute_cmd(t_shell *shell);
 
 #endif
