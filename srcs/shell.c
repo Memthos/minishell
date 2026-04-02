@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/01 14:51:37 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/02 16:50:50 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_status	wait_for_processes(t_shell *shell)
 			(int *)&shell->exitno, 0);
 		if (WIFEXITED(shell->exitno))
 			shell->exitno = WEXITSTATUS(shell->exitno);
-		if (WIFSIGNALED(shell->exitno))
+		else if (WIFSIGNALED(shell->exitno))
 			shell->exitno = WTERMSIG(shell->exitno) + 128;
 		++shell->pids.pid_index;
 	}
