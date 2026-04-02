@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/01 17:51:54 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/02 17:33:25 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,6 @@ typedef struct s_command
  * NULL if name is NULL.
  */
 t_built_in	get_command(char *name);
-
-/**
- * @brief Runs the command contains in shell->cur_cmd in a child process.
- */
-t_status	run_comand(t_shell *shell);
 
 /**
  * @brief Execute a command with execve.
