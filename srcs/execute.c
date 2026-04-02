@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/02 16:20:22 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/02 17:32:47 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		if (NULL == cmd->right)
 		{
 			shell->cur_cmd[shell->cur_cmd_index] = NULL;
-			shell->exitno = run_comand(shell);
+			shell->exitno = execute_cmd(shell);
 			free(shell->cur_cmd);
 			shell->cur_cmd = NULL;
 			return (shell->exitno);
@@ -177,5 +177,133 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		ft_close(&shell->redirects.input_cmp_redirect_fd);
 		--shell->cmp_depth;
 	}
+	return (shell->exitno);
+}
+
+t_status	execute_cmd(t_shell *shell)
+{
+	t_status	code;
+	pid_t		pid;
+	int			*output_pipe;
+	int			*input_pipe;
+	t_built_in	cmd;
+
+	if (NULL == shell || NULL == shell->cur_cmd || 0 == shell->cur_cmd_index)
+		return (FAILURE);
+	cmd = get_command(*shell->cur_cmd);
+	if (0 == shell->pipes.pipe_depth && &cmd_exec != cmd)
+	{
+		if (-1 != shell->redirects.output_redirect_fd)
+		{
+			if (-1 == dup2(shell->redirects.output_redirect_fd, STDOUT_FILENO))
+			{
+				perror("dup2");
+				ft_close(&shell->redirects.output_redirect_fd);
+				shell->exitno = DUP_FAILURE;
+				return (shell->exitno);
+			}
+			ft_close(&shell->redirects.output_redirect_fd);
+		}
+		else if (-1 != shell->redirects.output_cmp_redirect_fd)
+		{
+			if (-1 == dup2(shell->redirects.output_cmp_redirect_fd, STDOUT_FILENO))
+			{
+				perror("dup2");
+				ft_close(&shell->redirects.output_cmp_redirect_fd);
+				shell->exitno = DUP_FAILURE;
+				return (shell->exitno);
+			}
+			ft_close(&shell->redirects.output_cmp_redirect_fd);
+		}
+		shell->exitno = cmd(shell->cur_cmd, shell);
+		if (-1 == dup2(shell->redirects.stdout_dup, STDOUT_FILENO))
+		{
+			perror("dup2");
+			shell->exitno = DUP_FAILURE;
+		}
+		return (shell->exitno);
+	}
+	pid = fork();
+	if (-1 == pid)
+	{
+		shell->exitno = FORK_FAILURE;
+		return (FORK_FAILURE);
+	}
+	if (0 == pid)
+	{
+		restore_signals();
+		ft_close(&shell->redirects.stdin_dup);
+		ft_close(&shell->redirects.stdout_dup);
+		output_pipe = get_cur_pipe(&shell->pipes, false, false);
+		input_pipe = get_cur_pipe(&shell->pipes, true, false);
+		if (shell->pipes.redirect_output)
+		{
+			if (-1 == dup2(output_pipe[1], STDOUT_FILENO))
+			{
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
+			}
+			ft_close(&output_pipe[0]);
+			ft_close(&output_pipe[1]);
+		}
+		if (shell->pipes.redirect_input)
+		{
+			if (-1 == dup2(input_pipe[0], STDIN_FILENO))
+			{
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
+			}
+			ft_close(&input_pipe[0]);
+			ft_close(&input_pipe[1]);
+		}
+		if (-1 != shell->redirects.input_redirect_fd)
+		{
+			if (-1 == dup2(shell->redirects.input_redirect_fd, STDIN_FILENO))
+			{
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
+			}
+			ft_close(&shell->redirects.input_redirect_fd);
+		}
+		else if (-1 != shell->redirects.input_cmp_redirect_fd)
+		{
+			if (-1 == dup2(shell->redirects.input_cmp_redirect_fd, STDIN_FILENO))
+			{
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
+			}
+			ft_close(&shell->redirects.input_cmp_redirect_fd);
+		}
+		if (-1 != shell->redirects.output_redirect_fd)
+		{
+			if (-1 == dup2(shell->redirects.output_redirect_fd, STDOUT_FILENO))
+			{
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
+			}
+			ft_close(&shell->redirects.output_redirect_fd);
+		}
+		else if (-1 != shell->redirects.output_cmp_redirect_fd)
+		{
+			if (-1 == dup2(shell->redirects.output_cmp_redirect_fd, STDOUT_FILENO))
+			{
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
+			}
+			ft_close(&shell->redirects.output_cmp_redirect_fd);
+		}
+		code = cmd(shell->cur_cmd, shell);
+		destroy_shell(shell);
+		exit(code);
+	}
+	ft_close(&shell->redirects.input_redirect_fd);
+	ft_close(&shell->redirects.output_redirect_fd);
+	shell->exitno = update_pids(shell, pid);
 	return (shell->exitno);
 }
