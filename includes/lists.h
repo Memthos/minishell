@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/01 19:08:15 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/02 14:00:19 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,6 @@ int			peek(t_lxr_lst **node, t_token token);
  * @param node A pointer to the current node of the lexer.
  */
 void		consume(t_lxr_lst **node);
-
-/**
- * @brief Counts the number of commands in ast.
- */
-t_uint		ast_cmd_count(t_ast_lst *ast);
 
 /**
  * @brief Counts the number of arguments for the contained command in ast.

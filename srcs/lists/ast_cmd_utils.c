@@ -6,32 +6,11 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:48:22 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/01 16:27:40 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/02 13:59:56 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-t_uint	ast_cmd_count(t_ast_lst *ast)
-{
-	t_ast_lst	*tmp;
-	t_uint		count;
-
-	if (NULL == ast)
-		return (0);
-	count = 0;
-	if (WORD == ast->token)
-		count = 1;
-	tmp = ast;
-	while (tmp->left && WORD == tmp->token)
-		tmp = tmp->left;
-	count += ast_cmd_count(tmp->left);
-	tmp = ast;
-	while (tmp->right && WORD == tmp->token)
-		tmp = tmp->right;
-	count += ast_cmd_count(tmp->right);
-	return (count);
-}
 
 t_uint	ast_cmd_size(t_ast_lst *ast)
 {
