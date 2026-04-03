@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/02 14:00:19 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/03 10:46:49 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ t_uint		ast_heredoc_count(t_ast_lst *ast, bool is_cmp);
 /**
  * @brief Counts the number of pipe that redirects an entire CMP_CMD output.
  */
-t_uint		ast_output_cmp_pipe_count(t_ast_lst *ast);
+t_uint		ast_cmp_pipe_count(t_ast_lst *ast);
 
 /**
  * @brief Returns true if node is a cmp_pipe, false otherwise.
