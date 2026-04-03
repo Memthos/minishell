@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 09:42:06 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/03 15:05:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/03 21:15:53 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,20 @@ bool	str_is_empty(char *str)
 	if (NULL == str || 0 == str[0])
 		return (true);
 	return (false);
+}
+
+int	contain_space(char *str)
+{
+	size_t	i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+			return (1);
+		i++;
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 15:29:59 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/03 21:22:03 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	get_quotes_rmv(t_ast_lst *ast, size_t *quotes_rmv)
 	return (1);
 }
 
-char	*get_expand_value(char *var_name, t_shell *shell)
+char	*get_expand_value(char *var_name, t_shell *shell, t_status *status)
 {
 	char	*value;
 	char	*tmp;
@@ -58,9 +58,23 @@ char	*get_expand_value(char *var_name, t_shell *shell)
 	value = NULL;
 	tmp = dict_get_data(shell->env, var_name);
 	if (tmp)
+	{
 		value = ft_strdup(tmp);
+		if (!tmp)
+		{
+			*status = ALLOCATION_FAILURE;
+			return (NULL);
+		}
+	}
 	else if (!tmp && ft_strcmp(var_name, "?") == 0)
+	{
 		value = ft_itoa(shell->exitno);
+		if (!value)
+		{
+			*status = ALLOCATION_FAILURE;
+			return (NULL);
+		}
+	}
 	return (value);
 }
 
@@ -72,4 +86,27 @@ int	is_redirection(t_ast_lst *node)
 		|| node->token == LESS || node->token == GREAT)
 		return (1);
 	return (0);
+}
+
+t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast)
+{
+	t_status	status;
+
+	status = SUCCESS;
+	ast->data = ft_strdup((*lxr)->data);
+	if (!ast->data)
+		return (ALLOCATION_FAILURE);
+	consume(lxr);
+	ast->token = WORD;
+	ast->expand_state = DENY;
+	ast->right = NULL;
+	while (!status && *lxr)
+	{
+		ast_lst_last(ast, RIGHT)->right = ast_lst_new(lxr, &status);
+		if (status)
+			break ;
+		ast_lst_last(ast, RIGHT)->token = WORD;
+		ast_lst_last(ast, RIGHT)->expand_state = DENY;
+	}
+	return (status);
 }

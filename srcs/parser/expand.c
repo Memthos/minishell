@@ -6,38 +6,11 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 16:27:55 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/03 21:22:07 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast)
-{
-	t_status	status;
-	t_ast_lst	*tmp;
-
-	status = SUCCESS;
-	tmp = ast_lst_new(lxr, &status);
-	if (status)
-		return (status);
-	ast->data = ft_strdup(tmp->data);
-	if (!ast->data)
-		status = ALLOCATION_FAILURE;
-	ast->token = WORD;
-	ast->expand_state = DENY;
-	ast->right = NULL;
-	ast_lst_clear(&tmp);
-	while (!status && *lxr)
-	{
-		ast_lst_last(ast, RIGHT)->right = ast_lst_new(lxr, &status);
-		if (status)
-			break ;
-		ast_lst_last(ast, RIGHT)->token = WORD;
-		ast_lst_last(ast, RIGHT)->expand_state = DENY;
-	}
-	return (status);
-}
 
 static void	update_ast(t_ast_lst *node, t_status *status)
 {
@@ -66,7 +39,7 @@ static void	update_ast(t_ast_lst *node, t_status *status)
 		ast_lst_clear(&right);
 }
 
-static int	get_var_name(char *s, char **name, size_t *data_i)
+static int	get_var_name(char *s, char **name, size_t *i)
 {
 	size_t	size;
 
@@ -82,7 +55,7 @@ static int	get_var_name(char *s, char **name, size_t *data_i)
 		size = 1;
 	else
 	{
-		(*data_i)++;
+		(*i)++;
 		return (0);
 	}
 	*name = malloc(sizeof(char) * (size + 1));
@@ -92,36 +65,50 @@ static int	get_var_name(char *s, char **name, size_t *data_i)
 	return (0);
 }
 
-t_status	expand_node(char **data, size_t *data_i, t_shell *shell,
-	int is_red)
+static int	update_node_data(char **data, size_t name_len, char *val, size_t *i)
 {
-	size_t	name_len;
-	char	*value;
-	char	*str;
+	char	*res;
 
-	str = NULL;
-	if (get_var_name(*data + *data_i + 1, &str, data_i))
+	res = calloc(ft_strlen(*data) - name_len + ft_strlen(val), 1);
+	if (!res)
 		return (ALLOCATION_FAILURE);
-	name_len = ft_strlen(str);
-	value = get_expand_value(str, shell);
-	free(str);
-	if (!value && is_red)
+	ft_strlcpy(res, *data, *i + 1);
+	ft_strlcat(res, val, ft_strlen(res) + ft_strlen(val) + 1);
+	ft_strlcat(res, *data + *i + 1 + name_len, ft_strlen(res)
+		+ ft_strlen(*data + *i + 1 + name_len) + 1);
+	*i += ft_strlen(val);
+	free(*data);
+	*data = res;
+	return (SUCCESS);
+}
+
+t_status	expand_node(char **data, size_t *i, t_shell *shell, int is_red)
+{
+	t_status	status;
+	size_t		name_len;
+	char		*var_value;
+	char		*var_name;
+
+	status = SUCCESS;
+	var_name = NULL;
+	if (get_var_name(*data + *i + 1, &var_name, i))
+		return (ALLOCATION_FAILURE);
+	name_len = ft_strlen(var_name);
+	var_value = get_expand_value(var_name, shell, &status);
+	free(var_name);
+	if (status)
+		return (ALLOCATION_FAILURE);
+	if (is_red && (!var_value || contain_space(var_value)))
 	{
+		if (var_value)
+			free(var_value);
 		amb_red_error_print(*data);
 		return (FAILURE);
 	}
-	str = calloc(ft_strlen(*data) - name_len + ft_strlen(value), 1);
-	if (!str)
-		return (ALLOCATION_FAILURE);
-	ft_strlcpy(str, *data, *data_i + 1);
-	ft_strlcat(str, value, ft_strlen(str) + ft_strlen(value) + 1);
-	ft_strlcat(str, *data + *data_i + 1 + name_len, ft_strlen(str)
-		+ ft_strlen(*data + *data_i + 1 + name_len) + 1);
-	free(*data);
-	free(value);
-	*data = str;
-	*data_i = 0;
-	return (SUCCESS);
+	status = update_node_data(data, name_len, var_value, i);
+	if (var_value)
+		free(var_value);
+	return (status);
 }
 
 void	expand(t_ast_lst *node, t_status *status, t_shell *shell, int is_red)

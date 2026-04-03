@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 16:24:57 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/03 21:12:56 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void		expand(t_ast_lst *node, t_status *status, t_shell *shell,
 /// @param is_red Param to check whether or not the node is the WORD of
 /// a redirection.
 /// @return The exit status of the function
-t_status	expand_node(char **data, size_t *data_i, t_shell *shell,
-				int is_red);
+t_status	expand_node(char **data, size_t *idx, t_shell *shell, int is_red);
 
 /// @brief Function to check if the node data can be expanded
 /// @param node he node with the data to expand.
@@ -44,12 +43,19 @@ int			can_expand(t_ast_lst *node);
 /// @param var_name The name of the expand variable to search for.
 /// @param shell A reference to the variables of the shell.
 /// @return Either the variable value or NULL if nothing was found.
-char		*get_expand_value(char *var_name, t_shell *shell);
+char		*get_expand_value(char *var_name, t_shell *shell, t_status *status);
 
 /// @brief Check whether or not the node is the WORD of a redirection
 /// @param node THe node to check
 /// @return 1 if True, else 0.
 int			is_redirection(t_ast_lst *node);
+
+/// @brief Convert a newly expanded value to an ast to merge to the
+/// original one.
+/// @param lxr The lexer to parse.
+/// @param ast THe original ast.
+/// @return The status of the parser.
+t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast);
 
 /// @brief Function to get the number of quotes to remove the the given node.
 /// @param ast A pointer to the ast node.
@@ -122,12 +128,6 @@ void		apply_wildcards(t_ast_lst *node, t_status *status);
 /// @param status The status of the parser.
 /// @return A chained list with all the files that were found.
 t_files_lst	*get_files(t_status *status);
-
-/// @brief Return the next char that is not a * in the wildcard model.
-/// @param model The string to search from.
-/// @param i The current index of the model.
-/// @return The next valid char.
-char		next_char(char *model, size_t i);
 
 /// @brief Make the base of the AST tree, calls all the other functions
 /// of the ast.

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/03 15:06:24 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/03 21:10:59 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,12 @@ bool			str_is_digit(char *str);
 /**
  * @brief Checks if str is empty or not.
  */
-bool	str_is_empty(char *str);
+bool			str_is_empty(char *str);
+
+/// @brief Checks whether or not the input string contains spaces, tabs, etc.
+/// @param str The string to check
+/// @return 1 if True, else 0.
+int				contain_space(char *str);
 
 /**
  * @brief Reallocs array to add memory for one more element.

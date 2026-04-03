@@ -6,17 +6,24 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 09:41:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 18:46:59 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/03 20:27:28 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	next_char(char *model, size_t i)
+static DIR	*open_dir(t_status *status)
 {
-	while (model[i] && model[i] == '*')
-		i++;
-	return (model[i]);
+	DIR	*directory;
+
+	directory = opendir(".");
+	if (!directory)
+	{
+		*status = BAD_ARG;
+		error_output("parser", READDIR_FAILURE);
+		return (NULL);
+	}
+	return (directory);
 }
 
 t_files_lst	*get_files(t_status *status)
@@ -26,13 +33,9 @@ t_files_lst	*get_files(t_status *status)
 	t_files_lst		*files;
 
 	files = NULL;
-	directory = opendir(".");
-	if (!directory)
-	{
-		*status = BAD_ARG;
-		error_output("parser", READDIR_FAILURE);
+	directory = open_dir(status);
+	if (*status)
 		return (NULL);
-	}
 	cur_file = readdir(directory);
 	while (cur_file)
 	{
