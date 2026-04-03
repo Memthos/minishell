@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:48:22 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/03 11:03:47 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/03 13:29:10 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ t_uint	ast_cmp_pipe_count(t_ast_lst *ast)
 	count = 0;
 	if (PIPE == ast->token && ast->left && CMP_CMD == ast->left->token)
 		count = 1;
-	count += ast_output_cmp_pipe_count(ast->left);
-	count += ast_output_cmp_pipe_count(ast->right);
+	count += ast_cmp_pipe_count(ast->left);
+	count += ast_cmp_pipe_count(ast->right);
 	return (count);
 }
 
