@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:48:22 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/02 13:59:56 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/03 11:03:47 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_uint	ast_heredoc_count(t_ast_lst *ast, bool is_cmp)
 	return (count);
 }
 
-t_uint	ast_output_cmp_pipe_count(t_ast_lst *ast)
+t_uint	ast_cmp_pipe_count(t_ast_lst *ast)
 {
 	t_uint	count;
 
