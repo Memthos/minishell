@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 17:01:37 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/26 15:50:34 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/03 16:11:51 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_status	operator_check(t_lxr_lst *lxr)
 			parser_error_print(lxr->next->data);
 		else
 			return (SUCCESS);
-		return (OPERATOR_FAILURE);
+		return (BAD_ARG);
 	}
 	return (SUCCESS);
 }
@@ -33,7 +33,7 @@ static t_status	l_parenthesis_check(t_lxr_lst *lxr)
 	if (!lxr->next && lxr->p_dpt > 0)
 	{
 		parser_error_print("(");
-		return (PARENTHESIS_FAILURE);
+		return (BAD_ARG);
 	}
 	else if (lxr->token == L_PAREN)
 	{
@@ -43,13 +43,13 @@ static t_status	l_parenthesis_check(t_lxr_lst *lxr)
 			parser_error_print(lxr->next->data);
 		else
 			return (SUCCESS);
-		return (PARENTHESIS_FAILURE);
+		return (BAD_ARG);
 	}
 	else if ((lxr->token == WORD || lxr->token == WILDCARD) && lxr->next
 		&& lxr->next->token == L_PAREN)
 	{
 		parser_error_print(lxr->next->data);
-		return (PARENTHESIS_FAILURE);
+		return (BAD_ARG);
 	}
 	return (SUCCESS);
 }
@@ -59,7 +59,7 @@ static t_status	r_parenthesis_check(t_lxr_lst *lxr)
 	if (lxr->p_dpt < 0)
 	{
 		parser_error_print(lxr->data);
-		return (PARENTHESIS_FAILURE);
+		return (BAD_ARG);
 	}
 	else if (lxr->token == R_PAREN)
 	{
@@ -67,7 +67,7 @@ static t_status	r_parenthesis_check(t_lxr_lst *lxr)
 				&& lxr->next->token != WORD && lxr->next->token != WILDCARD))
 			return (SUCCESS);
 		parser_error_print(lxr->next->data);
-		return (PARENTHESIS_FAILURE);
+		return (BAD_ARG);
 	}
 	return (SUCCESS);
 }
@@ -92,7 +92,7 @@ static t_status	quote_check(t_lxr_lst *lxr)
 		parser_error_print("\"");
 	else
 		return (SUCCESS);
-	return (QUOTES_FAILURE);
+	return (BAD_ARG);
 }
 
 void	checker_lxr(t_lxr_lst *lxr, t_status *status)
@@ -102,7 +102,7 @@ void	checker_lxr(t_lxr_lst *lxr, t_status *status)
 	if (lxr->token == AND_IF || lxr->token == OR_IF || lxr->token == PIPE)
 	{
 		parser_error_print(lxr->data);
-		*status = OPERATOR_FAILURE;
+		*status = BAD_ARG;
 	}
 	while (!*status && lxr)
 	{

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:09:08 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/19 21:24:09 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/03 16:10:55 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ static t_ast_lst	*main_redirect(t_lxr_lst **lxr, t_status *status,
 	if (!*status && is_io_redirect(lxr) == 2)
 		red = ast_lst_new(lxr, status);
 	else
-		*status = REDIRECTION_FAILURE;
+		*status = BAD_ARG;
 	if (!*status && peek(lxr, WORD) && side == LEFT)
 		red->left = ast_lst_new(lxr, status);
 	else if (!*status && peek(lxr, WORD) && side == RIGHT)
 		red->right = ast_lst_new(lxr, status);
 	else
-		*status = REDIRECTION_FAILURE;
+		*status = BAD_ARG;
 	if (*status)
 	{
 		if (*lxr)

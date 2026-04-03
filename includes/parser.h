@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 15:33:05 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/03 16:24:57 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		expand(t_ast_lst *node, t_status *status, t_shell *shell,
 /// @param is_red Param to check whether or not the node is the WORD of
 /// a redirection.
 /// @return The exit status of the function
-t_status	update_expand_data(char **data, size_t *data_i, t_shell *shell,
+t_status	expand_node(char **data, size_t *data_i, t_shell *shell,
 				int is_red);
 
 /// @brief Function to check if the node data can be expanded
@@ -95,7 +95,7 @@ int			set_quote_state(t_quote_t *quote, char c);
 
 /// @brief Set the finals token so the lexer nodes are correct.
 /// @param lxr A pointer to the head of the lexer.
-void		set_final_tokens(t_lxr_lst **lxr);
+void		set_final_tokens(t_lxr_lst **lxr, t_status *status);
 
 /// @brief Remove the nb of quotes from the given node.
 /// @param ast A pointer to the ast node.

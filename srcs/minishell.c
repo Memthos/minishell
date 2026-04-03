@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 15:53:55 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/03 16:04:48 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static t_status	minishell(t_shell *shell)
 		if (SUCCESS != parser(line, shell))
 		{
 			cmds_lst_clear(&shell->cmd_ast);
-			shell->exitno = 2;
 			continue ;
 		}
 		cur_ast = shell->cmd_ast;

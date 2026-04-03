@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:20:07 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 15:33:34 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/03 16:24:57 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	write_heredoc(t_shell *shell, t_ast_lst *node, int fd, char **data)
 	{
 		if ((*data)[i] == '$' && (*data)[i + 1])
 		{
-			if (update_expand_data(data, &i, shell, 0))
+			if (expand_node(data, &i, shell, 0))
 				return (1);
 		}
 		else

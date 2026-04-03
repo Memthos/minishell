@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 15:45:00 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/03 16:27:55 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static int	get_var_name(char *s, char **name, size_t *data_i)
 	return (0);
 }
 
-t_status	update_expand_data(char **data, size_t *data_i, t_shell *shell,
+t_status	expand_node(char **data, size_t *data_i, t_shell *shell,
 	int is_red)
 {
 	size_t	name_len;
@@ -102,15 +102,13 @@ t_status	update_expand_data(char **data, size_t *data_i, t_shell *shell,
 	str = NULL;
 	if (get_var_name(*data + *data_i + 1, &str, data_i))
 		return (ALLOCATION_FAILURE);
-	if (!str)
-		return (SUCCESS);
 	name_len = ft_strlen(str);
 	value = get_expand_value(str, shell);
 	free(str);
 	if (!value && is_red)
 	{
 		amb_red_error_print(*data);
-		return (REDIRECTION_FAILURE);
+		return (FAILURE);
 	}
 	str = calloc(ft_strlen(*data) - name_len + ft_strlen(value), 1);
 	if (!str)
@@ -141,7 +139,7 @@ void	expand(t_ast_lst *node, t_status *status, t_shell *shell, int is_red)
 		{
 			if (node->data[i] == '$' && node->data[i + 1])
 			{
-				*status = update_expand_data(&node->data, &i, shell, is_red);
+				*status = expand_node(&node->data, &i, shell, is_red);
 				if (!*status)
 					update_ast(node, status);
 			}
