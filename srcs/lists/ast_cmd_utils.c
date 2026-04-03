@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_cmd_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:48:22 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/02 13:59:56 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/03 15:39:22 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ bool	is_cmp_pipe(t_ast_lst *node)
 		return (true);
 	if (node->right && CMP_CMD == node->right->token)
 		return (true);
-	return (false);	
+	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/24 10:22:00 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/03 15:29:59 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,14 @@ char	*get_expand_value(char *var_name, t_shell *shell)
 	else if (!tmp && ft_strcmp(var_name, "?") == 0)
 		value = ft_itoa(shell->exitno);
 	return (value);
+}
+
+int	is_redirection(t_ast_lst *node)
+{
+	if (!node)
+		return (0);
+	if (node->token == DLESS || node->token == DGREAT
+		|| node->token == LESS || node->token == GREAT)
+		return (1);
+	return (0);
 }
