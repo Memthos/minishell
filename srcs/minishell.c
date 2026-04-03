@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 14:58:51 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/03 15:08:05 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static t_status	minishell(t_shell *shell)
 		line = readline("$> ");
 		if (NULL == line)
 			break ;
-		add_history(line);
+		if (!str_is_empty(line))
+			add_history(line);
 		init_execution_signals();
 		if (SUCCESS != parser(line, shell))
 		{
