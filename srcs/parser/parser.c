@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/01 17:34:41 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/03 15:31:06 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_status	parser(char *s, t_shell *shell)
 	cur = shell->cmd_ast;
 	while (!status && cur)
 	{
-		expand(cur->ast, &status, shell);
+		expand(cur->ast, &status, shell, 0);
 		apply_wildcards(cur->ast, &status);
 		remove_ast_quotes(cur->ast, &status);
 		cur = cur->next;

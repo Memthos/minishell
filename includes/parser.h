@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/01 17:34:32 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/03 15:33:05 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,20 @@
 /// @param node The node with the data to expand.
 /// @param status The status of the parser.
 /// @param shell A reference to the variables of the shell.
-void		expand(t_ast_lst *node, t_status *status, t_shell *shell);
+/// @param is_red Param to check whether or not the node is the WORD of
+/// a redirection.
+void		expand(t_ast_lst *node, t_status *status, t_shell *shell,
+				int is_red);
 
 /// @brief Function to expand the given data.
 /// @param data THe data to expand.
 /// @param data_i The current index in the data.
 /// @param shell A pointer to the shell struct.
+/// @param is_red Param to check whether or not the node is the WORD of
+/// a redirection.
 /// @return The exit status of the function
-t_status	update_expand_data(char **data, size_t *data_i, t_shell *shell);
+t_status	update_expand_data(char **data, size_t *data_i, t_shell *shell,
+				int is_red);
 
 /// @brief Function to check if the node data can be expanded
 /// @param node he node with the data to expand.
@@ -39,6 +45,11 @@ int			can_expand(t_ast_lst *node);
 /// @param shell A reference to the variables of the shell.
 /// @return Either the variable value or NULL if nothing was found.
 char		*get_expand_value(char *var_name, t_shell *shell);
+
+/// @brief Check whether or not the node is the WORD of a redirection
+/// @param node THe node to check
+/// @return 1 if True, else 0.
+int			is_redirection(t_ast_lst *node);
 
 /// @brief Function to get the number of quotes to remove the the given node.
 /// @param ast A pointer to the ast node.

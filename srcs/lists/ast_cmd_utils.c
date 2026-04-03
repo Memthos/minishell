@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:48:22 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/03 13:29:10 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/03 15:53:41 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ bool	is_cmp_pipe(t_ast_lst *node)
 		return (true);
 	if (node->right && CMP_CMD == node->right->token)
 		return (true);
-	return (false);	
+	return (false);
 }

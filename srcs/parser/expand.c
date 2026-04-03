@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/30 14:39:47 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/03 15:45:00 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ static int	get_var_name(char *s, char **name, size_t *data_i)
 	return (0);
 }
 
-t_status	update_expand_data(char **data, size_t *data_i, t_shell *shell)
+t_status	update_expand_data(char **data, size_t *data_i, t_shell *shell,
+	int is_red)
 {
 	size_t	name_len;
 	char	*value;
@@ -106,6 +107,11 @@ t_status	update_expand_data(char **data, size_t *data_i, t_shell *shell)
 	name_len = ft_strlen(str);
 	value = get_expand_value(str, shell);
 	free(str);
+	if (!value && is_red)
+	{
+		amb_red_error_print(*data);
+		return (REDIRECTION_FAILURE);
+	}
 	str = calloc(ft_strlen(*data) - name_len + ft_strlen(value), 1);
 	if (!str)
 		return (ALLOCATION_FAILURE);
@@ -120,7 +126,7 @@ t_status	update_expand_data(char **data, size_t *data_i, t_shell *shell)
 	return (SUCCESS);
 }
 
-void	expand(t_ast_lst *node, t_status *status, t_shell *shell)
+void	expand(t_ast_lst *node, t_status *status, t_shell *shell, int is_red)
 {
 	size_t		i;
 	size_t		quotes_rmv;
@@ -135,16 +141,16 @@ void	expand(t_ast_lst *node, t_status *status, t_shell *shell)
 		{
 			if (node->data[i] == '$' && node->data[i + 1])
 			{
-				*status = update_expand_data(&node->data, &i, shell);
+				*status = update_expand_data(&node->data, &i, shell, is_red);
 				if (!*status)
 					update_ast(node, status);
 			}
 			else
 				i++;
 		}
-		if (quotes_rmv > 0 && quotes_rmv % 2 == 0)
+		if (!*status && quotes_rmv > 0 && quotes_rmv % 2 == 0)
 			*status = remove_quotes(node, quotes_rmv);
 	}
-	expand(node->left, status, shell);
-	expand(node->right, status, shell);
+	expand(node->left, status, shell, is_redirection(node));
+	expand(node->right, status, shell, is_redirection(node));
 }
