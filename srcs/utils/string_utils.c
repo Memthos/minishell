@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 09:42:06 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/24 10:49:53 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/03 15:05:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,11 @@ void	free_strings(char **strs)
 	}
 	free(strs);
 	return ;
+}
+
+bool	str_is_empty(char *str)
+{
+	if (NULL == str || 0 == str[0])
+		return (true);
+	return (false);
 }
