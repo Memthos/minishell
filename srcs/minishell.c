@@ -6,17 +6,38 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/06 20:57:48 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/06 21:01:47 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+static void	exec_asts(t_shell *shell)
+{
+	t_cmd_lst	*cur_ast;
+	t_status	code;
+
+	cur_ast = shell->cmd_ast;
+	while (cur_ast)
+	{
+		if (final_parsing(shell, cur_ast->ast))
+			continue ;
+		code = execute(cur_ast->ast, shell);
+		wait_for_processes(shell);
+		if (code && !shell->exitno)
+			shell->exitno = code;
+		dprintf(2, "$? : %d\n", shell->exitno);
+		shell->pipes.pipe_index = 0;
+		shell->pipes.cmp_pipe_index = 0;
+		shell->oldexitno = shell->exitno;
+		shell->exitno = SUCCESS;
+		cur_ast = cur_ast->next;
+	}
+}
+
 static t_status	minishell(t_shell *shell)
 {
 	char		*line;
-	t_status	code;
-	t_cmd_lst	*cur_ast;
 
 	while (true)
 	{
@@ -31,22 +52,7 @@ static t_status	minishell(t_shell *shell)
 			cmds_lst_clear(&shell->cmd_ast);
 			continue ;
 		}
-		cur_ast = shell->cmd_ast;
-		while (cur_ast)
-		{
-			if (final_parsing(shell, cur_ast->ast))
-				continue ;
-			code = execute(cur_ast->ast, shell);
-			wait_for_processes(shell);
-			if (code && !shell->exitno)
-				shell->exitno = code;
-			dprintf(2, "$? : %d\n", shell->exitno);
-			shell->pipes.pipe_index = 0;
-			shell->pipes.cmp_pipe_index = 0;
-			shell->oldexitno = shell->exitno;
-			shell->exitno = SUCCESS;
-			cur_ast = cur_ast->next;
-		}
+		exec_asts(shell);
 		cmds_lst_clear(&shell->cmd_ast);
 		init_normal_signals();
 	}
