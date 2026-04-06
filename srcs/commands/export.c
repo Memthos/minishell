@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:17:30 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/21 15:41:10 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/06 17:09:48 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ t_status	cmd_export(char **args, t_shell *shell)
 	while (*args)
 	{
 		concat = false;
+		if ('=' == **args)
+		{
+			error_output("export : not a valid identifier", -1);
+			++args;
+			continue ;
+		}
 		entry = split_at(*args, '=');
 		if (NULL == entry)
 		{
@@ -42,16 +48,12 @@ t_status	cmd_export(char **args, t_shell *shell)
 			{
 				error_output("export : not a valid identifier", -1);
 				code = FAILURE;
+				++args;
+				continue ;
 			}
+			if (NULL == dict_add(&shell->env, ft_strdup(*args), NULL))
+				perror("malloc");
 			++args;
-			continue ;
-		}
-		if (0 == ft_strlen(entry[0]) || 0 == ft_strlen(entry[1]))
-		{
-			++args;
-			free(entry[0]);
-			free(entry[1]);
-			free(entry);
 			continue ;
 		}
 		if (entry[0][ft_strlen(entry[0]) - 1] == '+')
