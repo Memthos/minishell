@@ -72,7 +72,7 @@ fclean: clean
 	@make -sC $(LIBFT_DIR) fclean
 	@echo "Cleaned Minishell"
 
-re: clean all
+re: fclean all
 	@echo "Recompiled Minishell"
 
 .PHONY: all clean fclean re bonus
