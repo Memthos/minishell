@@ -6,23 +6,19 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 09:42:06 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/03 21:15:53 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/06 21:11:39 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	str_is_digit(char *str)
+void	swap_str(char **a, char **b)
 {
-	if (NULL == str)
-		return (false);
-	while (*str)
-	{
-		if (!ft_isdigit(*str))
-			return (false);
-		++str;
-	}
-	return (true);
+	char	*tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
 }
 
 char	**split_at(const char *str, const char c)
