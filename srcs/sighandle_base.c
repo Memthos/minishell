@@ -1,62 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sighandle.c                                        :+:      :+:    :+:   */
+/*   sighandle_defaults.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 00:46:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/06 21:06:05 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/06 21:05:40 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	g_signal = 0;
-
-static void	sig_intercept_normal(int signo, siginfo_t *info, void *other)
-{
-	(void)info;
-	(void)other;
-	g_signal = signo;
-	if (SIGINT == g_signal)
-	{
-		write(STDERR_FILENO, "\n", 1);
-		rl_replace_line("", 1);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	return ;
-}
-
-static void	sig_intercept_heredoc(int signo, siginfo_t *info, void *other)
-{
-	(void)info;
-	(void)other;
-	g_signal = signo;
-	if (SIGINT == g_signal)
-	{
-		write(STDERR_FILENO, "\n", 1);
-		rl_replace_line("", 1);
-		rl_on_new_line();
-		close(STDIN_FILENO);
-	}
-	return ;
-}
-
-t_status	init_normal_signals(void)
+t_status	init_execution_signals(void)
 {
 	struct sigaction	action;
 
 	ft_bzero(&action, sizeof(action));
-	action.sa_sigaction = &sig_intercept_normal;
-	action.sa_flags = 0;
+	action.sa_sigaction = NULL;
+	action.sa_handler = SIG_IGN;
 	if (SUCCESS != sigaction(SIGINT, &action, NULL))
 	{
 		perror("sigaction");
 		return (FAILURE);
 	}
-	action.sa_handler = SIG_IGN;
 	if (SUCCESS != sigaction(SIGQUIT, &action, NULL))
 	{
 		perror("sigaction");
@@ -65,18 +32,18 @@ t_status	init_normal_signals(void)
 	return (SUCCESS);
 }
 
-t_status	heredoc_signals(void)
+t_status	restore_signals(void)
 {
 	struct sigaction	action;
 
 	ft_bzero(&action, sizeof(action));
-	action.sa_sigaction = &sig_intercept_heredoc;
+	action.sa_sigaction = NULL;
+	action.sa_handler = SIG_DFL;
 	if (SUCCESS != sigaction(SIGINT, &action, NULL))
 	{
 		perror("sigaction");
 		return (FAILURE);
 	}
-	action.sa_handler = SIG_IGN;
 	if (SUCCESS != sigaction(SIGQUIT, &action, NULL))
 	{
 		perror("sigaction");

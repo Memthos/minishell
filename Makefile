@@ -9,7 +9,7 @@ SRCS =	minishell.c \
 		shell.c \
 		pipes.c \
 		execute.c \
-		sighandle.c \
+		sighandle.c sighandle_base.c \
 		error_output.c \
 		utils.c string_utils.c \
 		heredoc.c \
