@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 21:12:56 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/06 20:32:22 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		expand(t_ast_lst *node, t_status *status, t_shell *shell,
 t_status	expand_node(char **data, size_t *idx, t_shell *shell, int is_red);
 
 /// @brief Function to check if the node data can be expanded
-/// @param node he node with the data to expand.
+/// @param node The node with the data to expand.
 /// @return 1 if the data can be expanded, else 0.
 int			can_expand(t_ast_lst *node);
 
@@ -77,6 +77,13 @@ void		lexer(t_lxr_lst **lxr, char *s, t_status *status);
 /// @param s The line written by the user.
 /// @return The status of the parser
 t_status	parser(char *s, t_shell *shell);
+
+/// @brief The final step of the parsing, it makes the expand,
+/// set the wildcards and removes the quotes.
+/// @param shell A reference to the variables of the shell.
+/// @param ast A pointer to the ast.
+/// @return The exit status.
+t_status	final_parsing(t_shell *shell, t_ast_lst *ast);
 
 /**
  * @brief Return a new string of len size from input.

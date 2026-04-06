@@ -6,11 +6,26 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 18:46:56 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/06 20:57:35 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+t_status	final_parsing(t_shell *shell, t_ast_lst *ast)
+{
+	expand(ast, &shell->exitno, shell, 0);
+	apply_wildcards(ast, &shell->exitno);
+	remove_ast_quotes(ast, &shell->exitno);
+	if (shell->exitno == ALLOCATION_FAILURE)
+	{
+		error_output("execution", shell->exitno);
+		shell->exitno = 1;
+	}
+	if (shell->exitno)
+		return (FAILURE);
+	return (SUCCESS);
+}
 
 char	*make_str(char *input, size_t len)
 {
@@ -30,7 +45,6 @@ char	*make_str(char *input, size_t len)
 t_status	parser(char *s, t_shell *shell)
 {
 	t_lxr_lst	*lxr;
-	t_cmd_lst	*cur;
 
 	lxr = NULL;
 	if (!s)
@@ -40,18 +54,10 @@ t_status	parser(char *s, t_shell *shell)
 	checker_lxr(lxr, &shell->exitno);
 	complete_command_r(&lxr, shell, &shell->exitno);
 	lxr_lst_clear(&lxr);
-	cur = shell->cmd_ast;
-	while (!shell->exitno && cur)
-	{
-		expand(cur->ast, &shell->exitno, shell, 0);
-		apply_wildcards(cur->ast, &shell->exitno);
-		remove_ast_quotes(cur->ast, &shell->exitno);
-		cur = cur->next;
-	}
 	if (shell->exitno == ALLOCATION_FAILURE)
 	{
 		error_output("parser", shell->exitno);
-		shell->exitno = 2;
+		shell->exitno = 1;
 	}
 	return (shell->exitno);
 }

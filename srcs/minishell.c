@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/06 16:45:15 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/06 20:57:48 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static t_status	minishell(t_shell *shell)
 		cur_ast = shell->cmd_ast;
 		while (cur_ast)
 		{
+			if (final_parsing(shell, cur_ast->ast))
+				continue ;
 			code = execute(cur_ast->ast, shell);
 			wait_for_processes(shell);
 			if (code && !shell->exitno)
