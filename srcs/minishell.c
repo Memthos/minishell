@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 16:04:48 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/06 16:45:15 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static t_status	minishell(t_shell *shell)
 			dprintf(2, "$? : %d\n", shell->exitno);
 			shell->pipes.pipe_index = 0;
 			shell->pipes.cmp_pipe_index = 0;
+			shell->oldexitno = shell->exitno;
 			shell->exitno = SUCCESS;
 			cur_ast = cur_ast->next;
 		}

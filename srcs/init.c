@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/31 13:12:53 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/06 16:43:27 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void	set_shell(t_shell *shell)
 	shell->cmd_ast = NULL;
 	shell->cur_cmd = NULL;
 	shell->exitno = SUCCESS;
+	shell->oldexitno = SUCCESS;
 	shell->cmp_depth = 0;
 	init_pipes(&shell->pipes);
 	shell->redirects.stdin_dup = dup(STDIN_FILENO);
