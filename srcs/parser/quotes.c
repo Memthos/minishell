@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 16:56:31 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/23 16:16:47 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/06 20:22:11 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void	remove_ast_quotes(t_ast_lst *ast, t_status *status)
 	if (ast->data && ast->expand_state != DENY)
 		remove_node_quotes(ast, status);
 	remove_ast_quotes(ast->left, status);
-	remove_ast_quotes(ast->right, status);
+	if (ast->token != AND_IF && ast->token != OR_IF)
+		remove_ast_quotes(ast->right, status);
 }

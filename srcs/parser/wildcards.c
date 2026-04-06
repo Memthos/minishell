@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:56:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/23 13:17:14 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/06 20:21:58 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ void	apply_wildcards(t_ast_lst *node, t_status *status)
 	if (files)
 		files_lst_clear(&files);
 	apply_wildcards(node->left, status);
-	apply_wildcards(node->right, status);
+	if (node->token != AND_IF && node->token != OR_IF)
+		apply_wildcards(node->right, status);
 }

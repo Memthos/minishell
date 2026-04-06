@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 21:22:07 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/06 20:21:17 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	update_ast(t_ast_lst *node, t_status *status)
 	t_lxr_lst	*lxr;
 	t_ast_lst	*right;
 
+	if (*status)
+		return ;
 	lxr = NULL;
 	right = node->right;
 	lexer(&lxr, node->data, status);
@@ -127,8 +129,7 @@ void	expand(t_ast_lst *node, t_status *status, t_shell *shell, int is_red)
 			if (node->data[i] == '$' && node->data[i + 1])
 			{
 				*status = expand_node(&node->data, &i, shell, is_red);
-				if (!*status)
-					update_ast(node, status);
+				update_ast(node, status);
 			}
 			else
 				i++;
@@ -137,5 +138,6 @@ void	expand(t_ast_lst *node, t_status *status, t_shell *shell, int is_red)
 			*status = remove_quotes(node, quotes_rmv);
 	}
 	expand(node->left, status, shell, is_redirection(node));
-	expand(node->right, status, shell, is_redirection(node));
+	if (node->token != AND_IF && node->token != OR_IF)
+		expand(node->right, status, shell, is_redirection(node));
 }
