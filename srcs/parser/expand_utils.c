@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 21:22:03 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/06 20:26:54 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*get_expand_value(char *var_name, t_shell *shell, t_status *status)
 	}
 	else if (!tmp && ft_strcmp(var_name, "?") == 0)
 	{
-		value = ft_itoa(shell->exitno);
+		value = ft_itoa(shell->oldexitno);
 		if (!value)
 		{
 			*status = ALLOCATION_FAILURE;
