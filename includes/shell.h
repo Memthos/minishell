@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/03 15:53:45 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/06 16:43:15 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_shell
 	char			**cur_cmd;
 	t_uint			cur_cmd_index;
 	t_status		exitno;
+	t_status		oldexitno;
 	t_pipe_logic	pipes;
 	t_redir_logic	redirects;
 	t_uint8			heredoc_max;

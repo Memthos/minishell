@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 11:43:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/13 14:35:00 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/06 17:05:04 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void	dict_display(t_dictionary *dict, char *prefix, char *sep, char *suffix)
 {
 	while (dict)
 	{
-		printf("%s%s%s%s%s\n", prefix, dict->key, sep, (char *)dict->data, suffix);
+		printf("%s%s", prefix, dict->key);
+		if (NULL != dict->data)
+			printf("%s%s%s", sep, (char *)dict->data, suffix);
+		printf("\n");
 		dict = dict->next;
 	}
 	return ;
