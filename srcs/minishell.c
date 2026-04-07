@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/06 21:01:47 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 09:55:07 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ static t_status	minishell(t_shell *shell)
 		init_execution_signals();
 		if (SUCCESS != parser(line, shell))
 		{
+			dprintf(2, "$? : %d\n", shell->exitno);
 			cmds_lst_clear(&shell->cmd_ast);
+			shell->oldexitno = shell->exitno;
+			shell->exitno = SUCCESS;
 			continue ;
 		}
 		exec_asts(shell);
