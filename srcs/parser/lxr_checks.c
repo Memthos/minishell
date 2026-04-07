@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lxr_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 17:01:37 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 16:11:51 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:54:06 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ static t_status	quote_check(t_lxr_lst *lxr)
 		i++;
 	}
 	if (quote_state == D_QUOTE)
-		parser_error_print("'");
-	else if (quote_state == S_QUOTE)
 		parser_error_print("\"");
+	else if (quote_state == S_QUOTE)
+		parser_error_print("'");
 	else
 		return (SUCCESS);
 	return (BAD_ARG);
