@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 14:44:57 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 15:50:42 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	if (WORD == cmd->token)
 	{
 		execute(cmd->left, shell);
-		if (SUCCESS != shell->exitno)
+		if (128 + SIGPIPE == shell->exitno)
 			return (shell->exitno);
 		if (NULL == shell->cur_cmd)
 		{
@@ -156,18 +156,12 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	{
 		execute(cmd->left, shell);
 		wait_for_processes(shell);
-		if (SIGINT + 128 == shell->exitno)
-			return (shell->exitno);
-		shell->oldexitno = shell->exitno;
 		if (final_parsing(shell, &cmd->right))
 			return (shell->exitno);
 		if (AND_IF == cmd->token && SUCCESS == shell->exitno)
 			execute(cmd->right, shell);
 		if (OR_IF == cmd->token && SUCCESS != shell->exitno)
-		{
-			shell->exitno = SUCCESS;
 			execute(cmd->right, shell);
-		}
 	}
 	if (CMP_CMD == cmd->token)
 	{
