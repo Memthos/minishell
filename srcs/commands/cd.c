@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:11:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 14:42:36 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 15:01:50 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_status	cmd_cd(char **args, t_shell *shell)
 		dir = dict_get(shell->env, "HOME");
 		if (NULL == dir)
 		{
-			error_output(NULL, "cd : HOME not set", NO_ERR_MSG);
+			error_output("cd", "HOME not set", NO_ERR_MSG);
 			return (FAILURE);
 		}
 		path = dir->data;
@@ -37,7 +37,7 @@ t_status	cmd_cd(char **args, t_shell *shell)
 		dir = dict_get(shell->env, "OLDPWD");
 		if (NULL == dir)
 		{
-			error_output(NULL, "cd : OLDPWD not set", NO_ERR_MSG);
+			error_output("cd", "OLDPWD not set", NO_ERR_MSG);
 			return (FAILURE);
 		}
 		path = dir->data;
