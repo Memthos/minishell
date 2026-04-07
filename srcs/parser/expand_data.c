@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 15:54:54 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 17:55:00 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	get_var_name(char *s, char **name, size_t *i)
 	if (s[0] == '~')
 		ft_strlcpy(*name, "HOME", size + 1);
 	else
-		ft_strlcpy(*name, s, size + 1);
+		ft_strlcpy(*name, s + 1, size + 1);
 	return (0);
 }
 

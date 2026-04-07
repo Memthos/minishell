@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 15:56:55 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 17:53:15 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	expand(t_ast_lst **node, t_status *status, t_shell *shell, int is_red)
 		{
 			ast_lst_pop(node);
 			if (!node || !*node)
-				return (1);
+				return ;
 		}
 		if (!*status && quotes_rmv > 0 && quotes_rmv % 2 == 0)
 			*status = remove_quotes(*node, quotes_rmv);

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 15:54:48 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 16:02:03 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	can_expand(t_ast_lst *node, t_status *status, t_shell *shell)
 	{
 		if (dict_get(shell->env, "HOME"))
 			return (1);
-		error_output("cd : HOME not set", -1);
+		error_output(NULL, "HOME not set", NO_ERR_MSG);
 		*status = FAILURE;
 		return (0);
 	}
