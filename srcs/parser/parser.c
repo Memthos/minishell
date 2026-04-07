@@ -6,16 +6,16 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/06 20:57:35 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 10:15:08 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	final_parsing(t_shell *shell, t_ast_lst *ast)
+t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
 {
 	expand(ast, &shell->exitno, shell, 0);
-	apply_wildcards(ast, &shell->exitno);
+	apply_wildcards(*ast, &shell->exitno);
 	remove_ast_quotes(ast, &shell->exitno);
 	if (shell->exitno == ALLOCATION_FAILURE)
 	{

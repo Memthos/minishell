@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 15:53:49 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 10:09:16 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,11 @@ t_ast_lst	*ast_lst_new_char(char *data, t_token token, t_status *status);
 /// @brief Clear the ast.
 /// @param head A pointer to the first node of the ast.
 void		ast_lst_clear(t_ast_lst **head);
+
+/// @brief Pop a node from the ast.
+/// @param node The node to pop.
+/// @return The updated node.
+t_ast_lst	*ast_lst_pop(t_ast_lst **node);
 
 /// @brief Returns the last node of the list.
 /// @param head The head / start of the list.

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 16:56:31 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/06 20:22:11 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 10:12:11 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,33 +63,35 @@ t_status	remove_quotes(t_ast_lst *ast, size_t quotes_rmv)
 	return (SUCCESS);
 }
 
-void	remove_node_quotes(t_ast_lst *ast, t_status *status)
+void	remove_node_quotes(t_ast_lst **ast, t_status *status)
 {
 	size_t		i;
 	size_t		quotes_rmv;
 	t_quote_t	quote_state;
 
-	if (!ast || !ast->data)
+	if (!ast || !*ast || !(*ast)->data)
 		return ;
 	i = 0;
 	quotes_rmv = 0;
 	quote_state = NONE;
-	while (ast->data[i++])
+	while ((*ast)->data[i++])
 	{
-		if (set_quote_state(&quote_state, ast->data[i - 1]))
+		if (set_quote_state(&quote_state, (*ast)->data[i - 1]))
 			quotes_rmv++;
 	}
 	if (quotes_rmv > 0 && quotes_rmv % 2 == 0)
-		*status = remove_quotes(ast, quotes_rmv);
+		*status = remove_quotes(*ast, quotes_rmv);
+	if (quotes_rmv == 0 && ft_strlen((*ast)->data) == 0)
+		ast_lst_pop(ast);
 }
 
-void	remove_ast_quotes(t_ast_lst *ast, t_status *status)
+void	remove_ast_quotes(t_ast_lst **ast, t_status *status)
 {
-	if (*status || !ast)
+	if (*status || !ast || !*ast)
 		return ;
-	if (ast->data && ast->expand_state != DENY)
+	if ((*ast)->data && (*ast)->expand_state != DENY)
 		remove_node_quotes(ast, status);
-	remove_ast_quotes(ast->left, status);
-	if (ast->token != AND_IF && ast->token != OR_IF)
-		remove_ast_quotes(ast->right, status);
+	remove_ast_quotes(&(*ast)->left, status);
+	if ((*ast)->token != AND_IF && (*ast)->token != OR_IF)
+		remove_ast_quotes(&(*ast)->right, status);
 }

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/06 20:32:22 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 10:18:56 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 /// @param shell A reference to the variables of the shell.
 /// @param is_red Param to check whether or not the node is the WORD of
 /// a redirection.
-void		expand(t_ast_lst *node, t_status *status, t_shell *shell,
+void		expand(t_ast_lst **node, t_status *status, t_shell *shell,
 				int is_red);
 
 /// @brief Function to expand the given data.
@@ -83,7 +83,7 @@ t_status	parser(char *s, t_shell *shell);
 /// @param shell A reference to the variables of the shell.
 /// @param ast A pointer to the ast.
 /// @return The exit status.
-t_status	final_parsing(t_shell *shell, t_ast_lst *ast);
+t_status	final_parsing(t_shell *shell, t_ast_lst **ast);
 
 /**
  * @brief Return a new string of len size from input.
@@ -119,12 +119,12 @@ t_status	remove_quotes(t_ast_lst *ast, size_t quotes_rmv);
 /// @brief Remove the quotes of the given node.
 /// @param ast A pointer to the ast node.
 /// @param status The status of the parser.
-void		remove_node_quotes(t_ast_lst *ast, t_status *status);
+void		remove_node_quotes(t_ast_lst **ast, t_status *status);
 
 /// @brief Remove the unnecessary quotes for the date of each lexer node.
 /// @param ast A pointer to the head of the ast.
 /// @param status The status of the parser.
-void		remove_ast_quotes(t_ast_lst *ast, t_status *status);
+void		remove_ast_quotes(t_ast_lst **ast, t_status *status);
 
 /// @brief Search for wildcards if necessary and add them to the ast.
 /// @param ast A pointer to the head of the ast.
