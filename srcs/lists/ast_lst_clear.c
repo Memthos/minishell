@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:07:53 by mperrine          #+#    #+#             */
-/*   Updated: 2026/02/20 12:53:50 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 10:55:35 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,40 @@ void	ast_lst_clear(t_ast_lst **head)
 		free((*head)->data);
 	free(*head);
 	*head = NULL;
+}
+
+t_ast_lst	*ast_lst_pop(t_ast_lst **node)
+{
+	t_ast_lst	*new_next;
+
+	if (!node || !*node)
+		return (NULL);
+	if ((*node)->left)
+		ast_lst_clear(&(*node)->left);
+	if (!(*node)->right)
+	{
+		if ((*node)->data)
+			free((*node)->data);
+		free(*node);
+		*node = NULL;
+		return (NULL);
+	}
+	new_next = (*node)->right->right;
+	if ((*node)->data)
+		free((*node)->data);
+	(*node)->data = (*node)->right->data;
+	free((*node)->right);
+	(*node)->right = new_next;
+	return (*node);
+}
+
+int	check_node_data(t_ast_lst **node)
+{
+	if (ft_strlen((*node)->data) == 0)
+	{
+		ast_lst_pop(node);
+		if (!node || !*node)
+			return (1);
+	}
+	return (0);
 }
