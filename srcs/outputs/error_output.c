@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:23:31 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 10:27:54 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:20:47 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 t_status	error_output(const char *arg, int error)
 {
 	const char	*error_msgs[] = {
-		"success", "failure", "bad argument", "overflow", "underflow",
-		"allocation failure", "execve failure", "pipe failure", "fork failure",
-		"dup failure", "open failure", "No such file or directory",
-		"Permission denied", "command not found", "Is a directory",
-		"maximum here-document count exceeded",
+		"success", "failure", "bad argument", "too many arguments", "overflow",
+		"underflow", "allocation failure", "execve failure", "pipe failure",
+		"fork failure",	"dup failure", "open failure",
+		"No such file or directory", "Permission denied", "command not found",
+		"Is a directory", "maximum here-document count exceeded",
 		"Failed to read directory content"
 	};
 
