@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   definitions.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/03 16:09:08 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 10:27:40 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef enum e_return_status
 	FILE_NOT_FOUND,
 	PERMISSION_ERROR,
 	COMMAND_NOT_FOUND,
+	IS_DIRECTORY,
 	HEREDOC_COUNT_EXCEEDED,
 	READDIR_FAILURE,
 }	t_status;
