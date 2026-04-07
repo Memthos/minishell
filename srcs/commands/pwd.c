@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 09:48:05 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/21 16:16:16 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 13:30:56 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char	*get_cwd(t_shell *shell)
 	cwd = getcwd(NULL, 0);
 	if (cwd)
 		return (cwd);
-	perror("pwd");
 	cwd_dict = dict_get(shell->env, "PWD");
 	if (NULL == cwd_dict)
 		return (NULL);
