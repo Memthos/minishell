@@ -3,35 +3,82 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/06 21:15:33 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 09:46:32 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-//NOT USED
-t_uint	count_words(const char *str, const char *set)
+void	swap_ptr(void **a, void **b)
 {
-	t_uint	count;
-	t_uint	index;
-	t_uint8	add;
+	void	*tmp;
 
-	count = 0;
-	add = 1;
-	index = 0;
-	while (*(str + index))
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+void	*increment_array(void *array, t_uint count, t_uint size)
+{
+	void	*new;
+
+	if (NULL == array)
 	{
-		if (strchr(set, *(str + index)))
-			add = 1;
-		else if (add)
-		{
-			++count;
-			add = 0;
-		}
-		++index;
+		array = ft_calloc(1, size);
+		if (NULL == array)
+			return (NULL);
+		return (array);
 	}
-	return (count);
+	if (0 == count)
+		return (array);
+	new = ft_calloc(count + 1, size);
+	if (NULL == new)
+		return (NULL);
+	ft_memcpy(new, array, count * size);
+	free(array);
+	return (new);
+}
+
+t_status	get_number(const char *s, int *number)
+{
+	int		sign;
+	t_uint	index;
+
+	if (NULL == s || NULL == number)
+		return (FAILURE);
+	index = 0;
+	while ((*(s + index) >= 9 && *(s + index) <= 13) || ' ' == *(s + index))
+		++index;
+	sign = 1;
+	if (*(s + index) == '-' || *(s + index) == '+')
+		sign = (*(s + index++) % 43) * -1 + 1;
+	*number = 0;
+	while (ft_isdigit(*(s + index)))
+	{
+		if (((long)(*number) *10 + (*(s + index) - '0')) * sign > INT32_MAX)
+			return (OVERFLOW);
+		if (((long)(*number) *10 + (*(s + index) - '0')) * sign < INT32_MIN)
+			return (UNDERFLOW);
+		*number = *number * 10 + (*(s + index++) - '0');
+	}
+	*number *= sign;
+	if (*(s + index))
+		return (BAD_ARG);
+	return (SUCCESS);
+}
+
+int	ft_close(int *fd)
+{
+	int	code;
+
+	if (*fd < 0)
+		return (SUCCESS);
+	code = close(*fd);
+	if (SUCCESS != code)
+		perror("close");
+	*fd = -1;
+	return (code);
 }

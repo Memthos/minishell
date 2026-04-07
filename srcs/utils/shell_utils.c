@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 21:13:55 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/06 21:14:51 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 09:52:29 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,6 @@ t_dictionary	*update_shlvl(t_dictionary **env)
 	if (NULL == shlvl->data)
 		perror("malloc");
 	return (*env);
-}
-
-int	ft_close(int *fd)
-{
-	int	code;
-
-	if (*fd < 0)
-		return (SUCCESS);
-	code = close(*fd);
-	if (SUCCESS != code)
-		perror("close");
-	*fd = -1;
-	return (code);
 }
 
 bool	check_path(t_shell *shell)
@@ -73,25 +60,4 @@ bool	check_var_name(char *name)
 		++name;
 	}
 	return (true);
-}
-
-void	*increment_array(void *array, t_uint count, t_uint size)
-{
-	void	*new;
-
-	if (NULL == array)
-	{
-		array = ft_calloc(1, size);
-		if (NULL == array)
-			return (NULL);
-		return (array);
-	}
-	if (0 == count)
-		return (array);
-	new = ft_calloc(count + 1, size);
-	if (NULL == new)
-		return (NULL);
-	ft_memcpy(new, array, count * size);
-	free(array);
-	return (new);
 }
