@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 10:55:38 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 15:56:55 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,41 +41,25 @@ static void	update_ast(t_ast_lst *node, t_status *status)
 		ast_lst_clear(&right);
 }
 
-static int	get_var_name(char *s, char **name)
-{
-	size_t	size;
-
-	size = 0;
-	if (ft_isalpha(s[0]) || s[0] == '_')
-	{
-		while (ft_isalnum(s[size]) || s[size] == '_')
-			size++;
-	}
-	else if (s[0] == '?' || s[0] == '@' || s[0] == '*' || s[0] == '#'
-		|| s[0] == '$' || s[0] == '!' || s[0] == '-' || s[0] == '_'
-		|| ft_isdigit(s[0]))
-		size = 1;
-	else
-		return (0);
-	*name = malloc(sizeof(char) * (size + 1));
-	if (!*name)
-		return (1);
-	ft_strlcpy(*name, s, size + 1);
-	return (0);
-}
-
 static int	update_node_data(char **data, size_t name_len, char *val, size_t *i)
 {
 	char	*res;
 
-	res = calloc(ft_strlen(*data) - name_len + ft_strlen(val), 1);
+	if ((*data)[0] == '~')
+		res = calloc(ft_strlen(*data) + ft_strlen(val), 1);
+	else
+		res = calloc(ft_strlen(*data) - name_len + ft_strlen(val), 1);
 	if (!res)
 		return (ALLOCATION_FAILURE);
-	ft_strlcpy(res, *data, *i);
+	ft_strlcpy(res, *data, *i + 1);
 	ft_strlcat(res, val, ft_strlen(res) + ft_strlen(val) + 1);
-	ft_strlcat(res, *data + *i + name_len, ft_strlen(res)
-		+ ft_strlen(*data + *i + name_len) + 1);
-	*i += ft_strlen(val) - 1;
+	if ((*data)[0] == '~')
+		ft_strlcat(res, *data + *i + 1, ft_strlen(res)
+			+ ft_strlen(*data + *i + 1) + 1);
+	else
+		ft_strlcat(res, *data + *i + 1 + name_len, ft_strlen(res)
+			+ ft_strlen(*data + *i + 1 + name_len) + 1);
+	*i += ft_strlen(val);
 	free(*data);
 	*data = res;
 	return (SUCCESS);
@@ -90,7 +74,7 @@ t_status	expand_node(char **data, size_t *i, t_shell *shell, int is_red)
 
 	status = SUCCESS;
 	var_name = NULL;
-	if (get_var_name(*data + *i, &var_name))
+	if (get_var_name(*data + *i, &var_name, i))
 		return (ALLOCATION_FAILURE);
 	name_len = ft_strlen(var_name);
 	var_value = get_expand_value(var_name, shell, &status);
@@ -110,27 +94,41 @@ t_status	expand_node(char **data, size_t *i, t_shell *shell, int is_red)
 	return (status);
 }
 
+static void	expand_loop(t_ast_lst **node, t_status *status, t_shell *shell,
+	int is_red)
+{
+	size_t	i;
+
+	i = 0;
+	while (!*status && (*node)->data && (*node)->data[i])
+	{
+		if (((*node)->data[i] == '$' && (*node)->data[i + 1])
+			|| (i == 0 && (*node)->data[i] == '~'))
+		{
+			*status = expand_node(&(*node)->data, &i, shell, is_red);
+			update_ast(*node, status);
+		}
+		else
+			i++;
+	}
+}
+
 void	expand(t_ast_lst **node, t_status *status, t_shell *shell, int is_red)
 {
-	size_t		i;
 	size_t		quotes_rmv;
 
 	if (*status || !node || !*node)
 		return ;
-	i = 0;
 	quotes_rmv = 0;
-	if (can_expand(*node) && get_quotes_rmv(*node, &quotes_rmv))
+	if (can_expand(*node, status, shell) && get_quotes_rmv(*node, &quotes_rmv))
 	{
-		while (!*status && (*node)->data && (*node)->data[i++])
+		expand_loop(node, status, shell, is_red);
+		if (ft_strlen((*node)->data) == 0)
 		{
-			if ((*node)->data[i - 1] == '$' && (*node)->data[i])
-			{
-				*status = expand_node(&(*node)->data, &i, shell, is_red);
-				update_ast(*node, status);
-			}
+			ast_lst_pop(node);
+			if (!node || !*node)
+				return (1);
 		}
-		if (check_node_data(node))
-			return ;
 		if (!*status && quotes_rmv > 0 && quotes_rmv % 2 == 0)
 			*status = remove_quotes(*node, quotes_rmv);
 	}

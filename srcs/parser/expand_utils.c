@@ -6,19 +6,27 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/06 20:26:54 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 15:54:48 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	can_expand(t_ast_lst *node)
+int	can_expand(t_ast_lst *node, t_status *status, t_shell *shell)
 {
 	char	*s;
 
 	if (!node->data || node->expand_state == DENY
 		|| (node->token != WORD && node->token != WILDCARD))
 		return (0);
+	if (node->data[0] == '~')
+	{
+		if (dict_get(shell->env, "HOME"))
+			return (1);
+		error_output("cd : HOME not set", -1);
+		*status = FAILURE;
+		return (0);
+	}
 	s = ft_strchr(node->data, '$');
 	if (!s)
 		return (0);
@@ -48,34 +56,6 @@ int	get_quotes_rmv(t_ast_lst *ast, size_t *quotes_rmv)
 		i++;
 	}
 	return (1);
-}
-
-char	*get_expand_value(char *var_name, t_shell *shell, t_status *status)
-{
-	char	*value;
-	char	*tmp;
-
-	value = NULL;
-	tmp = dict_get_data(shell->env, var_name);
-	if (tmp)
-	{
-		value = ft_strdup(tmp);
-		if (!tmp)
-		{
-			*status = ALLOCATION_FAILURE;
-			return (NULL);
-		}
-	}
-	else if (!tmp && ft_strcmp(var_name, "?") == 0)
-	{
-		value = ft_itoa(shell->oldexitno);
-		if (!value)
-		{
-			*status = ALLOCATION_FAILURE;
-			return (NULL);
-		}
-	}
-	return (value);
 }
 
 int	is_redirection(t_ast_lst *node)

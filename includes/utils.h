@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 10:25:41 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:51:06 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ t_dictionary	*update_shlvl(t_dictionary **env);
 /**
  * @brief Returns true if path is a directory, false otherwise.
  */
-bool	is_dir(const char *path);
+bool			is_dir(const char *path);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 10:18:56 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 15:56:34 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,23 @@ t_status	expand_node(char **data, size_t *idx, t_shell *shell, int is_red);
 
 /// @brief Function to check if the node data can be expanded
 /// @param node The node with the data to expand.
+/// @param status The status of the parser.
+/// @param shell A reference to the variables of the shell.
 /// @return 1 if the data can be expanded, else 0.
-int			can_expand(t_ast_lst *node);
+int			can_expand(t_ast_lst *node, t_status *status, t_shell *shell);
 
 /// @brief Search a value for the expand variable name.
 /// @param var_name The name of the expand variable to search for.
 /// @param shell A reference to the variables of the shell.
 /// @return Either the variable value or NULL if nothing was found.
 char		*get_expand_value(char *var_name, t_shell *shell, t_status *status);
+
+/// @brief Get the name of the variable to expand.
+/// @param s The base string.
+/// @param name A pointer to the string that will contain the node.
+/// @param i The index where a $ was found.
+/// @return 1 if there was an allocation failure, else 0.
+int			get_var_name(char *s, char **name, size_t *i);
 
 /// @brief Check whether or not the node is the WORD of a redirection
 /// @param node THe node to check

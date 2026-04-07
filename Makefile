@@ -13,7 +13,7 @@ SRCS =	minishell.c \
 		error_output.c \
 		utils.c string_utils.c shell_utils.c \
 		heredoc.c \
-		parser.c expand.c expand_utils.c quotes.c \
+		parser.c expand.c expand_utils.c expand_data.c quotes.c \
 		wildcards.c wildcards_utils.c \
 		ast_lst_new.c ast_lst_clear.c ast_lst_last.c ast_tools.c \
 		ast_main_rules.c ast_cmp_rules.c ast_cmd_rules.c ast_cmd_utils.c \
