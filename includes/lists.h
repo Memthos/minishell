@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 10:09:16 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 10:55:32 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,11 @@ void		ast_lst_clear(t_ast_lst **head);
 /// @param node The node to pop.
 /// @return The updated node.
 t_ast_lst	*ast_lst_pop(t_ast_lst **node);
+
+/// @brief Removes the node if its sata is empty.
+/// @param node A pointer to the node.
+/// @return 1 if the ast is now NULL, else 0.
+int			check_node_data(t_ast_lst **node);
 
 /// @brief Returns the last node of the list.
 /// @param head The head / start of the list.

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 10:15:36 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 10:39:35 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	exec_asts(t_shell *shell)
 		wait_for_processes(shell);
 		if (code && !shell->exitno)
 			shell->exitno = code;
-		dprintf(2, "$? : %d\n", shell->exitno);
 		shell->pipes.pipe_index = 0;
 		shell->pipes.cmp_pipe_index = 0;
 		shell->oldexitno = shell->exitno;
@@ -49,7 +48,6 @@ static t_status	minishell(t_shell *shell)
 		init_execution_signals();
 		if (SUCCESS != parser(line, shell))
 		{
-			dprintf(2, "$? : %d\n", shell->exitno);
 			cmds_lst_clear(&shell->cmd_ast);
 			shell->oldexitno = shell->exitno;
 			shell->exitno = SUCCESS;
