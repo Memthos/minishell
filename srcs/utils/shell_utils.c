@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 21:13:55 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 09:52:29 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 10:23:20 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,13 @@ bool	check_var_name(char *name)
 		++name;
 	}
 	return (true);
+}
+
+bool	is_dir(const char *path)
+{
+	struct stat	stat_buf;
+
+	if (SUCCESS != access(path, F_OK) || SUCCESS != stat(path, &stat_buf))
+		return (false);
+	return (S_ISDIR(stat_buf.st_mode));
 }
