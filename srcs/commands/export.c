@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:17:30 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/06 17:09:48 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 11:03:09 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_status	cmd_export(char **args, t_shell *shell)
 		if ('=' == **args)
 		{
 			error_output("export : not a valid identifier", -1);
+			code = FAILURE;
 			++args;
 			continue ;
 		}
