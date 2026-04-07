@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:23:31 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 14:52:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 15:08:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_status	error_output(const char *cmd, const char *arg, int error)
 		"fork failure",	"dup failure", "open failure",
 		"No such file or directory", "Permission denied", "command not found",
 		"Is a directory", "maximum here-document count exceeded",
-		"Failed to read directory content"
+		"Failed to read directory content", "numeric argument required"
 	};
 
 	if (write(STDERR_FILENO, "minishell: ", 11) < 0)
@@ -31,16 +31,21 @@ t_status	error_output(const char *cmd, const char *arg, int error)
 	{
 		if (write(STDERR_FILENO, cmd, ft_strlen(cmd)) < 0)
 			code = FAILURE;
+		if (write(STDERR_FILENO, ": ", 2) < 0)
+			code = FAILURE;
 	}
 	if (NULL != arg)
 	{
 		if (write(STDERR_FILENO, arg, ft_strlen(arg)) < 0)
 			code = FAILURE;
+		if (error >= 0)
+		{
+			if (write(STDERR_FILENO, ": ", 2) < 0)
+				code = FAILURE;
+		}
 	}
 	if (error >= 0)
 	{
-		if (write(STDERR_FILENO, ": ", 2) < 0)
-			code = FAILURE;
 		if (write(2, error_msgs[error], ft_strlen(error_msgs[error])) < 0)
 			code = FAILURE;
 	}
