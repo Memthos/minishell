@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   definitions.h                                      :+:      :+:    :+:   */
+/*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 13:47:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 14:22:30 by juperrin         ###   ########.fr       */
+/*   Created: 2026/04/07 14:27:08 by juperrin          #+#    #+#             */
+/*   Updated: 2026/04/07 14:27:19 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINITIONS_H
-# define DEFINITIONS_H
+#ifndef TYPES_H
+# define TYPES_H
 
 typedef unsigned int	t_uint;
 typedef unsigned char	t_uint8;
