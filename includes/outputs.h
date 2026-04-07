@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:25:28 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 14:26:56 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:35:20 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * @param error The error message to display
  * @return Returns 0 on success, 1 on failure
  */
-t_status	error_output(const char *arg, int error);
+t_status	error_output(const char *cmd, const char *arg, int error);
 
 /// @brief Display an error from the parser on the stderr
 /// @param arg The arg that failed.
