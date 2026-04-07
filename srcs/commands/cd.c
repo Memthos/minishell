@@ -6,20 +6,20 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:11:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/02 13:25:42 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:22:44 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	cmd_cd(char **args, t_shell *shell) //don't forget the ~ for the home
+t_status	cmd_cd(char **args, t_shell *shell)
 {
 	t_dictionary	*dir;
 	char			*path;
 
 	if (NULL != args[1] && NULL != args[2])
 	{
-		error_output("cd : too many arguments", -1);
+		error_output("cd", TOO_MUCH_ARG);
 		return (FAILURE);
 	}
 	if (NULL == args[1])
@@ -27,7 +27,7 @@ t_status	cmd_cd(char **args, t_shell *shell) //don't forget the ~ for the home
 		dir = dict_get(shell->env, "HOME");
 		if (NULL == dir)
 		{
-			error_output("cd : HOME not set", -1);
+			error_output("cd : HOME not set", NO_ERR_MSG);
 			return (FAILURE);
 		}
 		path = dir->data;
@@ -37,13 +37,18 @@ t_status	cmd_cd(char **args, t_shell *shell) //don't forget the ~ for the home
 		dir = dict_get(shell->env, "OLDPWD");
 		if (NULL == dir)
 		{
-			error_output("cd : OLDPWD not set", -1);
+			error_output("cd : OLDPWD not set", NO_ERR_MSG);
 			return (FAILURE);
 		}
 		path = dir->data;
 	}
 	else
 		path = args[1];
+	if (SUCCESS != access(path, F_OK))
+	{
+		error_output(path, FILE_NOT_FOUND);
+		return (1);
+	}
 	if (NULL == dict_add(&shell->env, ft_strdup("OLDPWD"), get_cwd(shell)))
 		perror("malloc");
 	if (SUCCESS != chdir(path))
