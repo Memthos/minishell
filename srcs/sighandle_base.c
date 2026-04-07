@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sighandle_defaults.c                               :+:      :+:    :+:   */
+/*   sighandle_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 00:46:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/06 21:05:40 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 11:12:11 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ t_status	init_execution_signals(void)
 		return (FAILURE);
 	}
 	if (SUCCESS != sigaction(SIGQUIT, &action, NULL))
+	{
+		perror("sigaction");
+		return (FAILURE);
+	}
+	if (SUCCESS != sigaction(SIGPIPE, &action, NULL))
 	{
 		perror("sigaction");
 		return (FAILURE);
