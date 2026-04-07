@@ -6,14 +6,14 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/02 17:33:25 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:26:56 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMANDS_H
 # define COMMANDS_H
 
-# include "definitions.h"
+# include "types.h"
 
 # define CMD_COUNT 7
 

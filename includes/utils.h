@@ -6,14 +6,14 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 10:25:41 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:26:56 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-# include "definitions.h"
+# include "types.h"
 
 /**
  * @brief Swaps pointers a and b.

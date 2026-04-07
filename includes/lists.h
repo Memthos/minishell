@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lists.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 10:55:32 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:26:56 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LISTS_H
 # define LISTS_H
 
-# include "definitions.h"
+# include "types.h"
 # include <stdlib.h>
 # include "shell.h"
 
