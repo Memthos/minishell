@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 10:15:08 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:38:29 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
 	remove_ast_quotes(ast, &shell->exitno);
 	if (shell->exitno == ALLOCATION_FAILURE)
 	{
-		error_output("execution", shell->exitno);
+		perror("malloc");
 		shell->exitno = 1;
 	}
 	if (shell->exitno)
@@ -56,7 +56,7 @@ t_status	parser(char *s, t_shell *shell)
 	lxr_lst_clear(&lxr);
 	if (shell->exitno == ALLOCATION_FAILURE)
 	{
-		error_output("parser", shell->exitno);
+		perror("malloc");
 		shell->exitno = 1;
 	}
 	return (shell->exitno);

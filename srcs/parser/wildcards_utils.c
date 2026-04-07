@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 09:41:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 20:27:28 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:39:10 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static DIR	*open_dir(t_status *status)
 	if (!directory)
 	{
 		*status = BAD_ARG;
-		error_output("parser", READDIR_FAILURE);
+		error_output(NULL, NULL, READDIR_FAILURE);
 		return (NULL);
 	}
 	return (directory);

@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/13 15:47:24 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:26:56 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # include "../libs/libft_tools/includes/libft.h"
 
 //Typedef and enums headers
-# include "definitions.h"
+# include "types.h"
 
 # include "shell.h"
 

@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   definitions.h                                      :+:      :+:    :+:   */
+/*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 13:47:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 10:27:40 by juperrin         ###   ########.fr       */
+/*   Created: 2026/04/07 14:27:08 by juperrin          #+#    #+#             */
+/*   Updated: 2026/04/07 15:07:58 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINITIONS_H
-# define DEFINITIONS_H
+#ifndef TYPES_H
+# define TYPES_H
 
 typedef unsigned int	t_uint;
 typedef unsigned char	t_uint8;
 
 typedef enum e_return_status
 {
+	NO_ERR_MSG = -1,
 	SUCCESS,
 	FAILURE,
 	BAD_ARG,
+	TOO_MUCH_ARG,
 	OVERFLOW,
 	UNDERFLOW,
 	ALLOCATION_FAILURE,
@@ -35,6 +37,7 @@ typedef enum e_return_status
 	IS_DIRECTORY,
 	HEREDOC_COUNT_EXCEEDED,
 	READDIR_FAILURE,
+	NUM_ARG_REQUIRED,
 }	t_status;
 
 typedef enum e_quote_t

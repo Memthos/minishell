@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 10:15:54 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 15:52:24 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	if (WORD == cmd->token)
 	{
 		execute(cmd->left, shell);
-		if (SUCCESS != shell->exitno)
+		if (128 + SIGPIPE == shell->exitno)
 			return (shell->exitno);
 		if (NULL == shell->cur_cmd)
 		{
@@ -108,13 +108,13 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	{
 		if (access(cmd->left->data, F_OK) < 0)
 		{
-			error_output(cmd->left->data, FILE_NOT_FOUND);
+			error_output(NULL, cmd->left->data, FILE_NOT_FOUND);
 			shell->exitno = FAILURE;
 			return (FAILURE);
 		}
 		else if (access(cmd->left->data, R_OK) < 0)
 		{
-			error_output(cmd->left->data, PERMISSION_ERROR);
+			error_output(NULL, cmd->left->data, PERMISSION_ERROR);
 			shell->exitno = FAILURE;
 			return (FAILURE);
 		}
@@ -141,13 +141,13 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		if (ast_heredoc_count(cmd, shell->redirects.is_cmp_redir)
 			> shell->heredoc_max)
 		{
-			error_output(NULL, HEREDOC_COUNT_EXCEEDED);
+			error_output(NULL, NULL, HEREDOC_COUNT_EXCEEDED);
 			shell->exitno = BAD_ARG;
 			return (shell->exitno);
 		}
 		if (heredoc(shell, cmd))
 		{
-			error_output(NULL, shell->exitno);
+			error_output(NULL, NULL, shell->exitno);
 			return (shell->exitno);
 		}
 		execute(cmd->left->left, shell);
@@ -156,18 +156,13 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	{
 		execute(cmd->left, shell);
 		wait_for_processes(shell);
-		if (SIGINT + 128 == shell->exitno)
-			return (shell->exitno);
 		shell->oldexitno = shell->exitno;
 		if (final_parsing(shell, &cmd->right))
 			return (shell->exitno);
 		if (AND_IF == cmd->token && SUCCESS == shell->exitno)
 			execute(cmd->right, shell);
 		if (OR_IF == cmd->token && SUCCESS != shell->exitno)
-		{
-			shell->exitno = SUCCESS;
 			execute(cmd->right, shell);
-		}
 	}
 	if (CMP_CMD == cmd->token)
 	{

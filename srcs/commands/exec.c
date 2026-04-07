@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:48:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 10:57:28 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:49:26 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,14 @@ t_status	cmd_exec(char **args, t_shell *shell)
 		if (str_is_empty(*args))
 		{
 			if (ft_strchr(*args, '/') || !check_path(shell))
-			{
-				write(STDERR_FILENO, ": ", 2);
-				perror(NULL);
-			}
+				error_output(*args, NULL, FILE_NOT_FOUND);
 			else
-				error_output(*args, COMMAND_NOT_FOUND);
+				error_output(*args, NULL, COMMAND_NOT_FOUND);
 			return (127);
 		}
 		if (ft_strchr(*args, '/') || !check_path(shell))
 		{
-			perror(*args);
+			error_output(*args, NULL, FILE_NOT_FOUND);
 			return (127);
 		}
 		path = dict_get(shell->env, "PATH");
@@ -70,16 +67,16 @@ t_status	cmd_exec(char **args, t_shell *shell)
 		if (NULL == *(paths + index))
 		{
 			if (ft_strchr(*args, '/') || !check_path(shell))
-				perror(*args);
+				error_output(*args, NULL, FILE_NOT_FOUND);
 			else
-				error_output(*args, COMMAND_NOT_FOUND);
+				error_output(*args, NULL, COMMAND_NOT_FOUND);
 			free_strings(paths);
 			return (127);
 		}
 	}
 	if (is_dir(*args))
 	{
-		error_output(*args, IS_DIRECTORY);
+		error_output(*args, NULL, IS_DIRECTORY);
 		return (126);
 	}
 	envp = dict_to_array(shell->env, '=');
