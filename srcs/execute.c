@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/06 21:02:42 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 09:42:03 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		if (SIGINT + 128 == shell->exitno)
 			return (shell->exitno);
 		shell->oldexitno = shell->exitno;
-		if (final_parsing(shell, cmd))
+		if (final_parsing(shell, cmd->right))
 			return (shell->exitno);
 		if (AND_IF == cmd->token && SUCCESS == shell->exitno)
 			execute(cmd->right, shell);
