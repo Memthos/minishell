@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 09:53:49 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 10:25:41 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,10 @@ bool			check_path(t_shell *shell);
  * @return The updated environment.
  */
 t_dictionary	*update_shlvl(t_dictionary **env);
+
+/**
+ * @brief Returns true if path is a directory, false otherwise.
+ */
+bool	is_dir(const char *path);
 
 #endif
