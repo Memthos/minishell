@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:48:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/30 16:42:00 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/07 10:27:27 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,11 @@ t_status	cmd_exec(char **args, t_shell *shell)
 	paths = NULL;
 	if (NULL == args || NULL == *args)
 		return (FAILURE);
-	if (access(*args, F_OK | X_OK) < 0)
+	if (SUCCESS != access(*args, F_OK | X_OK))
 	{
 		if (ft_strchr(*args, '/') || !check_path(shell))
 		{
 			perror(*args);
-			return (127);
-		}
-		if (!check_path(shell))
-		{
-			error_output(*args, COMMAND_NOT_FOUND);
 			return (127);
 		}
 		path = dict_get(shell->env, "PATH");
@@ -52,7 +47,7 @@ t_status	cmd_exec(char **args, t_shell *shell)
 				++index;
 				continue ;
 			}
-			if (!access(tmp, F_OK | X_OK))
+			if (SUCCESS == access(tmp, F_OK | X_OK))
 			{
 				free(*args);
 				*args = tmp;
@@ -70,6 +65,11 @@ t_status	cmd_exec(char **args, t_shell *shell)
 			free_strings(paths);
 			return (127);
 		}
+	}
+	if (is_dir(*args))
+	{
+		error_output(*args, IS_DIRECTORY);
+		return (126);
 	}
 	envp = dict_to_array(shell->env, '=');
 	execve(*args, args, envp);
