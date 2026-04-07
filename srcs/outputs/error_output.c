@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:23:31 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 14:34:05 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:52:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,26 @@ t_status	error_output(const char *cmd, const char *arg, int error)
 		"Failed to read directory content"
 	};
 
-	if (write(STDERR_FILENO, "minishell: ", 11) != SUCCESS)
+	if (write(STDERR_FILENO, "minishell: ", 11) < 0)
 		code = FAILURE;
 	if (NULL != cmd)
 	{
-		if (write(STDERR_FILENO, cmd, ft_strlen(cmd)) != SUCCESS)
+		if (write(STDERR_FILENO, cmd, ft_strlen(cmd)) < 0)
 			code = FAILURE;
 	}
 	if (NULL != arg)
 	{
-		if (write(STDERR_FILENO, arg, ft_strlen(arg)) != SUCCESS)
+		if (write(STDERR_FILENO, arg, ft_strlen(arg)) < 0)
 			code = FAILURE;
 	}
 	if (error >= 0)
 	{
-		if (write(STDERR_FILENO, ": ", 2) != SUCCESS)
+		if (write(STDERR_FILENO, ": ", 2) < 0)
 			code = FAILURE;
-		if (write(2, error_msgs[error], ft_strlen(error_msgs[error])) != 0)
+		if (write(2, error_msgs[error], ft_strlen(error_msgs[error])) < 0)
 			code = FAILURE;
 	}
-	if (write(STDERR_FILENO, "\n", 1) != SUCCESS)
+	if (write(STDERR_FILENO, "\n", 1) < 0)
 		code = FAILURE;
 	return (code);
 }
@@ -53,11 +53,11 @@ t_status	parser_error_print(const char *arg)
 {
 	if (!arg)
 		return (FAILURE);
-	if (write(2, "minishell: syntax error near unexpected token `", 44) != 0)
+	if (write(2, "minishell: syntax error near unexpected token `", 47) < 0)
 		return (FAILURE);
-	if (write(2, arg, ft_strlen(arg)) != SUCCESS)
+	if (write(STDERR_FILENO, arg, ft_strlen(arg)) < 0)
 		return (FAILURE);
-	if (write(STDERR_FILENO, "'\n", 2) != SUCCESS)
+	if (write(STDERR_FILENO, "'\n", 2) < 0)
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -66,11 +66,11 @@ t_status	amb_red_error_print(const char *arg)
 {
 	if (!arg)
 		return (FAILURE);
-	if (write(STDERR_FILENO, "parser: ", 8) != SUCCESS)
+	if (write(STDERR_FILENO, "minishell: ", 8) < 0)
 		return (FAILURE);
-	if (write(STDERR_FILENO, arg, ft_strlen(arg)) != SUCCESS)
+	if (write(STDERR_FILENO, arg, ft_strlen(arg)) < 0)
 		return (FAILURE);
-	if (write(STDERR_FILENO, ": ambiguous redirect\n", 21) != SUCCESS)
+	if (write(STDERR_FILENO, ": ambiguous redirect\n", 21) < 0)
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -79,15 +79,15 @@ t_status	heredoc_error_print(const char *arg)
 {
 	if (!arg)
 		return (FAILURE);
-	if (write(2, "minishell: warning: here-document at line ", 42) != SUCCESS)
+	if (write(2, "minishell: warning: here-document at line ", 42) < 0)
 		return (FAILURE);
-	if (write(2, "nbr", 3) != SUCCESS)
+	if (write(2, "nbr", 3) < 0)
 		return (FAILURE);
-	if (write(STDERR_FILENO, " delimited by end-of-file (wanted `", 35) != 0)
+	if (write(STDERR_FILENO, " delimited by end-of-file (wanted `", 35) < 0)
 		return (FAILURE);
-	if (write(2, arg, ft_strlen(arg)) != SUCCESS)
+	if (write(2, arg, ft_strlen(arg)) < 0)
 		return (FAILURE);
-	if (write(2, "')\n", 3) != SUCCESS)
+	if (write(2, "')\n", 3) < 0)
 		return (FAILURE);
 	return (SUCCESS);
 }
