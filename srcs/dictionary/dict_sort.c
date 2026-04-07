@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 14:35:01 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/24 10:49:38 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 09:48:21 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ t_dictionary	*dict_sort(t_dictionary **dict)
 		{
 			if (ft_strcmp(cpy->key, cpy->next->key) > 0)
 			{
-				swap_str(&cpy->key, &cpy->next->key);
-				swap_str((char **)&cpy->data, (char **)&cpy->next->data);
+				swap_ptr((void **)&cpy->key, (void **)&cpy->next->key);
+				swap_ptr(&cpy->data, &cpy->next->data);
 			}
 			cpy = cpy->next;
 		}
