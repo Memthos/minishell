@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 10:27:40 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 14:22:30 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ typedef unsigned char	t_uint8;
 
 typedef enum e_return_status
 {
+	NO_ERR_MSG = -1,
 	SUCCESS,
 	FAILURE,
 	BAD_ARG,
+	TOO_MUCH_ARG,
 	OVERFLOW,
 	UNDERFLOW,
 	ALLOCATION_FAILURE,
