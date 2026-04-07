@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:48:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 10:27:27 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/07 10:57:28 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,17 @@ t_status	cmd_exec(char **args, t_shell *shell)
 		return (FAILURE);
 	if (SUCCESS != access(*args, F_OK | X_OK))
 	{
+		if (str_is_empty(*args))
+		{
+			if (ft_strchr(*args, '/') || !check_path(shell))
+			{
+				write(STDERR_FILENO, ": ", 2);
+				perror(NULL);
+			}
+			else
+				error_output(*args, COMMAND_NOT_FOUND);
+			return (127);
+		}
 		if (ft_strchr(*args, '/') || !check_path(shell))
 		{
 			perror(*args);
