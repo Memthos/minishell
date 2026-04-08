@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:38:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/03/19 10:30:31 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/08 10:41:47 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,28 @@ static bool	is_dash_n(const char *s)
 
 t_status	cmd_echo(char **args, t_shell *shell)
 {
-	t_uint	index;
-	bool	line_break;
+	t_status	code;
+	bool		line_break;
 
 	(void)shell;
-	if (NULL == args[1])
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		return (SUCCESS);
-	}
+	code = SUCCESS;
 	line_break = true;
-	index = 1;
-	while (is_dash_n(*(args + index)))
+	while (is_dash_n(*(args + 1)))
 	{
 		line_break = false;
-		++index;
+		++args;
 	}
-	while (*(args + index))
+	while (*(args + 1))
 	{
-		write(STDOUT_FILENO, *(args + index), ft_strlen(*(args + index)));
-		if (*(args + index + 1))
-			write(STDOUT_FILENO, " ", 1);
-		++index;
+		if (write(1, *(args + 1), ft_strlen(*(args + 1))) < 0)
+			code = FAILURE;
+		if (*(args + 1 + 1))
+			if (write(STDOUT_FILENO, " ", 1) < 0)
+				code = FAILURE;
+		++args;
 	}
 	if (line_break)
-		write(STDOUT_FILENO, "\n", 1);
-	return (SUCCESS);
+		if (write(STDOUT_FILENO, "\n", 1) < 0)
+			code = FAILURE;
+	return (code);
 }
