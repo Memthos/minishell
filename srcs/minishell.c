@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 10:39:35 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/08 13:50:17 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ static void	exec_asts(t_shell *shell)
 	while (cur_ast)
 	{
 		if (final_parsing(shell, &cur_ast->ast))
+		{
+			shell->oldexitno = shell->exitno;
+			shell->exitno = SUCCESS;
+			cur_ast = cur_ast->next;
 			continue ;
+		}
 		code = execute(cur_ast->ast, shell);
 		wait_for_processes(shell);
 		if (code && !shell->exitno)
