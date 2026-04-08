@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/08 14:18:33 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/08 16:49:41 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		if (access(cmd->left->data, F_OK) < 0)
 		{
 			error_output(NULL, cmd->left->data, FILE_NOT_FOUND);
-			shell->exitno = 127;
+			shell->exitno = FAILURE;
 			return (shell->exitno);
 		}
 		else if (access(cmd->left->data, R_OK) < 0)
