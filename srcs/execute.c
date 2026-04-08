@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/08 16:49:41 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/08 18:09:33 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 				shell->redirects.out_flags, 0644);
 		if (-1 == shell->redirects.output_redirect_fd)
 		{
-			perror("open");
+			error_output(cmd->left->data, strerror(errno), NO_ERR_MSG);
 			shell->exitno = FAILURE;
 			return (shell->exitno);
 		}
