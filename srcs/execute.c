@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/08 14:13:33 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/08 14:18:33 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	if (WORD == cmd->token)
 	{
 		execute(cmd->left, shell);
-		if (FAILURE == shell->exitno)
+		if (SUCCESS != shell->exitno)
 			return (shell->exitno);
 		if (NULL == shell->cur_cmd)
 		{
@@ -110,14 +110,14 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		if (access(cmd->left->data, F_OK) < 0)
 		{
 			error_output(NULL, cmd->left->data, FILE_NOT_FOUND);
-			shell->exitno = FAILURE;
-			return (FAILURE);
+			shell->exitno = 127;
+			return (shell->exitno);
 		}
 		else if (access(cmd->left->data, R_OK) < 0)
 		{
 			error_output(NULL, cmd->left->data, PERMISSION_ERROR);
-			shell->exitno = FAILURE;
-			return (FAILURE);
+			shell->exitno = 126;
+			return (shell->exitno);
 		}
 		ft_close(&shell->redirects.input_redirect_fd);
 		shell->redirects.in_flags = O_RDONLY;
