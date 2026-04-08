@@ -6,17 +6,15 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:23:31 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 15:08:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/08 10:52:29 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	error_output(const char *cmd, const char *arg, int error)
+static const char	*get_error(int index)
 {
-	t_status	code;
-
-	const char	*error_msgs[] = {
+	static const char	*error_msgs[] = {"",
 		"success", "failure", "bad argument", "too many arguments", "overflow",
 		"underflow", "allocation failure", "execve failure", "pipe failure",
 		"fork failure",	"dup failure", "open failure",
@@ -25,6 +23,14 @@ t_status	error_output(const char *cmd, const char *arg, int error)
 		"Failed to read directory content", "numeric argument required"
 	};
 
+	return (error_msgs[index + 1]);
+}
+
+t_status	error_output(const char *cmd, const char *arg, int error)
+{
+	t_status	code;
+
+	code = SUCCESS;
 	if (write(STDERR_FILENO, "minishell: ", 11) < 0)
 		code = FAILURE;
 	if (NULL != cmd)
@@ -39,16 +45,11 @@ t_status	error_output(const char *cmd, const char *arg, int error)
 		if (write(STDERR_FILENO, arg, ft_strlen(arg)) < 0)
 			code = FAILURE;
 		if (error >= 0)
-		{
 			if (write(STDERR_FILENO, ": ", 2) < 0)
 				code = FAILURE;
-		}
 	}
-	if (error >= 0)
-	{
-		if (write(2, error_msgs[error], ft_strlen(error_msgs[error])) < 0)
-			code = FAILURE;
-	}
+	if (write(2, get_error(error), ft_strlen(get_error(error))) < 0)
+		code = FAILURE;
 	if (write(STDERR_FILENO, "\n", 1) < 0)
 		code = FAILURE;
 	return (code);
