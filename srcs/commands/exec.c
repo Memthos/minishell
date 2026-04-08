@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:48:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/08 17:55:57 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/08 18:22:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,14 @@ t_status	cmd_exec(char **args, t_shell *shell)
 		free_strings(paths);
 		return (SUCCESS);
 	}
-	if (SUCCESS != access(*args, R_OK | W_OK))
+	if (SUCCESS != access(*args, X_OK) && SUCCESS == access(*args, R_OK | W_OK))
+	{
+		error_output(*args, NULL, COMMAND_NOT_FOUND);
+		free_strings(envp);
+		free_strings(paths);
+		return (127);
+	}
+	if (SUCCESS != access(*args, R_OK | W_OK | X_OK))
 	{
 		error_output(*args, NULL, PERMISSION_ERROR);
 		free_strings(envp);
