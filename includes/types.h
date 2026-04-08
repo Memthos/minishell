@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 14:27:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 15:07:58 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/08 14:27:33 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ typedef enum e_tokens
 	GREAT,
 	PIPE,
 	WORD,
-	IO_NUMBER,
 	L_PAREN,
 	R_PAREN,
 	CMP_CMD,

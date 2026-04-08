@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:09:08 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 16:10:55 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/08 14:27:30 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,27 +48,24 @@ int	is_io_redirect(t_lxr_lst **lxr)
 {
 	if (!lxr || !*lxr)
 		return (0);
-	if (peek(lxr, IO_NUMBER))
+	if (peek(lxr, LESS))
 		return (1);
-	else if (peek(lxr, LESS))
-		return (2);
 	else if (peek(lxr, GREAT))
-		return (2);
+		return (1);
 	else if (peek(lxr, DGREAT))
-		return (2);
+		return (1);
 	else if (peek(lxr, DLESS))
-		return (2);
+		return (1);
 	else
 		return (0);
 }
 
-static t_ast_lst	*main_redirect(t_lxr_lst **lxr, t_status *status,
-	t_side side)
+t_ast_lst	*io_redirect_r(t_lxr_lst **lxr, t_status *status, t_side side)
 {
 	t_ast_lst	*red;
 
 	red = NULL;
-	if (!*status && is_io_redirect(lxr) == 2)
+	if (!*status && is_io_redirect(lxr))
 		red = ast_lst_new(lxr, status);
 	else
 		*status = BAD_ARG;
@@ -87,27 +84,4 @@ static t_ast_lst	*main_redirect(t_lxr_lst **lxr, t_status *status,
 		ast_lst_clear(&red);
 	}
 	return (red);
-}
-
-t_ast_lst	*io_redirect_r(t_lxr_lst **lxr, t_status *status, t_side side)
-{
-	t_ast_lst	*io_red;
-	t_ast_lst	*red;
-
-	io_red = NULL;
-	red = NULL;
-	if (peek(lxr, IO_NUMBER))
-		io_red = ast_lst_new(lxr, status);
-	if (*status)
-		return (NULL);
-	red = main_redirect(lxr, status, side);
-	if (io_red && side == LEFT)
-		io_red->left = red;
-	else if (io_red && side == RIGHT)
-		io_red->right = red;
-	else
-		io_red = red;
-	if (*status)
-		ast_lst_clear(&io_red);
-	return (io_red);
 }
