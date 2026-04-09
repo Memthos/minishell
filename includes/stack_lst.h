@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:29:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/09 14:52:22 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/09 15:13:47 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ t_stack	*stack_lst_append(t_stack **stack, void *data);
 t_stack	*stack_lst_pop(t_stack **stack);
 
 void	stack_lst_clear(t_stack **stack);
+
+t_uint	stack_lst_size(t_stack *stack);
 
 #endif
