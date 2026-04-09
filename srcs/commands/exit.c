@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 10:02:10 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 15:12:08 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/09 14:59:03 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_status	cmd_exit(char **args, t_shell *shell)
 {
 	int	code;
 
-	if (!shell->pipes.pipe_depth)
+	if (true) // Add pipe_depth check
 		write(STDERR_FILENO, "exit\n", 5);
 	if (NULL == args[1])
 	{

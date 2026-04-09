@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/08 18:09:33 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/09 14:58:25 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 t_status	execute(t_ast_lst *cmd, t_shell *shell)
 {
-	int	*cur_pipe;
-
 	if (NULL == cmd)
 		return (shell->exitno);
 	if (WORD == cmd->token)
@@ -48,38 +46,8 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	}
 	if (PIPE == cmd->token)
 	{
-		++shell->pipes.pipe_depth;
-		if (!ast_pipe_count(cmd->left))
-		{
-			if (-1 == pipe(get_cur_pipe(&shell->pipes, false, false)))
-			{
-				perror("pipe");
-				shell->exitno = FAILURE;
-				return (shell->exitno);
-			}
-			shell->pipes.redirect_output = true;
-		}
 		execute(cmd->left, shell);
-		shell->pipes.redirect_output = false;
-		++shell->pipes.pipe_index;
-		if (shell->pipes.pipe_depth > 1)
-		{
-			if (-1 == pipe(get_cur_pipe(&shell->pipes, false, false)))
-			{
-				perror("pipe");
-				shell->exitno = FAILURE;
-				return (shell->exitno);
-			}
-			shell->pipes.redirect_output = true;
-		}
-		shell->exitno = SUCCESS;
-		shell->pipes.redirect_input = true;
 		execute(cmd->right, shell);
-		shell->pipes.redirect_input = false;
-		cur_pipe = get_cur_pipe(&shell->pipes, true, false);
-		ft_close(&cur_pipe[0]);
-		ft_close(&cur_pipe[1]);
-		--shell->pipes.pipe_depth;
 	}
 	if (GREAT == cmd->token || DGREAT == cmd->token)
 	{
@@ -186,14 +154,12 @@ t_status	execute_cmd(t_shell *shell)
 {
 	t_status	code;
 	pid_t		pid;
-	int			*output_pipe;
-	int			*input_pipe;
 	t_built_in	cmd;
 
 	if (NULL == shell || NULL == shell->cur_cmd || 0 == shell->cur_cmd_index)
 		return (FAILURE);
 	cmd = get_command(*shell->cur_cmd);
-	if (0 == shell->pipes.pipe_depth && &cmd_exec != cmd)
+	if (&cmd_exec != cmd) // add check for pipe_depth
 	{
 		if (-1 != shell->redirects.output_redirect_fd)
 		{
@@ -236,30 +202,6 @@ t_status	execute_cmd(t_shell *shell)
 		restore_signals();
 		ft_close(&shell->redirects.stdin_dup);
 		ft_close(&shell->redirects.stdout_dup);
-		output_pipe = get_cur_pipe(&shell->pipes, false, false);
-		input_pipe = get_cur_pipe(&shell->pipes, true, false);
-		if (shell->pipes.redirect_output)
-		{
-			if (-1 == dup2(output_pipe[1], STDOUT_FILENO))
-			{
-				perror("dup2");
-				destroy_shell(shell);
-				exit(DUP_FAILURE);
-			}
-			ft_close(&output_pipe[0]);
-			ft_close(&output_pipe[1]);
-		}
-		if (shell->pipes.redirect_input)
-		{
-			if (-1 == dup2(input_pipe[0], STDIN_FILENO))
-			{
-				perror("dup2");
-				destroy_shell(shell);
-				exit(DUP_FAILURE);
-			}
-			ft_close(&input_pipe[0]);
-			ft_close(&input_pipe[1]);
-		}
 		if (-1 != shell->redirects.input_redirect_fd)
 		{
 			if (-1 == dup2(shell->redirects.input_redirect_fd, STDIN_FILENO))
