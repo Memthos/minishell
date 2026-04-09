@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:46:51 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/09 15:38:08 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/09 16:41:00 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ t_stack	*stack_lst_pop(t_stack **stack, void (*del)(void *param))
 	cpy = *stack;
 	while (cpy->next->next)
 		cpy = cpy->next;
-	del((*stack)->data);
-	(*stack)->data = NULL;
-	free((*stack)->next);
-	(*stack)->next = NULL;
+	del(cpy->next->data);
+	cpy->next->data = NULL;
+	free(cpy->next);
+	cpy->next = NULL;
 	return (*stack);
 }
