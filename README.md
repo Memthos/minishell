@@ -46,8 +46,7 @@ You can alternatively use `make re` to recompile it.
 
 To make this project, we used the following resources :
 
-The [bash manual](
-https://www.gnu.org/software/bash/manual/bash.html).
+The [bash manual](https://www.gnu.org/software/bash/manual/bash.html).
 
 The [AST (Abstract syntax tree)](https://en.wikipedia.org/wiki/Abstract_syntax_tree) data structure wiki page.
 
