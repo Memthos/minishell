@@ -6,13 +6,13 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:46:51 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/09 14:50:54 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/09 15:38:08 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_stack	*stack_lst_pop(t_stack **stack)
+t_stack	*stack_lst_pop(t_stack **stack, void (*del)(void *param))
 {
 	t_stack	*cpy;
 
@@ -20,13 +20,14 @@ t_stack	*stack_lst_pop(t_stack **stack)
 		return (NULL);
 	if (NULL == (*stack)->next)
 	{
-		stack_lst_clear(stack);
+		stack_lst_clear(stack, del);
 		return (NULL);
 	}
 	cpy = *stack;
 	while (cpy->next->next)
 		cpy = cpy->next;
-	free((*stack)->next->data);
+	del((*stack)->data);
+	(*stack)->data = NULL;
 	free((*stack)->next);
 	(*stack)->next = NULL;
 	return (*stack);
