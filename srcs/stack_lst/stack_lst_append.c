@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:40:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/09 14:46:41 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/09 15:56:44 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_stack	*stack_lst_append(t_stack **stack, void *data)
 	if (NULL == stack)
 		return (NULL);
 	new = stack_lst_new(data);
-	if (NULL == *stack)
+	if (NULL == new || NULL == *stack)
 		return (new);
 	cpy = *stack;
 	while (cpy->next)
