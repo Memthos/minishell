@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/09 16:02:42 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/09 17:45:35 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct s_shell
 	t_status		exitno;
 	t_status		oldexitno;
 	t_stack			*pipe_stack;
+	int				redirect_output;
+	int				redirect_input;
 	t_redir_logic	redirects;
 	t_pids_logic	pids;
 	t_uint8			heredoc_max;
