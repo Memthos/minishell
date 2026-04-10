@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 14:38:29 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/10 15:16:15 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
 {
-	expand(ast, &shell->exitno, shell, 0);
-	apply_wildcards(*ast, &shell->exitno);
-	remove_ast_quotes(ast, &shell->exitno);
-	if (shell->exitno == ALLOCATION_FAILURE)
+	t_status	status;
+
+	status = SUCCESS;
+	expand(ast, &status, shell, 0);
+	apply_wildcards(*ast, &status);
+	remove_ast_quotes(ast, &status);
+	if (status == ALLOCATION_FAILURE)
 	{
 		perror("malloc");
-		shell->exitno = 1;
+		status = 1;
 	}
-	if (shell->exitno)
+	if (status)
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -45,19 +48,22 @@ char	*make_str(char *input, size_t len)
 t_status	parser(char *s, t_shell *shell)
 {
 	t_lxr_lst	*lxr;
+	t_status	status;
 
 	lxr = NULL;
+	status = SUCCESS;
 	if (!s)
 		return (SUCCESS);
-	lexer(&lxr, s, &shell->exitno);
-	set_final_tokens(&lxr, &shell->exitno);
-	checker_lxr(lxr, &shell->exitno);
-	complete_command_r(&lxr, shell, &shell->exitno);
+	lexer(&lxr, s, &status);
+	set_final_tokens(&lxr, &status);
+	checker_lxr(lxr, &status);
+	complete_command_r(&lxr, shell, &status);
 	lxr_lst_clear(&lxr);
-	if (shell->exitno == ALLOCATION_FAILURE)
+	shell->exitno = status;
+	if (status == ALLOCATION_FAILURE)
 	{
 		perror("malloc");
 		shell->exitno = 1;
 	}
-	return (shell->exitno);
+	return (status);
 }
