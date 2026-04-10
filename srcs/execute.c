@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/09 14:58:25 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/10 10:55:23 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 t_status	execute(t_ast_lst *cmd, t_shell *shell)
 {
+	t_pipe	*_pipe;
+
 	if (NULL == cmd)
 		return (shell->exitno);
 	if (WORD == cmd->token)
@@ -46,8 +48,25 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	}
 	if (PIPE == cmd->token)
 	{
+		_pipe = pipe_new();
+		if (NULL == _pipe)
+		{
+			shell->exitno = FAILURE;
+			return (shell->exitno);
+		}
+		if (NULL == stack_lst_append(&shell->pipe_stack, _pipe))
+		{
+			shell->exitno = FAILURE;
+			return (shell->exitno);
+		}
+		++shell->redirect_output;
 		execute(cmd->left, shell);
+		--shell->redirect_output;
+		_pipe->side = RIGHT;
+		++shell->redirect_input;
 		execute(cmd->right, shell);
+		--shell->redirect_input;
+		stack_lst_pop(&shell->pipe_stack, (void (*)(void *))&pipe_close);
 	}
 	if (GREAT == cmd->token || DGREAT == cmd->token)
 	{
@@ -154,12 +173,14 @@ t_status	execute_cmd(t_shell *shell)
 {
 	t_status	code;
 	pid_t		pid;
+	t_pipe		*input_pipe;
+	t_pipe		*output_pipe;
 	t_built_in	cmd;
 
 	if (NULL == shell || NULL == shell->cur_cmd || 0 == shell->cur_cmd_index)
 		return (FAILURE);
 	cmd = get_command(*shell->cur_cmd);
-	if (&cmd_exec != cmd) // add check for pipe_depth
+	if (&cmd_exec != cmd && 0 == stack_lst_size(shell->pipe_stack))
 	{
 		if (-1 != shell->redirects.output_redirect_fd)
 		{
@@ -202,6 +223,27 @@ t_status	execute_cmd(t_shell *shell)
 		restore_signals();
 		ft_close(&shell->redirects.stdin_dup);
 		ft_close(&shell->redirects.stdout_dup);
+		input_pipe = pipe_get(shell, RIGHT);
+		output_pipe = pipe_get(shell, LEFT);
+		if (input_pipe && shell->redirect_input)
+		{
+			if (-1 == dup2(input_pipe->pipe[0], STDIN_FILENO))
+			{
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
+			}
+		}
+		if (output_pipe && shell->redirect_output)
+		{
+			if (-1 == dup2(output_pipe->pipe[1], STDOUT_FILENO))
+			{
+				perror("dup2");
+				destroy_shell(shell);
+				exit(DUP_FAILURE);
+			}
+		}
+		stack_lst_clear(&shell->pipe_stack, (void (*)(void *))&pipe_close);
 		if (-1 != shell->redirects.input_redirect_fd)
 		{
 			if (-1 == dup2(shell->redirects.input_redirect_fd, STDIN_FILENO))
