@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/09 15:53:05 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/09 17:45:22 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static void	set_shell(t_shell *shell)
 	shell->redirects.input_redirect_fd = -1;
 	shell->redirects.input_cmp_redirect_fd = -1;
 	shell->pipe_stack = NULL;
+	shell->redirect_input = 0;
+	shell->redirect_output = 0;
 	shell->pids.pids = NULL;
 	shell->pids.pid_count = 0;
 	shell->pids.pid_index = 0;
