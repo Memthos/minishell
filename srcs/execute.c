@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/13 15:00:23 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/14 13:17:31 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 t_status	execute(t_ast_lst *cmd, t_shell *shell)
 {
-	t_pipe	*_pipe;
-
 	if (NULL == cmd)
 		return (shell->exitno);
 	if (WORD == cmd->token)
@@ -48,40 +46,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	}
 	if (PIPE == cmd->token)
 	{
-		int code;
-
-		pid_t	pids[2];
-		_pipe = pipe_new();
-		if (NULL == _pipe)
-		{
-			shell->exitno = FAILURE;
-			return (shell->exitno);
-		}
-		stack_lst_append(&shell->pipe_stack, _pipe);
-		++shell->redirect_output;
-		pids[0] = fork();
-		if (0 == pids[0])
-		{
-			execute(cmd->left, shell);
-			code = shell->exitno;
-			destroy_shell(shell);
-			exit(code);
-		}
-		--shell->redirect_output;
-		_pipe->side = RIGHT;
-		++shell->redirect_input;
-		pids[1] = fork();
-		if (0 == pids[1])
-		{
-			execute(cmd->right, shell);
-			code = shell->exitno;
-			destroy_shell(shell);
-			exit(code);
-		}
-		stack_lst_clear(&shell->pipe_stack, (void (*)(void *))&pipe_close);
-		waitpid(pids[0], (int *)&shell->exitno, 0);
-		waitpid(pids[1], (int *)&shell->exitno, 0);
-		--shell->redirect_input;
+		
 	}
 	if (GREAT == cmd->token || DGREAT == cmd->token)
 	{
@@ -171,24 +136,13 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	}
 	if (CMP_CMD == cmd->token)
 	{
-		// pid_t	pid;
-		// int		code;
-
 		++shell->cmp_depth;
 		shell->redirects.is_cmp_redir = true;
 		execute(cmd->right, shell);
 		shell->redirects.is_cmp_redir = false;
-		// pid = fork();
-		// if (0 == pid)
-		// {
 		execute(cmd->left, shell);
-			// code = shell->exitno;
-			// destroy_shell(shell);
-			// exit(code);
-		// }
 		ft_close(&shell->redirects.output_cmp_redirect_fd);
 		ft_close(&shell->redirects.input_cmp_redirect_fd);
-		// waitpid(pid, (int *)&shell->exitno, 0);
 		--shell->cmp_depth;
 	}
 	return (shell->exitno);
@@ -315,7 +269,5 @@ t_status	execute_cmd(t_shell *shell)
 	}
 	ft_close(&shell->redirects.input_redirect_fd);
 	ft_close(&shell->redirects.output_redirect_fd);
-	stack_lst_pop(&shell->pipe_stack, (void (*)(void *))&pipe_close);
-	waitpid(pid, (int *)&shell->exitno, 0);
 	return (shell->exitno);
 }
