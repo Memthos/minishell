@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/09 16:22:04 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/14 12:25:24 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,18 @@ void	destroy_shell(t_shell *shell)
 {
 	if (NULL == shell)
 		return ;
-	if (NULL != shell->cur_cmd)
-		free(shell->cur_cmd);
-	if (NULL != shell->pids.pids)
-		free(shell->pids.pids);
+	rl_clear_history();
+	stack_lst_clear(&shell->pipe_stack, (void (*)(void *))&pipe_close);
+	free(shell->cur_cmd);
+	free(shell->pids.pids);
 	ft_close(&shell->redirects.output_redirect_fd);
 	ft_close(&shell->redirects.output_cmp_redirect_fd);
 	ft_close(&shell->redirects.input_redirect_fd);
 	ft_close(&shell->redirects.input_cmp_redirect_fd);
 	ft_close(&shell->redirects.stdin_dup);
 	ft_close(&shell->redirects.stdout_dup);
-	dict_clear(&shell->env);
-	stack_lst_clear(&shell->pipe_stack, (void (*)(void *))&pipe_close);
 	cmds_lst_clear(&shell->cmd_ast);
-	rl_clear_history();
+	dict_clear(&shell->env);
 	free(shell);
 	return ;
 }
