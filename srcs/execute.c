@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/14 13:17:31 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/16 14:38:20 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,58 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	}
 	if (PIPE == cmd->token)
 	{
-		
+		t_status	code;
+		pid_t		pids[2];
+		pid_t		*pid_lst;
+		int			pid_count;
+		t_pipe		*_pipe;
+
+		_pipe = pipe_new();
+		stack_lst_append(&shell->pipe_stack, _pipe);
+		++shell->redirect_output;
+		pids[0] = fork();
+		if (0 == pids[0])
+		{
+			execute(cmd->left, shell);
+			code = shell->exitno;
+			pid_count = shell->pids.pid_count;
+			pid_lst = malloc(sizeof(pid_t) * pid_count);
+			memcpy(pid_lst, shell->pids.pids, pid_count * sizeof(pid_t));
+			destroy_shell(shell);
+			int index = 0;
+			while (index < pid_count)
+			{
+				waitpid(*(pid_lst + index), &code, 0);
+				++index;
+			}
+			free(pid_lst);
+			exit(code);
+		}
+		--shell->redirect_output;
+		_pipe->side = RIGHT;
+		++shell->redirect_input;
+		pids[1] = fork();
+		if (0 == pids[1])
+		{
+			execute(cmd->right, shell);
+			code = shell->exitno;
+			pid_count = shell->pids.pid_count;
+			pid_lst = malloc(sizeof(pid_t) * pid_count);
+			memcpy(pid_lst, shell->pids.pids, pid_count * sizeof(pid_t));
+			destroy_shell(shell);
+			int index = 0;
+			while (index < pid_count)
+			{
+				waitpid(*(pid_lst + index), &code, 0);
+				++index;
+			}
+			free(pid_lst);
+			exit(code);
+		}
+		--shell->redirect_input;
+		stack_lst_clear(&shell->pipe_stack, (void (*)(void *))&pipe_close);
+		waitpid(pids[0], (int *)shell->exitno, 0);
+		waitpid(pids[1], (int *)shell->exitno, 0);
 	}
 	if (GREAT == cmd->token || DGREAT == cmd->token)
 	{
@@ -123,6 +174,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	if (AND_IF == cmd->token || OR_IF == cmd->token)
 	{
 		execute(cmd->left, shell);
+		wait_for_processes(shell);
 		shell->oldexitno = shell->exitno;
 		if (final_parsing(shell, &cmd->right))
 			return (shell->exitno);
@@ -269,5 +321,6 @@ t_status	execute_cmd(t_shell *shell)
 	}
 	ft_close(&shell->redirects.input_redirect_fd);
 	ft_close(&shell->redirects.output_redirect_fd);
+	update_pids(shell, pid);
 	return (shell->exitno);
 }
