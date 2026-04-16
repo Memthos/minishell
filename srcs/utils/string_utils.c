@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 09:42:06 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 09:45:29 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/16 15:13:59 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,18 @@ char	**split_at(const char *str, const char c)
 	return (split);
 }
 
+t_uint	strings_size(const char **strs)
+{
+	t_uint	size;
+
+	if (NULL == strs || NULL == *strs)
+		return (0);
+	size = 0;
+	while (*(strs + size))
+		++size;
+	return (size);
+}
+
 void	free_strings(char **strs)
 {
 	t_uint	index;
@@ -73,20 +85,4 @@ bool	str_is_empty(char *str)
 	if (NULL == str || 0 == str[0])
 		return (true);
 	return (false);
-}
-
-int	contain_space(char *str)
-{
-	size_t	i;
-
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-	{
-		if ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
-			return (1);
-		i++;
-	}
-	return (0);
 }
