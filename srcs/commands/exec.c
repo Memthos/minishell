@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:48:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/09 12:58:36 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/16 15:10:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,20 @@ t_status	cmd_exec(char **args, t_shell *shell)
 	}
 	envp = dict_to_array(shell->env, '=');
 	execve(*args, args, envp);
+	if (errno == ENOEXEC)
+    {
+        char **new_args = malloc(sizeof(char *) * (strings_size((const char **)args) + 2));
+		*new_args = ft_strdup("/bin/sh");
+		int index = 0;
+		while (*(args + index))
+		{
+			*(new_args + index + 1) = ft_strdup(*(args + index));
+			++index;
+		}
+		*(new_args + index + 1) = NULL;
+        execve(*new_args, new_args, envp);
+		free_strings(new_args);
+	}
 	free_strings(envp);
 	free_strings(paths);
 	if (SUCCESS == access(*args, X_OK) && !is_dir(*args))
