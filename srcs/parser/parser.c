@@ -25,6 +25,8 @@ t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
 		perror("malloc");
 		status = 1;
 	}
+	if (!shell->exitno && status)
+		shell->exitno = status;
 	if (status)
 		return (FAILURE);
 	return (SUCCESS);
