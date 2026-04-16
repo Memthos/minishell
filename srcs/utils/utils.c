@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 09:46:32 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/16 15:14:03 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,20 @@ int	ft_close(int *fd)
 		perror("close");
 	*fd = -1;
 	return (code);
+}
+
+int	contain_space(char *str)
+{
+	size_t	i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+			return (1);
+		i++;
+	}
+	return (0);
 }
