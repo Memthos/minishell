@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 15:58:09 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/16 15:02:22 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int				ft_close(int *fd);
  * @return Always returns an array that contains two strings.
  */
 char			**split_at(const char *str, const char c);
+
+t_uint	strings_size(const char **strs);
 
 /**
  * @brief Frees each arrays in strs and strs itself.
