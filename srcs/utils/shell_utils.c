@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 21:13:55 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:13:56 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	check_path(t_shell *shell)
 	e = dict_get(shell->env, "PATH");
 	if (NULL == e)
 		return (false);
-	if (*((t_string )e->data) == '\0')
+	if (*((t_string)e->data) == '\0')
 		return (false);
 	return (true);
 }

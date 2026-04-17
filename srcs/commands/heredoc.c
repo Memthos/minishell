@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:20:07 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:17:15 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static void	heredoc_parent(t_shell *shell, pid_t pid, int pipe_fds[2])
 		shell->exitno = WTERMSIG(shell->exitno) + 128;
 }
 
-static int	write_heredoc(t_shell *shell, t_ast_lst *node, int fd, t_strings data)
+static int	write_heredoc(t_shell *sh, t_ast_lst *node, int fd, t_strings data)
 {
 	size_t	i;
 
-	if (shell->redirects.is_cmp_redir
+	if (sh->redirects.is_cmp_redir
 		&& node->right->expand_state == HEREDOC_DENY)
 		return (0);
 	else if (node->left->expand_state == HEREDOC_DENY)
@@ -46,7 +46,7 @@ static int	write_heredoc(t_shell *shell, t_ast_lst *node, int fd, t_strings data
 	{
 		if ((*data)[i] == '$' && (*data)[i + 1])
 		{
-			if (expand_node(data, &i, shell, 0))
+			if (expand_node(data, &i, sh, 0))
 				return (1);
 		}
 		else
@@ -70,7 +70,7 @@ static t_string	heredoc_limiter(t_shell *shell, t_ast_lst *node)
 static int	heredoc_child(t_shell *shell, t_ast_lst *node, int pipe_fds[2])
 {
 	t_string	read;
-	int		ret;
+	int			ret;
 
 	ret = 0;
 	read = NULL;

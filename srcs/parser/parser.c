@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:17:44 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
 t_string	make_str(t_string input, size_t len)
 {
 	t_string	s;
-	size_t	i;
+	size_t		i;
 
 	s = malloc(sizeof(char) * (len + 1));
 	if (!s)

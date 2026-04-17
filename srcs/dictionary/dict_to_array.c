@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 08:06:45 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:21:06 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 t_strings	dict_to_array(t_dictionary *dict, char sep)
 {
-	t_uint	index;
-	t_uint	size;
+	t_uint		index;
+	t_uint		size;
 	t_strings	arr;
 
 	if (NULL == dict || '\0' == sep)
 		return (NULL);
 	size = dict_size(dict);
-	arr = (t_strings )malloc(sizeof(t_string ) * (size + 1));
+	arr = (t_strings)malloc(sizeof(t_string) * (size + 1));
 	if (NULL == arr)
 		return (NULL);
 	index = 0;

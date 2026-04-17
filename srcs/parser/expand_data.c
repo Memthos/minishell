@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:19:54 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int	get_var_name(t_string s, t_strings name, size_t *i)
 	return (0);
 }
 
-t_string	get_expand_value(t_string var_name, t_shell *shell, t_status *status)
+t_string	get_expand_value(t_string var_name, t_shell *sh, t_status *status)
 {
 	t_string	value;
 	t_string	tmp;
 
 	value = NULL;
-	tmp = dict_get_data(shell->env, var_name);
+	tmp = dict_get_data(sh->env, var_name);
 	if (tmp)
 	{
 		value = ft_strdup(tmp);
@@ -59,7 +59,7 @@ t_string	get_expand_value(t_string var_name, t_shell *shell, t_status *status)
 	}
 	else if (!tmp && ft_strcmp(var_name, "?") == 0)
 	{
-		value = ft_itoa(shell->oldexitno);
+		value = ft_itoa(sh->oldexitno);
 		if (!value)
 		{
 			*status = ALLOCATION_FAILURE;

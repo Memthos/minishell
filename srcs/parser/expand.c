@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:19:05 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ static void	update_ast(t_ast_lst *node, t_status *status)
 		ast_lst_clear(&right);
 }
 
-static int	update_node_data(t_strings data, size_t name_len, t_string val, size_t *i)
+static int	update_node_data(t_strings data, size_t n, t_string val, size_t *i)
 {
 	t_string	res;
 
 	if ((*data)[0] == '~')
 		res = calloc(ft_strlen(*data) + ft_strlen(val), 1);
 	else
-		res = calloc(ft_strlen(*data) - name_len + ft_strlen(val), 1);
+		res = calloc(ft_strlen(*data) - n + ft_strlen(val), 1);
 	if (!res)
 		return (ALLOCATION_FAILURE);
 	ft_strlcpy(res, *data, *i + 1);
@@ -57,8 +57,8 @@ static int	update_node_data(t_strings data, size_t name_len, t_string val, size_
 		ft_strlcat(res, *data + *i + 1, ft_strlen(res)
 			+ ft_strlen(*data + *i + 1) + 1);
 	else
-		ft_strlcat(res, *data + *i + 1 + name_len, ft_strlen(res)
-			+ ft_strlen(*data + *i + 1 + name_len) + 1);
+		ft_strlcat(res, *data + *i + 1 + n, ft_strlen(res)
+			+ ft_strlen(*data + *i + 1 + n) + 1);
 	*i += ft_strlen(val);
 	free(*data);
 	*data = res;

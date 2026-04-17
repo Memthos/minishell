@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:17:30 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:15:04 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 t_status	cmd_export(t_strings args, t_shell *shell)
 {
 	bool			concat;
-	char			**entry;
-	char			*tmp;
+	t_strings		entry;
+	t_string		tmp;
 	t_status		code;
 	t_dictionary	*cpy;
 
@@ -75,7 +75,7 @@ t_status	cmd_export(t_strings args, t_shell *shell)
 		if (concat)
 		{
 			cpy = dict_get(shell->env, entry[0]);
-			tmp = ft_strjoin((const t_string )cpy->data, entry[1]);
+			tmp = ft_strjoin((const t_string)cpy->data, entry[1]);
 			if (NULL == dict_add(&shell->env, entry[0], tmp))
 				perror("malloc");
 			free(entry[1]);

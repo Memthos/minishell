@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:13:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/09 15:14:42 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:20:41 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ t_uint	stack_lst_size(t_stack *stack)
 		++size;
 		stack = stack->next;
 	}
-	return (size);	
+	return (size);
 }

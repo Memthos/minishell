@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_string_utils.c                                     :+:      :+:    :+:   */
+/*   string_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/23 09:42:06 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 10:57:10 by juperrin         ###   ########.fr       */
+/*   Created: 2026/04/17 11:12:13 by juperrin          #+#    #+#             */
+/*   Updated: 2026/04/17 11:13:26 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ bool	str_is_digit(t_string str)
 t_strings	split_at(const t_string str, const char c)
 {
 	t_strings	split;
-	t_uint	index;
+	t_uint		index;
 
 	if (!ft_strchr(str, c))
 		return (NULL);
-	split = (t_strings )malloc(sizeof(t_string ) * 2);
+	split = (t_strings)malloc(sizeof(t_string) * 2);
 	if (NULL == split)
 		return (NULL);
 	index = 0;
 	while (*(str + index) != c)
 		++index;
-	*split = (t_string )malloc(sizeof(char) * (index + 1));
-	*(split + 1) = (t_string )malloc(sizeof(char) * (ft_strlen(str) - index));
+	*split = (t_string)malloc(sizeof(char) * (index + 1));
+	*(split + 1) = (t_string)malloc(sizeof(char) * (ft_strlen(str) - index));
 	if (NULL == *split || NULL == *(split + 1))
 	{
 		free(*split);
