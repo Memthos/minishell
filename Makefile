@@ -63,8 +63,7 @@ clean:
 	@echo "Cleaned Minishell object files"
 
 fclean: clean
-	@rm -f $(NAME)
-	@make -sC $(LIBFT_DIR) fclean
+	@rm -f $(NAME) $(LIBFT)
 	@echo "Cleaned Minishell"
 
 re: fclean all
