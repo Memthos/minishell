@@ -39,16 +39,16 @@ all: $(NAME)
 bonus: $(OBJDIR).bonus
 
 $(NAME): $(OBJECTS) | $(LIBFT)
-	@$(CC) $(CFLAGS) -o $@ $^ -I$(INCLUDES_DIR) $(LIBS)
+	@$(CC) $(CFLAGS) -o $@ $^  $(LIBS)
 	@echo "Finished compiling Minishell"
 
 $(OBJDIR).bonus: $(OBJECTS_BONUS) | $(LIBFT)
-	@$(CC) $(CFLAGS) -o $@ $^ -I$(INCLUDES_DIR) $(LIBS)
+	@$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 	@touch $(OBJDIR).bonus
 	@echo "Finished compiling Minishell bonuses"
 
 $(OBJDIR)%.o: %.c | $(OBJDIR)
-	@$(CC) $(CFLAGS) -o $@ -c $<
+	@$(CC) $(CFLAGS) -o $@ -c $< -I$(INCLUDES_DIR)
 
 $(LIBFT):
 	@make -sC $(LIBFT_DIR) all
