@@ -6,11 +6,11 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:09:08 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:17:56 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	limiter_quotes(t_ast_lst *red, t_side side)
 {

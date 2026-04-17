@@ -6,11 +6,11 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:36:17 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/09 15:32:00 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	stack_lst_clear(t_stack **stack, void (*del)(void *param))
 {

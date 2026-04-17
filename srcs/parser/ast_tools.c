@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ast_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 10:17:40 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/13 19:22:04 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	peek(t_lxr_lst **node, t_token token)
 {

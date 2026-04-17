@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_lst_add.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:06:02 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/26 13:21:03 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_status	cmds_lst_add(t_ast_lst *ast, t_cmd_lst **cmds)
 {

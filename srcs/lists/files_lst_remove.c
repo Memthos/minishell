@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   files_lst_remove.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:07:53 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/17 20:10:00 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_files_lst	*files_lst_pop(t_files_lst **node)
 {

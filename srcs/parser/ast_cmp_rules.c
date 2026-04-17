@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ast_cmp_rules.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 17:10:27 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/25 20:47:47 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_ast_lst	*compound_cmd_r(t_lxr_lst **lxr, t_status *status)
 {
