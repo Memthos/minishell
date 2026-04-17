@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:17:30 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:15:04 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:28:40 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_status	cmd_export(t_strings args, t_shell *shell)
 			++args;
 			continue ;
 		}
-		entry = split_at(*args, '=');
+		entry = str_split_at(*args, '=');
 		if (NULL == entry)
 		{
 			if (!check_var_name(*args))

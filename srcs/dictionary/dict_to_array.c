@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 08:06:45 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:21:06 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:29:51 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_strings	dict_to_array(t_dictionary *dict, char sep)
 		arr[index] = ft_strjoin_sep(dict->key, dict->data, sep);
 		if (NULL == arr[index])
 		{
-			free_t_strings(arr);
+			strings_free(arr);
 			return (NULL);
 		}
 		dict = dict->next;

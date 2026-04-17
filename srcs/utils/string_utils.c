@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 11:12:13 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:13:26 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:29:51 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	str_is_digit(t_string str)
 	return (true);
 }
 
-t_strings	split_at(const t_string str, const char c)
+t_strings	str_split_at(const t_string str, const char c)
 {
 	t_strings	split;
 	t_uint		index;
@@ -52,7 +52,7 @@ t_strings	split_at(const t_string str, const char c)
 	return (split);
 }
 
-t_uint	t_strings_size(const t_strings strs)
+t_uint	strings_len(const t_strings strs)
 {
 	t_uint	size;
 
@@ -64,7 +64,7 @@ t_uint	t_strings_size(const t_strings strs)
 	return (size);
 }
 
-void	free_t_strings(t_strings strs)
+void	strings_free(t_strings strs)
 {
 	t_uint	index;
 

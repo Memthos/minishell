@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:28:40 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_dictionary	*init_env(t_string envp[])
 	dict = NULL;
 	while (*envp)
 	{
-		tmp = split_at(*envp, '=');
+		tmp = str_split_at(*envp, '=');
 		if (NULL == dict_add(&dict, tmp[0], tmp[1]))
 		{
 			free(tmp);

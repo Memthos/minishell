@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:48:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:29:51 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,21 @@ t_status	cmd_exec(t_strings args, t_shell *shell)
 				error_output(*args, NULL, FILE_NOT_FOUND);
 			else
 				error_output(*args, NULL, COMMAND_NOT_FOUND);
-			free_t_strings(paths);
+			strings_free(paths);
 			return (127);
 		}
 	}
 	if (ft_strchr(*args, '/') && is_dir(*args))
 	{
 		error_output(*args, NULL, IS_DIRECTORY);
-		free_t_strings(paths);
+		strings_free(paths);
 		return (126);
 	}
 	envp = dict_to_array(shell->env, '=');
 	execve(*args, args, envp);
 	if (errno == ENOEXEC)
     {
-        t_strings new_args = malloc(sizeof(t_string ) * (t_strings_size((const t_strings )args) + 2));
+        t_strings new_args = malloc(sizeof(t_string ) * (strings_len((const t_strings )args) + 2));
 		*new_args = ft_strdup("/bin/sh");
 		int index = 0;
 		while (*(args + index))
@@ -94,10 +94,10 @@ t_status	cmd_exec(t_strings args, t_shell *shell)
 		}
 		*(new_args + index + 1) = NULL;
         execve(*new_args, new_args, envp);
-		free_t_strings(new_args);
+		strings_free(new_args);
 	}
-	free_t_strings(envp);
-	free_t_strings(paths);
+	strings_free(envp);
+	strings_free(paths);
 	if (SUCCESS == access(*args, X_OK) && !is_dir(*args))
 		return (SUCCESS);
 	if (SUCCESS != access(*args, X_OK) && SUCCESS == access(*args, R_OK | W_OK))
