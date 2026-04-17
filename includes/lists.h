@@ -162,21 +162,21 @@ t_char_lst	*file_lst_last(t_char_lst *head);
 /// @param files The head / start of the list.
 /// @param status The status of the parser.
 /// @return 0 if the function is successful, else it returns 1.
-int			files_lst_add(t_string s, t_char_lst **files, t_status *status);
+int			char_lst_add(t_string s, t_char_lst **files, t_status *status);
 
 /// @brief Removes the last node of head.
 /// @param head The head / start of the list.
 /// @return The updated version of the list passed in.
-t_char_lst	*files_lst_remove(t_char_lst **head);
+t_char_lst	*char_lst_remove(t_char_lst **head);
 
 /// @brief Clears the list passed in.
 /// @param head The head / start of the list.
-void		files_lst_clear(t_char_lst **head);
+void		char_lst_clear(t_char_lst **head);
 
 /// @brief Pop the given node from the list.
 /// @param node The node to pop.
 /// @return The node or NULL if it was freed.
-t_char_lst	*files_lst_pop(t_char_lst **node);
+t_char_lst	*char_lst_pop(t_char_lst **node);
 
 /// @brief Add a node at the head of the list.
 /// @param node The node to add to the list.

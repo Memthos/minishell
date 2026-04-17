@@ -41,13 +41,13 @@ t_char_lst	*get_files(t_status *status)
 	{
 		if (ft_strcmp(cur_file->d_name, ".") != 0
 			&& ft_strcmp(cur_file->d_name, "..") != 0)
-			files_lst_add(cur_file->d_name, &files, status);
+			char_lst_add(cur_file->d_name, &files, status);
 		if (*status)
 			break ;
 		cur_file = readdir(directory);
 	}
 	closedir(directory);
 	if (*status)
-		files_lst_clear(&files);
+		char_lst_clear(&files);
 	return (files);
 }

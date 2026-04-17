@@ -25,7 +25,7 @@ static t_status	files_to_ast(t_char_lst **files, t_ast_lst *ast)
 	ast->token = WORD;
 	ast->expand_state = DENY;
 	ast->right = NULL;
-	files_lst_pop(files);
+	char_lst_pop(files);
 	while (!status && *files)
 	{
 		tail = ast_lst_last(ast, RIGHT);
@@ -33,7 +33,7 @@ static t_status	files_to_ast(t_char_lst **files, t_ast_lst *ast)
 		if (status)
 			break ;
 		ast_lst_last(ast, RIGHT)->expand_state = DENY;
-		files_lst_pop(files);
+		char_lst_pop(files);
 	}
 	return (status);
 }
@@ -81,9 +81,9 @@ static void	filter_files(t_char_lst **files, t_string model)
 	while (*cur)
 	{
 		if (!(*cur)->data)
-			files_lst_pop(cur);
+			char_lst_pop(cur);
 		else if (file_check((*cur)->data, model))
-			files_lst_pop(cur);
+			char_lst_pop(cur);
 		else
 			cur = &(*cur)->next;
 	}
@@ -109,7 +109,7 @@ void	apply_wildcards(t_ast_lst *node, t_status *status)
 		}
 	}
 	if (files)
-		files_lst_clear(&files);
+		char_lst_clear(&files);
 	apply_wildcards(node->left, status);
 	if (node->token != AND_IF && node->token != OR_IF)
 		apply_wildcards(node->right, status);

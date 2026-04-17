@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   files_lst_remove.c                                 :+:      :+:    :+:   */
+/*   char_lst_remove.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_char_lst	*files_lst_pop(t_char_lst **node)
+t_char_lst	*char_lst_pop(t_char_lst **node)
 {
 	t_char_lst	*new_next;
 
@@ -35,7 +35,7 @@ t_char_lst	*files_lst_pop(t_char_lst **node)
 	return (*node);
 }
 
-t_char_lst	*files_lst_remove(t_char_lst **head)
+t_char_lst	*char_lst_remove(t_char_lst **head)
 {
 	t_char_lst	*cpy;
 
@@ -59,12 +59,12 @@ t_char_lst	*files_lst_remove(t_char_lst **head)
 	return (*head);
 }
 
-void	files_lst_clear(t_char_lst **head)
+void	char_lst_clear(t_char_lst **head)
 {
 	if (NULL == head || NULL == *head)
 		return ;
 	while (*head)
-		files_lst_remove(head);
+		char_lst_remove(head);
 	*head = NULL;
 	return ;
 }

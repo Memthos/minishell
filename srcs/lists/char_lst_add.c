@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   files_lst_add.c                                    :+:      :+:    :+:   */
+/*   char_lst_add.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	files_lst_add(t_string s, t_char_lst **files, t_status *status)
+int	char_lst_add(t_string s, t_char_lst **files, t_status *status)
 {
 	t_char_lst	*node;
 

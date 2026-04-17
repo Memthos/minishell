@@ -21,7 +21,7 @@ SRCS =	minishell.c \
 		commands.c exec.c cd.c env.c exit.c export.c echo.c pwd.c unset.c \
 		dict_add.c dict_clear.c dict_get.c dict_get_data.c dict_new.c dict_remove.c dict_update.c dict_size.c dict_sort.c dict_copy.c dict_to_array.c dict_display.c \
 		stack_lst_new.c stack_lst_append.c stack_lst_pop.c stack_lst_clear.c stack_lst_size.c \
-		files_lst_add.c files_lst_last.c files_lst_remove.c \
+		char_lst_add.c char_lst_last.c char_lst_remove.c \
 		cmds_lst_add.c cmds_lst_last.c cmds_lst_remove.c \
 
 OBJDIR = objs/
