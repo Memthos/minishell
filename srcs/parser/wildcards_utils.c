@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 09:41:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 22:21:20 by memthos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static DIR	*open_dir(t_status *status)
 	return (directory);
 }
 
-t_files_lst	*get_files(t_status *status)
+t_char_lst	*get_files(t_status *status)
 {
 	DIR				*directory;
 	struct dirent	*cur_file;
-	t_files_lst		*files;
+	t_char_lst		*files;
 
 	files = NULL;
 	directory = open_dir(status);

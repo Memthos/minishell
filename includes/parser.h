@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:10:03 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 22:17:23 by memthos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void		apply_wildcards(t_ast_lst *node, t_status *status);
 /// @brief Function to list all the files and directories from the current one
 /// @param status The status of the parser.
 /// @return A chained list with all the files that were found.
-t_files_lst	*get_files(t_status *status);
+t_char_lst	*get_files(t_status *status);
 
 /// @brief Make the base of the AST tree, calls all the other functions
 /// of the ast.

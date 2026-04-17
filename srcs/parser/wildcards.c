@@ -6,13 +6,13 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:56:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 22:17:24 by memthos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_status	files_to_ast(t_files_lst **files, t_ast_lst *ast)
+static t_status	files_to_ast(t_char_lst **files, t_ast_lst *ast)
 {
 	t_status	status;
 	t_ast_lst	*tail;
@@ -38,7 +38,7 @@ static t_status	files_to_ast(t_files_lst **files, t_ast_lst *ast)
 	return (status);
 }
 
-static void	update_ast(t_ast_lst *node, t_files_lst **files, t_status *status)
+static void	update_ast(t_ast_lst *node, t_char_lst **files, t_status *status)
 {
 	t_ast_lst	*right;
 
@@ -73,9 +73,9 @@ static int	file_check(t_string data, t_string model)
 	return (1);
 }
 
-static void	filter_files(t_files_lst **files, t_string model)
+static void	filter_files(t_char_lst **files, t_string model)
 {
-	t_files_lst	**cur;
+	t_char_lst	**cur;
 
 	cur = files;
 	while (*cur)
@@ -91,7 +91,7 @@ static void	filter_files(t_files_lst **files, t_string model)
 
 void	apply_wildcards(t_ast_lst *node, t_status *status)
 {
-	t_files_lst	*files;
+	t_char_lst	*files;
 
 	if (*status || !node)
 		return ;

@@ -6,15 +6,15 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:07:53 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 22:17:24 by memthos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_files_lst	*files_lst_pop(t_files_lst **node)
+t_char_lst	*files_lst_pop(t_char_lst **node)
 {
-	t_files_lst	*new_next;
+	t_char_lst	*new_next;
 
 	if (!node || !*node)
 		return (NULL);
@@ -35,9 +35,9 @@ t_files_lst	*files_lst_pop(t_files_lst **node)
 	return (*node);
 }
 
-t_files_lst	*files_lst_remove(t_files_lst **head)
+t_char_lst	*files_lst_remove(t_char_lst **head)
 {
-	t_files_lst	*cpy;
+	t_char_lst	*cpy;
 
 	if (!head || !*head)
 		return (NULL);
@@ -59,7 +59,7 @@ t_files_lst	*files_lst_remove(t_files_lst **head)
 	return (*head);
 }
 
-void	files_lst_clear(t_files_lst **head)
+void	files_lst_clear(t_char_lst **head)
 {
 	if (NULL == head || NULL == *head)
 		return ;

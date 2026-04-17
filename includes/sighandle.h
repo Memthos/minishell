@@ -13,7 +13,7 @@
 #ifndef SIGHANDLE_H
 # define SIGHANDLE_H
 
-# include "minishell.h"
+# include "types.h"
 
 extern int	g_signal;
 

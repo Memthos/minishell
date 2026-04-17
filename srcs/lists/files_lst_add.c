@@ -6,17 +6,17 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:06:02 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 22:17:23 by memthos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	files_lst_add(t_string s, t_files_lst **files, t_status *status)
+int	files_lst_add(t_string s, t_char_lst **files, t_status *status)
 {
-	t_files_lst	*node;
+	t_char_lst	*node;
 
-	node = malloc(sizeof(t_files_lst));
+	node = malloc(sizeof(t_char_lst));
 	if (!node)
 	{
 		*status = ALLOCATION_FAILURE;
