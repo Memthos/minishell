@@ -23,12 +23,12 @@ t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
 	if (status == ALLOCATION_FAILURE)
 	{
 		perror("malloc");
-		status = 1;
-	}
-	if (!shell->exitno && status)
-		shell->exitno = status;
-	if (status)
+		if (!shell->exitno)
+			shell->exitno = 1;
 		return (FAILURE);
+	}
+	if (!shell->exitno)
+		shell->exitno = status;
 	return (SUCCESS);
 }
 

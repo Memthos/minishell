@@ -19,7 +19,7 @@ static DIR	*open_dir(t_status *status)
 	directory = opendir(".");
 	if (!directory)
 	{
-		*status = BAD_ARG;
+		*status = FAILURE;
 		error_output(NULL, NULL, READDIR_FAILURE);
 		return (NULL);
 	}
