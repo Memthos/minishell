@@ -6,3 +6,5 @@ minishell
 *.a
 #vscode folder
 .vscode/
+#bear file
+compile_commands.json
