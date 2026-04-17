@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 16:02:03 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	can_expand(t_ast_lst *node, t_status *status, t_shell *shell)
 {
-	char	*s;
+	t_string	s;
 
 	if (!node->data || node->expand_state == DENY
 		|| (node->token != WORD && node->token != WILDCARD))

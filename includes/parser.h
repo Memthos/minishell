@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 15:56:34 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:10:03 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 /// @param shell A reference to the variables of the shell.
 /// @param is_red Param to check whether or not the node is the WORD of
 /// a redirection.
-void		expand(t_ast_lst **node, t_status *status, t_shell *shell,
-				int is_red);
+void		expand(t_ast_lst **node, t_status *status, t_shell *sh, int is_red);
 
 /// @brief Function to expand the given data.
 /// @param data THe data to expand.
@@ -32,7 +31,7 @@ void		expand(t_ast_lst **node, t_status *status, t_shell *shell,
 /// @param is_red Param to check whether or not the node is the WORD of
 /// a redirection.
 /// @return The exit status of the function
-t_status	expand_node(char **data, size_t *idx, t_shell *shell, int is_red);
+t_status	expand_node(t_strings data, size_t *idx, t_shell *sh, int is_red);
 
 /// @brief Function to check if the node data can be expanded
 /// @param node The node with the data to expand.
@@ -45,14 +44,14 @@ int			can_expand(t_ast_lst *node, t_status *status, t_shell *shell);
 /// @param var_name The name of the expand variable to search for.
 /// @param shell A reference to the variables of the shell.
 /// @return Either the variable value or NULL if nothing was found.
-char		*get_expand_value(char *var_name, t_shell *shell, t_status *status);
+char		*get_expand_value(t_string var_name, t_shell *sh, t_status *status);
 
 /// @brief Get the name of the variable to expand.
 /// @param s The base string.
 /// @param name A pointer to the string that will contain the node.
 /// @param i The index where a $ was found.
 /// @return 1 if there was an allocation failure, else 0.
-int			get_var_name(char *s, char **name, size_t *i);
+int			get_var_name(t_string s, t_strings name, size_t *i);
 
 /// @brief Check whether or not the node is the WORD of a redirection
 /// @param node THe node to check
@@ -80,12 +79,12 @@ int			get_quotes_rmv(t_ast_lst *ast, size_t *quotes_rmv);
  * @param s The string written as input.
  * @return Return 1 if an error occurred, else 0.
  */
-void		lexer(t_lxr_lst **lxr, char *s, t_status *status);
+void		lexer(t_lxr_lst **lxr, t_string s, t_status *status);
 
 /// @brief The main function of the parser.
 /// @param s The line written by the user.
 /// @return The status of the parser
-t_status	parser(char *s, t_shell *shell);
+t_status	parser(t_string s, t_shell *shell);
 
 /// @brief The final step of the parsing, it makes the expand,
 /// set the wildcards and removes the quotes.
@@ -100,7 +99,7 @@ t_status	final_parsing(t_shell *shell, t_ast_lst **ast);
  * @param len the wanted size of the returned string.
  * @return The newly created string.
  */
-char		*make_str(char *input, size_t len);
+char		*make_str(t_string input, size_t len);
 
 /// @brief Check if the lexer has unclosed quotes or wrong parenthesis.
 /// @param lxr A pointer to the head of the lexer.

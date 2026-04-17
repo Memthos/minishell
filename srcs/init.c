@@ -6,13 +6,13 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/09 17:45:22 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static t_dictionary	*init_env(char *envp[])
+static t_dictionary	*init_env(t_string envp[])
 {
 	t_dictionary	*dict;
 	char			**tmp;
@@ -62,7 +62,7 @@ static void	set_shell(t_shell *shell)
 	return ;
 }
 
-t_shell	*init(char *envp[])
+t_shell	*init(t_string envp[])
 {
 	t_shell	*shell;
 

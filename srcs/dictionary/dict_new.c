@@ -6,13 +6,13 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:08:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/21 15:39:04 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_dictionary	*dict_new(char *key, void *data)
+t_dictionary	*dict_new(t_string key, void *data)
 {
 	t_dictionary	*dict;
 

@@ -6,13 +6,13 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:11:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/08 13:57:03 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	cmd_cd(char **args, t_shell *shell)
+t_status	cmd_cd(t_strings args, t_shell *shell)
 {
 	t_dictionary	*dir;
 	char			*path;

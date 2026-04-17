@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 17:55:00 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	get_var_name(char *s, char **name, size_t *i)
+int	get_var_name(t_string s, t_strings name, size_t *i)
 {
 	size_t	size;
 
@@ -41,10 +41,10 @@ int	get_var_name(char *s, char **name, size_t *i)
 	return (0);
 }
 
-char	*get_expand_value(char *var_name, t_shell *shell, t_status *status)
+t_string	get_expand_value(t_string var_name, t_shell *shell, t_status *status)
 {
-	char	*value;
-	char	*tmp;
+	t_string	value;
+	t_string	tmp;
 
 	value = NULL;
 	tmp = dict_get_data(shell->env, var_name);

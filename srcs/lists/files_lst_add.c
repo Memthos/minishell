@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   files_lst_add.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 11:06:02 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/18 09:47:20 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	files_lst_add(char *s, t_files_lst **files, t_status *status)
+int	files_lst_add(t_string s, t_files_lst **files, t_status *status)
 {
 	t_files_lst	*node;
 

@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 10:50:25 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void			swap_ptr(void **a, void **b);
 
 /**
  * @brief Trys to get the first number contained in S and set NUMBER to it.
- * @param s The string from which you wanna get a number.
+ * @param s The t_string from which you wanna get a number.
  * @param number A pointer to a number that will contains the result.
  * @return A status to tell if the number has been successfully parsed or not.
  */
-t_status		get_number(const char *s, int *number);
+t_status		get_number(const t_string s, int *number);
 
 /**
  * @brief Reallocs array to add memory for one more element.
@@ -46,39 +46,42 @@ void			*increment_array(void *array, t_uint count, t_uint size);
 int				ft_close(int *fd);
 
 /**
- * @brief Splits a string into two separates allocated strings.
- * @return Always returns an array that contains two strings.
+ * @brief Splits a t_string into two separates allocated t_strings.
+ * @return Always returns an array that contains two t_strings.
  */
-char			**split_at(const char *str, const char c);
+char			**split_at(const t_string str, const char c);
 
-t_uint	strings_size(const char **strs);
+/**
+ * @brief Returns the number of t_string in a t_string array.
+ */
+t_uint			t_strings_size(const t_strings strs);
 
 /**
  * @brief Frees each arrays in strs and strs itself.
  */
-void			free_strings(char **strs);
+void			free_t_strings(t_strings strs);
 
 /**
  * @brief Checks if a variable name is correct.
  * @return true on if name is correct, false otherwise.
  */
-bool			check_var_name(char *name);
+bool			check_var_name(t_string name);
 
 /**
  * @brief Checks if str contains only digits.
  * @return true on success, false on failure.
  */
-bool			str_is_digit(char *str);
+bool			str_is_digit(t_string str);
 
 /**
  * @brief Checks if str is empty or not.
  */
-bool			str_is_empty(char *str);
+bool			str_is_empty(t_string str);
 
-/// @brief Checks whether or not the input string contains spaces, tabs, etc.
-/// @param str The string to check
+/// @brief Checks whether or not the input t_string contains spaces, tabs, etc.
+/// @param str The t_string to check
 /// @return 1 if True, else 0.
-bool			contain_space(char *str);
+bool			contain_space(t_string str);
 
 /**
  * @brief Checks if the PATH environment variable looks correct.
@@ -95,6 +98,6 @@ t_dictionary	*update_shlvl(t_dictionary **env);
 /**
  * @brief Returns true if path is a directory, false otherwise.
  */
-bool			is_dir(const char *path);
+bool			is_dir(const t_string path);
 
 #endif

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ast_lst_new.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:08:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/23 11:52:25 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_ast_lst	*ast_lst_new_char(char *data, t_token token, t_status *status)
+t_ast_lst	*ast_lst_new_char(t_string data, t_token token, t_status *status)
 {
 	t_ast_lst	*new;
 	char		*str;

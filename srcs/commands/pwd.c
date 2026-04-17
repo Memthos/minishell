@@ -6,15 +6,15 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 09:48:05 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 13:30:56 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	cmd_pwd(char **args, t_shell *shell)
+t_status	cmd_pwd(t_strings args, t_shell *shell)
 {
-	char	*cwd;
+	t_string	cwd;
 
 	(void)args;
 	cwd = get_cwd(shell);
@@ -25,7 +25,7 @@ t_status	cmd_pwd(char **args, t_shell *shell)
 	return (SUCCESS);
 }
 
-char	*get_cwd(t_shell *shell)
+t_string	get_cwd(t_shell *shell)
 {
 	char			*cwd;
 	t_dictionary	*cwd_dict;

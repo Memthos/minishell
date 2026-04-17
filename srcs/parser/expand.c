@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 17:53:15 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static void	update_ast(t_ast_lst *node, t_status *status)
 		ast_lst_clear(&right);
 }
 
-static int	update_node_data(char **data, size_t name_len, char *val, size_t *i)
+static int	update_node_data(t_strings data, size_t name_len, t_string val, size_t *i)
 {
-	char	*res;
+	t_string	res;
 
 	if ((*data)[0] == '~')
 		res = calloc(ft_strlen(*data) + ft_strlen(val), 1);
@@ -65,7 +65,7 @@ static int	update_node_data(char **data, size_t name_len, char *val, size_t *i)
 	return (SUCCESS);
 }
 
-t_status	expand_node(char **data, size_t *i, t_shell *shell, int is_red)
+t_status	expand_node(t_strings data, size_t *i, t_shell *shell, int is_red)
 {
 	t_status	status;
 	size_t		name_len;

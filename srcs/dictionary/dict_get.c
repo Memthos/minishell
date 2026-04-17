@@ -6,13 +6,13 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:06:10 by juperrin          #+#    #+#             */
-/*   Updated: 2026/02/18 11:48:05 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_dictionary	*dict_get(t_dictionary *dict, char *key)
+t_dictionary	*dict_get(t_dictionary *dict, t_string key)
 {
 	if (NULL == dict || NULL == key)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 14:26:56 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:54 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 
 typedef struct s_shell	t_shell;
 
-typedef t_status		(*t_built_in)(char **, t_shell *);
+typedef t_status		(*t_built_in)(t_strings , t_shell *);
 
 typedef struct s_command
 {
 	char		*name;
-	t_status	(*cmd)(char **, t_shell *);
+	t_status	(*cmd)(t_strings, t_shell *);
 }	t_command;
 
 /**
@@ -34,7 +34,7 @@ typedef struct s_command
  * @return A function pointer to the right command to execute,
  * NULL if name is NULL.
  */
-t_built_in	get_command(char *name);
+t_built_in	get_command(t_string name);
 
 /**
  * @brief Execute a command with execve.
@@ -42,7 +42,7 @@ t_built_in	get_command(char *name);
  * @param env The global shell structure.
  * @return Nothing on success, 1 on failure.
  */
-t_status	cmd_exec(char **args, t_shell *shell);
+t_status	cmd_exec(t_strings args, t_shell *shell);
 
 /**
  * @brief Writes a message on the standard output.
@@ -50,7 +50,7 @@ t_status	cmd_exec(char **args, t_shell *shell);
  * @param env The global shell structure.
  * @return Always returns 0.
  */
-t_status	cmd_echo(char **args, t_shell *shell);
+t_status	cmd_echo(t_strings args, t_shell *shell);
 
 /**
  * @brief Displays the current working directory using get_cwd function.
@@ -58,7 +58,7 @@ t_status	cmd_echo(char **args, t_shell *shell);
  * @param env The global shell structure.
  * @return 0 on success, 1 on failure.
  */
-t_status	cmd_pwd(char **args, t_shell *shell);
+t_status	cmd_pwd(t_strings args, t_shell *shell);
 
 /**
  * @brief Returns the current working directory based first on PWD env variable,
@@ -73,7 +73,7 @@ char		*get_cwd(t_shell *shell);
  * @param env The global shell structure.
  * @return 0 on success, 1 on failure.
  */
-t_status	cmd_cd(char **args, t_shell *shell);
+t_status	cmd_cd(t_strings args, t_shell *shell);
 
 /**
  * @brief Prints all the environments variables.
@@ -81,7 +81,7 @@ t_status	cmd_cd(char **args, t_shell *shell);
  * @param env The global shell structure.
  * @return Always return 0, except if env is NULL.
  */
-t_status	cmd_env(char **args, t_shell *shell);
+t_status	cmd_env(t_strings args, t_shell *shell);
 
 /**
  * @brief Adds an environment variable to the current environment.
@@ -89,7 +89,7 @@ t_status	cmd_env(char **args, t_shell *shell);
  * @param env The global shell structure.
  * @return 0 on success, 1 on failure.
  */
-t_status	cmd_export(char **args, t_shell *shell);
+t_status	cmd_export(t_strings args, t_shell *shell);
 
 /**
  * @brief Removes an environment variable.
@@ -97,7 +97,7 @@ t_status	cmd_export(char **args, t_shell *shell);
  * @param env The global shell structure.
  * @return Always return 0.
  */
-t_status	cmd_unset(char **args, t_shell *shell);
+t_status	cmd_unset(t_strings args, t_shell *shell);
 
 /**
  * @brief Exit the program.
@@ -105,7 +105,7 @@ t_status	cmd_unset(char **args, t_shell *shell);
  * @param env The global shell structure.
  * @return Return 0 or any code passed as an argument or 2 on bad argument.
  */
-t_status	cmd_exit(char **args, t_shell *shell);
+t_status	cmd_exit(t_strings args, t_shell *shell);
 
 /// @brief Get the heredoc input from the user.
 /// @param shell A pointer to the the shell structure.

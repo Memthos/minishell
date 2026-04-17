@@ -6,15 +6,15 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:23:31 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/08 10:52:29 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static const char	*get_error(int index)
+static t_string	get_error(int index)
 {
-	static const char	*error_msgs[] = {"",
+	static const t_string	error_msgs[] = {
 		"success", "failure", "bad argument", "too many arguments", "overflow",
 		"underflow", "allocation failure", "execve failure", "pipe failure",
 		"fork failure",	"dup failure", "open failure",
@@ -23,10 +23,12 @@ static const char	*get_error(int index)
 		"Failed to read directory content", "numeric argument required"
 	};
 
-	return (error_msgs[index + 1]);
+	if (index < 0)
+		return ("");
+	return (error_msgs[index]);
 }
 
-t_status	error_output(const char *cmd, const char *arg, int error)
+t_status	error_output(const t_string cmd, const t_string arg, int error)
 {
 	t_status	code;
 
@@ -55,7 +57,7 @@ t_status	error_output(const char *cmd, const char *arg, int error)
 	return (code);
 }
 
-t_status	parser_error_print(const char *arg)
+t_status	parser_error_print(const t_string arg)
 {
 	if (!arg)
 		return (FAILURE);
@@ -68,7 +70,7 @@ t_status	parser_error_print(const char *arg)
 	return (SUCCESS);
 }
 
-t_status	amb_red_error_print(const char *arg)
+t_status	amb_red_error_print(const t_string arg)
 {
 	if (!arg)
 		return (FAILURE);
@@ -81,7 +83,7 @@ t_status	amb_red_error_print(const char *arg)
 	return (SUCCESS);
 }
 
-t_status	heredoc_error_print(const char *arg)
+t_status	heredoc_error_print(const t_string arg)
 {
 	if (!arg)
 		return (FAILURE);

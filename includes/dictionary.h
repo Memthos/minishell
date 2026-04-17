@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 11:10:37 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 14:26:56 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:07:25 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_dictionary
  * @param data The new data to store.
  * @return The allocated dict on success. NULL on failure.
  */
-t_dictionary	*dict_new(char *key, void *data);
+t_dictionary	*dict_new(t_string key, void *data);
 
 /**
  * @brief Adds a new entry to the dictionary passed in.
@@ -36,7 +36,7 @@ t_dictionary	*dict_new(char *key, void *data);
  * @param data The new data to store.
  * @return The same dictionary with the new entry on success. NULL on failure.
  */
-t_dictionary	*dict_add(t_dictionary **dict, char *key, void *data);
+t_dictionary	*dict_add(t_dictionary **dict, t_string key, void *data);
 
 /**
  * @brief Returns a entry based on the key passed in.
@@ -44,13 +44,13 @@ t_dictionary	*dict_add(t_dictionary **dict, char *key, void *data);
  * @param key The unique key to retrieve the entry.
  * @return The dictionary entry on success, NULL on failure.
  */
-t_dictionary	*dict_get(t_dictionary *dict, char *key);
+t_dictionary	*dict_get(t_dictionary *dict, t_string key);
 
 /// @brief Returns the data of an entry based on the key passed in.
 /// @param dict The dictionary to search in.
 /// @param key The unique key to retrieve the entry.
 /// @return The dictionary entry data on success, NULL on failure.
-char			*dict_get_data(t_dictionary *dict, char *key);
+char			*dict_get_data(t_dictionary *dict, t_string key);
 
 /**
  * @brief Updates an entry in the dictionary passed in.
@@ -59,7 +59,7 @@ char			*dict_get_data(t_dictionary *dict, char *key);
  * @param data The new data.
  * @return The dictionary on success, NULL on failure.
  */
-t_dictionary	*dict_update(t_dictionary *dict, char *key, void *data);
+t_dictionary	*dict_update(t_dictionary *dict, t_string key, void *data);
 
 /**
  * @brief Removes an entry based on the given key.
@@ -67,7 +67,7 @@ t_dictionary	*dict_update(t_dictionary *dict, char *key, void *data);
  * @param key The unique key to remove the wanted entry.
  * @return The same dictionary without the removed entry.
  */
-t_dictionary	*dict_remove(t_dictionary **dict, char *key);
+t_dictionary	*dict_remove(t_dictionary **dict, t_string key);
 
 /**
  * @brief Clear the dictionary passed in.
@@ -106,7 +106,7 @@ t_dictionary	*dict_sort(t_dictionary **dict);
  * @param suffix The suffix to print a the end of each line.
  * @param sep The separation between the key and the data.
  */
-void			dict_display(t_dictionary *dict, char *prefix, char *sep,
-					char *suffix);
+void			dict_display(t_dictionary *dict, t_string prefix, t_string sep,
+					t_string suffix);
 
 #endif

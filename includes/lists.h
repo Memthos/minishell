@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 14:26:56 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_cmd_lst
  * @param p_dpt The current parenthesis depth.
  * @return The created node.
  */
-t_lxr_lst	*lxr_lst_new(char *data, t_token token, long p_dpt);
+t_lxr_lst	*lxr_lst_new(t_string data, t_token token, long p_dpt);
 
 /**
  * @brief Adds a new node at the end of the list.
@@ -63,7 +63,7 @@ t_lxr_lst	*lxr_lst_new(char *data, t_token token, long p_dpt);
  * @param p_dpt The current parenthesis depth.
  * @return The exit status of the function.
  */
-t_status	lxr_lst_add(t_lxr_lst **head, char *data, t_token t, long p_dpt);
+t_status	lxr_lst_add(t_lxr_lst **head, t_string data, t_token t, long p_dpt);
 
 /**
  * @brief Removes the last node of head.
@@ -118,7 +118,7 @@ t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, t_status *status);
 /// @param token The token of the new node.
 /// @param status The status of the parser.
 /// @return The created node.
-t_ast_lst	*ast_lst_new_char(char *data, t_token token, t_status *status);
+t_ast_lst	*ast_lst_new_char(t_string data, t_token token, t_status *status);
 
 /// @brief Clear the ast.
 /// @param head A pointer to the first node of the ast.
@@ -190,7 +190,7 @@ t_files_lst	*file_lst_last(t_files_lst *head);
 /// @param files The head / start of the list.
 /// @param status The status of the parser.
 /// @return 0 if the function is successful, else it returns 1.
-int			files_lst_add(char *s, t_files_lst **files, t_status *status);
+int			files_lst_add(t_string s, t_files_lst **files, t_status *status);
 
 /// @brief Removes the last node of head.
 /// @param head The head / start of the list.

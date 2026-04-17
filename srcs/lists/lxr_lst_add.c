@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lxr_lst_add.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 17:43:38 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/25 21:00:19 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_status	lxr_lst_add(t_lxr_lst **head, char *data, t_token t, long p_dpt)
+t_status	lxr_lst_add(t_lxr_lst **head, t_string data, t_token t, long p_dpt)
 {
 	t_lxr_lst	*tmp;
 

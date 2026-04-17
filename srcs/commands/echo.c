@@ -6,13 +6,13 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:38:34 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/08 10:41:47 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	is_dash_n(const char *s)
+static bool	is_dash_n(const t_string s)
 {
 	t_uint	index;
 
@@ -32,7 +32,7 @@ static bool	is_dash_n(const char *s)
 	return (true);
 }
 
-t_status	cmd_echo(char **args, t_shell *shell)
+t_status	cmd_echo(t_strings args, t_shell *shell)
 {
 	t_status	code;
 	bool		line_break;

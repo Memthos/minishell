@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/09 14:56:15 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static t_status	minishell(t_shell *shell)
 	return (SUCCESS);
 }
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, t_strings argv, t_strings envp)
 {
 	t_shell	*shell;
 

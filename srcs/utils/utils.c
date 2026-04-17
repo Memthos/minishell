@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:12:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 10:50:08 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	*increment_array(void *array, t_uint count, t_uint size)
 	return (new);
 }
 
-t_status	get_number(const char *s, int *number)
+t_status	get_number(const t_string s, int *number)
 {
 	int		sign;
 	t_uint	index;
@@ -83,7 +83,7 @@ int	ft_close(int *fd)
 	return (code);
 }
 
-bool	contain_space(char *str)
+bool	contain_space(t_string str)
 {
 	size_t	i;
 

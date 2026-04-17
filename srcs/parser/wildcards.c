@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:56:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/06 20:21:58 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	update_ast(t_ast_lst *node, t_files_lst **files, t_status *status)
 		ast_lst_clear(&right);
 }
 
-static int	file_check(char *data, char *model)
+static int	file_check(t_string data, t_string model)
 {
 	if (*model == '\0' && *data == '\0')
 		return (0);
@@ -73,7 +73,7 @@ static int	file_check(char *data, char *model)
 	return (1);
 }
 
-static void	filter_files(t_files_lst **files, char *model)
+static void	filter_files(t_files_lst **files, t_string model)
 {
 	t_files_lst	**cur;
 

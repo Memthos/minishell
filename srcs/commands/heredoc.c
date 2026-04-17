@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:20:07 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/03 16:24:57 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	heredoc_parent(t_shell *shell, pid_t pid, int pipe_fds[2])
 		shell->exitno = WTERMSIG(shell->exitno) + 128;
 }
 
-static int	write_heredoc(t_shell *shell, t_ast_lst *node, int fd, char **data)
+static int	write_heredoc(t_shell *shell, t_ast_lst *node, int fd, t_strings data)
 {
 	size_t	i;
 
@@ -59,7 +59,7 @@ static int	write_heredoc(t_shell *shell, t_ast_lst *node, int fd, char **data)
 	return (0);
 }
 
-static char	*heredoc_limiter(t_shell *shell, t_ast_lst *node)
+static t_string	heredoc_limiter(t_shell *shell, t_ast_lst *node)
 {
 	if (shell->redirects.is_cmp_redir)
 		return (node->right->data);
@@ -69,7 +69,7 @@ static char	*heredoc_limiter(t_shell *shell, t_ast_lst *node)
 
 static int	heredoc_child(t_shell *shell, t_ast_lst *node, int pipe_fds[2])
 {
-	char	*read;
+	t_string	read;
 	int		ret;
 
 	ret = 0;

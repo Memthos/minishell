@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 21:13:55 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/07 10:23:20 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ bool	check_path(t_shell *shell)
 	e = dict_get(shell->env, "PATH");
 	if (NULL == e)
 		return (false);
-	if (*((char *)e->data) == '\0')
+	if (*((t_string )e->data) == '\0')
 		return (false);
 	return (true);
 }
 
-bool	check_var_name(char *name)
+bool	check_var_name(t_string name)
 {
 	if (NULL == name)
 		return (false);
@@ -62,7 +62,7 @@ bool	check_var_name(char *name)
 	return (true);
 }
 
-bool	is_dir(const char *path)
+bool	is_dir(const t_string path)
 {
 	struct stat	stat_buf;
 

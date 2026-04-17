@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/10 15:16:15 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
 	return (SUCCESS);
 }
 
-char	*make_str(char *input, size_t len)
+t_string	make_str(t_string input, size_t len)
 {
-	char	*s;
+	t_string	s;
 	size_t	i;
 
 	s = malloc(sizeof(char) * (len + 1));
@@ -47,7 +47,7 @@ char	*make_str(char *input, size_t len)
 	return (s);
 }
 
-t_status	parser(char *s, t_shell *shell)
+t_status	parser(t_string s, t_shell *shell)
 {
 	t_lxr_lst	*lxr;
 	t_status	status;

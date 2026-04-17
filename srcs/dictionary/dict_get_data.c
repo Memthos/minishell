@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dict_get_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:06:10 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/07 13:47:46 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*dict_get_data(t_dictionary *dict, char *key)
+t_string	dict_get_data(t_dictionary *dict, t_string key)
 {
 	t_dictionary	*node;
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 01:24:12 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/26 15:48:07 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	ft_isspace(char *s)
+static int	ft_isspace(t_string s)
 {
 	if (s[0] == '\n')
 		return (0);
@@ -21,7 +21,7 @@ static int	ft_isspace(char *s)
 	return (0);
 }
 
-static int	get_operator(char *s)
+static int	get_operator(t_string s)
 {
 	if (s[0] == '&' && s[1] == '&')
 		return (AND_IF);
@@ -60,7 +60,7 @@ static int	check_parenth_dpt(long *parenth_dpt, char c)
 	return (0);
 }
 
-static t_status	add_operator(t_lxr_lst **lxr, char *s, size_t *i, long p_dpt)
+static t_status	add_operator(t_lxr_lst **lxr, t_string s, size_t *i, long p_dpt)
 {
 	t_status	ret;
 
@@ -75,7 +75,7 @@ static t_status	add_operator(t_lxr_lst **lxr, char *s, size_t *i, long p_dpt)
 	return (ret);
 }
 
-void	lexer(t_lxr_lst **lxr, char *s, t_status *status)
+void	lexer(t_lxr_lst **lxr, t_string s, t_status *status)
 {
 	t_quote_t	quote_state;
 	long		p_dpt;

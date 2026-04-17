@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lxr_lst_new.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:52:35 by mperrine          #+#    #+#             */
-/*   Updated: 2026/03/19 19:13:26 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_lxr_lst	*lxr_lst_new(char *data, t_token token, long p_dpt)
+t_lxr_lst	*lxr_lst_new(t_string data, t_token token, long p_dpt)
 {
 	t_lxr_lst	*new;
 
