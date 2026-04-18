@@ -52,7 +52,6 @@ $(OBJDIR)%.o: %.c | $(OBJDIR)
 
 $(LIBFT):
 	@make -sC $(LIBFT_DIR) all
-	@echo "Compiled library Libft"
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
@@ -62,11 +61,12 @@ clean:
 	@make -sC $(LIBFT_DIR) clean
 	@echo "Cleaned Minishell object files"
 
-fclean: clean
-	@rm -f $(NAME) $(LIBFT)
+fclean:
+	@rm -f $(NAME)
+	@rm -drf $(OBJDIR)
+	@make -sC $(LIBFT_DIR) fclean
 	@echo "Cleaned Minishell"
 
 re: fclean all
-	@echo "Recompiled Minishell"
 
 .PHONY: all clean fclean re bonus

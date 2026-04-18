@@ -13,6 +13,9 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+//Libft header
+# include "../libs/libft_tools/includes/main.h"
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -31,9 +34,6 @@
 # include <curses.h>
 # include <term.h>
 # include <errno.h>
-
-//Libft header
-# include "../libs/libft_tools/includes/libft.h"
 
 //Typedef and enums headers
 # include "types.h"

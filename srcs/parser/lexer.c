@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int	ft_isspace(t_string s)
+static int	ft_is_separator(t_string s)
 {
 	if (s[0] == '\n')
 		return (0);
@@ -88,7 +88,7 @@ void	lexer(t_lxr_lst **lxr, t_string s, t_status *status)
 	{
 		set_quote_state(&quote_state, s[i]);
 		check_parenth_dpt(&p_dpt, s[i]);
-		if (quote_state == NONE && ft_isspace(&s[i]))
+		if (quote_state == NONE && ft_is_separator(&s[i]))
 			*status = lxr_lst_add(lxr, NULL, TOKEN, p_dpt);
 		else if (quote_state == NONE && s[i] == '\n')
 			*status = lxr_lst_add(lxr, NULL, NEW_LINE, p_dpt);
