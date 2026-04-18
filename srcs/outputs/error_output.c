@@ -74,7 +74,7 @@ t_status	amb_red_error_print(const t_string arg)
 {
 	if (!arg)
 		return (FAILURE);
-	if (write(STDERR_FILENO, "minishell: ", 8) < 0)
+	if (write(STDERR_FILENO, "minishell: ", 11) < 0)
 		return (FAILURE);
 	if (write(STDERR_FILENO, arg, ft_strlen(arg)) < 0)
 		return (FAILURE);
