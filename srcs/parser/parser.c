@@ -27,8 +27,6 @@ t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
 			shell->exitno = 1;
 		return (FAILURE);
 	}
-	if (!shell->exitno)
-		shell->exitno = status;
 	return (SUCCESS);
 }
 

@@ -80,6 +80,7 @@ typedef enum e_tokens
 	R_PAREN,
 	CMP_CMD,
 	WILDCARD,
+	AMB_RED,
 }	t_token;
 
 #endif

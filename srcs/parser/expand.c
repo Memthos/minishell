@@ -17,8 +17,6 @@ static void	update_ast(t_ast_lst *node, t_status *status)
 	t_lxr_lst	*lxr;
 	t_ast_lst	*right;
 
-	if (*status)
-		return ;
 	lxr = NULL;
 	right = node->right;
 	lexer(&lxr, node->data, status);
@@ -85,7 +83,6 @@ t_status	expand_node(t_strings data, size_t *i, t_shell *shell, int is_red)
 	{
 		if (var_value)
 			free(var_value);
-		amb_red_error_print(*data);
 		return (FAILURE);
 	}
 	status = update_node_data(data, name_len, var_value, i);
@@ -106,7 +103,10 @@ static void	expand_loop(t_ast_lst **node, t_status *status, t_shell *shell,
 			|| (i == 0 && (*node)->data[i] == '~'))
 		{
 			*status = expand_node(&(*node)->data, &i, shell, is_red);
-			update_ast(*node, status);
+			if (*status == FAILURE)
+				(*node)->token = AMB_RED;
+			else if (!*status)
+				update_ast(*node, status);
 		}
 		else
 			i++;

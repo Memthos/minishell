@@ -87,9 +87,7 @@ t_status	heredoc_error_print(const t_string arg)
 {
 	if (!arg)
 		return (FAILURE);
-	if (write(2, "minishell: warning: here-document at line ", 42) < 0)
-		return (FAILURE);
-	if (write(2, "nbr", 3) < 0)
+	if (write(2, "minishell: warning: here-document", 33) < 0)
 		return (FAILURE);
 	if (write(STDERR_FILENO, " delimited by end-of-file (wanted `", 35) < 0)
 		return (FAILURE);

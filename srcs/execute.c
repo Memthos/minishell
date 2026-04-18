@@ -101,6 +101,12 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	}
 	if (GREAT == cmd->token || DGREAT == cmd->token)
 	{
+		if (cmd->left->token == AMB_RED)
+		{
+			amb_red_error_print(cmd->left->data);
+			shell->exitno = FAILURE;
+			return (shell->exitno);
+		}
 		ft_close(&shell->redirects.output_redirect_fd);
 		shell->redirects.out_flags = O_WRONLY | O_CREAT;
 		if (DGREAT == cmd->token)
@@ -125,6 +131,12 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	}
 	if (LESS == cmd->token)
 	{
+		if (cmd->left->token == AMB_RED)
+		{
+			amb_red_error_print(cmd->left->data);
+			shell->exitno = FAILURE;
+			return (shell->exitno);
+		}
 		if (access(cmd->left->data, F_OK) < 0)
 		{
 			error_output(NULL, cmd->left->data, FILE_NOT_FOUND);
