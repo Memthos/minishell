@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/20 13:19:40 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/20 13:38:39 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ static void	exec_asts(t_shell *shell)
 			continue ;
 		}
 		code = execute(cur_ast->ast, shell);
-		wait_for_processes(&shell->pids);
+		shell->exitno = wait_for_processes(&shell->pids);
 		if (code && !shell->exitno)
 			shell->exitno = code;
 		shell->oldexitno = shell->exitno;
 		shell->exitno = SUCCESS;
 		cur_ast = cur_ast->next;
 	}
+	return ;
 }
 
 static t_status	minishell(t_shell *shell)
