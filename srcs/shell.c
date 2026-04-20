@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/20 13:08:04 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/20 13:17:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,28 @@ t_status	wait_process(pid_t pid)
 	return (status);
 }
 
-t_status	wait_for_processes(t_shell *shell)
+t_status	wait_for_processes(t_pids_logic *pids)
 {
-	if (NULL == shell)
+	t_status	status;
+
+	if (NULL == pids || NULL == pids->pids || 0 == pids->pid_count)
 		return (FAILURE);
-	if (NULL == shell->pids.pids)
-		return (SUCCESS);
-	shell->pids.pid_index = 0;
-	while (shell->pids.pid_index < shell->pids.pid_count)
+	pids->pid_index = 0;
+	while (pids->pid_index < pids->pid_count)
 	{
-		shell->exitno = wait_process(shell->pids.pids[shell->pids.pid_index]);
-		++shell->pids.pid_index;
+		status = wait_process(pids->pids[pids->pid_index]);
+		++pids->pid_index;
 	}
-	if (shell->exitno >= 128)
+	if (status >= 128)
 	{
-		if (SIGQUIT + 128 == shell->exitno)
+		if (SIGQUIT + 128 == status)
 			printf("Quit");
 		printf("\n");
 	}
-	free(shell->pids.pids);
-	shell->pids.pids = NULL;
-	shell->pids.pid_count = 0;
-	return (shell->exitno);
+	free(pids->pids);
+	pids->pids = NULL;
+	pids->pid_count = 0;
+	return (status);
 }
 
 void	destroy_shell(t_shell *shell)

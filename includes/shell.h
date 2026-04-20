@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/20 13:10:21 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/20 13:18:49 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ t_status	update_pids(t_shell *shell, pid_t pid);
 t_status	wait_process(pid_t pid);
 
 /**
- * @brief If pids list is not null, wait for all pid in pids
- * to finish their execution.
+ * @brief If pids is not null, wait for all pids to finish their execution.
+ * @return Reurns the last pid exit status.
  */
-t_status	wait_for_processes(t_shell *shell);
+t_status	wait_for_processes(t_pids_logic *pids);
 
 /**
  * @brief Destroys all allocated ressources that have bee not
