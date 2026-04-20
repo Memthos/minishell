@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:10:27 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/20 21:09:08 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@
 
 //Parsing header
 # include "parser.h"
+
+//Redirection headers
+# include "redirection.h"
 
 # include "pipe.h"
 
