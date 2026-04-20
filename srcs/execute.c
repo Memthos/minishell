@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/20 13:55:55 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/20 21:47:21 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 		if (NULL == shell->cur_cmd)
 		{
 			shell->cur_cmd_index = 0;
-			shell->cur_cmd = malloc(sizeof(t_string ) * (ast_cmd_size(cmd) + 1));
+			shell->cur_cmd = malloc(sizeof(t_string) * (ast_cmd_size(cmd) + 1));
 			if (NULL == shell->cur_cmd)
 			{
 				perror("malloc");
@@ -82,7 +82,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 			exit(code);
 		}
 		--shell->redirect_input;
-		stack_lst_clear(&shell->pipe_stack, (void (*)(void *))&pipe_close);
+		stack_lst_clear(&shell->pipe_stack, (void (*)(void *)) & pipe_close);
 		shell->exitno = wait_process(fork_pids[0]);
 		shell->exitno = wait_process(fork_pids[1]);
 	}
@@ -199,49 +199,125 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	return (shell->exitno);
 }
 
+static t_status	execute_simple_cmd(t_built_in cmd, t_shell *shell)
+{
+	bool	redirected;
+
+	redirected = false;
+	if (-1 != shell->redirects.output_redirect_fd)
+	{
+		redirected = true;
+		redirect_output(&shell->redirects.output_redirect_fd);
+	}
+	else if (-1 != shell->redirects.output_cmp_redirect_fd)
+	{
+		redirected = true;
+		redirect_output(&shell->redirects.output_cmp_redirect_fd);
+	}
+	shell->exitno = cmd(shell->cur_cmd, shell);
+	if (redirected && dup2(shell->redirects.stdout_dup, STDOUT_FILENO) < 0)
+	{
+		perror("dup2");
+		shell->exitno = FAILURE;
+		return (shell->exitno);
+	}
+	return (shell->exitno);
+}
+
+static t_status	execute_cmd_child_pipe(t_shell *shell)
+{
+	t_pipe	*input_pipe;
+	t_pipe	*output_pipe;
+
+	input_pipe = pipe_get(shell, RIGHT);
+	output_pipe = pipe_get(shell, LEFT);
+	if (input_pipe && shell->redirect_input)
+	{
+		if (SUCCESS != redirect_input(&input_pipe->pipe[0]))
+		{
+			destroy_shell(shell);
+			exit(FAILURE);
+		}
+	}
+	if (output_pipe && shell->redirect_output)
+	{
+		if (SUCCESS != redirect_output(&output_pipe->pipe[1]))
+		{
+			destroy_shell(shell);
+			exit(FAILURE);
+		}
+	}
+	stack_lst_clear(&shell->pipe_stack, (void (*)(void *)) & pipe_close);
+	return (SUCCESS);
+}
+
+static t_status	execute_cmd_child_input_redirection(t_shell *shell)
+{
+	if (-1 != shell->redirects.input_redirect_fd)
+	{
+		if (SUCCESS != redirect_input(&shell->redirects.input_redirect_fd))
+		{
+			destroy_shell(shell);
+			exit(FAILURE);
+		}
+	}
+	else if (-1 != shell->redirects.input_cmp_redirect_fd)
+	{
+		if (SUCCESS != redirect_input(&shell->redirects.input_cmp_redirect_fd))
+		{
+			destroy_shell(shell);
+			exit(FAILURE);
+		}
+	}
+	return (SUCCESS);
+}
+
+static t_status	execute_cmd_child_output_redirection(t_shell *shell)
+{
+	if (-1 != shell->redirects.output_redirect_fd)
+	{
+		if (SUCCESS != redirect_output(&shell->redirects.output_redirect_fd))
+		{
+			destroy_shell(shell);
+			exit(FAILURE);
+		}
+	}
+	else if (-1 != shell->redirects.output_cmp_redirect_fd)
+	{
+		if (SUCCESS != redirect_output(&shell->redirects.output_cmp_redirect_fd))
+		{
+			destroy_shell(shell);
+			exit(FAILURE);
+		}
+	}
+	return (SUCCESS);
+}
+
+static t_status	execute_cmd_child(t_built_in cmd, t_shell *shell)
+{
+	t_status	status;
+	
+	restore_signals();
+	ft_close(&shell->redirects.stdin_dup);
+	ft_close(&shell->redirects.stdout_dup);
+	execute_cmd_child_pipe(shell);
+	execute_cmd_child_input_redirection(shell);
+	execute_cmd_child_output_redirection(shell);
+	status = cmd(shell->cur_cmd, shell);
+	destroy_shell(shell);
+	exit(status);
+}
+
 t_status	execute_cmd(t_shell *shell)
 {
-	t_status	code;
 	pid_t		pid;
-	t_pipe		*input_pipe;
-	t_pipe		*output_pipe;
 	t_built_in	cmd;
 
 	if (NULL == shell || NULL == shell->cur_cmd || 0 == shell->cur_cmd_index)
 		return (FAILURE);
 	cmd = get_command(*shell->cur_cmd);
 	if (&cmd_exec != cmd && 0 == stack_lst_size(shell->pipe_stack))
-	{
-		if (-1 != shell->redirects.output_redirect_fd)
-		{
-			if (-1 == dup2(shell->redirects.output_redirect_fd, STDOUT_FILENO))
-			{
-				perror("dup2");
-				ft_close(&shell->redirects.output_redirect_fd);
-				shell->exitno = DUP_FAILURE;
-				return (shell->exitno);
-			}
-			ft_close(&shell->redirects.output_redirect_fd);
-		}
-		else if (-1 != shell->redirects.output_cmp_redirect_fd)
-		{
-			if (-1 == dup2(shell->redirects.output_cmp_redirect_fd, STDOUT_FILENO))
-			{
-				perror("dup2");
-				ft_close(&shell->redirects.output_cmp_redirect_fd);
-				shell->exitno = DUP_FAILURE;
-				return (shell->exitno);
-			}
-			ft_close(&shell->redirects.output_cmp_redirect_fd);
-		}
-		shell->exitno = cmd(shell->cur_cmd, shell);
-		if (-1 == dup2(shell->redirects.stdout_dup, STDOUT_FILENO))
-		{
-			perror("dup2");
-			shell->exitno = DUP_FAILURE;
-		}
-		return (shell->exitno);
-	}
+		return (execute_simple_cmd(cmd, shell));
 	pid = fork();
 	if (-1 == pid)
 	{
@@ -249,75 +325,7 @@ t_status	execute_cmd(t_shell *shell)
 		return (FORK_FAILURE);
 	}
 	if (0 == pid)
-	{
-		restore_signals();
-		ft_close(&shell->redirects.stdin_dup);
-		ft_close(&shell->redirects.stdout_dup);
-		input_pipe = pipe_get(shell, RIGHT);
-		output_pipe = pipe_get(shell, LEFT);
-		if (input_pipe && shell->redirect_input)
-		{
-			if (-1 == dup2(input_pipe->pipe[0], STDIN_FILENO))
-			{
-				perror("dup2");
-				destroy_shell(shell);
-				exit(DUP_FAILURE);
-			}
-		}
-		if (output_pipe && shell->redirect_output)
-		{
-			if (-1 == dup2(output_pipe->pipe[1], STDOUT_FILENO))
-			{
-				perror("dup2");
-				destroy_shell(shell);
-				exit(DUP_FAILURE);
-			}
-		}
-		stack_lst_clear(&shell->pipe_stack, (void (*)(void *))&pipe_close);
-		if (-1 != shell->redirects.input_redirect_fd)
-		{
-			if (-1 == dup2(shell->redirects.input_redirect_fd, STDIN_FILENO))
-			{
-				perror("dup2");
-				destroy_shell(shell);
-				exit(DUP_FAILURE);
-			}
-			ft_close(&shell->redirects.input_redirect_fd);
-		}
-		else if (-1 != shell->redirects.input_cmp_redirect_fd)
-		{
-			if (-1 == dup2(shell->redirects.input_cmp_redirect_fd, STDIN_FILENO))
-			{
-				perror("dup2");
-				destroy_shell(shell);
-				exit(DUP_FAILURE);
-			}
-			ft_close(&shell->redirects.input_cmp_redirect_fd);
-		}
-		if (-1 != shell->redirects.output_redirect_fd)
-		{
-			if (-1 == dup2(shell->redirects.output_redirect_fd, STDOUT_FILENO))
-			{
-				perror("dup2");
-				destroy_shell(shell);
-				exit(DUP_FAILURE);
-			}
-			ft_close(&shell->redirects.output_redirect_fd);
-		}
-		else if (-1 != shell->redirects.output_cmp_redirect_fd)
-		{
-			if (-1 == dup2(shell->redirects.output_cmp_redirect_fd, STDOUT_FILENO))
-			{
-				perror("dup2");
-				destroy_shell(shell);
-				exit(DUP_FAILURE);
-			}
-			ft_close(&shell->redirects.output_cmp_redirect_fd);
-		}
-		code = cmd(shell->cur_cmd, shell);
-		destroy_shell(shell);
-		exit(code);
-	}
+		execute_cmd_child(cmd, shell);
 	ft_close(&shell->redirects.input_redirect_fd);
 	ft_close(&shell->redirects.output_redirect_fd);
 	update_pids(shell, pid);
