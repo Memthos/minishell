@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/20 13:17:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/20 13:33:49 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ t_status	wait_process(pid_t pid)
 
 	if (pid < 0)
 		return (SUCCESS);
-	waitpid(pid, (int *)&status, 0);
+	status = SUCCESS;
+	if (waitpid(pid, (int *)&status, 0) < 0)
+		perror("waitpid");
 	if (WIFEXITED(status))
 		status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
