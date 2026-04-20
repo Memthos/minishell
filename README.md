@@ -5,29 +5,31 @@
 Minishell is a project that consist of recreating a small portion of [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)).
 
 There are two main features inside Minishell, the parsing and the execution.
-Inside the parsing, the main steps are the **tokenization**, and the creation of an [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (Abstract syntax tree). Using an AST allowed us to be able to structure the command being parsed in an effective way to handle the bonuses with a simpler approach.
+Inside the parsing, the main steps are the **tokenization**, and the creation of an [**AST**](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (Abstract syntax tree).
 
-On the side of the execution, the AST is read recursively and different actions are made depending of the token of the node being looked at. We can cite the files redirection, update of environment variables and the signals handling.
+Using an AST allowed us to be able to structure the command being parsed in an effective way to handle the bonuses with a simpler approach.
+
+On the side of the execution, the AST is read recursively and different actions are made depending of the token of the node being looked at. We can cite the **files redirection**, **update of environment variables** and the **signals handling**.
 
 We also had to recreate some built-in commands like :
 
-- echo with option -n
+- **echo** with option **-n**
 
-- cd with only a relative or absolute path
+- **cd** with only a relative or absolute path
 
-- pwd with no options
+- **pwd** with no options
 
-- export with no options
+- **export** with no options
 
-- unset with no options
+- **unset** with no options
 
-- env with no options or arguments
+- **env** with no options or arguments
 
-- exit with no options
+- **exit** with no options
 
 But that's not all, we took this project further with its bonuses!
 
-We recreated commands lists functionality with the `&&` and `||` operations, in addition to parenthesis `()` for priorities. There is also an implementation of wildcards `*` (only in the current directory).
+We recreated commands lists functionality with `&&` and `||` operations. In addition to these, parenthesis `()` are also implemented and are used to simulate priorities. There is also an implementation of wildcards `*` (only in the current directory).
 
 We used the [readline](https://bashcookbook.com/bashinfo/source/readline-8.3/doc/readline.pdf) function to mimic the bash input line behavior.
 
