@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:29:51 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/20 14:49:48 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ bool			contain_space(t_string str);
  * @brief Checks if the PATH environment variable looks correct.
  * @return True on success, false on failure.
  */
-bool			check_path(t_shell *shell);
+bool			check_env_path(t_dictionary *env);
 
 /**
  * @brief Updates the SHLVL environment variable value.

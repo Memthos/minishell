@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 21:13:55 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/20 14:49:27 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ t_dictionary	*update_shlvl(t_dictionary **env)
 	return (*env);
 }
 
-bool	check_path(t_shell *shell)
+bool	check_env_path(t_dictionary *env)
 {
-	t_dictionary	*e;
+	t_dictionary	*path;
 
-	if (NULL == shell || NULL == shell->env)
+	if (NULL == env)
 		return (false);
-	e = dict_get(shell->env, "PATH");
-	if (NULL == e)
+	path = dict_get(env, "PATH");
+	if (NULL == path)
 		return (false);
-	if (*((t_string)e->data) == '\0')
+	if (*((t_string)path->data) == '\0')
 		return (false);
 	return (true);
 }
