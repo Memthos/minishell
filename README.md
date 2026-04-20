@@ -40,6 +40,11 @@ make
 make bonus
 ```
 
+Then you can execute the program like this :
+```bash
+./minishell
+```
+
 You can also clean the object files and the executable with these commands :
 ```bash
 make clean
@@ -49,11 +54,6 @@ make fclean
 Or rebuild the project with this command :
 ```bash
 make re
-```
-
-Then you can execute the program like this :
-```bash
-./minishell
 ```
 
 ## Resources
