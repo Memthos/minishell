@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/20 13:33:49 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/20 13:37:42 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ t_status	wait_for_processes(t_pids_logic *pids)
 	t_status	status;
 
 	if (NULL == pids || NULL == pids->pids || 0 == pids->pid_count)
-		return (FAILURE);
+		return (SUCCESS);
+	status = SUCCESS;
 	pids->pid_index = 0;
 	while (pids->pid_index < pids->pid_count)
 	{
