@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 18:09:50 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/20 18:13:14 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/20 21:48:48 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ static t_status	cmd_access(t_string *cmd, t_string path)
 	tmp = ft_strjoin_sep(path, *cmd, '/');
 	if (NULL == tmp)
 	{
+		free(path);
 		perror("malloc");
 		return (FAILURE);
 	}
+	free(path);
 	if (SUCCESS == access(tmp, F_OK))
 	{
 		free(*cmd);
