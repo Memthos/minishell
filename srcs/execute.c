@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/20 13:20:02 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/20 13:55:55 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,58 +46,45 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 	}
 	if (PIPE == cmd->token)
 	{
-		t_status	code;
-		pid_t		pids[2];
-		pid_t		*pid_lst;
-		int			pid_count;
-		t_pipe		*_pipe;
+		t_status		code;
+		pid_t			fork_pids[2];
+		t_pids_logic	pid_logic;
+		t_pipe			*_pipe;
 
 		_pipe = pipe_new();
 		stack_lst_append(&shell->pipe_stack, _pipe);
 		++shell->redirect_output;
-		pids[0] = fork();
-		if (0 == pids[0])
+		fork_pids[0] = fork();
+		if (0 == fork_pids[0])
 		{
 			execute(cmd->left, shell);
 			code = shell->exitno;
-			pid_count = shell->pids.pid_count;
-			pid_lst = malloc(sizeof(pid_t) * pid_count);
-			memcpy(pid_lst, shell->pids.pids, pid_count * sizeof(pid_t));
+			pid_logic.pid_count = shell->pids.pid_count;
+			pid_logic.pids = malloc(sizeof(pid_t) * pid_logic.pid_count);
+			ft_memcpy(pid_logic.pids, shell->pids.pids, sizeof(pid_t) * pid_logic.pid_count);
 			destroy_shell(shell);
-			int index = 0;
-			while (index < pid_count)
-			{
-				waitpid(*(pid_lst + index), &code, 0);
-				++index;
-			}
-			free(pid_lst);
+			code = wait_for_processes(&pid_logic);
 			exit(code);
 		}
 		--shell->redirect_output;
 		_pipe->side = RIGHT;
 		++shell->redirect_input;
-		pids[1] = fork();
-		if (0 == pids[1])
+		fork_pids[1] = fork();
+		if (0 == fork_pids[1])
 		{
 			execute(cmd->right, shell);
 			code = shell->exitno;
-			pid_count = shell->pids.pid_count;
-			pid_lst = malloc(sizeof(pid_t) * pid_count);
-			memcpy(pid_lst, shell->pids.pids, pid_count * sizeof(pid_t));
+			pid_logic.pid_count = shell->pids.pid_count;
+			pid_logic.pids = malloc(sizeof(pid_t) * pid_logic.pid_count);
+			ft_memcpy(pid_logic.pids, shell->pids.pids, sizeof(pid_t) * pid_logic.pid_count);
 			destroy_shell(shell);
-			int index = 0;
-			while (index < pid_count)
-			{
-				waitpid(*(pid_lst + index), &code, 0);
-				++index;
-			}
-			free(pid_lst);
+			code = wait_for_processes(&pid_logic);
 			exit(code);
 		}
 		--shell->redirect_input;
 		stack_lst_clear(&shell->pipe_stack, (void (*)(void *))&pipe_close);
-		waitpid(pids[0], (int *)shell->exitno, 0);
-		waitpid(pids[1], (int *)shell->exitno, 0);
+		shell->exitno = wait_process(fork_pids[0]);
+		shell->exitno = wait_process(fork_pids[1]);
 	}
 	if (GREAT == cmd->token || DGREAT == cmd->token)
 	{
