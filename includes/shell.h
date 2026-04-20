@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/09 17:45:35 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/20 13:10:21 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ typedef struct s_shell
  * @brief Adds pid to the list of pids in shell.
  */
 t_status	update_pids(t_shell *shell, pid_t pid);
+
+/**
+ * @brief Wait for the child process matching pid to finish
+ * and return its corresponding status.
+ * @return The child exit status.
+ */
+t_status	wait_process(pid_t pid);
 
 /**
  * @brief If pids list is not null, wait for all pid in pids

@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/20 13:08:04 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,20 @@ t_status	update_pids(t_shell *shell, pid_t pid)
 	return (SUCCESS);
 }
 
+t_status	wait_process(pid_t pid)
+{
+	t_status	status;
+
+	if (pid < 0)
+		return (SUCCESS);
+	waitpid(pid, (int *)&status, 0);
+	if (WIFEXITED(status))
+		status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		status = WTERMSIG(status) + 128;
+	return (status);
+}
+
 t_status	wait_for_processes(t_shell *shell)
 {
 	if (NULL == shell)
@@ -38,12 +52,7 @@ t_status	wait_for_processes(t_shell *shell)
 	shell->pids.pid_index = 0;
 	while (shell->pids.pid_index < shell->pids.pid_count)
 	{
-		waitpid(shell->pids.pids[shell->pids.pid_index],
-			(int *)&shell->exitno, 0);
-		if (WIFEXITED(shell->exitno))
-			shell->exitno = WEXITSTATUS(shell->exitno);
-		else if (WIFSIGNALED(shell->exitno))
-			shell->exitno = WTERMSIG(shell->exitno) + 128;
+		shell->exitno = wait_process(shell->pids.pids[shell->pids.pid_index]);
 		++shell->pids.pid_index;
 	}
 	if (shell->exitno >= 128)
