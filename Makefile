@@ -18,7 +18,7 @@ SRCS =	minishell.c \
 		ast_lst_new.c ast_lst_clear.c ast_lst_last.c ast_tools.c \
 		ast_main_rules.c ast_cmp_rules.c ast_cmd_rules.c ast_cmd_utils.c ast_red_rules.c \
 		lexer.c lxr_checks.c lxr_post_tokenization.c lxr_lst_add.c lxr_lst_append.c lxr_lst_last.c lxr_lst_new.c lxr_lst_remove.c lxr_lst_size.c \
-		commands.c exec.c cd.c env.c exit.c export.c echo.c pwd.c unset.c \
+		commands.c exec.c exec_utils.c cd.c env.c exit.c export.c echo.c pwd.c unset.c \
 		dict_add.c dict_clear.c dict_get.c dict_get_data.c dict_new.c dict_remove.c dict_update.c dict_size.c dict_sort.c dict_copy.c dict_to_array.c dict_display.c \
 		stack_lst_new.c stack_lst_append.c stack_lst_pop.c stack_lst_clear.c stack_lst_size.c \
 		char_lst_add.c char_lst_last.c char_lst_remove.c \
