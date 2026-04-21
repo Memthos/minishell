@@ -11,7 +11,7 @@ SRCS =	minishell.c \
 		sighandle.c sighandle_base.c \
 		error_output.c \
 		pipe.c redirection.c heredoc.c \
-		utils.c string_utils.c shell_utils.c \
+		utils.c string_utils.c str_split_at.c shell_utils.c \
 		parser.c expand.c expand_utils.c expand_data.c quotes.c \
 		wildcards.c wildcards_utils.c \
 		ast_lst_new.c ast_lst_clear.c ast_lst_last.c ast_tools.c \
