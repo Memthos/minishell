@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 20:41:18 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/20 20:42:35 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 22:25:49 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,16 @@ t_status	export_special_case(t_strings *args)
 	return (SUCCESS);
 }
 
-t_strings	export_set_entry(t_strings *args, t_shell *shell)
+t_strings	export_set_entry(t_strings *args)
 {
-	const t_dictionary	*cpy = dict_get(shell->env, **args);
 	t_strings			entry;
 
 	entry = str_split_at(**args, '=');
 	if (NULL == entry)
 	{
-		if (!check_var_name(**args))
-		{
-			error_output("export", "not a valid identifier", NO_ERR_MSG);
-			++(*args);
-			return (NULL);
-		}
-		if (!cpy && NULL == dict_add(&shell->env, ft_strdup(**args), NULL))
-			perror("malloc");
+		perror("malloc");
 		++(*args);
+		return (NULL);
 	}
 	return (entry);
 }
@@ -97,7 +90,7 @@ t_status	export_update_env(t_strings *entry, t_shell *shell, bool concat)
 		}
 		free((*entry)[1]);
 	}
-	if (NULL == dict_add(&shell->env, (*entry)[0], tmp))
+	if (!(NULL == tmp && cpy) && NULL == dict_add(&shell->env, (*entry)[0], tmp))
 		perror("malloc");
 	free(*entry);
 	return (SUCCESS);
