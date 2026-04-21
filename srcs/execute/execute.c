@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 16:24:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 18:50:23 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ static t_status	execute_pipe(t_ast_lst *cmd, t_shell *shell)
 	++shell->redirect_input;
 	fork_pids[1] = execute_pipe_fork(cmd->right, shell);
 	--shell->redirect_input;
-	if (fork_pids[1])
+	if (fork_pids[1] < 0)
 	{
 		shell->exitno = wait_process(fork_pids[0]);
 		return (shell->exitno);
