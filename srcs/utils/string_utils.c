@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 11:12:13 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 22:12:05 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 22:33:55 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,42 +23,6 @@ bool	str_is_digit(t_string str)
 		++str;
 	}
 	return (true);
-}
-
-t_strings	str_split_at(const t_string str, const char c)
-{
-	t_strings	split;
-	t_uint		index;
-
-	if (NULL == str)
-		return (NULL);
-	split = (t_strings)malloc(sizeof(t_string) * 2);
-	if (NULL == split)
-		return (NULL);
-	index = 0;
-	while (*(str + index) && *(str + index) != c)
-		++index;
-	*split = (t_string)malloc(sizeof(char) * (index + 1));
-	if (NULL == *split)
-	{
-		free(split);
-		return (NULL);
-	}
-	ft_strlcpy(*split, str, index + 1);
-	if ('\0' == *(str + index))
-	{
-		split[1] = NULL;
-		return (split);
-	}
-	split[1] = malloc(sizeof(char) * (ft_strlen(str) - index));
-	if (NULL == split[1])
-	{
-		free(*split);
-		free(split);
-		return (NULL);
-	}
-	ft_strlcpy(split[1], str + index + 1, ft_strlen(str) - index);
-	return (split);
 }
 
 t_uint	strings_len(const t_strings strs)
