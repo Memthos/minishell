@@ -6,11 +6,24 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 14:56:48 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:28:22 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static t_status	cur_cmd_init(t_ast_lst *cmd, t_shell *shell)
+{
+	shell->cur_cmd_index = 0;
+	shell->cur_cmd = malloc(sizeof(t_string) * (ast_cmd_size(cmd) + 1));
+	if (NULL == shell->cur_cmd)
+	{
+		perror("malloc");
+		shell->exitno = FAILURE;
+		return (shell->exitno);
+	}
+	return (SUCCESS);
+}
 
 static t_status	execute_word(t_ast_lst *cmd, t_shell *shell)
 {
@@ -18,16 +31,8 @@ static t_status	execute_word(t_ast_lst *cmd, t_shell *shell)
 	if (SUCCESS != shell->exitno)
 		return (shell->exitno);
 	if (NULL == shell->cur_cmd)
-	{
-		shell->cur_cmd_index = 0;
-		shell->cur_cmd = malloc(sizeof(t_string) * (ast_cmd_size(cmd) + 1));
-		if (NULL == shell->cur_cmd)
-		{
-			perror("malloc");
-			shell->exitno = FAILURE;
-			return (shell->exitno);
-		}
-	}
+		if (SUCCESS != cur_cmd_init(cmd, shell))
+			return (FAILURE);
 	shell->cur_cmd[shell->cur_cmd_index] = cmd->data;
 	++shell->cur_cmd_index;
 	if (NULL == cmd->right)
