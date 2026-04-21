@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 15:52:47 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:57:05 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ static t_status	execute_out_redirection(t_ast_lst *cmd, t_shell *shell)
 		shell->exitno = FAILURE;
 		return (shell->exitno);
 	}
-	if (SUCCESS != open_redirection(&shell->redirects.output_fd, cmd->left->data,
+	if (open_redirection(&shell->redirects.output_fd, cmd->left->data,
 			O_WRONLY | O_CREAT
 			| O_APPEND * (DGREAT == cmd->token)
 			| O_TRUNC * (DGREAT != cmd->token)))
@@ -130,17 +130,8 @@ static t_status	execute_out_redirection(t_ast_lst *cmd, t_shell *shell)
 	return (shell->exitno);
 }
 
-static t_status	execute_in_redirection(t_ast_lst *cmd, t_shell *shell)
+static t_status	check_input_access(t_ast_lst *cmd, t_shell *shell)
 {
-	ft_close(&shell->redirects.input_fd);
-	if (shell->redirects.is_cmp_redir)
-		ft_close(&shell->redirects.input_cmp_fd);
-	if (cmd->left->token == AMB_RED)
-	{
-		amb_red_error_print(cmd->left->data);
-		shell->exitno = FAILURE;
-		return (shell->exitno);
-	}
 	if (access(cmd->left->data, F_OK) < 0)
 	{
 		error_output(NULL, cmd->left->data, FILE_NOT_FOUND);
@@ -153,7 +144,23 @@ static t_status	execute_in_redirection(t_ast_lst *cmd, t_shell *shell)
 		shell->exitno = 126;
 		return (shell->exitno);
 	}
-	if (SUCCESS != open_redirection(&shell->redirects.input_fd, cmd->left->data, O_RDONLY))
+	return (SUCCESS);
+}
+
+static t_status	execute_in_redirection(t_ast_lst *cmd, t_shell *shell)
+{
+	ft_close(&shell->redirects.input_fd);
+	if (shell->redirects.is_cmp_redir)
+		ft_close(&shell->redirects.input_cmp_fd);
+	if (cmd->left->token == AMB_RED)
+	{
+		amb_red_error_print(cmd->left->data);
+		shell->exitno = FAILURE;
+		return (shell->exitno);
+	}
+	if (SUCCESS != check_input_access(cmd, shell))
+		return (shell->exitno);
+	if (open_redirection(&shell->redirects.input_fd, cmd->left->data, O_RDONLY))
 	{
 		shell->exitno = FAILURE;
 		return (shell->exitno);
