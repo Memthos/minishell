@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 20:41:18 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 22:25:49 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 22:32:41 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_status	export_update_env(t_strings *entry, t_shell *shell, bool concat)
 		}
 		free((*entry)[1]);
 	}
-	if (!(NULL == tmp && cpy) && NULL == dict_add(&shell->env, (*entry)[0], tmp))
+	if (!(NULL == tmp && cpy) && !dict_add(&shell->env, (*entry)[0], tmp))
 		perror("malloc");
 	free(*entry);
 	return (SUCCESS);
