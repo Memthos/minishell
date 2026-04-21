@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 14:06:20 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 14:53:16 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,15 @@ static t_status	execute_pipe(t_ast_lst *cmd, t_shell *shell)
 
 static t_status	execute_out_redirection(t_ast_lst *cmd, t_shell *shell)
 {
+	ft_close(&shell->redirects.output_redirect_fd);
+	if (shell->redirects.is_cmp_redir)
+		ft_close(&shell->redirects.output_cmp_redirect_fd);
 	if (cmd->left->token == AMB_RED)
 	{
 		amb_red_error_print(cmd->left->data);
 		shell->exitno = FAILURE;
 		return (shell->exitno);
 	}
-	ft_close(&shell->redirects.output_redirect_fd);
 	shell->redirects.out_flags = O_WRONLY | O_CREAT;
 	if (DGREAT == cmd->token)
 		shell->redirects.out_flags |= O_APPEND;
@@ -110,7 +112,6 @@ static t_status	execute_out_redirection(t_ast_lst *cmd, t_shell *shell)
 	}
 	if (shell->redirects.is_cmp_redir)
 	{
-		ft_close(&shell->redirects.output_cmp_redirect_fd);
 		shell->redirects.output_cmp_redirect_fd = shell->redirects.output_redirect_fd;
 		shell->redirects.output_redirect_fd = -1;
 	}
