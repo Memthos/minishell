@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 14:55:49 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 14:56:48 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ static t_status	execute_in_redirection(t_ast_lst *cmd, t_shell *shell)
 			shell->redirects.in_flags);
 	if (-1 == shell->redirects.input_redirect_fd)
 	{
-		perror("open");
+		error_output(cmd->left->data, strerror(errno), NO_ERR_MSG);
 		shell->exitno = FAILURE;
 		return (shell->exitno);
 	}
