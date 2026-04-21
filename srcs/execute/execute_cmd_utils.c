@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:25:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 14:28:41 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:52:47 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ static t_status	execute_cmd_child_pipe(t_shell *shell)
 
 static t_status	execute_cmd_child_input_redirection(t_shell *shell)
 {
-	if (-1 != shell->redirects.input_redirect_fd)
+	if (-1 != shell->redirects.input_fd)
 	{
-		if (SUCCESS != redirect_input(&shell->redirects.input_redirect_fd))
+		if (SUCCESS != redirect_input(&shell->redirects.input_fd))
 		{
 			destroy_shell(shell);
 			exit(FAILURE);
 		}
 	}
-	else if (-1 != shell->redirects.input_cmp_redirect_fd)
+	else if (-1 != shell->redirects.input_cmp_fd)
 	{
-		if (SUCCESS != redirect_input(&shell->redirects.input_cmp_redirect_fd))
+		if (SUCCESS != redirect_input(&shell->redirects.input_cmp_fd))
 		{
 			destroy_shell(shell);
 			exit(FAILURE);
@@ -62,17 +62,17 @@ static t_status	execute_cmd_child_input_redirection(t_shell *shell)
 
 static t_status	execute_cmd_child_output_redirection(t_shell *shell)
 {
-	if (-1 != shell->redirects.output_redirect_fd)
+	if (-1 != shell->redirects.output_fd)
 	{
-		if (SUCCESS != redirect_output(&shell->redirects.output_redirect_fd))
+		if (SUCCESS != redirect_output(&shell->redirects.output_fd))
 		{
 			destroy_shell(shell);
 			exit(FAILURE);
 		}
 	}
-	else if (-1 != shell->redirects.output_cmp_redirect_fd)
+	else if (-1 != shell->redirects.output_cmp_fd)
 	{
-		if (0 != redirect_output(&shell->redirects.output_cmp_redirect_fd))
+		if (0 != redirect_output(&shell->redirects.output_cmp_fd))
 		{
 			destroy_shell(shell);
 			exit(FAILURE);
@@ -101,15 +101,15 @@ t_status	execute_simple_cmd(t_built_in cmd, t_shell *shell)
 	bool	redirected;
 
 	redirected = false;
-	if (-1 != shell->redirects.output_redirect_fd)
+	if (-1 != shell->redirects.output_fd)
 	{
 		redirected = true;
-		redirect_output(&shell->redirects.output_redirect_fd);
+		redirect_output(&shell->redirects.output_fd);
 	}
-	else if (-1 != shell->redirects.output_cmp_redirect_fd)
+	else if (-1 != shell->redirects.output_cmp_fd)
 	{
 		redirected = true;
-		redirect_output(&shell->redirects.output_cmp_redirect_fd);
+		redirect_output(&shell->redirects.output_cmp_fd);
 	}
 	shell->exitno = cmd(shell->cur_cmd, shell);
 	if (redirected && dup2(shell->redirects.stdout_dup, STDOUT_FILENO) < 0)

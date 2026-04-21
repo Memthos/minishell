@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:06:10 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 14:26:52 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:52:20 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_status	execute_cmd(t_shell *shell)
 	}
 	if (0 == pid)
 		execute_cmd_child(cmd, shell);
-	ft_close(&shell->redirects.input_redirect_fd);
-	ft_close(&shell->redirects.output_redirect_fd);
+	ft_close(&shell->redirects.input_fd);
+	ft_close(&shell->redirects.output_fd);
 	update_pids(shell, pid);
 	return (shell->exitno);
 }

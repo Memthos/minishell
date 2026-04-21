@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/20 13:18:49 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:52:44 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ typedef struct s_redir_logic
 	int		stdout_dup;
 	int		stdin_dup;
 	bool	is_cmp_redir;
-	int		output_redirect_fd;
-	int		output_cmp_redirect_fd;
-	int		input_redirect_fd;
-	int		input_cmp_redirect_fd;
+	int		output_fd;
+	int		output_cmp_fd;
+	int		input_fd;
+	int		input_cmp_fd;
 	t_uint	out_flags;
 	t_uint	in_flags;
 }	t_redir_logic;

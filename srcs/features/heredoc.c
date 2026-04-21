@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:20:07 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:33:14 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:52:47 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static void	heredoc_parent(t_shell *shell, pid_t pid, int pipe_fds[2])
 	ft_close(&pipe_fds[1]);
 	if (shell->redirects.is_cmp_redir)
 	{
-		ft_close(&shell->redirects.input_cmp_redirect_fd);
-		shell->redirects.input_cmp_redirect_fd = pipe_fds[0];
+		ft_close(&shell->redirects.input_cmp_fd);
+		shell->redirects.input_cmp_fd = pipe_fds[0];
 	}
 	else
 	{
-		ft_close(&shell->redirects.input_redirect_fd);
-		shell->redirects.input_redirect_fd = pipe_fds[0];
+		ft_close(&shell->redirects.input_fd);
+		shell->redirects.input_fd = pipe_fds[0];
 	}
 	waitpid(pid, (int *)&shell->exitno, 0);
 	if (WIFEXITED(shell->exitno))

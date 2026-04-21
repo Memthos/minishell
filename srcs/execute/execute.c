@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 15:48:53 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:52:47 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,16 +104,16 @@ static t_status	open_redirection(int *fd, t_string name, t_uint flags)
 
 static t_status	execute_out_redirection(t_ast_lst *cmd, t_shell *shell)
 {
-	ft_close(&shell->redirects.output_redirect_fd);
+	ft_close(&shell->redirects.output_fd);
 	if (shell->redirects.is_cmp_redir)
-		ft_close(&shell->redirects.output_cmp_redirect_fd);
+		ft_close(&shell->redirects.output_cmp_fd);
 	if (cmd->left->token == AMB_RED)
 	{
 		amb_red_error_print(cmd->left->data);
 		shell->exitno = FAILURE;
 		return (shell->exitno);
 	}
-	if (SUCCESS != open_redirection(&shell->redirects.output_redirect_fd, cmd->left->data,
+	if (SUCCESS != open_redirection(&shell->redirects.output_fd, cmd->left->data,
 			O_WRONLY | O_CREAT
 			| O_APPEND * (DGREAT == cmd->token)
 			| O_TRUNC * (DGREAT != cmd->token)))
@@ -123,8 +123,8 @@ static t_status	execute_out_redirection(t_ast_lst *cmd, t_shell *shell)
 	}
 	if (shell->redirects.is_cmp_redir)
 	{
-		shell->redirects.output_cmp_redirect_fd = shell->redirects.output_redirect_fd;
-		shell->redirects.output_redirect_fd = -1;
+		shell->redirects.output_cmp_fd = shell->redirects.output_fd;
+		shell->redirects.output_fd = -1;
 	}
 	execute(cmd->left->left, shell);
 	return (shell->exitno);
@@ -132,9 +132,9 @@ static t_status	execute_out_redirection(t_ast_lst *cmd, t_shell *shell)
 
 static t_status	execute_in_redirection(t_ast_lst *cmd, t_shell *shell)
 {
-	ft_close(&shell->redirects.input_redirect_fd);
+	ft_close(&shell->redirects.input_fd);
 	if (shell->redirects.is_cmp_redir)
-		ft_close(&shell->redirects.input_cmp_redirect_fd);
+		ft_close(&shell->redirects.input_cmp_fd);
 	if (cmd->left->token == AMB_RED)
 	{
 		amb_red_error_print(cmd->left->data);
@@ -153,15 +153,15 @@ static t_status	execute_in_redirection(t_ast_lst *cmd, t_shell *shell)
 		shell->exitno = 126;
 		return (shell->exitno);
 	}
-	if (SUCCESS != open_redirection(&shell->redirects.input_redirect_fd, cmd->left->data, O_RDONLY))
+	if (SUCCESS != open_redirection(&shell->redirects.input_fd, cmd->left->data, O_RDONLY))
 	{
 		shell->exitno = FAILURE;
 		return (shell->exitno);
 	}
 	if (shell->redirects.is_cmp_redir)
 	{
-		shell->redirects.input_cmp_redirect_fd = shell->redirects.input_redirect_fd;
-		shell->redirects.input_redirect_fd = -1;
+		shell->redirects.input_cmp_fd = shell->redirects.input_fd;
+		shell->redirects.input_fd = -1;
 	}
 	execute(cmd->left->left, shell);
 	return (shell->exitno);
@@ -209,8 +209,8 @@ static t_status	execute_parentheses(t_ast_lst *cmd, t_shell *shell)
 	execute(cmd->right, shell);
 	shell->redirects.is_cmp_redir = false;
 	execute(cmd->left, shell);
-	ft_close(&shell->redirects.output_cmp_redirect_fd);
-	ft_close(&shell->redirects.input_cmp_redirect_fd);
+	ft_close(&shell->redirects.output_cmp_fd);
+	ft_close(&shell->redirects.input_cmp_fd);
 	--shell->cmp_depth;
 	return (shell->exitno);
 }

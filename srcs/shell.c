@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/20 13:37:42 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:52:47 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ void	destroy_shell(t_shell *shell)
 	stack_lst_clear(&shell->pipe_stack, (void (*)(void *)) & pipe_close);
 	free(shell->cur_cmd);
 	free(shell->pids.pids);
-	ft_close(&shell->redirects.output_redirect_fd);
-	ft_close(&shell->redirects.output_cmp_redirect_fd);
-	ft_close(&shell->redirects.input_redirect_fd);
-	ft_close(&shell->redirects.input_cmp_redirect_fd);
+	ft_close(&shell->redirects.output_fd);
+	ft_close(&shell->redirects.output_cmp_fd);
+	ft_close(&shell->redirects.input_fd);
+	ft_close(&shell->redirects.input_cmp_fd);
 	ft_close(&shell->redirects.stdin_dup);
 	ft_close(&shell->redirects.stdout_dup);
 	cmds_lst_clear(&shell->cmd_ast);
