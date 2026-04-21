@@ -7,7 +7,7 @@ VPATH = srcs:srcs/lists:srcs/commands:srcs/features:srcs/execute:srcs/signals:sr
 SRCS =	minishell.c \
 		init.c \
 		shell.c \
-		execute.c execute_cmd.c execute_cmd_utils.c \
+		execute.c execute_utils.c execute_pipe_utils.c execute_redirection_utils.c execute_cmd.c execute_cmd_utils.c \
 		sighandle.c sighandle_base.c \
 		error_output.c \
 		pipe.c redirection.c heredoc.c \
