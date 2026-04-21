@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 15:28:22 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:48:53 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,17 @@ static t_status	execute_pipe(t_ast_lst *cmd, t_shell *shell)
 	return (shell->exitno);
 }
 
+static t_status	open_redirection(int *fd, t_string name, t_uint flags)
+{
+	*fd = open(name, flags, 0644);
+	if (-1 == *fd)
+	{
+		error_output(name, strerror(errno), NO_ERR_MSG);
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
 static t_status	execute_out_redirection(t_ast_lst *cmd, t_shell *shell)
 {
 	ft_close(&shell->redirects.output_redirect_fd);
@@ -102,16 +113,11 @@ static t_status	execute_out_redirection(t_ast_lst *cmd, t_shell *shell)
 		shell->exitno = FAILURE;
 		return (shell->exitno);
 	}
-	shell->redirects.out_flags = O_WRONLY | O_CREAT;
-	if (DGREAT == cmd->token)
-		shell->redirects.out_flags |= O_APPEND;
-	else
-		shell->redirects.out_flags |= O_TRUNC;
-	shell->redirects.output_redirect_fd = open(cmd->left->data,
-			shell->redirects.out_flags, 0644);
-	if (-1 == shell->redirects.output_redirect_fd)
+	if (SUCCESS != open_redirection(&shell->redirects.output_redirect_fd, cmd->left->data,
+			O_WRONLY | O_CREAT
+			| O_APPEND * (DGREAT == cmd->token)
+			| O_TRUNC * (DGREAT != cmd->token)))
 	{
-		error_output(cmd->left->data, strerror(errno), NO_ERR_MSG);
 		shell->exitno = FAILURE;
 		return (shell->exitno);
 	}
@@ -147,12 +153,8 @@ static t_status	execute_in_redirection(t_ast_lst *cmd, t_shell *shell)
 		shell->exitno = 126;
 		return (shell->exitno);
 	}
-	shell->redirects.in_flags = O_RDONLY;
-	shell->redirects.input_redirect_fd = open(cmd->left->data,
-			shell->redirects.in_flags);
-	if (-1 == shell->redirects.input_redirect_fd)
+	if (SUCCESS != open_redirection(&shell->redirects.input_redirect_fd, cmd->left->data, O_RDONLY))
 	{
-		error_output(cmd->left->data, strerror(errno), NO_ERR_MSG);
 		shell->exitno = FAILURE;
 		return (shell->exitno);
 	}
