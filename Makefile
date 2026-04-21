@@ -3,7 +3,7 @@ CFLAGS=-Werror -Wall -Wextra -g
 
 INCLUDES_DIR = includes/
 
-VPATH = srcs:srcs/lists:srcs/commands:srcs/features:srcs/dictionary:srcs/stack_lst:srcs/parser:srcs/utils:srcs/outputs
+VPATH = srcs:srcs/lists:srcs/commands:srcs/features:srcs/signals:srcs/dictionary:srcs/stack_lst:srcs/parser:srcs/utils:srcs/outputs
 SRCS =	minishell.c \
 		init.c \
 		shell.c \
