@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_lists.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: memthos </var/spool/mail/memthos>          +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 22:05:37 by memthos           #+#    #+#             */
-/*   Updated: 2026/04/17 22:20:18 by memthos          ###   ########.fr       */
+/*   Updated: 2026/04/23 01:43:04 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct s_lxr_lst
 {
-	char				*data;
+	t_string			data;
 	t_token				token;
 	long				p_dpt;
 	struct s_lxr_lst	*next;
@@ -25,7 +25,7 @@ typedef struct s_lxr_lst
 
 typedef struct s_ast_lst
 {
-	char				*data;
+	t_string			data;
 	t_token				token;
 	t_expand			expand_state;
 	struct s_ast_lst	*left;
@@ -34,7 +34,7 @@ typedef struct s_ast_lst
 
 typedef struct s_char_lst
 {
-	char				*data;
+	t_string			data;
 	struct s_char_lst	*next;
 }						t_char_lst;
 

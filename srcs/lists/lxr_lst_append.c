@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:08:08 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:46:26 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_status	lxr_lst_append(t_lxr_lst **head, char c)
 {
-	char		*clean_char;
-	char		*new_str;
+	t_string	clean_char;
+	t_string	new_str;
 	t_lxr_lst	*tmp;
 
 	if (NULL == head)

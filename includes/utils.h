@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/20 14:49:48 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:44:11 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int				ft_close(int *fd);
  * @brief Splits a t_string into two separates allocated t_strings.
  * @return Always returns an array that contains two t_strings.
  */
-char			**str_split_at(const t_string str, const char c);
+t_strings		str_split_at(const t_string str, const char c);
 
 /**
  * @brief Returns the number of t_string in a t_string array.

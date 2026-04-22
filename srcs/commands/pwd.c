@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 09:48:05 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:45:53 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_status	cmd_pwd(t_strings args, t_shell *shell)
 
 t_string	get_cwd(t_shell *shell)
 {
-	char			*cwd;
+	t_string		cwd;
 	t_dictionary	*cwd_dict;
 
 	cwd = getcwd(NULL, 0);

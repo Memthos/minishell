@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:48:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/22 15:02:26 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:41:03 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static t_status	check_perms(t_strings args)
 t_status	cmd_exec(t_strings args, t_shell *shell)
 {
 	t_status	status;
-	char		**envp;
+	t_strings	envp;
 
 	if (NULL == args || NULL == *args)
 		return (FAILURE);

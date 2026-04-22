@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/22 13:26:24 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:43:32 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			can_expand(t_ast_lst *node, t_status *status, t_shell *shell);
 /// @param var_name The name of the expand variable to search for.
 /// @param shell A reference to the variables of the shell.
 /// @return Either the variable value or NULL if nothing was found.
-char		*get_expand_value(t_string var_name, t_shell *sh, t_status *status);
+t_string	get_expand_value(t_string var_name, t_shell *sh, t_status *status);
 
 /// @brief Get the name of the variable to expand.
 /// @param s The base string.
@@ -97,7 +97,7 @@ t_status	final_parsing(t_shell *shell, t_ast_lst **ast);
  * @param len the wanted size of the returned string.
  * @return The newly created string.
  */
-char		*make_str(t_string input, size_t len);
+t_string	make_str(t_string input, size_t len);
 
 /// @brief Check if the lexer has unclosed quotes or wrong parenthesis.
 /// @param lxr A pointer to the head of the lexer.

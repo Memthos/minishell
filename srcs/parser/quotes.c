@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 16:56:31 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:46:54 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_status	remove_quotes(t_ast_lst *ast, size_t quotes_rmv)
 	t_quote_t	quote_state;
 	size_t		i;
 	size_t		j;
-	char		*str;
+	t_string	str;
 
 	str = malloc(sizeof(char) * (ft_strlen(ast->data) - quotes_rmv + 1));
 	if (!str)

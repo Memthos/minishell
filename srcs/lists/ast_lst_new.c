@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:08:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:46:14 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_ast_lst	*ast_lst_new_char(t_string data, t_token token, t_status *status)
 {
 	t_ast_lst	*new;
-	char		*str;
+	t_string	str;
 
 	new = malloc(sizeof(t_ast_lst));
 	if (NULL == new)
@@ -37,7 +37,7 @@ t_ast_lst	*ast_lst_new_char(t_string data, t_token token, t_status *status)
 t_ast_lst	*ast_lst_new(t_lxr_lst **lxr, t_status *status)
 {
 	t_ast_lst	*new;
-	char		*str;
+	t_string	str;
 
 	new = malloc(sizeof(t_ast_lst));
 	if (NULL == new)

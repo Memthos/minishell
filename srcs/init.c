@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 15:52:47 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:44:55 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_dictionary	*init_env(t_string envp[])
 {
 	t_dictionary	*dict;
-	char			**tmp;
+	t_strings		tmp;
 
 	dict = NULL;
 	while (*envp)

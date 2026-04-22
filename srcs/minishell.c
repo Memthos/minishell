@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/22 18:02:56 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:45:23 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ static void	exec_asts(t_shell *shell)
 	return ;
 }
 
-static char	*ft_readline(t_shell *shell)
+static t_string	ft_readline(t_shell *shell)
 {
-	char	*line;
+	t_string	line;
 
 	line = readline("$> ");
 	if (g_signal != 0)
@@ -59,7 +59,7 @@ static char	*ft_readline(t_shell *shell)
 
 static t_status	minishell(t_shell *shell)
 {
-	char		*line;
+	t_string	line;
 
 	while (true)
 	{

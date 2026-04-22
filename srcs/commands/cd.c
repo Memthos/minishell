@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:11:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/20 14:45:08 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:45:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_string	cd_oldpwd(t_dictionary *env)
 
 static t_string	cd_get_path(t_strings args, t_dictionary *env)
 {
-	char			*path;
+	t_string	path;
 
 	if (NULL == args[1])
 	{
@@ -59,7 +59,7 @@ static t_string	cd_get_path(t_strings args, t_dictionary *env)
 
 static t_status	cd_exec(t_string path, t_shell *shell)
 {
-	char			*cur_dir;
+	t_string	cur_dir;
 
 	if (NULL == dict_add(&shell->env, ft_strdup("OLDPWD"), get_cwd(shell)))
 		perror("malloc");

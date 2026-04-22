@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 11:10:37 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:07:25 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:42:34 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct s_dictionary
 {
-	char				*key;
+	t_string			key;
 	void				*data;
 	struct s_dictionary	*next;
 }						t_dictionary;
@@ -50,7 +50,7 @@ t_dictionary	*dict_get(t_dictionary *dict, t_string key);
 /// @param dict The dictionary to search in.
 /// @param key The unique key to retrieve the entry.
 /// @return The dictionary entry data on success, NULL on failure.
-char			*dict_get_data(t_dictionary *dict, t_string key);
+void			*dict_get_data(t_dictionary *dict, t_string key);
 
 /**
  * @brief Updates an entry in the dictionary passed in.
@@ -92,7 +92,7 @@ t_dictionary	*dict_copy(const t_dictionary *dict);
  * @param sep The separation character to add between the key and the value.
  * @return An allocated string array that contains all the keys and their values.
  */
-char			**dict_to_array(t_dictionary *dict, char sep);
+t_strings		dict_to_array(t_dictionary *dict, char sep);
 
 /**
  * @brief Sorts in ascii order the dictionary passed in.

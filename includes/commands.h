@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:06:54 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:41:31 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef t_status		(*t_built_in)(t_strings , t_shell *);
 
 typedef struct s_command
 {
-	char		*name;
+	t_string	name;
 	t_status	(*cmd)(t_strings, t_shell *);
 }	t_command;
 
@@ -65,7 +65,7 @@ t_status	cmd_pwd(t_strings args, t_shell *shell);
  * and the getcwd func if PWD is not set.
  * @return The allocated current working directory.
  */
-char		*get_cwd(t_shell *shell);
+t_string	get_cwd(t_shell *shell);
 
 /**
  * @brief Change the current working directory

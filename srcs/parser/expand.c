@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/22 13:52:54 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:46:35 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ t_status	expand_node(t_strings data, size_t *i, t_shell *shell, int is_red)
 {
 	t_status	status;
 	size_t		name_len;
-	char		*var_value;
-	char		*var_name;
+	t_string	var_value;
+	t_string	var_name;
 
 	status = SUCCESS;
 	var_name = NULL;
