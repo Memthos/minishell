@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 20:41:18 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 22:32:41 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/22 11:21:15 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,22 @@ t_status	export_update_env(t_strings *entry, t_shell *shell, bool concat)
 	if (concat && cpy)
 	{
 		tmp = ft_strjoin((const t_string)cpy->data, (*entry)[1]);
+		free((*entry)[1]);
 		if (NULL == tmp)
 		{
 			perror("malloc");
 			free((*entry)[0]);
-			free((*entry)[1]);
 			free(*entry);
 			return (FAILURE);
 		}
-		free((*entry)[1]);
 	}
-	if (!(NULL == tmp && cpy) && !dict_add(&shell->env, (*entry)[0], tmp))
-		perror("malloc");
-	free(*entry);
+	if (NULL == tmp && NULL != cpy)
+		strings_free(*entry);
+	else
+	{
+		if (!dict_add(&shell->env, (*entry)[0], tmp))
+			perror("malloc");
+		free(*entry);
+	}
 	return (SUCCESS);
 }
