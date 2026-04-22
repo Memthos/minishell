@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/22 13:26:17 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,24 @@ int	can_expand(t_ast_lst *node, t_status *status, t_shell *shell)
 	return (0);
 }
 
-int	get_quotes_rmv(t_ast_lst *ast, size_t *quotes_rmv)
+size_t	get_quotes_rmv(t_ast_lst *node)
 {
 	size_t		i;
+	size_t		quotes_rmv;
 	t_quote_t	quote_state;
 
+	if (!node || !node->data)
+		return (0);
 	i = 0;
+	quotes_rmv = 0;
 	quote_state = NONE;
-	while (ast->data[i])
+	while (node->data[i])
 	{
-		if (set_quote_state(&quote_state, ast->data[i]))
-			(*quotes_rmv)++;
-		if (quote_state == S_QUOTE)
-			return (0);
+		if (set_quote_state(&quote_state, node->data[i]))
+			quotes_rmv++;
 		i++;
 	}
-	return (1);
+	return (quotes_rmv);
 }
 
 int	is_redirection(t_ast_lst *node)
