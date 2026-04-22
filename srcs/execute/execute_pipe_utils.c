@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 21:07:33 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/22 13:06:00 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/22 13:35:27 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,19 @@ static t_pipe	*append_new_pipe(t_shell *shell)
 
 static t_status	execute_pipe_child(t_ast_lst *cmd, t_shell *shell)
 {
-	t_status		code;
+	t_status		status;
+	t_status		tmp_status;
 	t_pids_logic	pids;
 
 	execute(cmd, shell);
-	code = shell->exitno;
+	status = shell->exitno;
 	pids = shell->pids;
 	destroy_shell(shell, true);
-	code = wait_for_processes(&pids);
+	tmp_status = wait_for_processes(&pids);
+	if (!status && tmp_status)
+		status = tmp_status;
 	free(pids.pids);
-	exit(code);
+	exit(status);
 }
 
 static pid_t	execute_pipe_fork(t_ast_lst *cmd, t_shell *shell)
