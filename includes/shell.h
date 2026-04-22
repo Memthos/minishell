@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/22 13:03:29 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/22 14:38:54 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ t_status	wait_process(pid_t pid);
  * @return Reurns the last pid exit status.
  */
 t_status	wait_for_processes(t_pids_logic *pids);
+
+/**
+ * @brief Closes both output and input redirections.
+ */
+void		close_redirections(t_shell *shell);
 
 /**
  * @brief Destroys all allocated ressources that have bee not
