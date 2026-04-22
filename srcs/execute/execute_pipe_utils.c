@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 21:07:33 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 21:10:50 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/22 13:06:00 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,14 @@ static t_pipe	*append_new_pipe(t_shell *shell)
 static t_status	execute_pipe_child(t_ast_lst *cmd, t_shell *shell)
 {
 	t_status		code;
-	t_pids_logic	pid_logic;
+	t_pids_logic	pids;
 
 	execute(cmd, shell);
 	code = shell->exitno;
-	pid_logic.pid_count = shell->pids.pid_count;
-	pid_logic.pids = malloc(sizeof(pid_t) * pid_logic.pid_count);
-	if (NULL == pid_logic.pids)
-	{
-		perror("malloc");
-		destroy_shell(shell);
-		exit(FAILURE);
-	}
-	ft_memcpy(pid_logic.pids, shell->pids.pids, 4 * pid_logic.pid_count);
-	destroy_shell(shell);
-	code = wait_for_processes(&pid_logic);
+	pids = shell->pids;
+	destroy_shell(shell, true);
+	code = wait_for_processes(&pids);
+	free(pids.pids);
 	exit(code);
 }
 
