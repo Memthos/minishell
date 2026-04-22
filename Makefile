@@ -38,13 +38,13 @@ bonus: $(OBJDIR).bonus
 
 $(OBJDIR).manda: $(OBJECTS) | $(LIBFT)
 	@rm -f $(NAME) $(OBJDIR).bonus
-	@$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
+	@$(CC) $(CFLAGS) -o $(NAME) $^ $(LIBS)
 	@touch $(OBJDIR).manda
 	@echo "Finished compiling Minishell"
 
 $(OBJDIR).bonus: $(OBJECTS) | $(LIBFT)
 	@rm -f $(NAME) $(OBJDIR).manda
-	@$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
+	@$(CC) $(CFLAGS) -o $(NAME) $^ $(LIBS)
 	@touch $(OBJDIR).bonus
 	@echo "Finished compiling Minishell bonuses"
 
