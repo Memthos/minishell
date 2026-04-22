@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 22:17:23 by memthos          ###   ########.fr       */
+/*   Updated: 2026/04/22 13:26:24 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,9 @@ int			is_redirection(t_ast_lst *node);
 t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast);
 
 /// @brief Function to get the number of quotes to remove the the given node.
-/// @param ast A pointer to the ast node.
-/// @param quotes_rmv A pointer to the variable holding the number of
-/// quotes to remove.
-/// @return 1 if the quote state has never been through S_QUOTE state, else 0.
-int			get_quotes_rmv(t_ast_lst *ast, size_t *quotes_rmv);
+/// @param node A pointer to the ast node.
+/// @return The number of quotes tu return, 0 if ne given node is NULL.
+size_t		get_quotes_rmv(t_ast_lst *node);
 
 /**
  * @brief First step of parsing, apply a token to each part
