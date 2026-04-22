@@ -25,7 +25,6 @@ SRCS =	minishell.c \
 
 OBJDIR = objs/
 OBJECTS = $(addprefix $(OBJDIR), $(SRCS:.c=.o))
-OBJECTS_BONUS = $(addprefix $(OBJDIR), $(SRCS_BONUS:.c=.o))
 
 LIBFT_DIR = libs/libft_tools/
 LIBFT = $(addprefix $(LIBFT_DIR), libft_tools.a)
@@ -33,15 +32,18 @@ LIBS = $(LIBFT) -lreadline
 
 NAME = minishell
 
-all: $(NAME)
+all: $(OBJDIR).manda
 
 bonus: $(OBJDIR).bonus
 
-$(NAME): $(OBJECTS) | $(LIBFT)
-	@$(CC) $(CFLAGS) -o $@ $^  $(LIBS)
+$(OBJDIR).manda: $(OBJECTS) | $(LIBFT)
+	@rm -f $(NAME) $(OBJDIR).bonus
+	@$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
+	@touch $(OBJDIR).manda
 	@echo "Finished compiling Minishell"
 
-$(OBJDIR).bonus: $(OBJECTS_BONUS) | $(LIBFT)
+$(OBJDIR).bonus: $(OBJECTS) | $(LIBFT)
+	@rm -f $(NAME) $(OBJDIR).manda
 	@$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 	@touch $(OBJDIR).bonus
 	@echo "Finished compiling Minishell bonuses"
