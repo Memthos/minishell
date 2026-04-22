@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 15:52:44 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/22 13:03:29 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,6 @@ t_status	wait_for_processes(t_pids_logic *pids);
  * @brief Destroys all allocated ressources that have bee not
  * freed, and closes all fd that are opened.
  */
-void		destroy_shell(t_shell *shell);
+void		destroy_shell(t_shell *shell, bool keep_pids);
 
 #endif

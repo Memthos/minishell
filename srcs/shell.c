@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 15:52:47 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/22 13:03:11 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,15 @@ t_status	wait_for_processes(t_pids_logic *pids)
 	return (status);
 }
 
-void	destroy_shell(t_shell *shell)
+void	destroy_shell(t_shell *shell, bool keep_pids)
 {
 	if (NULL == shell)
 		return ;
 	rl_clear_history();
 	stack_lst_clear(&shell->pipe_stack, (void (*)(void *)) & pipe_close);
 	free(shell->cur_cmd);
-	free(shell->pids.pids);
+	if (!keep_pids)
+		free(shell->pids.pids);
 	ft_close(&shell->redirects.output_fd);
 	ft_close(&shell->redirects.output_cmp_fd);
 	ft_close(&shell->redirects.input_fd);
