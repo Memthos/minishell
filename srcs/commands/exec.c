@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 08:48:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/20 18:13:20 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/22 15:02:26 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,18 @@ static t_status	check_perms(t_strings args)
 {
 	if (SUCCESS == access(*args, X_OK) && !is_dir(*args))
 		return (SUCCESS);
-	if (SUCCESS != access(*args, X_OK) && SUCCESS == access(*args, R_OK | W_OK))
+	if (SUCCESS != access(*args, X_OK))
 	{
-		error_output(*args, NULL, COMMAND_NOT_FOUND);
-		return (127);
+		if (!ft_strncmp(*args, "./", 2))
+		{
+			error_output(*args, NULL, PERMISSION_ERROR);
+			return (126);
+		}
+		if (SUCCESS == access(*args, R_OK | W_OK))
+		{
+			error_output(*args, NULL, COMMAND_NOT_FOUND);
+			return (127);
+		}
 	}
 	if (SUCCESS != access(*args, R_OK | W_OK | X_OK))
 	{
