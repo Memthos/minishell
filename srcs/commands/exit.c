@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 10:02:10 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/22 13:04:55 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ t_status	cmd_exit(t_strings args, t_shell *shell)
 		write(STDERR_FILENO, "exit\n", 5);
 	if (NULL == args[1])
 	{
-		destroy_shell(shell);
+		destroy_shell(shell, false);
 		exit(SUCCESS);
 	}
 	if (SUCCESS != get_number(args[1], &code))
 	{
 		error_output("exit", args[1], NUM_ARG_REQUIRED);
-		destroy_shell(shell);
+		destroy_shell(shell, false);
 		exit(BAD_ARG);
 	}
 	if (NULL != args[2])
@@ -35,6 +35,6 @@ t_status	cmd_exit(t_strings args, t_shell *shell)
 		shell->exitno = FAILURE;
 		return (shell->exitno);
 	}
-	destroy_shell(shell);
+	destroy_shell(shell, false);
 	exit(code & 0xff);
 }

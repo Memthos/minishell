@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:25:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 15:52:47 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/22 13:08:34 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_status	execute_cmd_child_pipe(t_shell *shell)
 	{
 		if (SUCCESS != redirect_input(&input_pipe->pipe[0]))
 		{
-			destroy_shell(shell);
+			destroy_shell(shell, false);
 			exit(FAILURE);
 		}
 	}
@@ -31,7 +31,7 @@ static t_status	execute_cmd_child_pipe(t_shell *shell)
 	{
 		if (SUCCESS != redirect_output(&output_pipe->pipe[1]))
 		{
-			destroy_shell(shell);
+			destroy_shell(shell, false);
 			exit(FAILURE);
 		}
 	}
@@ -45,7 +45,7 @@ static t_status	execute_cmd_child_input_redirection(t_shell *shell)
 	{
 		if (SUCCESS != redirect_input(&shell->redirects.input_fd))
 		{
-			destroy_shell(shell);
+			destroy_shell(shell, false);
 			exit(FAILURE);
 		}
 	}
@@ -53,7 +53,7 @@ static t_status	execute_cmd_child_input_redirection(t_shell *shell)
 	{
 		if (SUCCESS != redirect_input(&shell->redirects.input_cmp_fd))
 		{
-			destroy_shell(shell);
+			destroy_shell(shell, false);
 			exit(FAILURE);
 		}
 	}
@@ -66,7 +66,7 @@ static t_status	execute_cmd_child_output_redirection(t_shell *shell)
 	{
 		if (SUCCESS != redirect_output(&shell->redirects.output_fd))
 		{
-			destroy_shell(shell);
+			destroy_shell(shell, false);
 			exit(FAILURE);
 		}
 	}
@@ -74,7 +74,7 @@ static t_status	execute_cmd_child_output_redirection(t_shell *shell)
 	{
 		if (0 != redirect_output(&shell->redirects.output_cmp_fd))
 		{
-			destroy_shell(shell);
+			destroy_shell(shell, false);
 			exit(FAILURE);
 		}
 	}
@@ -92,7 +92,7 @@ t_status	execute_cmd_child(t_built_in cmd, t_shell *shell)
 	execute_cmd_child_input_redirection(shell);
 	execute_cmd_child_output_redirection(shell);
 	status = cmd(shell->cur_cmd, shell);
-	destroy_shell(shell);
+	destroy_shell(shell, false);
 	exit(status);
 }
 

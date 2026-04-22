@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:20:07 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/21 15:52:47 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/22 13:04:57 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static int	heredoc_child(t_shell *shell, t_ast_lst *node, int pipe_fds[2])
 	if (read)
 		free(read);
 	ft_close(&pipe_fds[1]);
-	destroy_shell(shell);
+	destroy_shell(shell, false);
 	exit (ret);
 }
 

@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/20 13:38:39 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/22 13:03:45 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ int	main(int argc, t_strings argv, t_strings envp)
 	if (NULL == shell)
 		return (FAILURE);
 	minishell(shell);
-	destroy_shell(shell);
+	destroy_shell(shell, false);
 	return (SUCCESS);
 }
