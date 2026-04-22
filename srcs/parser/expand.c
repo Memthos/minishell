@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/22 13:36:36 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/22 13:45:49 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,15 @@ t_status	expand_node(t_strings data, size_t *i, t_shell *shell, int is_red)
 	return (status);
 }
 
-static void	expand_loop(t_ast_lst **node, t_status *status, t_shell *shell,
+static int	expand_loop(t_ast_lst **node, t_status *status, t_shell *shell,
 	int is_red)
 {
 	size_t		i;
+	int			did_expand;
 	t_quote_t	quote_state;
 
 	i = 0;
+	did_expand = 0;
 	quote_state = NONE;
 	while (!*status && (*node)->data && (*node)->data[i])
 	{
@@ -106,6 +108,7 @@ static void	expand_loop(t_ast_lst **node, t_status *status, t_shell *shell,
 			&& quote_state != S_QUOTE) || (i == 0 && (*node)->data[i] == '~'
 			&& (*node)->data[i + 1] == '\0' && quote_state == NONE))
 		{
+			did_expand = 1;
 			*status = expand_node(&(*node)->data, &i, shell, is_red);
 			if (*status == FAILURE)
 				(*node)->token = AMB_RED;
@@ -115,6 +118,7 @@ static void	expand_loop(t_ast_lst **node, t_status *status, t_shell *shell,
 		else
 			i++;
 	}
+	return (did_expand);
 }
 
 void	expand(t_ast_lst **node, t_status *status, t_shell *shell, int is_red)
@@ -126,10 +130,11 @@ void	expand(t_ast_lst **node, t_status *status, t_shell *shell, int is_red)
 	if (can_expand(*node, status, shell))
 	{
 		quotes_rmv = get_quotes_rmv(*node);
-		expand_loop(node, status, shell, is_red);
+		if (!expand_loop(node, status, shell, is_red))
+			quotes_rmv = 0;
 		if (ft_strlen((*node)->data) == 0)
 		{
-			ast_lst_pop(node);
+			ast_lst_pop(node) ;
 			if (!node || !*node)
 				return ;
 		}
