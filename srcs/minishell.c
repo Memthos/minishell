@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/22 14:37:48 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/22 18:02:56 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,33 @@ static void	exec_asts(t_shell *shell)
 	return ;
 }
 
+static char	*ft_readline(t_shell *shell)
+{
+	char	*line;
+
+	line = readline("$> ");
+	if (g_signal != 0)
+	{
+		shell->oldexitno = g_signal + 128;
+		shell->exitno = SUCCESS;
+		g_signal = 0;
+	}
+	if (NULL == line)
+		return (NULL);
+	if (!str_is_empty(line))
+		add_history(line);
+	return (line);
+}
+
 static t_status	minishell(t_shell *shell)
 {
 	char		*line;
 
 	while (true)
 	{
-		line = readline("$> ");
-		if (NULL == line)
+		line = ft_readline(shell);
+		if (!line)
 			break ;
-		if (!str_is_empty(line))
-			add_history(line);
 		init_execution_signals();
 		if (SUCCESS != parser(line, shell))
 		{
