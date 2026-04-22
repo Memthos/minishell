@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_red_rules.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:09:08 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/22 15:37:15 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,10 @@ t_ast_lst	*io_redirect_r(t_lxr_lst **lxr, t_status *status, t_side side)
 		red = ast_lst_new(lxr, status);
 	else
 		*status = BAD_ARG;
-	if (!*status && peek(lxr, WORD) && side == LEFT)
+	if (!*status && side == LEFT && (peek(lxr, WORD) || peek(lxr, WILDCARD)))
 		red->left = ast_lst_new(lxr, status);
-	else if (!*status && peek(lxr, WORD) && side == RIGHT)
+	else if (!*status && side == RIGHT
+		&& (peek(lxr, WORD) || peek(lxr, WILDCARD)))
 		red->right = ast_lst_new(lxr, status);
 	else
 		*status = BAD_ARG;
