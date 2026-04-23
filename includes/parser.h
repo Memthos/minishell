@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/23 12:32:16 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/23 13:12:04 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,12 @@ void		remove_ast_quotes(t_ast_lst **ast, t_status *status);
 /// @param status The status of the parser.
 /// @param is_red Param to check whether or not the node is the WORD of
 /// a redirection.
-void		apply_wildcards(t_ast_lst *node, t_status *status, int is_red);
+void		wildcards(t_ast_lst *node, t_status *status, int is_red);
+
+/// @brief Function that remove files that don't respect the wildcard model.
+/// @param files The list of files.
+/// @param model THe model to respect.
+void		filter_files(t_char_lst **files, t_string model);
 
 /// @brief Function to list all the files and directories from the current one
 /// @param status The status of the parser.
