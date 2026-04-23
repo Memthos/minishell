@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:56:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/23 13:18:43 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/23 16:59:56 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static void	apply_wildcard(t_ast_lst *node, t_status *status, int is_red)
 	files = NULL;
 	if (!is_red || (is_red && ft_strcmp(node->data, "*") != 0))
 	{
-		files = get_files(status);
-		if (!*status)
+		files = get_files(status, node->data);
+		if (!*status && files)
 		{
 			filter_files(&files, node->data);
 			if (files)

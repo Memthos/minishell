@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/23 13:12:04 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/23 16:41:46 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,8 @@ void		filter_files(t_char_lst **files, t_string model);
 /// @brief Function to list all the files and directories from the current one
 /// @param status The status of the parser.
 /// @return A chained list with all the files that were found.
-t_char_lst	*get_files(t_status *status);
+/// @param THe model for the wildcard.
+t_char_lst	*get_files(t_status *status, char *model);
 
 /// @brief Make the base of the AST tree, calls all the other functions
 /// of the ast.

@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 09:41:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/23 13:16:11 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/23 16:59:02 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ static DIR	*open_dir(t_status *status)
 	return (directory);
 }
 
-t_char_lst	*get_files(t_status *status)
+t_char_lst	*get_files(t_status *status, char *model)
 {
 	DIR				*directory;
 	struct dirent	*cur_file;
 	t_char_lst		*files;
 
+	if (!model)
+		return (NULL);
 	files = NULL;
 	directory = open_dir(status);
 	if (*status)
@@ -39,7 +41,8 @@ t_char_lst	*get_files(t_status *status)
 	cur_file = readdir(directory);
 	while (cur_file)
 	{
-		if (cur_file->d_name[0] != '.')
+		if (cur_file->d_name[0] != '.'
+			|| (cur_file->d_name[0] == '.' && model[0] == '.'))
 			char_lst_add(cur_file->d_name, &files, status);
 		if (*status)
 			break ;
