@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 12:32:37 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
 
 	status = SUCCESS;
 	expand(ast, &status, shell, 0);
-	apply_wildcards(*ast, &status);
+	apply_wildcards(*ast, &status, 0);
 	remove_ast_quotes(ast, &status);
 	if (status == ALLOCATION_FAILURE)
 	{

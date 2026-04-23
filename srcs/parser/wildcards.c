@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:56:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 22:17:24 by memthos          ###   ########.fr       */
+/*   Updated: 2026/04/23 12:36:57 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,14 @@ static void	filter_files(t_char_lst **files, t_string model)
 	}
 }
 
-void	apply_wildcards(t_ast_lst *node, t_status *status)
+void	apply_wildcards(t_ast_lst *node, t_status *status, int is_red)
 {
 	t_char_lst	*files;
 
 	if (*status || !node)
 		return ;
 	files = NULL;
-	if (node->data && node->token == WILDCARD)
+	if (node->data && node->token == WILDCARD && is_red == 0)
 	{
 		files = get_files(status);
 		if (!*status)
@@ -108,9 +108,11 @@ void	apply_wildcards(t_ast_lst *node, t_status *status)
 				node->token = WORD;
 		}
 	}
+	else if (node->data && node->token == WILDCARD && is_red == 1)
+		node->token = AMB_RED;
 	if (files)
 		char_lst_clear(&files);
-	apply_wildcards(node->left, status);
+	apply_wildcards(node->left, status, is_redirection(node));
 	if (node->token != AND_IF && node->token != OR_IF)
-		apply_wildcards(node->right, status);
+		apply_wildcards(node->right, status, is_redirection(node));
 }

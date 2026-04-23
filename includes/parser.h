@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/23 01:43:32 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 12:32:16 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,9 @@ void		remove_ast_quotes(t_ast_lst **ast, t_status *status);
 /// @brief Search for wildcards if necessary and add them to the ast.
 /// @param ast A pointer to the head of the ast.
 /// @param status The status of the parser.
-void		apply_wildcards(t_ast_lst *node, t_status *status);
+/// @param is_red Param to check whether or not the node is the WORD of
+/// a redirection.
+void		apply_wildcards(t_ast_lst *node, t_status *status, int is_red);
 
 /// @brief Function to list all the files and directories from the current one
 /// @param status The status of the parser.
