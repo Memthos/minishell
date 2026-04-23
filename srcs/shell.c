@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/22 14:38:38 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 12:35:03 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ t_status	wait_process(pid_t pid)
 	return (status);
 }
 
-t_status	wait_for_processes(t_pids_logic *pids)
+t_status	wait_for_processes(t_pids_logic *pids, t_status exitno)
 {
 	t_status	status;
 
 	if (NULL == pids || NULL == pids->pids || 0 == pids->pid_count)
-		return (SUCCESS);
+		return (exitno);
 	status = SUCCESS;
 	pids->pid_index = 0;
 	while (pids->pid_index < pids->pid_count)

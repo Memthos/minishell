@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 21:05:17 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/22 13:59:29 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 12:36:03 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_status	execute_word(t_ast_lst *cmd, t_shell *shell)
 t_status	execute_cmd_list(t_ast_lst *cmd, t_shell *shell)
 {
 	execute(cmd->left, shell);
-	shell->exitno = wait_for_processes(&shell->pids);
+	shell->exitno = wait_for_processes(&shell->pids, shell->exitno);
 	shell->oldexitno = shell->exitno;
 	if (final_parsing(shell, &cmd->right))
 		return (shell->exitno);
