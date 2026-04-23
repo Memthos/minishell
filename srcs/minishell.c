@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/23 01:45:23 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/23 12:36:19 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	exec_asts(t_shell *shell)
 		}
 		code = execute(cur_ast->ast, shell);
 		close_redirections(shell);
-		shell->exitno = wait_for_processes(&shell->pids);
+		shell->exitno = wait_for_processes(&shell->pids, shell->exitno);
 		if (code && !shell->exitno)
 			shell->exitno = code;
 		shell->oldexitno = shell->exitno;
