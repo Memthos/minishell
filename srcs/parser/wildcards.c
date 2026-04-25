@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:56:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/23 16:59:56 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 00:26:56 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,27 @@ static t_status	files_to_ast(t_char_lst **files, t_ast_lst *ast)
 {
 	t_status	status;
 	t_ast_lst	*tail;
+	t_char_lst	**first;
 
+	first = char_lst_first(files);
 	status = SUCCESS;
 	free(ast->data);
-	ast->data = ft_strdup((*files)->data);
+	ast->data = ft_strdup((*first)->data);
 	if (!ast->data)
 		return (ALLOCATION_FAILURE);
 	ast->token = WORD;
 	ast->expand_state = DENY;
 	ast->right = NULL;
-	char_lst_pop(files);
+	char_lst_pop(first);
 	while (!status && *files)
 	{
+		first = char_lst_first(files);
 		tail = ast_lst_last(ast, RIGHT);
-		tail->right = ast_lst_new_char((*files)->data, WORD, &status);
+		tail->right = ast_lst_new_char((*first)->data, WORD, &status);
 		if (status)
 			break ;
 		ast_lst_last(ast, RIGHT)->expand_state = DENY;
-		char_lst_pop(files);
+		char_lst_pop(first);
 	}
 	return (status);
 }
