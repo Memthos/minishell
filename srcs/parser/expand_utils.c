@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/25 22:24:42 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 00:37:30 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast)
 	if (!ast->data)
 		return (ALLOCATION_FAILURE);
 	consume(lxr);
-	ast->token = WORD;
+	if (ft_strchr(ast->data, '*'))
+		ast->token = WILDCARD;
+	else
+		ast->token = WORD;
 	ast->expand_state = DENY;
 	ast->right = NULL;
 	while (!status && *lxr)
@@ -99,7 +102,10 @@ t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast)
 		ast_lst_last(ast, RIGHT)->right = ast_lst_new(lxr, &status);
 		if (status)
 			break ;
-		ast_lst_last(ast, RIGHT)->token = WORD;
+		if (ft_strchr(ast_lst_last(ast, RIGHT)->data, '*'))
+			ast_lst_last(ast, RIGHT)->token = WILDCARD;
+		else
+			ast_lst_last(ast, RIGHT)->token = WORD;
 		ast_lst_last(ast, RIGHT)->expand_state = DENY;
 	}
 	return (status);

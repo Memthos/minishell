@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/23 13:11:59 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 00:34:12 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,24 @@ t_string	make_str(t_string input, size_t len)
 	while (i++ < len)
 		s[i - 1] = input[i - 1];
 	return (s);
+}
+
+static void	set_final_tokens(t_lxr_lst **lxr, t_status *status)
+{
+	t_lxr_lst	**cpy;
+
+	if (*status || !lxr || !*lxr)
+		return ;
+	cpy = lxr;
+	while (*cpy)
+	{
+		if (ft_strchr((*cpy)->data, '*'))
+			(*lxr)->token = WILDCARD;
+		if ((*cpy)->token == TOKEN)
+			lxr_lst_pop(cpy);
+		else
+			cpy = &(*cpy)->next;
+	}
 }
 
 t_status	parser(t_string s, t_shell *shell)
