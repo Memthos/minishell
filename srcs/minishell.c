@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/23 12:36:19 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 17:21:10 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static t_status	minishell(t_shell *shell)
 int	main(int argc, t_strings argv, t_strings envp)
 {
 	t_shell	*shell;
+	int		code;
 
 	(void)argc;
 	(void)argv;
@@ -91,6 +92,7 @@ int	main(int argc, t_strings argv, t_strings envp)
 	if (NULL == shell)
 		return (FAILURE);
 	minishell(shell);
+	code = shell->oldexitno;
 	destroy_shell(shell, false);
-	return (SUCCESS);
+	return (code);
 }
