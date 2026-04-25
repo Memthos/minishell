@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 23:23:10 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/25 23:39:16 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/25 23:42:29 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,7 @@ t_status	expand_heredoc(t_strings str, t_shell *shell)
 		else
 			i++;
 	}
+	if (status == ALLOCATION_FAILURE)
+		perror("malloc");
 	return (status);
 }
