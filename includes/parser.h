@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/25 22:24:29 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/25 23:30:18 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 /// @param is_red Param to check whether or not the node is the WORD of
 /// a redirection.
 void		expand(t_ast_lst **node, t_status *status, t_shell *sh, int is_red);
+
+/// @brief Special expand for the heredoc.
+/// @param str The string to expand.
+/// @param shell A reference to the variables of the shell.
+/// @return The exit status of the expander.
+t_status	expand_heredoc(t_strings str, t_shell *shell);
 
 /// @brief Function to expand the given data.
 /// @param data THe data to expand.
