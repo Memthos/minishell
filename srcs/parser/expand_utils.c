@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/25 17:09:26 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/25 17:27:20 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	can_expand(t_ast_lst *node, t_status *status, t_shell *shell)
 		return (0);
 	}
 	s = ft_strchr(node->data, '$');
-	if (s && s[1])
+	if (s && s[1] && ft_isspace(s[1]) == 0)
 		return (1);
 	return (0);
 }
