@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/23 12:35:50 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 14:15:28 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "dictionary.h"
 # include "lists.h"
-# include "stack_lst.h"
 # include "commands.h"
 
 typedef struct s_redir_logic
@@ -46,9 +45,6 @@ typedef struct s_shell
 	t_uint			cur_cmd_index;
 	t_status		exitno;
 	t_status		oldexitno;
-	t_stack			*pipe_stack;
-	int				redirect_output;
-	int				redirect_input;
 	t_redir_logic	redirects;
 	t_pids_logic	pids;
 	t_uint8			heredoc_max;
