@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 00:39:25 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 00:41:58 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	set_final_tokens(t_lxr_lst **lxr, t_status *status)
 	while (*cpy)
 	{
 		if ((*cpy)->data && ft_strchr((*cpy)->data, '*'))
-			(*lxr)->token = WILDCARD;
+			(*cpy)->token = WILDCARD;
 		if ((*cpy)->token == TOKEN)
 			lxr_lst_pop(cpy);
 		else
