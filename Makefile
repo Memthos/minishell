@@ -10,7 +10,7 @@ SRCS =	minishell.c \
 		execute.c execute_utils.c execute_pipe_utils.c execute_redirection_utils.c execute_cmd.c execute_cmd_utils.c \
 		sighandle.c sighandle_base.c \
 		error_output.c \
-		pipe.c redirection.c heredoc.c \
+		redirection.c heredoc.c \
 		utils.c string_utils.c str_split_at.c shell_utils.c \
 		parser.c expand.c expand_utils.c expand_data.c quotes.c \
 		wildcards.c wildcards_utils.c \
