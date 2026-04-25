@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:56:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 00:37:28 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 00:49:48 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ static void	apply_wildcard(t_ast_lst *node, t_status *status, int is_red)
 			if (files)
 				update_ast(node, &files, status);
 			else
+			{
 				node->token = WORD;
+				*status = BAD_ARG;
+			}
 		}
 	}
 	else if (is_red)
