@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/25 14:15:28 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 14:24:16 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_shell
 	t_redir_logic	redirects;
 	t_pids_logic	pids;
 	t_uint8			heredoc_max;
+	t_uint			pipe_depth;
 	t_uint			cmp_depth;
 }	t_shell;
 

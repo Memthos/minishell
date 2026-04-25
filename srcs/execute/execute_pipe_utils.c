@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 21:07:33 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/25 14:20:04 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 14:24:43 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_status	execute_pipe(t_ast_lst *cmd, t_shell *shell)
 	int			pipes[2];
 	pid_t		fork_pids[2];
 
+	++shell->pipe_depth;
 	pipe(pipes);
 	fork_pids[0] = fork();
 	if (0 == fork_pids[0])
@@ -43,5 +44,6 @@ t_status	execute_pipe(t_ast_lst *cmd, t_shell *shell)
 	ft_close(&pipes[1]);
 	shell->exitno = wait_process(fork_pids[0]);
 	shell->exitno = wait_process(fork_pids[1]);
+	--shell->pipe_depth;
 	return (shell->exitno);
 }
