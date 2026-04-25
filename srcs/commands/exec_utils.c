@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 18:09:50 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/20 21:48:48 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 22:58:37 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_status	check_access(t_string *cmd, t_dictionary *env)
 {
 	t_status	status;
 
-	if (SUCCESS != access(*cmd, F_OK))
+	if (SUCCESS != access(*cmd, F_OK | X_OK))
 	{
 		if (SUCCESS != check_special_cases(*cmd, env))
 			return (127);
