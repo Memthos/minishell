@@ -6,87 +6,41 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 21:07:33 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/23 12:37:53 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 14:20:04 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_pipe	*append_new_pipe(t_shell *shell)
-{
-	t_pipe	*_pipe;
-
-	_pipe = pipe_new();
-	if (NULL == _pipe)
-	{
-		shell->exitno = FAILURE;
-		return (NULL);
-	}
-	if (NULL == stack_lst_append(&shell->pipe_stack, _pipe))
-	{
-		pipe_close(_pipe);
-		shell->exitno = FAILURE;
-		return (NULL);
-	}
-	return (_pipe);
-}
-
-static t_status	execute_pipe_child(t_ast_lst *cmd, t_shell *shell)
-{
-	t_status		status;
-	t_status		tmp_status;
-	t_pids_logic	pids;
-
-	execute(cmd, shell);
-	status = shell->exitno;
-	pids = shell->pids;
-	destroy_shell(shell, true);
-	tmp_status = wait_for_processes(&pids, status);
-	if (!status && tmp_status)
-		status = tmp_status;
-	free(pids.pids);
-	exit(status);
-}
-
-static pid_t	execute_pipe_fork(t_ast_lst *cmd, t_shell *shell)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (-1 == pid)
-	{
-		stack_lst_clear(&shell->pipe_stack, (void (*)(void *)) & pipe_close);
-		shell->exitno = FAILURE;
-		return (-1);
-	}
-	if (0 == pid)
-		execute_pipe_child(cmd, shell);
-	return (pid);
-}
-
 t_status	execute_pipe(t_ast_lst *cmd, t_shell *shell)
 {
-	t_pipe	*_pipe;
-	pid_t	fork_pids[2];
+	t_status	status;
+	int			pipes[2];
+	pid_t		fork_pids[2];
 
-	_pipe = append_new_pipe(shell);
-	if (NULL == _pipe)
-		return (FAILURE);
-	++shell->redirect_output;
-	fork_pids[0] = execute_pipe_fork(cmd->left, shell);
-	--shell->redirect_output;
-	if (fork_pids[0] < 0)
-		return (shell->exitno);
-	_pipe->side = RIGHT;
-	++shell->redirect_input;
-	fork_pids[1] = execute_pipe_fork(cmd->right, shell);
-	--shell->redirect_input;
-	if (fork_pids[1] < 0)
+	pipe(pipes);
+	fork_pids[0] = fork();
+	if (0 == fork_pids[0])
 	{
-		shell->exitno = wait_process(fork_pids[0]);
-		return (shell->exitno);
+		close(pipes[0]);
+		redirect_output(&pipes[1]);
+		execute(cmd->left, shell);
+		status = shell->exitno;
+		destroy_shell(shell, false);
+		exit(status);
 	}
-	stack_lst_clear(&shell->pipe_stack, (void (*)(void *)) & pipe_close);
+	fork_pids[1] = fork();
+	if (0 == fork_pids[1])
+	{
+		close(pipes[1]);
+		redirect_input(&pipes[0]);
+		execute(cmd->right, shell);
+		status = shell->exitno;
+		destroy_shell(shell, false);
+		exit(status);
+	}
+	ft_close(&pipes[0]);
+	ft_close(&pipes[1]);
 	shell->exitno = wait_process(fork_pids[0]);
 	shell->exitno = wait_process(fork_pids[1]);
 	return (shell->exitno);
