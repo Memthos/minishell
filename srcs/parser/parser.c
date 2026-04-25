@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 00:50:30 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 00:52:30 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
 			shell->exitno = 1;
 		return (FAILURE);
 	}
-	if (!shell->exitno && status)
-		shell->exitno = status;
 	return (SUCCESS);
 }
 
