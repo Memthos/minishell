@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/20 21:09:08 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 14:12:49 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@
 
 //Dictionary header
 # include "dictionary.h"
-
-//Stack header
-# include "stack_lst.h"
 
 # include "execute.h"
 
