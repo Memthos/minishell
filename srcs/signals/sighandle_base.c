@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 00:46:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 14:08:55 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ t_status	restore_signals(void)
 		return (FAILURE);
 	}
 	if (SUCCESS != sigaction(SIGQUIT, &action, NULL))
+	{
+		perror("sigaction");
+		return (FAILURE);
+	}
+	if (SUCCESS != sigaction(SIGPIPE, &action, NULL))
 	{
 		perror("sigaction");
 		return (FAILURE);
