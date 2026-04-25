@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:06:10 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/25 13:05:27 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 14:13:45 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_status	execute_cmd(t_shell *shell)
 	if (NULL == shell || NULL == shell->cur_cmd || 0 == shell->cur_cmd_index)
 		return (FAILURE);
 	cmd = get_command(*shell->cur_cmd);
-	if (&cmd_exec != cmd && 0 == stack_lst_size(shell->pipe_stack))
+	if (&cmd_exec != cmd) // Add condition for pipe_depth
 		return (execute_simple_cmd(cmd, shell));
 	pid = fork();
 	if (-1 == pid)

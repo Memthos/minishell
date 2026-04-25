@@ -6,40 +6,13 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:25:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/22 13:08:34 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 14:14:12 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_status	execute_cmd_child_pipe(t_shell *shell)
-{
-	t_pipe	*input_pipe;
-	t_pipe	*output_pipe;
-
-	input_pipe = pipe_get(shell, RIGHT);
-	output_pipe = pipe_get(shell, LEFT);
-	if (input_pipe && shell->redirect_input)
-	{
-		if (SUCCESS != redirect_input(&input_pipe->pipe[0]))
-		{
-			destroy_shell(shell, false);
-			exit(FAILURE);
-		}
-	}
-	if (output_pipe && shell->redirect_output)
-	{
-		if (SUCCESS != redirect_output(&output_pipe->pipe[1]))
-		{
-			destroy_shell(shell, false);
-			exit(FAILURE);
-		}
-	}
-	stack_lst_clear(&shell->pipe_stack, (void (*)(void *)) & pipe_close);
-	return (SUCCESS);
-}
-
-static t_status	execute_cmd_child_input_redirection(t_shell *shell)
+t_status	execute_cmd_child_input_redirection(t_shell *shell)
 {
 	if (-1 != shell->redirects.input_fd)
 	{
@@ -60,7 +33,7 @@ static t_status	execute_cmd_child_input_redirection(t_shell *shell)
 	return (SUCCESS);
 }
 
-static t_status	execute_cmd_child_output_redirection(t_shell *shell)
+t_status	execute_cmd_child_output_redirection(t_shell *shell)
 {
 	if (-1 != shell->redirects.output_fd)
 	{
@@ -88,7 +61,6 @@ t_status	execute_cmd_child(t_built_in cmd, t_shell *shell)
 	restore_signals();
 	ft_close(&shell->redirects.stdin_dup);
 	ft_close(&shell->redirects.stdout_dup);
-	execute_cmd_child_pipe(shell);
 	execute_cmd_child_input_redirection(shell);
 	execute_cmd_child_output_redirection(shell);
 	status = cmd(shell->cur_cmd, shell);

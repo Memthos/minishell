@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/23 12:35:03 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 14:13:19 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	destroy_shell(t_shell *shell, bool keep_pids)
 	if (NULL == shell)
 		return ;
 	rl_clear_history();
-	stack_lst_clear(&shell->pipe_stack, (void (*)(void *)) & pipe_close);
 	free(shell->cur_cmd);
 	if (!keep_pids)
 		free(shell->pids.pids);
