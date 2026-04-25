@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/23 16:41:46 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/25 17:14:31 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_string	get_expand_value(t_string var_name, t_shell *sh, t_status *status);
 /// @param name A pointer to the string that will contain the node.
 /// @param i The index where a $ was found.
 /// @return 1 if there was an allocation failure, else 0.
-int			get_var_name(t_string s, t_strings name, size_t *i);
+int			get_var_name(t_string s, t_strings name);
 
 /// @brief Check whether or not the node is the WORD of a redirection
 /// @param node THe node to check

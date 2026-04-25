@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/23 01:46:35 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 17:14:50 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	update_node_data(t_strings data, size_t n, t_string val, size_t *i)
 	if ((*data)[0] == '~')
 		res = calloc(ft_strlen(*data) + ft_strlen(val), 1);
 	else
-		res = calloc(ft_strlen(*data) - n + ft_strlen(val), 1);
+		res = calloc(ft_strlen(*data) - n + ft_strlen(val) + 1, 1);
 	if (!res)
 		return (ALLOCATION_FAILURE);
 	ft_strlcpy(res, *data, *i + 1);
@@ -55,8 +55,8 @@ static int	update_node_data(t_strings data, size_t n, t_string val, size_t *i)
 		ft_strlcat(res, *data + *i + 1, ft_strlen(res)
 			+ ft_strlen(*data + *i + 1) + 1);
 	else
-		ft_strlcat(res, *data + *i + 1 + n, ft_strlen(res)
-			+ ft_strlen(*data + *i + 1 + n) + 1);
+		ft_strlcat(res, *data + *i + n, ft_strlen(res)
+			+ ft_strlen(*data + *i + n) + 1);
 	*i += ft_strlen(val);
 	free(*data);
 	*data = res;
@@ -72,9 +72,9 @@ t_status	expand_node(t_strings data, size_t *i, t_shell *shell, int is_red)
 
 	status = SUCCESS;
 	var_name = NULL;
-	if (get_var_name(*data + *i, &var_name, i))
+	if (get_var_name(*data + *i, &var_name))
 		return (ALLOCATION_FAILURE);
-	name_len = ft_strlen(var_name);
+	name_len = ft_strlen(var_name) + 1;
 	var_value = get_expand_value(var_name, shell, &status);
 	free(var_name);
 	if (status)
