@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/25 17:14:31 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/25 22:24:29 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,19 @@ void		expand(t_ast_lst **node, t_status *status, t_shell *sh, int is_red);
 /// @return The exit status of the function
 t_status	expand_node(t_strings data, size_t *idx, t_shell *sh, int is_red);
 
-/// @brief Function to check if the node data can be expanded
+/// @brief Check whether or not an expand can happen from the current character.
+/// @param str The string to check.
+/// @param i THe index to start checking from.
+/// @param quote_state THe current quote state.
+/// @return Return 1 if the data can be expanded, else 0.
+int			can_expand(char *str, size_t i, t_quote_t quote_state);
+
+/// @brief Function to check if the node data can try to be expanded
 /// @param node The node with the data to expand.
 /// @param status The status of the parser.
 /// @param shell A reference to the variables of the shell.
 /// @return 1 if the data can be expanded, else 0.
-int			can_expand(t_ast_lst *node, t_status *status, t_shell *shell);
+int			can_try_expand(t_ast_lst *node, t_status *status, t_shell *shell);
 
 /// @brief Search a value for the expand variable name.
 /// @param var_name The name of the expand variable to search for.

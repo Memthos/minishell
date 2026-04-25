@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/25 17:14:50 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/25 22:25:05 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,7 @@ static int	expand_loop(t_ast_lst **node, t_status *status, t_shell *shell,
 	while (!*status && (*node)->data && (*node)->data[i])
 	{
 		set_quote_state(&quote_state, (*node)->data[i]);
-		if (((*node)->data[i] == '$' && (*node)->data[i + 1]
-				&& quote_state != S_QUOTE) || (i == 0 && (*node)->data[i] == '~'
-				&& (*node)->data[i + 1] == '\0' && quote_state == NONE))
+		if (can_expand((*node)->data, i, quote_state))
 		{
 			did_expand = 1;
 			*status = expand_node(&(*node)->data, &i, shell, is_red);
@@ -127,7 +125,7 @@ void	expand(t_ast_lst **node, t_status *status, t_shell *shell, int is_red)
 
 	if (*status || !node || !*node)
 		return ;
-	if (can_expand(*node, status, shell))
+	if (can_try_expand(*node, status, shell))
 	{
 		quotes_rmv = get_quotes_rmv(*node);
 		if (!expand_loop(node, status, shell, is_red))

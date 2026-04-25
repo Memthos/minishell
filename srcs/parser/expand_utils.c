@@ -6,20 +6,20 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/25 17:27:20 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/25 22:24:42 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	can_expand(t_ast_lst *node, t_status *status, t_shell *shell)
+int	can_try_expand(t_ast_lst *node, t_status *status, t_shell *shell)
 {
 	t_string	s;
 
 	if (!node->data || node->expand_state == DENY
 		|| (node->token != WORD && node->token != WILDCARD))
 		return (0);
-	if (node->data[0] == '~')
+	if (node->data[0] == '~' && !node->data[1])
 	{
 		if (dict_get(shell->env, "HOME"))
 			return (1);
@@ -29,6 +29,25 @@ int	can_expand(t_ast_lst *node, t_status *status, t_shell *shell)
 	}
 	s = ft_strchr(node->data, '$');
 	if (s && s[1] && ft_isspace(s[1]) == 0)
+		return (1);
+	return (0);
+}
+
+int	can_expand(char *str, size_t i, t_quote_t quote_state)
+{
+	if (str[i] == '$' && str[i + 1] && quote_state != S_QUOTE)
+	{
+		if (ft_isalnum(str[i + 1]) || str[i + 1] == '_')
+			return (1);
+		else if (str[i + 1] == '?' || str[i + 1] == '@' || str[i + 1] == '*'
+			|| str[i + 1] == '#' || str[i + 1] == '$'
+			|| str[i + 1] == '!' || str[i + 1] == '-')
+			return (1);
+		else if ((str[i + 1] == '\'' || str[i + 1] == '\"')
+			&& quote_state == NONE)
+			return (1);
+	}
+	else if (i == 0 && str[i] == '~' && !str[i + 1] && quote_state == NONE)
 		return (1);
 	return (0);
 }
