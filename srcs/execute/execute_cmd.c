@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:06:10 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 15:52:20 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 13:05:27 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ t_status	execute_cmd(t_shell *shell)
 		execute_cmd_child(cmd, shell);
 	ft_close(&shell->redirects.input_fd);
 	ft_close(&shell->redirects.output_fd);
-	update_pids(shell, pid);
+	shell->exitno = wait_process(pid);
 	return (shell->exitno);
 }
