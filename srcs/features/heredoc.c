@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:20:07 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 18:07:03 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 18:41:59 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	heredoc_parent(t_shell *shell, pid_t pid, int pipe_fds[2],
 	t_status *status)
 {
-
 	ft_close(&pipe_fds[1]);
 	ft_close(&shell->redirects.heredoc_fd);
 	shell->redirects.heredoc_fd = pipe_fds[0];
