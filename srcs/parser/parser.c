@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 18:04:42 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 18:40:51 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
 	if (status == ALLOCATION_FAILURE)
 	{
 		perror("malloc");
-		if (!shell->exitno)
-			shell->exitno = 1;
+		shell->exitno = FAILURE;
 		return (FAILURE);
 	}
 	if (status != SUCCESS)
