@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 21:07:33 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 16:58:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 17:21:52 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static pid_t	execute_pipe_left(t_ast_lst *cmd, t_shell *shell, int _pipe[2])
 		redirect_output(&_pipe[1]);
 		execute(cmd->left, shell);
 		status = shell->exitno;
-		destroy_shell(shell, false);
+		destroy_shell(shell);
 		exit(status);
 	}
 	return (pid);
@@ -56,7 +56,7 @@ static pid_t	execute_pipe_right(t_ast_lst *cmd, t_shell *shell, int _pipe[2])
 		redirect_input(&_pipe[0]);
 		execute(cmd->right, shell);
 		status = shell->exitno;
-		destroy_shell(shell, false);
+		destroy_shell(shell);
 		exit(status);
 	}
 	return (pid);

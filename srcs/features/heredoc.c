@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:20:07 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/25 23:39:15 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 17:21:52 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	heredoc_child(t_shell *shell, t_ast_lst *node, int pipe_fds[2])
 	if (read)
 		free(read);
 	ft_close(&pipe_fds[1]);
-	destroy_shell(shell, false);
+	destroy_shell(shell);
 	exit (ret);
 }
 
