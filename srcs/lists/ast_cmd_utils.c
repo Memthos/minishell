@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:48:22 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 15:12:05 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 15:12:40 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,6 @@ t_uint	ast_cmd_size(t_ast_lst *ast)
 		++size;
 	}
 	return (size);
-}
-
-t_uint	ast_pipe_count(t_ast_lst *ast)
-{
-	t_uint	count;
-
-	if (NULL == ast)
-		return (0);
-	count = 0;
-	if (PIPE == ast->token)
-		count = 1;
-	count += ast_pipe_count(ast->left);
-	count += ast_pipe_count(ast->right);
-	return (count);
 }
 
 t_uint	ast_heredoc_count(t_ast_lst *ast, bool is_cmp)

@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 15:12:14 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 15:12:52 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,12 +131,6 @@ void		consume(t_lxr_lst **node);
  * @return The number of arguments plus the command.
  */
 t_uint		ast_cmd_size(t_ast_lst *ast);
-
-/**
- * @brief Count the number of pipes in ast.
- * @return The number if pipes in ast.
- */
-t_uint		ast_pipe_count(t_ast_lst *ast);
 
 /// @brief Count the number of heredocs in the current command
 /// @param ast A pointer to a node of the ast.
