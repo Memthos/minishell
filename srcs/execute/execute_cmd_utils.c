@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:25:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/25 14:14:12 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 17:23:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,7 @@ t_status	execute_cmd_child_input_redirection(t_shell *shell)
 	{
 		if (SUCCESS != redirect_input(&shell->redirects.input_fd))
 		{
-			destroy_shell(shell, false);
-			exit(FAILURE);
-		}
-	}
-	else if (-1 != shell->redirects.input_cmp_fd)
-	{
-		if (SUCCESS != redirect_input(&shell->redirects.input_cmp_fd))
-		{
-			destroy_shell(shell, false);
+			destroy_shell(shell);
 			exit(FAILURE);
 		}
 	}
@@ -39,15 +31,7 @@ t_status	execute_cmd_child_output_redirection(t_shell *shell)
 	{
 		if (SUCCESS != redirect_output(&shell->redirects.output_fd))
 		{
-			destroy_shell(shell, false);
-			exit(FAILURE);
-		}
-	}
-	else if (-1 != shell->redirects.output_cmp_fd)
-	{
-		if (0 != redirect_output(&shell->redirects.output_cmp_fd))
-		{
-			destroy_shell(shell, false);
+			destroy_shell(shell);
 			exit(FAILURE);
 		}
 	}
@@ -64,7 +48,7 @@ t_status	execute_cmd_child(t_built_in cmd, t_shell *shell)
 	execute_cmd_child_input_redirection(shell);
 	execute_cmd_child_output_redirection(shell);
 	status = cmd(shell->cur_cmd, shell);
-	destroy_shell(shell, false);
+	destroy_shell(shell);
 	exit(status);
 }
 

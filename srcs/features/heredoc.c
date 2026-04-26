@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:20:07 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 17:58:56 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 18:07:03 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	heredoc_child(t_shell *shell, t_ast_lst *node, int pipe_fds[2],
 	if (read)
 		free(read);
 	ft_close(&pipe_fds[1]);
-	destroy_shell(shell, false);
+	destroy_shell(shell);
 	exit (ret);
 }
 
