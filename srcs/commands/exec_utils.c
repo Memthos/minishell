@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 18:09:50 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 16:21:10 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 18:49:28 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_status	check_access(t_string *cmd, t_dictionary *env)
 	{
 		if (!dict_get(env, "PATH"))
 			error_output(*cmd, NULL, FILE_NOT_FOUND);
-		else if (((t_string)dict_get(env, "PATH")->data)[0] == '\0')
+		else
 			error_output(*cmd, NULL, COMMAND_NOT_FOUND);
 		return (127);
 	}
