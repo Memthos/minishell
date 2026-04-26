@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 21:13:55 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/20 14:49:27 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 15:25:13 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,6 @@ t_dictionary	*update_shlvl(t_dictionary **env)
 	if (NULL == shlvl->data)
 		perror("malloc");
 	return (*env);
-}
-
-bool	check_env_path(t_dictionary *env)
-{
-	t_dictionary	*path;
-
-	if (NULL == env)
-		return (false);
-	path = dict_get(env, "PATH");
-	if (NULL == path)
-		return (false);
-	if (*((t_string)path->data) == '\0')
-		return (false);
-	return (true);
 }
 
 bool	check_var_name(t_string name)
