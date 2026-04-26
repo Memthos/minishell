@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_main_rules.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 16:03:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 19:34:11 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,13 @@ void	complete_command_r(t_lxr_lst **lxr, t_shell *shell, t_status *status)
 		*status = cmds_lst_add(ast, &shell->cmd_ast);
 		if (*status)
 			break ;
+		if (!peek(lxr, NEW_LINE))
+			break ;
 		while (peek(lxr, NEW_LINE))
 			consume(lxr);
 	}
+	if (!*status && *lxr)
+		*status = BAD_ARG;
 	if (*status)
 		cmds_lst_clear(&shell->cmd_ast);
 }
