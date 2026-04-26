@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 00:11:02 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 15:13:56 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,25 +132,10 @@ void		consume(t_lxr_lst **node);
  */
 t_uint		ast_cmd_size(t_ast_lst *ast);
 
-/**
- * @brief Count the number of pipes in ast.
- * @return The number if pipes in ast.
- */
-t_uint		ast_pipe_count(t_ast_lst *ast);
-
 /// @brief Count the number of heredocs in the current command
 /// @param ast A pointer to a node of the ast.
 /// @return THe number of heredocs fo the current command
 t_uint		ast_heredoc_count(t_ast_lst *ast, bool is_cmp);
-/**
- * @brief Counts the number of pipe that redirects an entire CMP_CMD output.
- */
-t_uint		ast_cmp_pipe_count(t_ast_lst *ast);
-
-/**
- * @brief Returns true if node is a cmp_pipe, false otherwise.
- */
-bool		is_cmp_pipe(t_ast_lst *node);
 
 /// @brief Return the last node of the list.
 /// @param head The head / start of the list.
