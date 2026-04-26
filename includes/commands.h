@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:13:55 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/23 01:41:31 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 17:32:38 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,5 @@ t_status	cmd_unset(t_strings args, t_shell *shell);
  * @return Return 0 or any code passed as an argument or 2 on bad argument.
  */
 t_status	cmd_exit(t_strings args, t_shell *shell);
-
-/// @brief Get the heredoc input from the user.
-/// @param shell A pointer to the the shell structure.
-/// @return 1 if an error occurred, else 0.
-int			heredoc(t_shell *shell, t_ast_lst *node);
 
 #endif

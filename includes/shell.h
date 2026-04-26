@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/25 14:24:16 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 17:42:15 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_redir_logic
 	int		output_cmp_fd;
 	int		input_fd;
 	int		input_cmp_fd;
+	int		heredoc_fd;
 	t_uint	out_flags;
 	t_uint	in_flags;
 }	t_redir_logic;

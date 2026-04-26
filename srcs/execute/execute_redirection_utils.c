@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_redirection_utils.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 20:58:46 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 21:00:32 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 18:03:48 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,18 +97,17 @@ t_status	execute_in_redirection(t_ast_lst *cmd, t_shell *shell)
 
 t_status	execute_heredoc(t_ast_lst *cmd, t_shell *shell)
 {
-	if (ast_heredoc_count(cmd, shell->redirects.is_cmp_redir)
-		> shell->heredoc_max)
+	if (shell->redirects.is_cmp_redir)
 	{
-		error_output(NULL, NULL, HEREDOC_COUNT_EXCEEDED);
-		shell->exitno = BAD_ARG;
-		return (shell->exitno);
+		ft_close(&shell->redirects.input_cmp_fd);
+		shell->redirects.input_cmp_fd = shell->redirects.heredoc_fd;
 	}
-	if (heredoc(shell, cmd))
+	else
 	{
-		error_output(NULL, NULL, shell->exitno);
-		return (shell->exitno);
+		ft_close(&shell->redirects.input_fd);
+		shell->redirects.input_fd = shell->redirects.heredoc_fd;
 	}
+	shell->redirects.heredoc_fd = -1;
 	execute(cmd->left->left, shell);
 	return (shell->exitno);
 }

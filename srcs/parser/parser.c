@@ -6,20 +6,44 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:53:01 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 00:52:30 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 18:04:42 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	check_heredoc(t_ast_lst *node, t_status *status, t_shell *shell,
+	bool is_cmp)
+{
+	if (*status || !node)
+		return ;
+	if (node->token == CMP_CMD)
+		is_cmp = 1;
+	if (ast_heredoc_count(node, is_cmp) > shell->heredoc_max)
+	{
+		error_output(NULL, NULL, HEREDOC_COUNT_EXCEEDED);
+		*status = BAD_ARG;
+		return ;
+	}
+	if (node->token == DLESS)
+	{
+		if (heredoc(shell, node, is_cmp, status))
+			error_output(NULL, NULL, *status);
+	}
+	check_heredoc(node->left, status, shell, is_cmp);
+	if (node->token != AND_IF && node->token != OR_IF)
+		check_heredoc(node->right, status, shell, is_cmp);
+}
 
 t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
 {
 	t_status	status;
 
 	status = SUCCESS;
-	expand(ast, &status, shell, 0);
+	expand(ast, &status, shell, shell->redirects.is_cmp_redir);
 	wildcards(*ast, &status, 0);
 	remove_ast_quotes(ast, &status);
+	check_heredoc(*ast, &status, shell, 0);
 	if (status == ALLOCATION_FAILURE)
 	{
 		perror("malloc");
@@ -27,6 +51,8 @@ t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
 			shell->exitno = 1;
 		return (FAILURE);
 	}
+	if (status != SUCCESS)
+		shell->exitno = status;
 	return (SUCCESS);
 }
 

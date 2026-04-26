@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/25 14:24:27 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 18:02:00 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static void	set_shell(t_shell *shell)
 	shell->redirects.output_cmp_fd = -1;
 	shell->redirects.input_fd = -1;
 	shell->redirects.input_cmp_fd = -1;
+	shell->redirects.heredoc_fd = -1;
 	shell->pids.pids = NULL;
 	shell->pids.pid_count = 0;
 	shell->pids.pid_index = 0;

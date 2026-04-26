@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 16:30:45 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 18:02:22 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,5 +218,14 @@ int			is_heredoc(t_ast_lst *red, t_side side);
 /// @param side SIde to search.
 /// @return 1 if a quote was found or the limiter is NULL, else 0.
 int			limiter_quotes(t_ast_lst *red, t_side side);
+
+/// @brief Heredoc function
+/// @param shell A reference to the variables of the shell.
+/// @param node THe node doing the heredoc.
+/// @param is_cmp Boolean to know if the heredoc is in a compound command.
+/// @param status The status of the parser.
+/// @return 1 if an error happened, else 0.
+int			heredoc(t_shell *shell, t_ast_lst *node, bool is_cmp,
+				t_status *status);
 
 #endif
