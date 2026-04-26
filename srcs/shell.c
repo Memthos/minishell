@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 17:20:12 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 19:02:01 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	close_redirections(t_shell *shell)
 	ft_close(&shell->redirects.output_cmp_fd);
 	ft_close(&shell->redirects.input_fd);
 	ft_close(&shell->redirects.input_cmp_fd);
+	ft_close(&shell->redirects.heredoc_fd);
 	return ;
 }
 
