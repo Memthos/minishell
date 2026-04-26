@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 18:09:50 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 16:17:36 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 16:21:10 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,27 +70,36 @@ static t_status	check_is_dir(t_string cmd)
 	return (SUCCESS);
 }
 
+static t_status	hard_path_check_access(t_string *cmd)
+{
+	t_status	status;
+
+	status = check_is_dir(*cmd);
+	if (status)
+		return (126);
+	if (!status && access(cmd[0], F_OK) != 0 && !ft_strchr(cmd[0], '*'))
+	{
+		error_output(*cmd, NULL, FILE_NOT_FOUND);
+		return (127);
+	}
+	else if (status == SUCCESS && access(cmd[0], X_OK) != 0)
+	{
+		error_output(*cmd, NULL, PERMISSION_ERROR);
+		return (126);
+	}
+	if (status == SUCCESS && access(cmd[0], F_OK | X_OK) == 0)
+		return (0);
+	return (status);
+}
+
 t_status	check_access(t_string *cmd, t_dictionary *env)
 {
 	t_status	status;
 
 	if (ft_strchr(cmd[0], '/'))
 	{
-		status = check_is_dir(*cmd);
-		if (status)
-			return (126);
-		if (!status && access(cmd[0], F_OK) != 0 && !ft_strchr(cmd[0], '*'))
-		{
-			error_output(*cmd, NULL, FILE_NOT_FOUND);
-			return (127);
-		}
-		else if (status == SUCCESS && access(cmd[0], X_OK) != 0)
-		{
-			error_output(*cmd, NULL, PERMISSION_ERROR);
-			return (126);
-		}
-		if (status == SUCCESS && access(cmd[0], F_OK | X_OK) == 0)
-			return (0);
+		status = hard_path_check_access(cmd);
+		return (status);
 	}
 	status = get_abs_path(cmd, env);
 	if (status == SUCCESS && access(cmd[0], F_OK) != 0)
