@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 21:05:17 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/25 14:11:49 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 17:25:36 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,42 @@ t_status	execute_cmd_list(t_ast_lst *cmd, t_shell *shell)
 
 t_status	execute_parentheses(t_ast_lst *cmd, t_shell *shell)
 {
+	pid_t		pid;
+	t_status	status;
+
 	++shell->cmp_depth;
 	shell->redirects.is_cmp_redir = true;
 	execute(cmd->right, shell);
 	shell->redirects.is_cmp_redir = false;
-	execute(cmd->left, shell);
+	pid = fork();
+	if (0 == pid)
+	{
+		if (-1 != shell->redirects.input_cmp_fd)
+		{
+			if (SUCCESS != redirect_input(&shell->redirects.input_cmp_fd))
+			{
+				destroy_shell(shell);
+				exit(FAILURE);
+			}
+		}
+		if (-1 != shell->redirects.output_cmp_fd)
+		{
+			if (0 != redirect_output(&shell->redirects.output_cmp_fd))
+			{
+				destroy_shell(shell);
+				exit(FAILURE);
+			}
+		}
+		ft_close(&shell->redirects.output_cmp_fd);
+		ft_close(&shell->redirects.input_cmp_fd);
+		execute(cmd->left, shell);
+		status = shell->exitno;
+		destroy_shell(shell);
+		exit(status);
+	}
 	ft_close(&shell->redirects.output_cmp_fd);
 	ft_close(&shell->redirects.input_cmp_fd);
+	shell->exitno = wait_process(pid);
 	--shell->cmp_depth;
 	return (shell->exitno);
 }
