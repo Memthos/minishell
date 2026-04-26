@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/25 14:24:16 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 17:20:16 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ void		close_redirections(t_shell *shell);
  * @brief Destroys all allocated ressources that have bee not
  * freed, and closes all fd that are opened.
  */
-void		destroy_shell(t_shell *shell, bool keep_pids);
+void		destroy_shell(t_shell *shell);
 
 #endif
