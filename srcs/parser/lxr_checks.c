@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lxr_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 17:01:37 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 18:48:35 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,13 @@ void	checker_lxr(t_lxr_lst *lxr, t_status *status)
 	}
 	while (!*status && lxr)
 	{
-		*status = operator_check(lxr);
+		if (lxr->data && ft_strcmp(lxr->data, ";") == 0)
+		{
+			parser_error_print(";");
+			*status = BAD_ARG;
+		}
+		if (!*status)
+			*status = operator_check(lxr);
 		if (!*status)
 			*status = l_parenthesis_check(lxr);
 		if (!*status)
