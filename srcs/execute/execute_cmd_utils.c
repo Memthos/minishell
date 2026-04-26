@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:25:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 17:21:52 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 17:23:18 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,6 @@ t_status	execute_cmd_child_input_redirection(t_shell *shell)
 			exit(FAILURE);
 		}
 	}
-	else if (-1 != shell->redirects.input_cmp_fd)
-	{
-		if (SUCCESS != redirect_input(&shell->redirects.input_cmp_fd))
-		{
-			destroy_shell(shell);
-			exit(FAILURE);
-		}
-	}
 	return (SUCCESS);
 }
 
@@ -38,14 +30,6 @@ t_status	execute_cmd_child_output_redirection(t_shell *shell)
 	if (-1 != shell->redirects.output_fd)
 	{
 		if (SUCCESS != redirect_output(&shell->redirects.output_fd))
-		{
-			destroy_shell(shell);
-			exit(FAILURE);
-		}
-	}
-	else if (-1 != shell->redirects.output_cmp_fd)
-	{
-		if (0 != redirect_output(&shell->redirects.output_cmp_fd))
 		{
 			destroy_shell(shell);
 			exit(FAILURE);
