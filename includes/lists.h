@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 15:12:52 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 15:13:56 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,11 @@ t_uint		ast_heredoc_count(t_ast_lst *ast, bool is_cmp);
 /// @param head The head / start of the list.
 /// @return The last node of the list.
 t_char_lst	*file_lst_last(t_char_lst *head);
+
+/// @brief Return the first node alphabetically sorted of the list.
+/// @param node THe list to check.
+/// @return The first node.
+t_char_lst	**char_lst_first(t_char_lst **node);
 
 /// @brief Adds a new node at the end of the list.
 /// @param s The data to store in the node.

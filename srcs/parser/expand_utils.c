@@ -6,20 +6,20 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/22 13:26:17 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 00:37:30 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	can_expand(t_ast_lst *node, t_status *status, t_shell *shell)
+int	can_try_expand(t_ast_lst *node, t_status *status, t_shell *shell)
 {
 	t_string	s;
 
 	if (!node->data || node->expand_state == DENY
 		|| (node->token != WORD && node->token != WILDCARD))
 		return (0);
-	if (node->data[0] == '~')
+	if (node->data[0] == '~' && !node->data[1])
 	{
 		if (dict_get(shell->env, "HOME"))
 			return (1);
@@ -28,14 +28,26 @@ int	can_expand(t_ast_lst *node, t_status *status, t_shell *shell)
 		return (0);
 	}
 	s = ft_strchr(node->data, '$');
-	if (!s)
-		return (0);
-	s++;
-	if (ft_isalpha(s[0]) || s[0] == '_')
+	if (s && s[1] && ft_isspace(s[1]) == 0)
 		return (1);
-	else if (s[0] == '?' || s[0] == '@' || s[0] == '*' || s[0] == '#'
-		|| s[0] == '$' || s[0] == '!' || s[0] == '-' || s[0] == '_'
-		|| ft_isdigit(s[0]))
+	return (0);
+}
+
+int	can_expand(char *str, size_t i, t_quote_t quote_state)
+{
+	if (str[i] == '$' && str[i + 1] && quote_state != S_QUOTE)
+	{
+		if (ft_isalnum(str[i + 1]) || str[i + 1] == '_')
+			return (1);
+		else if (str[i + 1] == '?' || str[i + 1] == '@' || str[i + 1] == '*'
+			|| str[i + 1] == '#' || str[i + 1] == '$'
+			|| str[i + 1] == '!' || str[i + 1] == '-')
+			return (1);
+		else if ((str[i + 1] == '\'' || str[i + 1] == '\"')
+			&& quote_state == NONE)
+			return (1);
+	}
+	else if (i == 0 && str[i] == '~' && !str[i + 1] && quote_state == NONE)
 		return (1);
 	return (0);
 }
@@ -79,7 +91,10 @@ t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast)
 	if (!ast->data)
 		return (ALLOCATION_FAILURE);
 	consume(lxr);
-	ast->token = WORD;
+	if (ft_strchr(ast->data, '*'))
+		ast->token = WILDCARD;
+	else
+		ast->token = WORD;
 	ast->expand_state = DENY;
 	ast->right = NULL;
 	while (!status && *lxr)
@@ -87,7 +102,10 @@ t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast)
 		ast_lst_last(ast, RIGHT)->right = ast_lst_new(lxr, &status);
 		if (status)
 			break ;
-		ast_lst_last(ast, RIGHT)->token = WORD;
+		if (ft_strchr(ast_lst_last(ast, RIGHT)->data, '*'))
+			ast_lst_last(ast, RIGHT)->token = WILDCARD;
+		else
+			ast_lst_last(ast, RIGHT)->token = WORD;
 		ast_lst_last(ast, RIGHT)->expand_state = DENY;
 	}
 	return (status);

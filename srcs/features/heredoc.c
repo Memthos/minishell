@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:20:07 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/22 13:04:57 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 23:39:15 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,17 @@ static void	heredoc_parent(t_shell *shell, pid_t pid, int pipe_fds[2])
 
 static int	write_heredoc(t_shell *sh, t_ast_lst *node, int fd, t_strings data)
 {
-	size_t	i;
-
 	if (sh->redirects.is_cmp_redir
-		&& node->right->expand_state == HEREDOC_DENY)
-		return (0);
-	else if (node->left->expand_state == HEREDOC_DENY)
-		return (0);
-	i = 0;
-	while ((*data)[i])
+		&& node->right->expand_state == HEREDOC_ALLOW)
 	{
-		if ((*data)[i] == '$' && (*data)[i + 1])
-		{
-			if (expand_node(data, &i, sh, 0))
-				return (1);
-		}
-		else
-			i++;
+		if (expand_heredoc(data, sh))
+			return (1);
+	}
+	else if (!sh->redirects.is_cmp_redir
+		&& node->left->expand_state == HEREDOC_ALLOW)
+	{
+		if (expand_heredoc(data, sh))
+			return (1);
 	}
 	write(fd, *data, ft_strlen(*data));
 	write(fd, "\n", 1);

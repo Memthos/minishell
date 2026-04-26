@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/25 17:14:08 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_var_name(t_string s, t_strings name, size_t *i)
+int	get_var_name(t_string s, t_strings name)
 {
 	size_t	size;
 
@@ -27,10 +27,7 @@ int	get_var_name(t_string s, t_strings name, size_t *i)
 		|| ft_isdigit(s[1]))
 		size = 1;
 	else
-	{
-		(*i)++;
 		return (0);
-	}
 	*name = malloc(sizeof(char) * (size + 1));
 	if (!*name)
 		return (1);

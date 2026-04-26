@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/23 16:41:46 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 00:33:55 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 /// a redirection.
 void		expand(t_ast_lst **node, t_status *status, t_shell *sh, int is_red);
 
+/// @brief Special expand for the heredoc.
+/// @param str The string to expand.
+/// @param shell A reference to the variables of the shell.
+/// @return The exit status of the expander.
+t_status	expand_heredoc(t_strings str, t_shell *shell);
+
 /// @brief Function to expand the given data.
 /// @param data THe data to expand.
 /// @param data_i The current index in the data.
@@ -33,12 +39,19 @@ void		expand(t_ast_lst **node, t_status *status, t_shell *sh, int is_red);
 /// @return The exit status of the function
 t_status	expand_node(t_strings data, size_t *idx, t_shell *sh, int is_red);
 
-/// @brief Function to check if the node data can be expanded
+/// @brief Check whether or not an expand can happen from the current character.
+/// @param str The string to check.
+/// @param i THe index to start checking from.
+/// @param quote_state THe current quote state.
+/// @return Return 1 if the data can be expanded, else 0.
+int			can_expand(char *str, size_t i, t_quote_t quote_state);
+
+/// @brief Function to check if the node data can try to be expanded
 /// @param node The node with the data to expand.
 /// @param status The status of the parser.
 /// @param shell A reference to the variables of the shell.
 /// @return 1 if the data can be expanded, else 0.
-int			can_expand(t_ast_lst *node, t_status *status, t_shell *shell);
+int			can_try_expand(t_ast_lst *node, t_status *status, t_shell *shell);
 
 /// @brief Search a value for the expand variable name.
 /// @param var_name The name of the expand variable to search for.
@@ -51,7 +64,7 @@ t_string	get_expand_value(t_string var_name, t_shell *sh, t_status *status);
 /// @param name A pointer to the string that will contain the node.
 /// @param i The index where a $ was found.
 /// @return 1 if there was an allocation failure, else 0.
-int			get_var_name(t_string s, t_strings name, size_t *i);
+int			get_var_name(t_string s, t_strings name);
 
 /// @brief Check whether or not the node is the WORD of a redirection
 /// @param node THe node to check
@@ -111,10 +124,6 @@ void		checker_lxr(t_lxr_lst *lxr, t_status *status);
  * @return Returns 1 one the state changed, else 0.
  */
 int			set_quote_state(t_quote_t *quote, char c);
-
-/// @brief Set the finals token so the lexer nodes are correct.
-/// @param lxr A pointer to the head of the lexer.
-void		set_final_tokens(t_lxr_lst **lxr, t_status *status);
 
 /// @brief Remove the nb of quotes from the given node.
 /// @param ast A pointer to the ast node.
