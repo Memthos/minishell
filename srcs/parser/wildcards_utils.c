@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 09:41:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/23 16:59:02 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 16:32:47 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,33 @@ void	filter_files(t_char_lst **files, t_string model)
 		else
 			cur = &(*cur)->next;
 	}
+}
+
+t_status	remove_wildcard(t_ast_lst *node)
+{
+	size_t	i;
+	size_t	j;
+	size_t	rmv;
+	char	*tmp;
+
+	i = 0;
+	rmv = 0;
+	while (node->data[i])
+		if (node->data[i++] == '*')
+			++rmv;
+	tmp = calloc(ft_strlen(node->data) - rmv + 1, 1);
+	if (!tmp)
+		return (ALLOCATION_FAILURE);
+	i = 0;
+	j = 0;
+	while (node->data[i])
+	{
+		if (node->data[i] != '*')
+			tmp[j++] = node->data[i++];
+		else
+			i++;
+	}
+	free(node->data);
+	node->data = tmp;
+	return (SUCCESS);
 }
