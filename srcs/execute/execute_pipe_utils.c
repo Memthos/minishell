@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 21:07:33 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 16:18:07 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 16:58:46 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static pid_t	execute_pipe_right(t_ast_lst *cmd, t_shell *shell, int _pipe[2])
 	pid_t		pid;
 	t_status	status;
 
-	ft_close(&shell->redirects.input_cmp_fd);
 	pid = fork();
 	if (-1 == pid)
 	{
