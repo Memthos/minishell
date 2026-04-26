@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 20:41:18 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/22 11:21:15 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 19:57:21 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_strings	export_set_entry(t_strings *args)
 t_status	export_check_entry(t_strings *entry, t_strings *args, bool *cat)
 {
 	*cat = false;
-	if ((*entry)[0][ft_strlen((*entry)[0]) - 1] == '+')
+	if ((*entry)[0][0] && (*entry)[0][ft_strlen((*entry)[0]) - 1] == '+')
 	{
 		*cat = true;
 		(*entry)[0][ft_strlen((*entry)[0]) - 1] = '\0';
