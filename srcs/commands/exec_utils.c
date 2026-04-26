@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 18:09:50 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 15:42:26 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 16:17:36 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,18 @@ t_status	check_access(t_string *cmd, t_dictionary *env)
 		status = check_is_dir(*cmd);
 		if (status)
 			return (126);
-		if (status == SUCCESS && access(cmd[0], F_OK) != 0)
+		if (!status && access(cmd[0], F_OK) != 0 && !ft_strchr(cmd[0], '*'))
+		{
 			error_output(*cmd, NULL, FILE_NOT_FOUND);
-		if (status == SUCCESS && access(cmd[0], X_OK) != 0)
+			return (127);
+		}
+		else if (status == SUCCESS && access(cmd[0], X_OK) != 0)
+		{
 			error_output(*cmd, NULL, PERMISSION_ERROR);
+			return (126);
+		}
 		if (status == SUCCESS && access(cmd[0], F_OK | X_OK) == 0)
 			return (0);
-		return (127);
 	}
 	status = get_abs_path(cmd, env);
 	if (status == SUCCESS && access(cmd[0], F_OK) != 0)
