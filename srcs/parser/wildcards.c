@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:56:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 00:55:02 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/26 16:00:10 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,29 @@ static void	apply_wildcard(t_ast_lst *node, t_status *status, int is_red)
 		char_lst_clear(&files);
 }
 
+static int	can_try_wildcard(t_ast_lst *node)
+{
+	size_t		i;
+	t_quote_t	quote_state;
+
+	if (!node->data || node->token != WILDCARD)
+		return (0);
+	i = 0;
+	quote_state = NONE;
+	while (node->data[i])
+	{
+		set_quote_state(&quote_state, node->data[i++]);
+		if (node->data[i] == '*' && quote_state != NONE)
+			return (0);
+	}
+	return (1);
+}
+
 void	wildcards(t_ast_lst *node, t_status *status, int is_red)
 {
 	if (*status || !node)
 		return ;
-	if (node->data && node->token == WILDCARD)
+	if (can_try_wildcard(node))
 		apply_wildcard(node, status, is_red);
 	wildcards(node->left, status, is_redirection(node));
 	if (node->token != AND_IF && node->token != OR_IF)

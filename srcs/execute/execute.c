@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:54:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/21 21:10:00 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 16:04:12 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_status	execute(t_ast_lst *cmd, t_shell *shell)
 {
 	if (NULL == cmd)
 		return (shell->exitno);
-	if (WORD == cmd->token)
+	if (WORD == cmd->token || WILDCARD == cmd->token)
 		return (execute_word(cmd, shell));
 	if (PIPE == cmd->token)
 		return (execute_pipe(cmd, shell));

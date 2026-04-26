@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_cmd_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 14:48:22 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 15:12:40 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/26 16:11:47 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_uint	ast_cmd_size(t_ast_lst *ast)
 	t_uint	size;
 
 	size = 0;
-	while (ast && WORD == ast->token)
+	while (ast && (WORD == ast->token || WILDCARD == ast->token))
 	{
 		ast = ast->right;
 		++size;
