@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:25:56 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 17:23:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:08:06 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_status	execute_cmd_child(t_built_in cmd, t_shell *shell)
 	restore_signals();
 	ft_close(&shell->redirects.stdin_dup);
 	ft_close(&shell->redirects.stdout_dup);
+	ft_close(&shell->redirects.heredoc_fd);
 	execute_cmd_child_input_redirection(shell);
 	execute_cmd_child_output_redirection(shell);
 	status = cmd(shell->cur_cmd, shell);
