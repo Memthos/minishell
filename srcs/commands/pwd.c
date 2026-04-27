@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 09:48:05 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/23 01:45:53 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/27 09:32:45 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_status	cmd_pwd(t_strings args, t_shell *shell)
 	cwd = get_cwd(shell);
 	if (NULL == cwd)
 		return (FAILURE);
-	printf("%s\n", cwd);
+	write(1, cwd, ft_strlen(cwd));
+	write(1, "\n", 1);
 	free(cwd);
 	return (SUCCESS);
 }
