@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 17:01:37 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 18:48:35 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/27 18:24:05 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ static t_status	operator_check(t_lxr_lst *lxr)
 		else
 			return (SUCCESS);
 		return (BAD_ARG);
+	}
+	if (lxr->token == NEW_LINE)
+	{
+		if (lxr->next && (lxr->next->token == AND_IF
+				|| lxr->next->token == OR_IF || lxr->next->token == PIPE))
+		{
+			parser_error_print(lxr->next->data);
+			return (BAD_ARG);
+		}
 	}
 	return (SUCCESS);
 }
