@@ -34,6 +34,7 @@
 # include <curses.h>
 # include <term.h>
 # include <errno.h>
+# include <limits.h>
 
 //Typedef and enums headers
 # include "types.h"

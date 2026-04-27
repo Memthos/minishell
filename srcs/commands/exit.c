@@ -15,7 +15,7 @@
 
 t_status	cmd_exit(t_strings args, t_shell *shell)
 {
-	int	code;
+	long	code;
 
 	if (0 == shell->pipe_depth)
 		write(STDERR_FILENO, "exit\n", 5);
@@ -37,5 +37,5 @@ t_status	cmd_exit(t_strings args, t_shell *shell)
 		return (shell->exitno);
 	}
 	destroy_shell(shell);
-	exit(code & 0xff);
+	exit((unsigned char) code);
 }

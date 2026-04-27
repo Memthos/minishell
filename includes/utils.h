@@ -26,7 +26,7 @@ void			swap_ptr(void **a, void **b);
  * @param number A pointer to a number that will contains the result.
  * @return A status to tell if the number has been successfully parsed or not.
  */
-t_status		get_number(const t_string s, int *number);
+t_status		get_number(const t_string s, long *number);
 
 /**
  * @brief Reallocs array to add memory for one more element.

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <limits.h>
 
 void	swap_ptr(void **a, void **b)
 {
@@ -42,7 +43,7 @@ void	*increment_array(void *array, t_uint count, t_uint size)
 	return (new);
 }
 
-t_status	get_number(const t_string s, int *number)
+t_status	get_number(const t_string s, long *number)
 {
 	int		sign;
 	t_uint	index;
@@ -58,9 +59,9 @@ t_status	get_number(const t_string s, int *number)
 	*number = 0;
 	while (ft_isdigit(*(s + index)))
 	{
-		if (((long)(*number) *10 + (*(s + index) - '0')) * sign > INT32_MAX)
+		if ((*number) * sign > (LONG_MAX - ((*(s + index)) - '0')) / 10)
 			return (OVERFLOW);
-		if (((long)(*number) *10 + (*(s + index) - '0')) * sign < INT32_MIN)
+		if ((*number) * sign < (LONG_MIN + ((*(s + index)) - '0')) / 10)
 			return (UNDERFLOW);
 		*number = *number * 10 + (*(s + index++) - '0');
 	}

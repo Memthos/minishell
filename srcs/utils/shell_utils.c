@@ -15,7 +15,7 @@
 t_dictionary	*update_shlvl(t_dictionary **env)
 {
 	t_dictionary	*shlvl;
-	int				lvl;
+	long			lvl;
 
 	if (NULL == env)
 		return (NULL);
