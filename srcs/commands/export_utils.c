@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 20:41:18 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 19:57:21 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/27 10:30:01 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_status	export_special_case(t_strings *args)
 {
 	if ('=' == ***args || '+' == ***args)
 	{
-		error_output("export", "not a valid identifier", NO_ERR_MSG);
+		error_output("export", **args, INVALID_IDENTIFIER);
 		++(*args);
 		return (FAILURE);
 	}
@@ -60,7 +60,7 @@ t_status	export_check_entry(t_strings *entry, t_strings *args, bool *cat)
 	}
 	if (!check_var_name((*entry)[0]))
 	{
-		error_output("export", "not a valid identifier", NO_ERR_MSG);
+		error_output("export", (*entry)[0], INVALID_IDENTIFIER);
 		++(*args);
 		free((*entry)[0]);
 		free((*entry)[1]);
