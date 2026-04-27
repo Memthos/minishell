@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:11:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/23 15:44:59 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/27 14:58:54 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_status	cmd_cd(t_strings args, t_shell *shell)
 	if (NULL != args[1] && NULL != args[2])
 	{
 		error_output("cd", NULL, TOO_MUCH_ARG);
-		return (BAD_ARG);
+		return (FAILURE);
 	}
 	path = cd_get_path(args, shell->env);
 	if (NULL == path)

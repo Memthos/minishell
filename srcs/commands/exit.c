@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 10:02:10 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 17:21:52 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/27 14:58:56 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_status	cmd_exit(t_strings args, t_shell *shell)
 	if (NULL != args[2])
 	{
 		error_output("exit", NULL, TOO_MUCH_ARG);
-		shell->exitno = BAD_ARG;
+		shell->exitno = FAILURE;
 		return (shell->exitno);
 	}
 	destroy_shell(shell);
