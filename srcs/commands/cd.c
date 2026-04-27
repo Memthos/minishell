@@ -77,7 +77,7 @@ t_status	cmd_cd(t_strings args, t_shell *shell)
 	if (NULL != args[1] && NULL != args[2])
 	{
 		error_output("cd", NULL, TOO_MUCH_ARG);
-		return (FAILURE);
+		return (BAD_ARG);
 	}
 	path = cd_get_path(args, shell->env);
 	if (NULL == path)
