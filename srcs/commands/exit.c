@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "types.h"
 
 t_status	cmd_exit(t_strings args, t_shell *shell)
 {
@@ -32,7 +33,7 @@ t_status	cmd_exit(t_strings args, t_shell *shell)
 	if (NULL != args[2])
 	{
 		error_output("exit", NULL, TOO_MUCH_ARG);
-		shell->exitno = FAILURE;
+		shell->exitno = BAD_ARG;
 		return (shell->exitno);
 	}
 	destroy_shell(shell);
