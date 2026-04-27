@@ -60,19 +60,16 @@ static void	apply_wildcard(t_ast_lst *node, t_status *status, int is_red)
 	t_char_lst	*files;
 
 	files = NULL;
-	if (!is_red || (is_red && ft_strcmp(node->data, "*") != 0))
+	files = get_files(status, node->data);
+	if (!*status && files)
 	{
-		files = get_files(status, node->data);
-		if (!*status && files)
-		{
-			filter_files(&files, node->data);
-			if (is_red && files && char_lst_size(files) > 1)
-				node->token = AMB_RED;
-			else if (files)
-				update_ast(node, &files, status);
-			else if (ft_strchr(node->data, '/'))
-				*status = remove_wildcard(node);
-		}
+		filter_files(&files, node->data);
+		if (is_red && files && char_lst_size(files) > 1)
+			node->token = AMB_RED;
+		else if (files)
+			update_ast(node, &files, status);
+		else if (ft_strchr(node->data, '/'))
+			*status = remove_wildcard(node);
 	}
 	if (files)
 		char_lst_clear(&files);
