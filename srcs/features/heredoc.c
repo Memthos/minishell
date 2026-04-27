@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:20:07 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 18:41:59 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/27 11:18:07 by memthos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	heredoc_parent(t_shell *shell, pid_t pid, int pipe_fds[2],
 	ft_close(&shell->redirects.heredoc_fd);
 	shell->redirects.heredoc_fd = pipe_fds[0];
 	*status = wait_process(pid);
+	if (*status)
+		*status += 128;
 }
 
 static int	write_heredoc(t_shell *sh, t_ast_lst *node, int fd, t_strings data)
@@ -96,6 +98,5 @@ int	heredoc(t_shell *shell, t_ast_lst *node, t_status *status)
 		heredoc_child(shell, node, pipe_fds);
 	}
 	heredoc_parent(shell, pid, pipe_fds, status);
-	dup2(shell->redirects.stdin_dup, STDIN_FILENO);
 	return (0);
 }
