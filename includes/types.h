@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 14:27:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:06:18 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/27 10:29:26 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef enum e_return_status
 	HEREDOC_COUNT_EXCEEDED,
 	READDIR_FAILURE,
 	NUM_ARG_REQUIRED,
+	INVALID_IDENTIFIER,
 }	t_status;
 
 typedef enum e_quote_t
