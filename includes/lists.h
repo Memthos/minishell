@@ -135,7 +135,7 @@ t_uint		ast_cmd_size(t_ast_lst *ast);
 /// @brief Count the number of heredocs in the current command
 /// @param ast A pointer to a node of the ast.
 /// @return THe number of heredocs fo the current command
-t_uint		ast_heredoc_count(t_ast_lst *ast, bool is_cmp);
+t_uint		ast_heredoc_count(t_ast_lst *ast);
 
 /// @brief Return the last node of the list.
 /// @param head The head / start of the list.

@@ -222,10 +222,8 @@ int			limiter_quotes(t_ast_lst *red, t_side side);
 /// @brief Heredoc function
 /// @param shell A reference to the variables of the shell.
 /// @param node THe node doing the heredoc.
-/// @param is_cmp Boolean to know if the heredoc is in a compound command.
 /// @param status The status of the parser.
 /// @return 1 if an error happened, else 0.
-int			heredoc(t_shell *shell, t_ast_lst *node, bool is_cmp,
-				t_status *status);
+int			heredoc(t_shell *shell, t_ast_lst *node, t_status *status);
 
 #endif

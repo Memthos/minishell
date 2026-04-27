@@ -25,7 +25,7 @@ t_uint	ast_cmd_size(t_ast_lst *ast)
 	return (size);
 }
 
-t_uint	ast_heredoc_count(t_ast_lst *ast, bool is_cmp)
+t_uint	ast_heredoc_count(t_ast_lst *ast)
 {
 	t_uint	count;
 
@@ -34,9 +34,6 @@ t_uint	ast_heredoc_count(t_ast_lst *ast, bool is_cmp)
 	count = 0;
 	if (DLESS == ast->token)
 		count = 1;
-	if (is_cmp)
-		count += ast_heredoc_count(ast->left, is_cmp);
-	else
-		count += ast_heredoc_count(ast->right, is_cmp);
+	count += ast_heredoc_count(ast->left);
 	return (count);
 }

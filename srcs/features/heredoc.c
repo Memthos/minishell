@@ -42,16 +42,7 @@ static int	write_heredoc(t_shell *sh, t_ast_lst *node, int fd, t_strings data)
 	return (0);
 }
 
-static t_string	heredoc_limiter(t_ast_lst *node, bool is_cmp)
-{
-	if (is_cmp)
-		return (node->right->data);
-	else
-		return (node->left->data);
-}
-
-static int	heredoc_child(t_shell *shell, t_ast_lst *node, int pipe_fds[2],
-	bool is_cmp)
+static int	heredoc_child(t_shell *shell, t_ast_lst *node, int pipe_fds[2])
 {
 	t_string	read;
 	int			ret;
@@ -65,10 +56,10 @@ static int	heredoc_child(t_shell *shell, t_ast_lst *node, int pipe_fds[2],
 			ret = 2;
 		if (!ret && !read)
 		{
-			heredoc_error_print(heredoc_limiter(node, is_cmp));
+			heredoc_error_print(node->left->data);
 			break ;
 		}
-		if (!ret && ft_strcmp(read, heredoc_limiter(node, is_cmp)) == 0)
+		if (!ret && ft_strcmp(read, node->left->data) == 0)
 			break ;
 		if (!ret)
 			ret = write_heredoc(shell, node, pipe_fds[1], &read);
@@ -80,7 +71,7 @@ static int	heredoc_child(t_shell *shell, t_ast_lst *node, int pipe_fds[2],
 	exit (ret);
 }
 
-int	heredoc(t_shell *shell, t_ast_lst *node, bool is_cmp, t_status *status)
+int	heredoc(t_shell *shell, t_ast_lst *node, t_status *status)
 {
 	int		pipe_fds[2];
 	pid_t	pid;
@@ -102,7 +93,7 @@ int	heredoc(t_shell *shell, t_ast_lst *node, bool is_cmp, t_status *status)
 	{
 		heredoc_signals();
 		ft_close(&pipe_fds[0]);
-		heredoc_child(shell, node, pipe_fds, is_cmp);
+		heredoc_child(shell, node, pipe_fds);
 	}
 	heredoc_parent(shell, pid, pipe_fds, status);
 	dup2(shell->redirects.stdin_dup, STDIN_FILENO);

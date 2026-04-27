@@ -12,14 +12,11 @@
 
 #include "minishell.h"
 
-static void	check_heredoc(t_ast_lst *node, t_status *status, t_shell *shell,
-	bool is_cmp)
+static void	check_heredoc(t_ast_lst *node, t_status *status, t_shell *shell)
 {
 	if (*status || !node)
 		return ;
-	if (node->token == CMP_CMD)
-		is_cmp = 1;
-	if (ast_heredoc_count(node, is_cmp) > shell->heredoc_max)
+	if (ast_heredoc_count(node) > shell->heredoc_max)
 	{
 		error_output(NULL, NULL, HEREDOC_COUNT_EXCEEDED);
 		*status = BAD_ARG;
@@ -27,12 +24,12 @@ static void	check_heredoc(t_ast_lst *node, t_status *status, t_shell *shell,
 	}
 	if (node->token == DLESS)
 	{
-		if (heredoc(shell, node, is_cmp, status))
+		if (heredoc(shell, node, status))
 			error_output(NULL, NULL, *status);
 	}
-	check_heredoc(node->left, status, shell, is_cmp);
+	check_heredoc(node->left, status, shell);
 	if (node->token != AND_IF && node->token != OR_IF)
-		check_heredoc(node->right, status, shell, is_cmp);
+		check_heredoc(node->right, status, shell);
 }
 
 t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
@@ -43,7 +40,7 @@ t_status	final_parsing(t_shell *shell, t_ast_lst **ast)
 	expand(ast, &status, shell, shell->redirects.is_cmp_redir);
 	wildcards(*ast, &status, 0);
 	remove_ast_quotes(ast, &status);
-	check_heredoc(*ast, &status, shell, 0);
+	check_heredoc(*ast, &status, shell);
 	if (status == ALLOCATION_FAILURE)
 	{
 		perror("malloc");
