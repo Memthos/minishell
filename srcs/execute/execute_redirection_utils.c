@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 20:58:46 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 18:03:48 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:18:46 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,17 +97,20 @@ t_status	execute_in_redirection(t_ast_lst *cmd, t_shell *shell)
 
 t_status	execute_heredoc(t_ast_lst *cmd, t_shell *shell)
 {
-	if (shell->redirects.is_cmp_redir)
+	if (shell->redirects.heredoc_fd != -1)
 	{
-		ft_close(&shell->redirects.input_cmp_fd);
-		shell->redirects.input_cmp_fd = shell->redirects.heredoc_fd;
+		if (shell->redirects.is_cmp_redir)
+		{
+			ft_close(&shell->redirects.input_cmp_fd);
+			shell->redirects.input_cmp_fd = shell->redirects.heredoc_fd;
+		}
+		else
+		{
+			ft_close(&shell->redirects.input_fd);
+			shell->redirects.input_fd = shell->redirects.heredoc_fd;
+		}
+		shell->redirects.heredoc_fd = -1;
 	}
-	else
-	{
-		ft_close(&shell->redirects.input_fd);
-		shell->redirects.input_fd = shell->redirects.heredoc_fd;
-	}
-	shell->redirects.heredoc_fd = -1;
 	execute(cmd->left->left, shell);
 	return (shell->exitno);
 }
