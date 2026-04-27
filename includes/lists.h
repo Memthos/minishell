@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 10:06:20 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 15:13:56 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/27 09:24:32 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,13 @@ void		char_lst_clear(t_char_lst **head);
 /// @param node The node to pop.
 /// @return The node or NULL if it was freed.
 t_char_lst	*char_lst_pop(t_char_lst **node);
+
+/**
+ * @brief Count the number of nodes in a list.
+ * @param head The head / start of the list.
+ * @return The number of nodes in the list.
+ */
+t_uint		char_lst_size(t_char_lst *head);
 
 /// @brief Add a node at the head of the list.
 /// @param node The node to add to the list.
