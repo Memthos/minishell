@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:23:31 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/27 10:29:47 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static t_string	get_error(int index)
 		"fork failure",	"dup failure", "open failure",
 		"No such file or directory", "Permission denied", "command not found",
 		"Is a directory", "maximum here-document count exceeded",
-		"Failed to read directory content", "numeric argument required"
+		"Failed to read directory content", "numeric argument required",
+		"not a valid identifier"
 	};
 
 	if (index < 0)
