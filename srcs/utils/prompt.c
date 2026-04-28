@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 14:04:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/28 14:34:31 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/28 15:37:01 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,24 @@ static t_string	get_prompt_pwd(t_shell *shell)
 {
 	t_string		path;
 	const t_string	pwd = get_cwd(shell);
-	const t_string	home = dict_get_data(shell->env, "HOME");
-	size_t			i;
+	t_string		home;
 
-	if (!pwd || !home)
-	{
-		if (pwd)
-			free(pwd);
+	home = dict_get_data(shell->env, "HOME");
+	if (!pwd)
 		return (NULL);
-	}
-	i = 0;
-	while (pwd[i] && home[i] && pwd[i] == home[i])
-		i++;
-	path = ft_calloc(ft_strlen(&pwd[i]) + 2, 1);
-	if (!path)
+	if (ft_strncmp(pwd, home, ft_strlen(home)) != 0)
+		path = ft_calloc(ft_strlen(pwd) + 1, 1);
+	else
+		path = ft_calloc(ft_strlen(pwd + ft_strlen(home)) + 2, 1);
+	if (path && ft_strncmp(pwd, home, ft_strlen(home)) == 0)
 	{
-		free(pwd);
-		return (NULL);
+		if (home)
+			path[0] = '~';
+		ft_strlcat(path, pwd + ft_strlen(home),
+			ft_strlen(pwd + ft_strlen(home)) + 2);
 	}
-	path[0] = '~';
-	ft_strlcat(path, &pwd[i], ft_strlen(&pwd[i]) + 2);
+	else if (path)
+		ft_strlcpy(path, pwd, ft_strlen(pwd) + 1);
 	free(pwd);
 	return (path);
 }
