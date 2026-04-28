@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 12:51:11 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/27 10:25:29 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/28 13:13:26 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,12 @@ t_status	cmd_env(t_strings args, t_shell *shell)
 	while (cpy)
 	{
 		if (NULL != cpy->data)
-			printf("%s=%s\n", cpy->key, (t_string)cpy->data);
+		{
+			write(1, cpy->key, ft_strlen(cpy->key));
+			write(1, "=", 1);
+			write(1, (t_string)cpy->data, ft_strlen((t_string)cpy->data));
+			write(1, "\n", 1);
+		}
 		cpy = cpy->next;
 	}
 	return (SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dict_display.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 11:43:24 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/17 11:35:46 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/28 13:16:32 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,15 @@ void	dict_display(t_dictionary *dict, t_string prefix, t_string sep,
 {
 	while (dict)
 	{
-		printf("%s%s", prefix, dict->key);
+		write(1, prefix, ft_strlen(prefix));
+		write(1, dict->key, ft_strlen(dict->key));
 		if (NULL != dict->data)
-			printf("%s%s%s", sep, (t_string)dict->data, suffix);
-		printf("\n");
+		{
+			write(1, sep, ft_strlen(sep));
+			write(1, (t_string)dict->data, ft_strlen((t_string)dict->data));
+			write(1, suffix, ft_strlen(suffix));
+		}
+		write(1, "\n", 1);
 		dict = dict->next;
 	}
 	return ;
