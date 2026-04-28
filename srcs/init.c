@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 02:21:00 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 18:02:00 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/28 13:04:11 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ static t_dictionary	*init_env(t_string envp[])
 	return (dict);
 }
 
-static void	set_shell(t_shell *shell)
+static t_status	set_shell(t_shell *shell)
 {
-	if (NULL == shell)
-		return ;
 	shell->cmd_ast = NULL;
 	shell->cur_cmd = NULL;
 	shell->exitno = SUCCESS;
@@ -48,7 +46,11 @@ static void	set_shell(t_shell *shell)
 	shell->pipe_depth = 0;
 	shell->heredoc_max = 16;
 	shell->redirects.stdin_dup = dup(STDIN_FILENO);
+	if (-1 == shell->redirects.stdin_dup)
+		return (FAILURE);
 	shell->redirects.stdout_dup = dup(STDOUT_FILENO);
+	if (-1 == shell->redirects.stdout_dup)
+		return (FAILURE);
 	shell->redirects.is_cmp_redir = false;
 	shell->redirects.output_fd = -1;
 	shell->redirects.output_cmp_fd = -1;
@@ -58,7 +60,7 @@ static void	set_shell(t_shell *shell)
 	shell->pids.pids = NULL;
 	shell->pids.pid_count = 0;
 	shell->pids.pid_index = 0;
-	return ;
+	return (SUCCESS);
 }
 
 t_shell	*init(t_string envp[])
@@ -82,6 +84,10 @@ t_shell	*init(t_string envp[])
 		free(shell);
 		return (NULL);
 	}
-	set_shell(shell);
+	if (SUCCESS != set_shell(shell))
+	{
+		destroy_shell(shell);
+		return (NULL);
+	}
 	return (shell);
 }

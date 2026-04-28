@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/25 14:12:49 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/28 13:00:12 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <string.h>
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -29,6 +28,9 @@
 # include <sys/resource.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
+# include <signal.h>
+# include <bits/sigaction.h>
+# include <bits/types/siginfo_t.h>
 # include <dirent.h>
 # include <termios.h>
 # include <curses.h>
@@ -36,43 +38,19 @@
 # include <errno.h>
 # include <limits.h>
 
-//Typedef and enums headers
-# include "types.h"
-
+//Local headers
 # include "shell.h"
-
-//Chained lists header
-# include "lists.h"
-
-//Dictionary header
-# include "dictionary.h"
-
-# include "execute.h"
-
-//Commands header
-# include "commands.h"
-
-//Signals headers
-# include <signal.h>
-# include <bits/sigaction.h>
-# include <bits/types/siginfo_t.h>
-# include "sighandle.h"
-
-//Init header
 # include "init.h"
-
-//Parsing header
 # include "parser.h"
-
-//Redirection headers
-# include "redirection.h"
-
+# include "execute.h"
 # include "pipe.h"
-
-//Outputs header
+# include "redirection.h"
+# include "commands.h"
+# include "sighandle.h"
 # include "outputs.h"
-
-//Utils header
+# include "lists.h"
+# include "dictionary.h"
+# include "types.h"
 # include "utils.h"
 
 #endif
