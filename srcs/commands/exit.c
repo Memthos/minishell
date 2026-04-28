@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 10:02:10 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/27 14:58:56 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/28 17:09:32 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ t_status	cmd_exit(t_strings args, t_shell *shell)
 		write(STDERR_FILENO, "exit\n", 5);
 	if (NULL == args[1])
 	{
+		code = (long)shell->oldexitno;
 		destroy_shell(shell);
-		exit(SUCCESS);
+		exit((unsigned char) code);
 	}
 	if (SUCCESS != get_number(args[1], &code))
 	{
