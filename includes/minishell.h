@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:47:57 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/28 12:58:27 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/28 13:00:12 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <string.h>
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -29,15 +28,15 @@
 # include <sys/resource.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
+# include <signal.h>
+# include <bits/sigaction.h>
+# include <bits/types/siginfo_t.h>
 # include <dirent.h>
 # include <termios.h>
 # include <curses.h>
 # include <term.h>
 # include <errno.h>
 # include <limits.h>
-# include <signal.h>
-# include <bits/sigaction.h>
-# include <bits/types/siginfo_t.h>
 
 //Local headers
 # include "shell.h"
