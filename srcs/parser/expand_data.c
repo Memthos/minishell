@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/25 17:14:08 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/28 13:03:57 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_string	get_expand_value(t_string var_name, t_shell *sh, t_status *status)
 	if (tmp)
 	{
 		value = ft_strdup(tmp);
-		if (!tmp)
+		if (!value)
 		{
 			*status = ALLOCATION_FAILURE;
 			return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_lists.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/17 22:05:37 by memthos           #+#    #+#             */
-/*   Updated: 2026/04/23 01:43:04 by juperrin         ###   ########.fr       */
+/*   Created: 2026/04/17 22:05:37 by mperrine          #+#    #+#             */
+/*   Updated: 2026/04/28 13:10:35 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

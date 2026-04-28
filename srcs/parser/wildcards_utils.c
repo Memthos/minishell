@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 09:41:21 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 16:32:47 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/28 13:05:09 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_status	remove_wildcard(t_ast_lst *node)
 	while (node->data[i])
 		if (node->data[i++] == '*')
 			++rmv;
-	tmp = calloc(ft_strlen(node->data) - rmv + 1, 1);
+	tmp = ft_calloc(ft_strlen(node->data) - rmv + 1, 1);
 	if (!tmp)
 		return (ALLOCATION_FAILURE);
 	i = 0;
