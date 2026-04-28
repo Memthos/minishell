@@ -22,7 +22,8 @@ t_dictionary	*dict_new(t_string key, void *data)
 	if (NULL == dict)
 	{
 		free(key);
-		free(data);
+		if (data)
+			free(data);
 		perror("malloc");
 		return (NULL);
 	}

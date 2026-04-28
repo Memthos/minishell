@@ -23,7 +23,7 @@ static t_string	cd_home(t_dictionary *env)
 		return (NULL);
 	}
 	path = ft_strdup(dir->data);
-	return (NULL);
+	return (path);
 }
 
 static t_string	cd_oldpwd(t_dictionary *env)
