@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 14:04:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/28 16:04:25 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/28 16:14:00 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_status	get_prompt(t_shell *shell, t_string *prompt)
 	}
 	hostname[0] = '\0';
 	get_hostname(&hostname);
-	if (!hostname[0])
+	if (hostname[0] == '\0')
 	{
 		free(path);
 		return (FAILURE);
