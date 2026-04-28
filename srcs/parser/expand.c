@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/25 22:25:05 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/28 13:05:05 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	update_ast(t_ast_lst *node, t_status *status)
 	{
 		if (!lxr)
 		{
-			node->data = calloc(1, 1);
+			node->data = ft_calloc(1, 1);
 			if (!node->data)
 				*status = ALLOCATION_FAILURE;
 			return ;
@@ -44,9 +44,9 @@ static int	update_node_data(t_strings data, size_t n, t_string val, size_t *i)
 	t_string	res;
 
 	if ((*data)[0] == '~')
-		res = calloc(ft_strlen(*data) + ft_strlen(val), 1);
+		res = ft_calloc(ft_strlen(*data) + ft_strlen(val), 1);
 	else
-		res = calloc(ft_strlen(*data) - n + ft_strlen(val) + 1, 1);
+		res = ft_calloc(ft_strlen(*data) - n + ft_strlen(val) + 1, 1);
 	if (!res)
 		return (ALLOCATION_FAILURE);
 	ft_strlcpy(res, *data, *i + 1);
