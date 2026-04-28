@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 17:21:52 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/28 14:27:46 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,16 @@ static void	exec_asts(t_shell *shell)
 static t_string	ft_readline(t_shell *shell)
 {
 	t_string	line;
+	t_string	prompt;
 
-	line = readline("$> ");
+	prompt = NULL;
+	if (SUCCESS == get_prompt(shell, &prompt))
+	{
+		line = readline(prompt);
+		free(prompt);
+	}
+	else
+		line = readline("$> ");
 	if (g_signal != 0)
 	{
 		shell->oldexitno = g_signal + 128;

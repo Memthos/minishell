@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_output.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:23:31 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/27 10:29:47 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/28 13:52:42 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_string	get_error(int index)
 	static const t_string	error_msgs[] = {
 		"success", "failure", "bad argument", "too many arguments", "overflow",
 		"underflow", "allocation failure", "execve failure", "pipe failure",
-		"fork failure",	"dup failure", "open failure",
+		"fork failure",	"dup failure", "open failure", "read failure",
 		"No such file or directory", "Permission denied", "command not found",
 		"Is a directory", "maximum here-document count exceeded",
 		"Failed to read directory content", "numeric argument required",

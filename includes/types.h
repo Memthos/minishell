@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 14:27:08 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/27 10:29:26 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/28 13:51:45 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef enum e_return_status
 	FORK_FAILURE,
 	DUP_FAILURE,
 	OPEN_FAILURE,
+	READ_FAILURE,
 	FILE_NOT_FOUND,
 	PERMISSION_ERROR,
 	COMMAND_NOT_FOUND,

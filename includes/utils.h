@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 11:29:36 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/23 01:44:11 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/28 14:02:45 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,10 @@ t_dictionary	*update_shlvl(t_dictionary **env);
  * @brief Returns true if path is a directory, false otherwise.
  */
 bool			is_dir(const t_string path);
+
+/// @brief Function that return a prompt similar to bash for readline, or NULL.
+/// @param shell A pointer to the shell.
+/// @return The error status of the prompt.
+t_status		get_prompt(t_shell *shell, t_string *prompt);
 
 #endif
