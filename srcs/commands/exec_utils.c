@@ -42,7 +42,7 @@ static t_status	get_abs_path(t_string *cmd, t_dictionary *env)
 
 	if (!cmd || cmd[0][0] == '\0'
 		|| ft_strcmp(cmd[0], ".") == 0 || ft_strcmp(cmd[0], "..") == 0
-		|| !path || ((t_string)path->data)[0] == '\0')
+		|| !path || !path->data || ((t_string)path->data)[0] == '\0')
 		return (SUCCESS);
 	path_arr = ft_split(path->data, ':');
 	if (NULL == path_arr)
