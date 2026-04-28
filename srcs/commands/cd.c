@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 10:11:38 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/27 14:58:54 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/28 12:56:36 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,29 @@
 static t_string	cd_home(t_dictionary *env)
 {
 	const t_dictionary	*dir = dict_get(env, "HOME");
+	t_string			path;
 
 	if (NULL == dir)
 	{
 		error_output("cd", "HOME not set", NO_ERR_MSG);
 		return (NULL);
 	}
-	return (ft_strdup(dir->data));
+	path = ft_strdup(dir->data);
+	return (NULL);
 }
 
 static t_string	cd_oldpwd(t_dictionary *env)
 {
 	const t_dictionary	*dir = dict_get(env, "OLDPWD");
+	t_string			path;
 
 	if (NULL == dir)
 	{
 		error_output("cd", "OLDPWD not set", NO_ERR_MSG);
 		return (NULL);
 	}
-	return (ft_strdup(dir->data));
+	path = ft_strdup(dir->data);
+	return (path);
 }
 
 static t_string	cd_get_path(t_strings args, t_dictionary *env)
