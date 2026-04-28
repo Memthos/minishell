@@ -6,7 +6,7 @@
 /*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 20:41:18 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/27 10:30:01 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/28 13:32:40 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_status	export_check_entry(t_strings *entry, t_strings *args, bool *cat)
 	}
 	if (!check_var_name((*entry)[0]))
 	{
-		error_output("export", (*entry)[0], INVALID_IDENTIFIER);
+		error_output("export", **args, INVALID_IDENTIFIER);
 		++(*args);
 		free((*entry)[0]);
 		free((*entry)[1]);
