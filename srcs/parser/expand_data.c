@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/28 13:03:57 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/28 16:58:16 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,31 @@ t_string	get_expand_value(t_string var_name, t_shell *sh, t_status *status)
 		}
 	}
 	return (value);
+}
+
+void	update_expanded_ast(t_ast_lst *node, t_status *status)
+{
+	t_lxr_lst	*lxr;
+	t_ast_lst	*right;
+
+	lxr = NULL;
+	right = node->right;
+	lexer(&lxr, node->data, status);
+	if (!*status)
+	{
+		if (!lxr)
+		{
+			node->data = ft_calloc(1, 1);
+			if (!node->data)
+				*status = ALLOCATION_FAILURE;
+			return ;
+		}
+		else
+			*status = expand_to_ast(&lxr, node);
+	}
+	lxr_lst_clear(&lxr);
+	if (!*status)
+		ast_lst_last(node, RIGHT)->right = right;
+	else
+		ast_lst_clear(&right);
 }

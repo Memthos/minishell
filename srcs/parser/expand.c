@@ -6,38 +6,11 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:37:25 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/28 13:05:05 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/28 16:57:56 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	update_ast(t_ast_lst *node, t_status *status)
-{
-	t_lxr_lst	*lxr;
-	t_ast_lst	*right;
-
-	lxr = NULL;
-	right = node->right;
-	lexer(&lxr, node->data, status);
-	if (!*status)
-	{
-		if (!lxr)
-		{
-			node->data = ft_calloc(1, 1);
-			if (!node->data)
-				*status = ALLOCATION_FAILURE;
-			return ;
-		}
-		else
-			*status = expand_to_ast(&lxr, node);
-	}
-	lxr_lst_clear(&lxr);
-	if (!*status)
-		ast_lst_last(node, RIGHT)->right = right;
-	else
-		ast_lst_clear(&right);
-}
 
 static int	update_node_data(t_strings data, size_t n, t_string val, size_t *i)
 {
@@ -111,7 +84,7 @@ static int	expand_loop(t_ast_lst **node, t_status *status, t_shell *shell,
 			if (*status == FAILURE)
 				(*node)->token = AMB_RED;
 			else if (!*status)
-				update_ast(*node, status);
+				update_expanded_ast(*node, status);
 		}
 		else
 			i++;
@@ -119,27 +92,40 @@ static int	expand_loop(t_ast_lst **node, t_status *status, t_shell *shell,
 	return (did_expand);
 }
 
+static int	try_expand(t_ast_lst **node, t_status *status, t_shell *shell,
+	int is_red)
+{
+	size_t	quotes_rmv;
+
+	quotes_rmv = get_quotes_rmv(*node);
+	if (!expand_loop(node, status, shell, is_red))
+		quotes_rmv = 0;
+	if (ft_strlen((*node)->data) == 0)
+	{
+		ast_lst_pop(node);
+		return (1);
+	}
+	if (!*status && quotes_rmv > 0 && quotes_rmv % 2 == 0)
+		*status = remove_quotes(*node, quotes_rmv);
+	return (0);
+}
+
 void	expand(t_ast_lst **node, t_status *status, t_shell *shell, int is_red)
 {
-	size_t		quotes_rmv;
+	int			popped;
 
 	if (*status || !node || !*node)
 		return ;
+	popped = 0;
 	if (can_try_expand(*node, status, shell))
 	{
-		quotes_rmv = get_quotes_rmv(*node);
-		if (!expand_loop(node, status, shell, is_red))
-			quotes_rmv = 0;
-		if (ft_strlen((*node)->data) == 0)
-		{
-			ast_lst_pop(node);
-			if (!node || !*node)
-				return ;
-		}
-		if (!*status && quotes_rmv > 0 && quotes_rmv % 2 == 0)
-			*status = remove_quotes(*node, quotes_rmv);
+		popped = try_expand(node, status, shell, is_red);
+		if (!node || !*node)
+			return ;
 	}
 	expand(&(*node)->left, status, shell, is_redirection(*node));
-	if ((*node)->token != AND_IF && (*node)->token != OR_IF)
+	if (!popped && (*node)->token != AND_IF && (*node)->token != OR_IF)
 		expand(&(*node)->right, status, shell, is_redirection(*node));
+	else if (popped && (*node)->token != AND_IF && (*node)->token != OR_IF)
+		expand(node, status, shell, 0);
 }

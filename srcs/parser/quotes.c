@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 16:56:31 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/23 01:46:54 by juperrin         ###   ########.fr       */
+/*   Updated: 2026/04/28 16:46:51 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ t_status	remove_quotes(t_ast_lst *ast, size_t quotes_rmv)
 	return (SUCCESS);
 }
 
-void	remove_node_quotes(t_ast_lst **ast, t_status *status)
+static int	remove_node_quotes(t_ast_lst **ast, t_status *status)
 {
 	size_t		i;
 	size_t		quotes_rmv;
 	t_quote_t	quote_state;
 
 	if (!ast || !*ast || !(*ast)->data)
-		return ;
+		return (0);
 	i = 0;
 	quotes_rmv = 0;
 	quote_state = NONE;
@@ -81,17 +81,26 @@ void	remove_node_quotes(t_ast_lst **ast, t_status *status)
 	}
 	if (quotes_rmv > 0 && quotes_rmv % 2 == 0)
 		*status = remove_quotes(*ast, quotes_rmv);
-	if (quotes_rmv == 0 && ft_strlen((*ast)->data) == 0)
+	if (!*status && quotes_rmv == 0 && ft_strlen((*ast)->data) == 0)
+	{
 		ast_lst_pop(ast);
+		return (1);
+	}
+	return (0);
 }
 
 void	remove_ast_quotes(t_ast_lst **ast, t_status *status)
 {
+	int	popped;
+
 	if (*status || !ast || !*ast)
 		return ;
+	popped = 0;
 	if ((*ast)->data && (*ast)->expand_state != DENY)
-		remove_node_quotes(ast, status);
+		popped = remove_node_quotes(ast, status);
 	remove_ast_quotes(&(*ast)->left, status);
-	if ((*ast)->token != AND_IF && (*ast)->token != OR_IF)
+	if (!popped && (*ast)->token != AND_IF && (*ast)->token != OR_IF)
 		remove_ast_quotes(&(*ast)->right, status);
+	else if (popped && (*ast)->token != AND_IF && (*ast)->token != OR_IF)
+		remove_ast_quotes(ast, status);
 }

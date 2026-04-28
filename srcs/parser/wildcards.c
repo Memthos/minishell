@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:56:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/27 09:27:02 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/28 16:58:55 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static t_status	files_to_ast(t_char_lst **files, t_ast_lst *ast)
 	return (status);
 }
 
-static void	update_ast(t_ast_lst *node, t_char_lst **files, t_status *status)
+static void	update_wildcard_ast(t_ast_lst *node, t_char_lst **files,
+	t_status *status)
 {
 	t_ast_lst	*right;
 
@@ -67,7 +68,7 @@ static void	apply_wildcard(t_ast_lst *node, t_status *status, int is_red)
 		if (is_red && files && char_lst_size(files) > 1)
 			node->token = AMB_RED;
 		else if (files)
-			update_ast(node, &files, status);
+			update_wildcard_ast(node, &files, status);
 		else if (ft_strchr(node->data, '/'))
 			*status = remove_wildcard(node);
 	}

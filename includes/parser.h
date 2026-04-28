@@ -6,7 +6,7 @@
 /*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 14:50:51 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/26 18:02:22 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/28 16:58:11 by mperrine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,12 @@ int			is_redirection(t_ast_lst *node);
 /// @return The status of the parser.
 t_status	expand_to_ast(t_lxr_lst **lxr, t_ast_lst *ast);
 
+/// @brief Function that creates a new lexer the the expanded data and will
+/// add it to the ast.
+/// @param node The node to parse.
+/// @param status The status of the parser.
+void		update_expanded_ast(t_ast_lst *node, t_status *status);
+
 /// @brief Function to get the number of quotes to remove the the given node.
 /// @param node A pointer to the ast node.
 /// @return The number of quotes tu return, 0 if ne given node is NULL.
@@ -130,11 +136,6 @@ int			set_quote_state(t_quote_t *quote, char c);
 /// @param quotes_rmv The number of quotes to remove
 /// @return The status of the parser.
 t_status	remove_quotes(t_ast_lst *ast, size_t quotes_rmv);
-
-/// @brief Remove the quotes of the given node.
-/// @param ast A pointer to the ast node.
-/// @param status The status of the parser.
-void		remove_node_quotes(t_ast_lst **ast, t_status *status);
 
 /// @brief Remove the unnecessary quotes for the date of each lexer node.
 /// @param ast A pointer to the head of the ast.
