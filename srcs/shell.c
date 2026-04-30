@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 10:47:21 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/28 13:12:13 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/30 11:12:16 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,31 +42,12 @@ t_status	wait_process(pid_t pid)
 		status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		status = WTERMSIG(status) + 128;
-	return (status);
-}
-
-t_status	wait_for_processes(t_pids_logic *pids, t_status exitno)
-{
-	t_status	status;
-
-	if (NULL == pids || NULL == pids->pids || 0 == pids->pid_count)
-		return (exitno);
-	status = SUCCESS;
-	pids->pid_index = 0;
-	while (pids->pid_index < pids->pid_count)
-	{
-		status = wait_process(pids->pids[pids->pid_index]);
-		++pids->pid_index;
-	}
 	if (status >= 128)
 	{
 		if (SIGQUIT + 128 == status)
 			write(1, "Quit", 4);
 		write(1, "\n", 1);
 	}
-	free(pids->pids);
-	pids->pids = NULL;
-	pids->pid_count = 0;
 	return (status);
 }
 

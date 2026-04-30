@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 10:48:47 by juperrin          #+#    #+#             */
-/*   Updated: 2026/04/26 18:06:55 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/30 11:12:29 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,6 @@ t_status	update_pids(t_shell *shell, pid_t pid);
  * @return The child exit status.
  */
 t_status	wait_process(pid_t pid);
-
-/**
- * @brief If pids is not null, wait for all pids to finish their execution.
- * @param exitno The exit status of the function in case of empty pid list.
- * @return Reurns the last pid exit status.
- */
-t_status	wait_for_processes(t_pids_logic *pids, t_status exitno);
 
 /**
  * @brief Closes both output and input redirections.
