@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperrine <mperrine@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: juperrin <juperrin@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 10:52:18 by mperrine          #+#    #+#             */
-/*   Updated: 2026/04/28 14:27:46 by mperrine         ###   ########.fr       */
+/*   Updated: 2026/04/30 11:09:27 by juperrin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ static void	exec_asts(t_shell *shell)
 		}
 		code = execute(cur_ast->ast, shell);
 		close_redirections(shell);
-		shell->exitno = wait_for_processes(&shell->pids, shell->exitno);
-		if (code && !shell->exitno)
-			shell->exitno = code;
 		shell->oldexitno = shell->exitno;
 		shell->exitno = SUCCESS;
 		cur_ast = cur_ast->next;
